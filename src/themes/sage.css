@@ -1,0 +1,99 @@
+/* Sage: muted greens and earth tones, pill shapes and no shadows at all (design-candidates/f-sage). Depth is tone
+   only: each family is one tinted lozenge holding its games, buttons are pills, tools sit icon beside label.
+   Lexend, made for low visual stress. */
+
+@font-face { font-family: 'Lexend'; font-weight: 100 900; font-display: swap; src: url('../fonts/lexend-latin-wght-normal.woff2') format('woff2'); }
+
+:root[data-theme='sage'] {
+  --cont-bg: #3d6b52; --cont-ink: #f4f7ef; --cont-ink-2: #cfe0d3; --back: #6f9a82;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='sage'] { --cont-bg: #2f4f3d; --cont-ink: #e8f1e6; --cont-ink-2: #aac7b3; --back: #4d6e5a; }
+}
+:root[data-theme='sage'] body { font-weight: 400; }
+:root[data-theme='sage'] :is(.wordmark, .logo, .section-label, .topbar-title, .meta b, .dialog h2, .gotd-name, .continue b, .theme-name) { font-weight: 600; letter-spacing: -0.02em; }
+:root[data-theme='sage'] .wordmark { font-size: clamp(2.5rem, 12vw, 3.1rem); }
+:root[data-theme='sage'] :is(.tagline, .stamps) { font-weight: 400; }
+:root[data-theme='sage'] .game-name { font-weight: 500; font-size: 1rem; }
+
+/* ---------- Home: each family is a tinted lozenge of pill rows ---------- */
+
+:root[data-theme='sage'] .family {
+  padding: 16px 12px 12px;
+  margin-bottom: 14px;
+  border-radius: 26px;
+  background: color-mix(in srgb, var(--c) 16%, var(--paper));
+}
+:root[data-theme='sage'] .family .section-label,
+:root[data-theme='sage'] .family:first-child .section-label { margin: 0 0 8px; padding: 0 6px; }
+:root[data-theme='sage'] .game-card {
+  padding: 6px 16px 6px 6px;
+  margin-bottom: 6px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--sheet) 78%, transparent);
+}
+:root[data-theme='sage'] .family .game-card:last-of-type { margin-bottom: 0; }
+:root[data-theme='sage'] .game-card:active { background: color-mix(in srgb, var(--sheet) 55%, transparent); opacity: 1; }
+:root[data-theme='sage'] .game-icon { border-radius: 18px; background: color-mix(in srgb, var(--c) 16%, var(--paper)); box-shadow: none; overflow: hidden; }
+:root[data-theme='sage'] .game-status { background: color-mix(in srgb, var(--c) 18%, var(--sheet)); color: var(--ink); font-weight: 500; }
+:root[data-theme='sage'] .gotd-card, :root[data-theme='sage'] .continue { background: var(--cont-bg); color: var(--cont-ink); box-shadow: none; }
+:root[data-theme='sage'] .gotd-card { border-radius: 40px; padding: 12px 22px 12px 12px; }
+:root[data-theme='sage'] .gotd-card :is(.gotd-tag, .gotd-desc, .gotd-go), :root[data-theme='sage'] .continue small { color: var(--cont-ink-2); }
+:root[data-theme='sage'] .gotd-name { color: var(--cont-ink); }
+:root[data-theme='sage'] .gotd-card .game-icon { background: var(--sheet); }
+
+/* ---------- Pills ---------- */
+
+:root[data-theme='sage'] :is(.btn, .level, .new-game, .back-link, .continue, .timer) { border-radius: 999px; }
+:root[data-theme='sage'] :is(.btn, .level, .new-game, .continue) { padding-inline: 24px; }
+:root[data-theme='sage'] .btn-primary { background: var(--cont-bg); color: var(--cont-ink); }
+:root[data-theme='sage'] .btn:active { background: color-mix(in srgb, var(--c) 18%, var(--sheet)); }
+:root[data-theme='sage'] .level-bars i { background: var(--c); }
+:root[data-theme='sage'] .dialog { border-radius: 28px; box-shadow: none; }
+:root[data-theme='sage'] .dialog::backdrop { background: rgb(22 27 23 / 0.45); }
+:root[data-theme='sage'] .summary { border-radius: 20px; }
+:root[data-theme='sage'] .summary thead th { background: color-mix(in srgb, var(--c) 16%, var(--sheet)); }
+
+/* Tools sit as pills, the icon beside its label, two to a row. */
+:root[data-theme='sage'] .tools { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+:root[data-theme='sage'] .tool {
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  border-radius: 999px;
+  background: var(--sheet);
+  font-size: 0.85rem;
+}
+:root[data-theme='sage'] .tool svg { box-sizing: border-box; width: 22px; height: 22px; padding: 0; background: none; box-shadow: none; border-radius: 0; }
+:root[data-theme='sage'] .tool.active { background: var(--note); box-shadow: inset 0 0 0 1.5px var(--c); }
+:root[data-theme='sage'] .tool.active svg { background: none; box-shadow: none; }
+:root[data-theme='sage'] .tool:active svg { background: none; }
+:root[data-theme='sage'] .tool b { color: var(--ink); font-weight: 500; }
+
+/* ---------- Boards ---------- */
+
+:root[data-theme='sage'] :is(.board, .board-frame) { border-radius: 20px; box-shadow: 0 0 0 3px var(--rule-2); }
+:root[data-theme='sage'] .board-frame .board { box-shadow: none; }
+:root[data-theme='sage'] .board-wrap { padding-inline: 3px; }
+:root[data-theme='sage'] .cell { font-weight: 500; }
+:root[data-theme='sage'] .cell.in-unit::before { opacity: 0.1; }
+:root[data-theme='sage'] .cell.same::before { background: var(--c); opacity: 0.16; mix-blend-mode: normal; }
+:root[data-theme='sage'] .cell.selected::before { background: var(--c); opacity: 0.24; mix-blend-mode: normal; box-shadow: inset 0 0 0 2px var(--c); }
+:root[data-theme='sage'] .cell.wrong::before { inset: 0; border: 0; border-radius: 0; rotate: none; background: var(--coral); opacity: 0.14; }
+:root[data-theme='sage'] .cell.cursor { outline-color: var(--c); background-image: linear-gradient(color-mix(in srgb, var(--c) 22%, transparent), color-mix(in srgb, var(--c) 22%, transparent)); }
+:root[data-theme='sage'] .overprint i { background: var(--c); opacity: 0.08; }
+:root[data-theme='sage'] .pad-btn { box-shadow: none; border-radius: 14px; min-height: 56px; }
+:root[data-theme='sage'] .pad-btn:active { background: color-mix(in srgb, var(--c) 18%, var(--sheet)); }
+
+:root[data-theme='sage'] .card { border-radius: 8px; box-shadow: 0 0 0 1px var(--rule-2); }
+:root[data-theme='sage'] .card.down { background: var(--back); box-shadow: inset 0 0 0 3px var(--sheet), 0 0 0 1px var(--rule-2); }
+:root[data-theme='sage'] .card.selected { background: var(--sheet); box-shadow: 0 0 0 2px var(--c), 0 0 0 5px color-mix(in srgb, var(--c) 28%, transparent); }
+:root[data-theme='sage'] .pile { border-radius: 8px; outline: 1.5px dashed var(--rule-2); }
+
+:root[data-theme='sage'] .board-frame { background: color-mix(in srgb, var(--c) 18%, var(--paper)); box-shadow: none; border-radius: 20px; }
+:root[data-theme='sage'] .slot span { background: var(--sheet); box-shadow: none; }
+:root[data-theme='sage'] .slot[data-side='1'] span { background: var(--p1); box-shadow: none; }
+:root[data-theme='sage'] .slot[data-side='2'] span { background: var(--p2); box-shadow: none; }
+:root[data-theme='sage'] .slot.in-line span { outline-color: var(--ink); }
+:root[data-theme='sage'] .die { border-radius: 20px; box-shadow: none; }

@@ -1,6 +1,8 @@
 /* Mist: the shared look for the home page and every game. Cool and airy: white tiles on a pale blue-grey ground,
    soft diffuse shadows, generous radii, no outlines. Text is blue-charcoal, never black. Each family of games has one
-   accent colour (--c). See DESIGN.md. */
+   accent colour (--c). See DESIGN.md. The player can pick another look; those are in themes.css. */
+
+@import './themes/index.css';
 
 @font-face {
   font-family: 'Nunito';
@@ -44,7 +46,9 @@
   --blend: normal;
   --shadow: 0 1px 2px rgb(31 42 58 / 0.05), 0 6px 18px -6px rgb(31 42 58 / 0.12);
   --wrong: var(--coral);
-  --pen-font: 'Nunito', system-ui, sans-serif;
+  --pen-font: var(--font-ui);
+  --font-ui: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-ui);
 
   --r-card: 22px;
   --r-board: 14px;
@@ -94,7 +98,7 @@ html, body {
   min-height: 100%;
   background-color: var(--paper);
   color: var(--ink);
-  font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--font-ui);
   font-weight: 500;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
@@ -167,6 +171,7 @@ svg {
   line-height: 1;
   color: var(--ink);
   margin: 0;
+  font-family: var(--font-display);
 }
 
 .tagline {
@@ -183,6 +188,7 @@ svg {
   font-size: 1.2rem;
   font-weight: 800;
   letter-spacing: -0.01em;
+  font-family: var(--font-display);
   color: var(--ink);
   margin: 16px 0 10px;
   display: flex;
@@ -279,7 +285,7 @@ a.history-link { text-decoration: none; }
 
 #history { padding-bottom: 24px; }
 
-.topbar-title { font-size: 1.2rem; font-weight: 800; margin: 0; }
+.topbar-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; margin: 0; }
 
 .summary {
   width: 100%;
@@ -362,7 +368,7 @@ span.icon-btn { background: none; box-shadow: none; }
 
 /* Topbar title: level on top, game name and status underneath. */
 .meta { min-width: 0; line-height: 1.2; }
-.meta b { display: block; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.01em; }
+.meta b { display: block; font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; letter-spacing: -0.01em; }
 .meta span { font-size: 0.95rem; color: var(--ink-2); font-weight: 600; line-height: 1.2; }
 
 /* The timer is a highlighted pill; its icon shows what a tap does. */
@@ -451,6 +457,7 @@ span.icon-btn { background: none; box-shadow: none; }
 .dialog h2 {
   display: inline-block;
   margin: 0 0 10px;
+  font-family: var(--font-display);
   font-size: 1.7rem;
   font-weight: 800;
   letter-spacing: -0.02em;

@@ -2,6 +2,7 @@
 // to cache this page's game for offline play first, then the other games in the background.
 
 import { Capacitor } from '@capacitor/core';
+import './theme';
 import { registerSW } from 'virtual:pwa-register';
 
 if (!Capacitor.isNativePlatform() && 'serviceWorker' in navigator) {

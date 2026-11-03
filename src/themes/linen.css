@@ -1,0 +1,75 @@
+/* Linen: warm cream paper, a soft serif for titles, hairline edges, no shadows to speak of, lists rather than tiles
+   (design-candidates/d-linen). Fraunces for titles and the italic tagline, the system face for everything else. */
+
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('../fonts/fraunces-latin-wght-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Fraunces'; font-style: italic; font-weight: 100 900; font-display: swap; src: url('../fonts/fraunces-latin-wght-italic.woff2') format('woff2'); }
+
+:root[data-theme='linen'] {
+  --cont-bg: #f1e3bd; --cont-ink: #3a3020; --cont-ink-2: #6b5c3a;
+  --back: #8a6f56; --d1: #35658f; --d2: #c98a2e; --c4-board: #e4d9c4; --c4-hole: #fffdf8;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='linen'] { --cont-bg: #3a3223; --cont-ink: #f3e9d2; --cont-ink-2: #c9b88f; --back: #6d5a48; --d1: #8db6e0; --d2: #e0a85c; --c4-board: #332c25; --c4-hole: #1e1a16; }
+}
+:root[data-theme='linen'] body { font-weight: 450; }
+
+/* ---------- Titles ---------- */
+
+:root[data-theme='linen'] :is(.wordmark, .logo, .section-label, .topbar-title, .meta b, .dialog h2, .gotd-name, .continue b, .theme-name) { font-weight: 600; font-family: var(--font-display); letter-spacing: -0.015em; }
+:root[data-theme='linen'] .wordmark { font-size: clamp(2.7rem, 13vw, 3.4rem); }
+:root[data-theme='linen'] :is(.tagline, .stamps) { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 1.05rem; }
+:root[data-theme='linen'] .section-label { font-size: 1.2rem; }
+:root[data-theme='linen'] .gotd-tag { font-family: var(--font-display); font-style: italic; font-weight: 400; }
+
+/* ---------- Home: a ruled list ---------- */
+
+:root[data-theme='linen'] .game-card { border-bottom: 1px solid var(--rule); }
+:root[data-theme='linen'] .family .game-card:last-of-type { border-bottom: 0; }
+:root[data-theme='linen'] .game-name { font-weight: 550; }
+:root[data-theme='linen'] .game-status { background: none; color: var(--ink-2); font-weight: 500; padding: 0; }
+:root[data-theme='linen'] .game-icon { border-radius: 10px; background: color-mix(in srgb, var(--c) 14%, var(--paper)); box-shadow: none; overflow: hidden; }
+:root[data-theme='linen'] .gotd-card, :root[data-theme='linen'] .continue { background: var(--cont-bg); color: var(--cont-ink); box-shadow: var(--shadow); border-radius: 22px; }
+:root[data-theme='linen'] .gotd-card :is(.gotd-tag, .gotd-desc, .gotd-go), :root[data-theme='linen'] .continue small { color: var(--cont-ink-2); }
+:root[data-theme='linen'] .gotd-name { color: var(--cont-ink); }
+:root[data-theme='linen'] .gotd-card .game-icon { background: color-mix(in srgb, var(--cont-ink) 10%, transparent); }
+
+/* ---------- Chrome ---------- */
+
+:root[data-theme='linen'] .btn-primary { background: var(--c); }
+:root[data-theme='linen'] :is(.timer, .tool svg, .pad-btn, .icon-btn, .back-link) { box-shadow: 0 0 0 1px var(--rule); }
+:root[data-theme='linen'] .tool.active svg { box-shadow: inset 0 0 0 1.5px var(--c); }
+:root[data-theme='linen'] .dialog { box-shadow: 0 0 0 1px var(--rule), 0 24px 60px -24px rgb(70 50 20 / 0.35); border-radius: 20px; }
+:root[data-theme='linen'] .summary { box-shadow: 0 0 0 1px var(--rule); }
+:root[data-theme='linen'] .summary thead th { background: color-mix(in srgb, var(--c) 10%, var(--sheet)); }
+
+/* ---------- Boards: hairlines and ringed selection ---------- */
+
+:root[data-theme='linen'] :is(.board, .board-frame) { border-radius: 10px; box-shadow: 0 0 0 2px var(--rule-2), 0 1px 2px rgb(70 50 20 / 0.06); }
+:root[data-theme='linen'] .board-frame .board { box-shadow: none; }
+:root[data-theme='linen'] .cell.in-unit::before { opacity: 0.09; }
+:root[data-theme='linen'] .cell.same::before { background: var(--c); opacity: 0.16; mix-blend-mode: normal; }
+:root[data-theme='linen'] .cell.selected::before { background: var(--c); opacity: 0.24; mix-blend-mode: normal; box-shadow: inset 0 0 0 2px var(--c); }
+:root[data-theme='linen'] .cell.wrong::before { inset: 0; border: 0; border-radius: 0; rotate: none; background: var(--coral); opacity: 0.14; }
+:root[data-theme='linen'] .cell.cursor { outline-color: var(--c); background-image: linear-gradient(color-mix(in srgb, var(--c) 22%, transparent), color-mix(in srgb, var(--c) 22%, transparent)); }
+:root[data-theme='linen'] .cell.hint { outline-color: var(--c); }
+:root[data-theme='linen'] .overprint i { background: var(--c); opacity: 0.08; }
+:root[data-theme='linen'] .pad-btn { border-radius: 10px; }
+
+:root[data-theme='linen'] .card { border-radius: 6px; box-shadow: 0 0 0 1px var(--rule-2), 0 1px 2px rgb(0 0 0 / 0.06); }
+:root[data-theme='linen'] .card.down { background: var(--back); box-shadow: inset 0 0 0 3px var(--sheet), 0 0 0 1px var(--rule-2); }
+:root[data-theme='linen'] .card.selected { background: var(--sheet); box-shadow: 0 0 0 2px var(--c), 0 0 0 5px color-mix(in srgb, var(--c) 28%, transparent); }
+:root[data-theme='linen'] .pile { outline: 1.5px dashed var(--rule-2); border-radius: 6px; }
+
+:root[data-theme='linen'] .board-frame { background: var(--c4-board); box-shadow: 0 1px 2px rgb(70 50 20 / 0.06); border-radius: 10px; }
+:root[data-theme='linen'] .slot span { background: var(--c4-hole); box-shadow: inset 0 1px 2px rgb(0 0 0 / 0.12); }
+:root[data-theme='linen'] .slot[data-side='1'] span { background: var(--d1); box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.14); }
+:root[data-theme='linen'] .slot[data-side='2'] span { background: var(--d2); box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.14); position: relative; }
+:root[data-theme='linen'] .slot[data-side='2'] span::before { content: ''; position: absolute; inset: 30%; border-radius: 50%; background: rgb(255 255 255 / 0.55); }
+:root[data-theme='linen'] .slot span { position: relative; }
+:root[data-theme='linen'] .slot.in-line span { outline-color: var(--ink); }
+:root[data-theme='linen'] .tally .a b { color: var(--d1); }
+:root[data-theme='linen'] .tally .b b { color: var(--d2); }
+:root[data-theme='linen'] .status .side-1 { background: var(--d1); }
+:root[data-theme='linen'] .status .side-2 { background: var(--d2); }
+
+:root[data-theme='linen'] .die { border-radius: 10px; box-shadow: 0 0 0 1px var(--rule-2); }

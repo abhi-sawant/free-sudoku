@@ -27,6 +27,7 @@
   line-height: 1.02;
   font-weight: 800;
   letter-spacing: -0.035em;
+  font-family: var(--font-display);
   color: var(--ink);
 }
 /* The old out-of-register pass is retired. */
@@ -39,7 +40,8 @@
 /* The Install button sits at the right of the wordmark; the stamps drop to the row below. */
 .mast { display: grid; grid-template-columns: 1fr auto; align-items: center; }
 .mast .stamps { grid-column: 1 / -1; }
-.install-btn { grid-row: 1; grid-column: 2; padding: 10px; display: inline-flex; align-items: center; gap: 8px; }
+.mast-actions { grid-row: 1; grid-column: 2; display: flex; align-items: center; gap: 10px; }
+.install-btn { padding: 10px; display: inline-flex; align-items: center; gap: 8px; }
 .install-btn svg { width: 20px; height: 20px; stroke-width: 2.4; }
 /* The arrow dips into the tray, then rests. */
 .install-btn .arrow { animation: install-dip 2.4s ease-in-out infinite; }
@@ -70,7 +72,7 @@
 .gotd-icon .game-icon { width: 88px; height: 88px; }
 .gotd-text { min-width: 0; flex: 1; display: grid; gap: 4px; justify-items: start; }
 .gotd-tag { font-size: 0.85rem; font-weight: 800; line-height: 1; color: var(--ink-2); }
-.gotd-name { font-size: 1.35rem; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; }
+.gotd-name { font-family: var(--font-display); font-size: 1.35rem; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; }
 .gotd-desc { color: var(--ink-2); font-size: 0.88rem; font-weight: 500; line-height: 1.35; }
 .gotd-go { flex-shrink: 0; width: 22px; height: 22px; color: var(--ink); stroke-width: 2.6; }
 
@@ -492,3 +494,38 @@
 .update-notes code { font-size: 0.85em; background: var(--sunk); padding: 1px 5px; border-radius: 5px; }
 .update-notes a { color: var(--c); }
 .update-actions { display: grid; gap: 8px; }
+
+/* ---------- Theme picker ---------- */
+
+/* Each option is drawn in its own theme (see .theme-opt in themes.css): its paper, a tile on it, its fonts. */
+.theme-dialog { width: min(420px, calc(100vw - 32px)); }
+.theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; text-align: left; }
+.theme-opt {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding: 12px;
+  border: 0;
+  border-radius: var(--r-card);
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  color: var(--ink);
+  font-family: var(--font-ui);
+}
+.theme-opt:active { transform: scale(0.98); }
+.theme-opt[aria-checked='true'] { outline: 3px solid var(--c); outline-offset: 2px; }
+.theme-chip {
+  display: flex;
+  gap: 6px;
+  padding: 10px;
+  border-radius: var(--r-tile);
+  background: var(--sheet);
+  box-shadow: var(--shadow);
+}
+.theme-chip i { flex: 1; height: 14px; border-radius: 999px; }
+.theme-chip i:nth-child(1) { background: var(--blue); }
+.theme-chip i:nth-child(2) { background: var(--orange); }
+.theme-chip i:nth-child(3) { background: var(--olive); }
+.theme-chip i:nth-child(4) { background: var(--berry); }
+.theme-name { font-family: var(--font-display); font-size: 1.05rem; font-weight: 800; line-height: 1; }
+.theme-note { color: var(--ink-2); font-size: 0.8rem; font-weight: 600; line-height: 1.3; }

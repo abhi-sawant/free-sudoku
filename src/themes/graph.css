@@ -1,0 +1,198 @@
+/* Graph Paper: a pen-and-pencil puzzle notebook (design-candidates/b-graph-paper). A printed grid behind everything,
+   ballpoint-blue outlines drawn a little wobbly, Caveat handwriting for entries, notes and asides, highlighter
+   marker for headings, selection and the timer, a red margin line. Hanken Grotesk for print. */
+
+@font-face { font-family: 'Hanken Grotesk'; font-weight: 100 900; font-display: swap; src: url('../fonts/hanken-grotesk-latin-wght-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Caveat'; font-weight: 400 700; font-display: swap; src: url('../fonts/caveat-latin-wght-normal.woff2') format('woff2'); }
+
+/* ---------- The page ---------- */
+
+:root[data-theme='graph'] {
+  --hl-a: 0.8;
+  --hl-blend: multiply;
+  --hl-y: #ffe45c; --hl-cy: #79d6ff; --hl-gn: #86e08f; --hl-pk: #ff9fc6; --hl-or: #ffb35c; --hl-li: #c8aeff; --hl-lm: #d6ee62; --hl-pc: #ffc4a8;
+  --blend: multiply;
+  background-image: linear-gradient(to right, var(--grid) 1px, transparent 1px), linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: -1px -1px;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='graph'] { --hl-a: 0.34; --hl-blend: screen; --blend: screen; }
+}
+:root[data-theme='graph'] body { background-color: transparent; }
+/* A highlighter colour for each family. */
+:root[data-theme='graph'] { --hl: var(--hl-y); }
+:root[data-theme='graph'][data-family='blue'], :root[data-theme='graph'] [data-family='blue'] { --hl: var(--hl-cy); }
+:root[data-theme='graph'][data-family='orange'], :root[data-theme='graph'] [data-family='orange'] { --hl: var(--hl-y); }
+:root[data-theme='graph'][data-family='lilac'], :root[data-theme='graph'] [data-family='lilac'] { --hl: var(--hl-gn); }
+:root[data-theme='graph'][data-family='sky'], :root[data-theme='graph'] [data-family='sky'] { --hl: var(--hl-pk); }
+:root[data-theme='graph'][data-family='olive'], :root[data-theme='graph'] [data-family='olive'] { --hl: var(--hl-or); }
+:root[data-theme='graph'][data-family='berry'], :root[data-theme='graph'] [data-family='berry'] { --hl: var(--hl-li); }
+:root[data-theme='graph'][data-family='plum'], :root[data-theme='graph'] [data-family='plum'] { --hl: var(--hl-lm); }
+:root[data-theme='graph'][data-family='cocoa'], :root[data-theme='graph'] [data-family='cocoa'] { --hl: var(--hl-pc); }
+
+:root[data-theme='graph'] ::selection { background: color-mix(in srgb, var(--hl-y) 70%, transparent); }
+
+/* A pen outline is its own layer, so the wobble never distorts text. */
+:root[data-theme='graph'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .pad-btn, .continue, .gotd-card, .timer, .dialog, .summary) { position: relative; box-shadow: none; }
+:root[data-theme='graph'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .pad-btn, .continue, .gotd-card, .timer, .summary)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--blue);
+  border-radius: inherit;
+  filter: url(#rough);
+  pointer-events: none;
+}
+:root[data-theme='graph'] .btn-primary { background: var(--blue); }
+:root[data-theme='graph'] .btn-primary::after { border-color: var(--ink); }
+:root[data-theme='graph'] .btn:active { background: color-mix(in srgb, var(--hl-y) 60%, var(--paper)); }
+:root[data-theme='graph'] .btn-quiet::after, :root[data-theme='graph'] .history-link::after { display: none; }
+
+/* ---------- Home ---------- */
+
+:root[data-theme='graph'] .mast { padding-left: 8px; }
+:root[data-theme='graph'] .wordmark { position: relative; z-index: 0; font-weight: 800; letter-spacing: -0.025em; }
+:root[data-theme='graph'] .wordmark::before,
+:root[data-theme='graph'] .logo::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  right: -8px;
+  bottom: 5px;
+  height: 0.42em;
+  background: var(--hl-y);
+  opacity: var(--hl-a);
+  mix-blend-mode: var(--hl-blend);
+  z-index: -1;
+  border-radius: 3px;
+  transform: rotate(-1.2deg);
+  filter: url(#rough);
+}
+:root[data-theme='graph'] .logo { position: relative; z-index: 0; font-weight: 800; letter-spacing: -0.025em; }
+:root[data-theme='graph'] :is(.stamps, .tagline) {
+  font-family: var(--pen-font);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--blue);
+  transform: rotate(-2deg);
+  transform-origin: left center;
+  margin-top: 10px;
+}
+:root[data-theme='graph'] .stamps span + span::before { color: var(--blue); }
+
+/* Each family has a highlighter stripe behind its name; a red margin runs down the page. */
+:root[data-theme='graph'] .section-label { position: relative; z-index: 0; padding: 0 4px; margin-left: -4px; }
+:root[data-theme='graph'] .section-label::before {
+  position: absolute;
+  inset: 55% 0 -1px 0;
+  width: auto;
+  height: auto;
+  background: var(--hl);
+  opacity: var(--hl-a);
+  mix-blend-mode: var(--hl-blend);
+  border-radius: 3px;
+  z-index: -1;
+  filter: url(#rough);
+}
+:root[data-theme='graph'] .games { position: relative; padding-left: 14px; }
+:root[data-theme='graph'] .games::before { content: ''; position: absolute; left: 0; top: -6px; bottom: 0; width: 2px; background: var(--coral); opacity: 0.7; }
+:root[data-theme='graph'] .family { padding-left: 0; }
+
+/* Rows: icon, name, a dotted leader, then the handwritten note. */
+:root[data-theme='graph'] .game-card { min-height: 52px; }
+:root[data-theme='graph'] .game-name { flex: none; }
+:root[data-theme='graph'] .game-card::after { content: ''; order: 1; flex: 1; border-bottom: 2px dotted var(--rule-2); transform: translateY(6px); margin: 0 4px; }
+:root[data-theme='graph'] .game-status { order: 2; margin-left: 0; background: none; color: var(--blue); font-family: var(--pen-font); font-size: 1.35rem; font-weight: 600; padding: 0; }
+:root[data-theme='graph'] .game-card:is(:hover, :active) .game-name { background: linear-gradient(transparent 55%, color-mix(in srgb, var(--hl) 70%, transparent) 55%); }
+:root[data-theme='graph'] .game-icon {
+  border-radius: 0;
+  background-color: var(--sheet);
+  background-image: linear-gradient(var(--rule-2) 1px, transparent 1px), linear-gradient(90deg, var(--rule-2) 1px, transparent 1px);
+  background-size: 33.33% 33.33%;
+  box-shadow: none;
+  outline: 2px solid var(--ink);
+}
+:root[data-theme='graph'] .gotd-card { background: color-mix(in srgb, var(--hl-y) 55%, var(--paper)); box-shadow: none; transform: rotate(-0.6deg); }
+:root[data-theme='graph'] .gotd-card::after { border-color: var(--ink); border-radius: 6px; }
+:root[data-theme='graph'] .gotd-tag { font-family: var(--pen-font); font-size: 1.2rem; }
+:root[data-theme='graph'] .home-foot { font-family: var(--pen-font); font-size: 1.15rem; }
+
+/* ---------- Menus, top bar, tools ---------- */
+
+:root[data-theme='graph'] .continue { background: color-mix(in srgb, var(--hl-y) 55%, var(--paper)); transform: rotate(-0.6deg); }
+:root[data-theme='graph'] .continue::after { border-color: var(--ink); border-radius: 6px; }
+:root[data-theme='graph'] .continue small { font-family: var(--pen-font); font-size: 1.15rem; color: var(--ink-2); }
+:root[data-theme='graph'] .level small, :root[data-theme='graph'] .new-game small { font-family: var(--pen-font); font-size: 1.15rem; color: var(--blue); }
+:root[data-theme='graph'] .level-bars i { background: var(--blue); border-radius: 1px; }
+:root[data-theme='graph'] .meta span { font-family: var(--pen-font); font-size: 1.3rem; font-weight: 600; color: var(--blue); line-height: 1; }
+:root[data-theme='graph'] .timer { background: color-mix(in srgb, var(--hl-cy) 60%, var(--paper)); font-weight: 800; }
+:root[data-theme='graph'] .timer::before { z-index: 1; }
+:root[data-theme='graph'] .tool svg { box-shadow: 0 0 0 2px var(--ink); border-radius: 12px; color: var(--blue); }
+:root[data-theme='graph'] .tool.active svg { background: color-mix(in srgb, var(--hl-y) 70%, var(--paper)); box-shadow: 0 0 0 2px var(--ink); }
+:root[data-theme='graph'] .tool b { color: var(--ink-2); }
+:root[data-theme='graph'] .dialog { box-shadow: 0 0 0 2px var(--blue); border-radius: 14px; }
+:root[data-theme='graph'] .dialog h2 { position: relative; z-index: 0; }
+:root[data-theme='graph'] .dialog h2::before { content: ''; position: absolute; left: -6px; right: -6px; bottom: 4px; height: 0.4em; background: var(--hl-y); opacity: var(--hl-a); mix-blend-mode: var(--hl-blend); z-index: -1; border-radius: 3px; transform: rotate(-1deg); }
+:root[data-theme='graph'] .summary { border-radius: 6px; background: var(--sheet); }
+:root[data-theme='graph'] .summary::after { border-radius: 6px; }
+:root[data-theme='graph'] .summary thead th { background: color-mix(in srgb, var(--hl-cy) 45%, var(--sheet)); color: var(--ink); }
+:root[data-theme='graph'] .history-status { font-family: var(--pen-font); font-size: 1.15rem; }
+
+/* ---------- Boards ---------- */
+
+:root[data-theme='graph'] :is(.board, .board-frame) { border-radius: 3px; box-shadow: 0 0 0 3px var(--ink); }
+:root[data-theme='graph'] .board-frame .board { box-shadow: none; }
+:root[data-theme='graph'] .board-wrap { padding-inline: 3px; }
+:root[data-theme='graph'] .cell { color: var(--ink); }
+:root[data-theme='graph'] .cell.user { font-size: calc(100cqi / var(--n, 9) * 0.85); line-height: 0.9; padding-bottom: 4px; color: var(--blue); }
+:root[data-theme='graph'] .cell.user, :root[data-theme='graph'] .pad-digit { font-weight: 700; }
+:root[data-theme='graph'] .pad-digit { font-size: clamp(2.2rem, 10vw, 2.9rem); line-height: 0.9; color: var(--blue); }
+:root[data-theme='graph'] .pad-left { font-size: 1.05rem; color: var(--ink-2); }
+:root[data-theme='graph'] .pad-btn { background: var(--sheet); border-radius: 8px; padding-top: 6px; }
+:root[data-theme='graph'] .pad-btn::after { border-width: 1.5px; border-radius: 8px; }
+:root[data-theme='graph'] .pad-btn:active { background: color-mix(in srgb, var(--hl-y) 60%, var(--sheet)); }
+:root[data-theme='graph'] .notes { font-size: calc(100cqi / var(--n, 9) * 0.34); }
+:root[data-theme='graph'] .notes, :root[data-theme='graph'] .notes .hl { font-weight: 600; color: var(--ink-2); }
+
+/* Marker over a printed page: peers in cyan, the cursor in yellow, a mistake circled in red pen. */
+:root[data-theme='graph'] .cell.in-unit::before { background: var(--hl-cy); opacity: 0.28; mix-blend-mode: var(--blend); }
+:root[data-theme='graph'] .cell.same::before { background: var(--hl-y); opacity: 0.5; mix-blend-mode: var(--blend); }
+:root[data-theme='graph'] .cell.selected::before { background: var(--hl-y); opacity: 0.85; mix-blend-mode: var(--blend); }
+:root[data-theme='graph'] .cell.wrong::before { filter: url(#rough); border-color: var(--coral); }
+:root[data-theme='graph'] .overprint i { background: var(--hl-cy); opacity: 0.28; }
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='graph'] .cell.in-unit::before { opacity: 0.12; }
+  :root[data-theme='graph'] .cell.selected::before { opacity: 0.32; }
+  :root[data-theme='graph'] .cell.same::before { opacity: 0.22; }
+  :root[data-theme='graph'] .overprint i { opacity: 0.12; }
+}
+:root[data-theme='graph'] .cell.cursor { outline: 0; background-image: linear-gradient(color-mix(in srgb, var(--hl-y) 70%, transparent), color-mix(in srgb, var(--hl-y) 70%, transparent)); }
+:root[data-theme='graph'] .cell.hint { outline-color: var(--hl-y); }
+
+/* Cards: a pen outline, backs cross-hatched in blue, a hint as marker. */
+:root[data-theme='graph'] .card { border-radius: 6px; box-shadow: 0 0 0 1.5px var(--ink); }
+:root[data-theme='graph'] .card .idx { font-weight: 800; }
+:root[data-theme='graph'] .card.down {
+  background: repeating-linear-gradient(45deg, var(--blue) 0 1px, transparent 1px 5px), repeating-linear-gradient(-45deg, var(--blue) 0 1px, transparent 1px 5px), var(--sheet);
+  box-shadow: 0 0 0 1.5px var(--blue);
+}
+:root[data-theme='graph'] .card.selected { background: color-mix(in srgb, var(--hl-y) 60%, var(--sheet)); box-shadow: 0 0 0 2px var(--ink); }
+:root[data-theme='graph'] .pile { border-radius: 6px; outline: 2px dashed var(--rule-2); }
+
+/* Discs are shaded in with hatching: blue for you, red for the other side. */
+:root[data-theme='graph'] .slot span { box-shadow: inset 0 0 0 1.5px var(--rule-2); }
+:root[data-theme='graph'] .slot[data-side='1'] span { background: repeating-linear-gradient(45deg, var(--blue) 0 2px, transparent 2px 5px); box-shadow: inset 0 0 0 2px var(--blue); }
+:root[data-theme='graph'] .slot[data-side='2'] span { background: repeating-linear-gradient(-45deg, var(--coral) 0 2px, transparent 2px 5px); box-shadow: inset 0 0 0 2px var(--coral); }
+:root[data-theme='graph'] .slot.in-line span { background-color: color-mix(in srgb, var(--hl-y) 70%, transparent); outline-color: var(--ink); }
+:root[data-theme='graph'] .tally .a b { color: var(--blue); }
+:root[data-theme='graph'] .tally small, :root[data-theme='graph'] .status { font-family: var(--pen-font); font-size: 1.3rem; color: var(--blue); }
+
+/* Dice and tiles. */
+:root[data-theme='graph'] .die { border-radius: 12px; box-shadow: 0 0 0 1.5px var(--ink); }
+:root[data-theme='graph'] .die.held { background: color-mix(in srgb, var(--hl-y) 70%, var(--sheet)); }
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='graph'] :is(.gotd-card, .continue) { background: color-mix(in srgb, var(--hl-y) 16%, var(--paper)); }
+}

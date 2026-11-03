@@ -1,0 +1,193 @@
+/* Block Party: a Bauhaus toy box (design-candidates/c-block-party). Every family is a flat field of one primary,
+   the home page is a stack of those fields and every game drenches its screen in its family's colour. White tiles
+   with square corners, circles for buttons, heavy lowercase Jost, a circle, a square and a triangle for a mark. */
+
+@font-face { font-family: 'Jost'; font-weight: 100 900; font-display: swap; src: url('../fonts/jost-latin-wght-normal.woff2') format('woff2'); }
+
+/* ---------- Fields ---------- */
+
+:root[data-theme='block'] {
+  --blk: #15151a;
+  --f: var(--paper); --t: var(--ink);
+  --f-blue: #2447c9; --f-orange: #f6c317; --f-lilac: #f08ab8; --f-sky: #d82e1f; --f-olive: #08795a; --f-berry: #f57a1a; --f-plum: #6cc3ee; --f-cocoa: #15151a;
+  --t-blue: #ffffff; --t-orange: #15151a; --t-lilac: #15151a; --t-sky: #ffffff; --t-olive: #ffffff; --t-berry: #15151a; --t-plum: #15151a; --t-cocoa: #ffffff;
+  overflow-x: clip;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='block'] {
+    --blk: #0b0b0d;
+    --f-blue: #3d5fe0; --f-orange: #d9a90f; --f-lilac: #d96f9f; --f-sky: #e0432f; --f-olive: #10936b; --f-berry: #e2690d; --f-plum: #4aa8d6; --f-cocoa: #2b2c36;
+  }
+}
+:root[data-theme='block'][data-family='blue'], :root[data-theme='block'] [data-family='blue'] { --f: var(--f-blue); --t: var(--t-blue); }
+:root[data-theme='block'][data-family='orange'], :root[data-theme='block'] [data-family='orange'] { --f: var(--f-orange); --t: var(--t-orange); }
+:root[data-theme='block'][data-family='lilac'], :root[data-theme='block'] [data-family='lilac'] { --f: var(--f-lilac); --t: var(--t-lilac); }
+:root[data-theme='block'][data-family='sky'], :root[data-theme='block'] [data-family='sky'] { --f: var(--f-sky); --t: var(--t-sky); }
+:root[data-theme='block'][data-family='olive'], :root[data-theme='block'] [data-family='olive'] { --f: var(--f-olive); --t: var(--t-olive); }
+:root[data-theme='block'][data-family='berry'], :root[data-theme='block'] [data-family='berry'] { --f: var(--f-berry); --t: var(--t-berry); }
+:root[data-theme='block'][data-family='plum'], :root[data-theme='block'] [data-family='plum'] { --f: var(--f-plum); --t: var(--t-plum); }
+:root[data-theme='block'][data-family='cocoa'], :root[data-theme='block'] [data-family='cocoa'] { --f: var(--f-cocoa); --t: var(--t-cocoa); }
+
+:root[data-theme='block'] :is(.wordmark, .logo, .section-label, .topbar-title, .continue b) { text-transform: lowercase; font-weight: 800; letter-spacing: -0.04em; }
+:root[data-theme='block'] ::selection { background: var(--yellow); color: var(--blk); }
+
+/* ---------- Home: stacked colour bands ---------- */
+
+:root[data-theme='block'] .home { padding-top: 0; }
+:root[data-theme='block'] .mast { position: relative; padding: 28px 4px 16px; }
+:root[data-theme='block'] .wordmark { font-size: clamp(3.2rem, 18.5vw, 5.75rem); line-height: 0.82; min-width: 0; letter-spacing: -0.05em; margin-left: -4px; }
+:root[data-theme='block'] .stamps { font-size: 1.1rem; font-weight: 600; margin-top: 14px; }
+:root[data-theme='block'] .install-btn { border-radius: 999px; }
+/* The mark: a red circle and a blue square, then a yellow triangle. */
+:root[data-theme='block'] .mast::before {
+  content: '';
+  position: absolute;
+  right: 4px;
+  bottom: 6px;
+  width: 92px;
+  height: 26px;
+  background:
+    radial-gradient(circle at 13px 13px, #d82e1f 12.5px, transparent 13px),
+    linear-gradient(#2447c9, #2447c9) 32px 0 / 26px 26px no-repeat;
+}
+:root[data-theme='block'] .mast::after {
+  content: '';
+  position: absolute;
+  right: 4px;
+  bottom: 6px;
+  width: 26px;
+  height: 26px;
+  background: #f6c317;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+:root[data-theme='block'] .gotd { margin-bottom: 22px; }
+:root[data-theme='block'] .gotd .section-label { margin-left: 0; padding: 0; font-size: 2.1rem; line-height: 1; }
+:root[data-theme='block'] .gotd .section-label::before { display: none; }
+:root[data-theme='block'] nav.games { gap: 0; }
+:root[data-theme='block'] .gotd-card { border-radius: 0; background: var(--blk); color: #f3f3ee; box-shadow: none; gap: 14px; }
+:root[data-theme='block'] .gotd-card :is(.gotd-tag, .gotd-desc) { color: #f3f3ee; opacity: 0.8; }
+:root[data-theme='block'] .gotd-go { box-sizing: content-box; width: 22px; height: 22px; padding: 11px; border-radius: 50%; background: #f6c317; color: #15151a; }
+:root[data-theme='block'] .gotd-card .game-icon { background: var(--sheet); }
+
+/* Every family is a full-bleed band of its colour. */
+:root[data-theme='block'] .family {
+  margin-inline: calc(50% - 50vw);
+  padding: 24px max(16px, calc(50vw - 560px)) 26px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  background: var(--f);
+  color: var(--t);
+}
+:root[data-theme='block'] .family .section-label { margin: 0 0 6px; padding: 0; font-size: 2.1rem; line-height: 1; color: var(--t); display: flex; align-items: baseline; justify-content: space-between; width: auto; }
+:root[data-theme='block'] .family .section-label::before { display: none; }
+:root[data-theme='block'] .game-card {
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 126px;
+  padding: 10px;
+  border-radius: 0;
+  box-shadow: none;
+  text-align: left;
+}
+:root[data-theme='block'] .game-card:active, :root[data-theme='block'] .game-card:hover { background: var(--sheet); transform: scale(0.97); }
+:root[data-theme='block'] .game-text { align-items: flex-start; margin-top: auto; }
+:root[data-theme='block'] .game-name { font-size: 0.95rem; font-weight: 700; line-height: 1.1; }
+:root[data-theme='block'] .game-status { border-radius: 0; background: #15151a; color: #fff; }
+:root[data-theme='block'] .game-icon { border-radius: 0; box-shadow: none; background: none; padding: 0; width: 56px; height: 56px; }
+:root[data-theme='block'] .home-foot { color: var(--ink-2); padding-top: 18px; }
+
+/* ---------- Game pages: drenched in the family colour ---------- */
+
+:root[data-theme='block'][data-family], :root[data-theme='block'][data-family] body { background-color: var(--f); color: var(--t); }
+:root[data-theme='block'][data-family] :is(.logo, .tagline, .topbar-title, .meta b, .meta span, .tool b, .history-link, .history-empty, .status, .tally small, .tally .draws b, .muted) { color: var(--t); }
+:root[data-theme='block'][data-family] .meta span { opacity: 0.9; font-weight: 600; }
+:root[data-theme='block'][data-family] :is(.history-row .history-date, .history-row .history-status) { color: var(--t); }
+:root[data-theme='block'] .logo { font-size: clamp(2.6rem, 14vw, 3.6rem); line-height: 0.9; }
+:root[data-theme='block'] .tagline { font-weight: 600; font-size: 1.1rem; }
+:root[data-theme='block'] .section-label { color: var(--ink); }
+:root[data-theme='block'][data-family] .section-label { color: var(--t); }
+:root[data-theme='block'][data-family] .section-label::before { background: var(--t); }
+
+:root[data-theme='block'] :is(.btn, .level, .new-game) { border-radius: 6px; font-weight: 700; color: var(--ink); background: var(--sheet); }
+:root[data-theme='block'] .btn:active { background: var(--yellow); color: #15151a; transform: scale(0.97); }
+:root[data-theme='block'] .btn-primary { background: var(--blk); color: #fff; }
+:root[data-theme='block'] .btn-primary:active { background: var(--blk); filter: none; }
+:root[data-theme='block'] .btn-quiet { background: none; color: inherit; }
+:root[data-theme='block'] .continue { background: var(--blk); color: #f3f3ee; border-radius: 6px; font-weight: 800; text-transform: lowercase; }
+:root[data-theme='block'] .continue small { color: #f3f3ee; opacity: 0.8; }
+:root[data-theme='block'] .level-bars i { background: var(--f); border-radius: 0; }
+:root[data-theme='block'] .back-link { border-radius: 999px; color: var(--ink); }
+:root[data-theme='block'] .history-link { background: none; color: var(--t); }
+
+:root[data-theme='block'] .icon-btn { background: var(--sheet); color: var(--ink); }
+:root[data-theme='block'] .timer { background: #f6c317; color: #15151a; font-weight: 800; box-shadow: none; }
+:root[data-theme='block'] .tool svg { width: 26px; height: 26px; padding: 15px; border-radius: 50%; background: var(--sheet); color: var(--ink); box-shadow: none; }
+:root[data-theme='block'] .tool.active svg { background: #f6c317; color: #15151a; box-shadow: none; }
+:root[data-theme='block'] .tool b { font-weight: 700; }
+
+:root[data-theme='block'] .dialog { border-radius: 8px; }
+:root[data-theme='block'] .dialog p { color: var(--ink-2); }
+:root[data-theme='block'] .summary { border-radius: 4px; }
+:root[data-theme='block'] .summary thead th { background: var(--blk); color: #fff; }
+:root[data-theme='block'] .history-list { background: var(--sheet); color: var(--ink); border-radius: 4px; padding: 0 14px; }
+:root[data-theme='block'] .history-list :is(.history-date, .history-status) { color: var(--ink-2); }
+
+/* ---------- Boards ---------- */
+
+/* The page's text is the family's; anything printed on a white panel stays ink. */
+:root[data-theme='block'] :is(.board, .summary, .dialog, .die, .history-list, .btn:not(.btn-primary):not(.btn-quiet), .pad-btn, .level, .new-game) { color: var(--ink); }
+
+:root[data-theme='block'] :is(.board, .board-frame) { border-radius: 2px; box-shadow: 0 0 0 4px var(--ink); }
+:root[data-theme='block'] .board-frame .board { box-shadow: none; }
+:root[data-theme='block'] .board-wrap { padding-inline: 4px; }
+:root[data-theme='block'] .cell { font-weight: 700; border-color: color-mix(in srgb, var(--ink) 30%, transparent); }
+:root[data-theme='block'] .cell.user { font-weight: 700; }
+:root[data-theme='block'] .cell.in-unit::before { background: var(--f); opacity: 0.16; mix-blend-mode: normal; }
+:root[data-theme='block'] .cell.same::before { background: var(--yellow); opacity: 0.5; mix-blend-mode: normal; }
+:root[data-theme='block'] .cell.selected::before { background: #f6c317; opacity: 1; mix-blend-mode: normal; }
+:root[data-theme='block'] .cell.selected, :root[data-theme='block'] .cell.selected .notes, :root[data-theme='block'] .cell.selected .notes .hl { color: #15151a; }
+:root[data-theme='block'] .cell.selected.user { color: #15151a; }
+:root[data-theme='block'] .cell.wrong::before { inset: 0; border: 0; border-radius: 0; rotate: none; background: var(--coral); opacity: 1; }
+:root[data-theme='block'] .cell.wrong { color: #fff; }
+:root[data-theme='block'] .overprint { display: none; }
+:root[data-theme='block'] .cell.cursor { outline-color: #f6c317; background-image: linear-gradient(#f6c317, #f6c317); color: #15151a; }
+:root[data-theme='block'] .cell.hint { outline-color: #f6c317; }
+
+:root[data-theme='block'] .pad-btn { background: var(--sheet); box-shadow: none; border-radius: 6px; color: var(--f); font-weight: 800; }
+:root[data-theme='block'] .pad-btn:active { background: #f6c317; }
+:root[data-theme='block'] .pad-digit { font-weight: 800; }
+:root[data-theme='block'][data-family='orange'] .pad-btn, :root[data-theme='block'][data-family='lilac'] .pad-btn, :root[data-theme='block'][data-family='berry'] .pad-btn, :root[data-theme='block'][data-family='plum'] .pad-btn { color: var(--c); }
+:root[data-theme='block'] .pad-left { color: var(--ink-2); font-weight: 600; }
+
+/* Cards: white, square-ish, blue backs with a yellow dot, a hint as a yellow ring. */
+:root[data-theme='block'] .card { border-radius: 4px; box-shadow: none; }
+:root[data-theme='block'] .card .idx { font-weight: 800; }
+:root[data-theme='block'] .card.down { background: #2447c9 radial-gradient(circle at 50% 50%, #f6c317 0 22%, transparent 23%); box-shadow: none; }
+:root[data-theme='block'] .card.selected { background: var(--sheet); box-shadow: 0 0 0 3px #f6c317; }
+:root[data-theme='block'] .pile { border-radius: 4px; outline: 2px solid color-mix(in srgb, var(--t) 55%, transparent); }
+:root[data-theme='block'] .table.is-paused .card:not(.down) { background: var(--sheet); box-shadow: none; }
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='block'] .card.down { background-color: #3d5fe0; }
+}
+
+/* Discs: yellow for you, black for the other side, in a white board with holes in the field's colour. */
+:root[data-theme='block'] .board-frame { background: var(--sheet); border-radius: 8px; }
+:root[data-theme='block'] .slot span { box-shadow: none; background: var(--f); }
+:root[data-theme='block'] .slot[data-side='1'] span { background: #f6c317; box-shadow: none; }
+:root[data-theme='block'] .slot[data-side='2'] span { background: var(--blk); box-shadow: none; }
+:root[data-theme='block'] .slot.in-line span { outline: 3px solid #f6c317; outline-offset: 1px; background-color: inherit; }
+:root[data-theme='block'] .tally .a b { color: #f6c317; }
+:root[data-theme='block'] .tally .b b { color: var(--t); }
+:root[data-theme='block'] .status .side-1 { background: #f6c317; }
+:root[data-theme='block'] .status .side-2 { background: var(--blk); }
+
+/* Dice. */
+:root[data-theme='block'] .die { border-radius: 8px; box-shadow: none; }
+:root[data-theme='block'] .die.held { background: #f6c317; }
+:root[data-theme='block'] .die.held i.pip { background: #15151a; }
+:root[data-theme='block'] .die.held::after { background: #15151a; }
+
+/* A yellow timer would vanish on the yellow family's field. */
+:root[data-theme='block'][data-family='orange'] .timer { background: var(--blk); color: #f6c317; }
