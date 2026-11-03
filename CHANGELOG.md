@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.0.0 — 2026-11-03
+
+A softer look that is easier on the eyes.
+
+### Changed
+
+- Every page is redrawn in a calm, airy style: white tiles on a pale blue-grey ground with soft shadows, instead of
+  black outlines on a printed grid.
+- Text is a soft blue-charcoal rather than black, and the dark theme is a deep slate blue, so long sessions are
+  more comfortable.
+- Pieces, discs and card backs are filled with a gentle tint of their family colour in place of hatching, and the
+  highlighter yellow and handwriting font are gone. One rounded font, bundled with the app, is used throughout.
+- Nothing about how the games play has changed.
+
 ## 3.2.8 — 2026-11-03
 
 Games gets a new look: a puzzle notebook on graph paper.
