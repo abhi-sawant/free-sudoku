@@ -30,7 +30,7 @@
   font-variant-numeric: tabular-nums;
 }
 .tally .draws b { color: var(--ink-2); }
-.tally small { font-family: var(--pen-font); font-size: 1.1rem; font-weight: 600; color: var(--ink-2); line-height: 1; }
+.tally small { font-family: var(--pen-font); font-size: 0.85rem; font-weight: 600; color: var(--ink-2); line-height: 1; }
 /* The tally takes room from the title, so keep the round line to one line. */
 .meta span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 360px) {
@@ -55,7 +55,7 @@
   padding: 10px;
   border-radius: var(--r-board);
   background: var(--sheet);
-  box-shadow: 0 0 0 3px var(--ink);
+  box-shadow: 0 0 0 2px var(--rule-2);
 }
 
 .grid {
@@ -76,8 +76,8 @@
   place-items: center;
   transition: background 0.15s ease, opacity 0.2s ease;
 }
-.cell:nth-of-type(3n + 1), .cell:nth-of-type(3n + 2) { border-right: 3px solid var(--ink); }
-.cell:nth-of-type(-n + 6) { border-bottom: 3px solid var(--ink); }
+.cell:nth-of-type(3n + 1), .cell:nth-of-type(3n + 2) { border-right: 2px solid var(--rule-2); }
+.cell:nth-of-type(-n + 6) { border-bottom: 2px solid var(--rule-2); }
 .cell:not(:disabled):active { background: var(--note); }
 @media (hover: hover) { .cell:not(:disabled):hover { background: var(--note); } }
 .cell:disabled { cursor: default; }

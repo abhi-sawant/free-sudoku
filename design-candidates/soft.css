@@ -1,0 +1,129 @@
+/* Round two: three gentler skins on one component sheet. Each skin (d-linen, e-mist, f-sage) sets tokens and the
+   few rules that give it a different character; everything below reads those tokens.
+   What changed from Graph Paper: no 2px ink outlines, no near-black on white, no printed grid behind the content,
+   no wobble filter, no hatching, no saturated highlighter. Surfaces are told apart by tone, not by line. */
+
+:root{
+  --tint:16%;
+  --font-ui:'Figtree',system-ui,sans-serif; --font-display:var(--font-ui);
+  --r-card:16px; --r-ctl:12px; --r-key:10px; --r-board:12px; --r-icon:9px; --r-card-play:6px;
+  --pad-card:0 0 0 1px var(--line);
+  --lift:0 1px 2px rgb(40 30 20/.05);
+}
+[data-cat=number]{--cat:var(--c-number)} [data-cat=logic]{--cat:var(--c-logic)} [data-cat=tiles]{--cat:var(--c-tiles)}
+[data-cat=computer]{--cat:var(--c-computer)} [data-cat=cards]{--cat:var(--c-cards)} [data-cat=words]{--cat:var(--c-words)}
+[data-cat=dice]{--cat:var(--c-dice)} [data-cat=arcade]{--cat:var(--c-arcade)}
+.continue{--cat:var(--c-number)}
+[data-cat],.continue{--cat-bg:color-mix(in srgb,var(--cat) var(--tint),var(--paper))}
+
+body{background:var(--stage);color:var(--ink);font-family:var(--font-ui);font-weight:450;min-height:100vh;-webkit-font-smoothing:antialiased}
+.stage-head{color:var(--ink)}
+.stage-head .theme{background:var(--sheet);color:var(--ink);border-radius:999px;font-weight:700;box-shadow:0 0 0 1px var(--line)}
+.stage-head .back-all{color:var(--ink-2);opacity:1}
+.stage-head p,.phone-wrap figcaption{color:var(--ink-2);opacity:1}
+.phone{background:#1a1a1c}
+.screen{background:var(--paper);color:var(--ink)}
+.app{background:var(--paper);font-size:16px;scrollbar-width:none}
+.mono{font-variant-numeric:tabular-nums}
+::selection{background:color-mix(in srgb,var(--pen) 28%,transparent)}
+:focus-visible{outline:3px solid color-mix(in srgb,var(--pen) 55%,transparent);outline-offset:2px}
+button,a{-webkit-tap-highlight-color:transparent}
+.ico{stroke-width:1.9}
+
+/* ---------- home ---------- */
+.mast{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:6px 2px 0}
+.wordmark{font-family:var(--font-display);font-size:40px;line-height:1.05;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.tagline{font-size:15px;color:var(--ink-2);font-weight:500}
+.mark{display:none}
+.continue{display:flex;align-items:center;gap:14px;padding:12px 16px 12px 12px;min-height:76px;border-radius:var(--r-card);
+  background:var(--cont-bg);color:var(--cont-ink);box-shadow:var(--pad-card),var(--lift)}
+.continue .txt{flex:1;display:flex;flex-direction:column;gap:1px}
+.continue b{font-size:18px;font-weight:700;font-family:var(--font-display)}
+.continue small{font-size:14px;color:var(--cont-ink-2)}
+.continue .go{color:var(--cont-ink)}
+.cats{display:flex;flex-direction:column;gap:24px}
+.cat h2{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.cat-name{font-family:var(--font-display);font-size:19px;font-weight:700;letter-spacing:-.01em;color:var(--ink);display:flex;align-items:center;gap:10px}
+.cat-name::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--cat);flex:none}
+.count{font-size:13px;color:var(--ink-2);font-weight:500}
+.games{display:flex;flex-direction:column}
+.game{display:flex;align-items:center;gap:14px;min-height:56px;padding:6px 0;position:relative}
+.game .name{font-size:17px;font-weight:600;color:var(--ink)}
+.game .meta{flex:1;display:flex;justify-content:flex-end;font-size:13px;color:var(--ink-2);font-weight:500;white-space:nowrap}
+.game:active{opacity:.7}
+.game.more .plus{width:40px;text-align:center;font-weight:700;color:var(--cat);font-size:15px}
+.game.more .name{color:var(--ink-2);font-weight:500}
+.demo-note{font-size:13px;color:var(--ink-2);text-align:center}
+
+/* the three-by-three board that stands for each game */
+.icon{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);width:40px;height:40px;flex:none;border-radius:var(--r-icon);
+  background:var(--cat-bg);overflow:hidden;position:relative;font-size:10px;font-weight:700;line-height:1;padding:2px}
+.icon i{font-style:normal;display:grid;place-items:center;color:var(--cat);position:relative}
+.icon i.x::after{content:"";width:58%;height:58%;border-radius:30%;background:var(--cat)}
+.icon i.o::after{content:"";width:58%;height:58%;border-radius:50%;border:2px solid var(--cat)}
+.icon i.e::after{content:"";width:16%;height:16%;border-radius:50%;background:var(--cat);opacity:.35}
+.continue .icon{width:48px;height:48px;font-size:12px}
+
+/* ---------- play screens ---------- */
+.topbar .icon-btn{border-radius:50%;background:var(--sheet);box-shadow:var(--pad-card),var(--lift);color:var(--ink)}
+.topbar .meta b{font-family:var(--font-display);font-size:19px;font-weight:700;line-height:1.15}
+.topbar .meta span{font-size:14px;color:var(--ink-2);font-weight:500}
+.timer,.score{background:var(--sheet);border-radius:999px;font-weight:700;font-size:16px;box-shadow:var(--pad-card),var(--lift);color:var(--ink)}
+.timer .ico{color:var(--cat)}
+
+.tools{gap:8px}
+.tool{background:var(--sheet);border-radius:var(--r-ctl);font-weight:600;font-size:12.5px;color:var(--ink-2);box-shadow:var(--pad-card),var(--lift)}
+.tool .ico{color:var(--cat)}
+.tool.active{background:var(--cat-bg);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--cat)}
+.pad{gap:4px}
+.key{background:var(--sheet);border-radius:var(--r-key);min-height:58px;box-shadow:var(--pad-card),var(--lift)}
+.key b{font-size:24px;font-weight:600;color:var(--pen);font-family:var(--font-num,var(--font-ui))}
+.key small{font-size:11px;color:var(--ink-2);font-weight:600}
+.key.done{background:transparent;box-shadow:none}
+.key.done b{color:var(--ink-2);opacity:.45}
+.key.done small{opacity:.45}
+
+/* sudoku */
+.board.sudoku{background:var(--sheet);border-radius:var(--r-board);overflow:hidden;box-shadow:0 0 0 2px var(--line-strong),var(--lift)}
+.sudoku .cell{border:solid var(--line);border-width:0 1px 1px 0;font-size:22px;font-weight:500;color:var(--ink);font-family:var(--font-num,var(--font-ui))}
+.sudoku .cell.br{border-right:2px solid var(--line-strong)}
+.sudoku .cell.bb{border-bottom:2px solid var(--line-strong)}
+.sudoku .cell:nth-child(9n){border-right:0}
+.sudoku .cell:nth-child(n+73){border-bottom:0}
+.sudoku .cell.given{font-weight:700}
+.sudoku .cell.entry{color:var(--pen);font-weight:600}
+.sudoku .cell.peer{background:color-mix(in srgb,var(--cat) 9%,transparent)}
+.sudoku .cell.sel{background:color-mix(in srgb,var(--cat) 24%,transparent);box-shadow:inset 0 0 0 2px var(--cat)}
+.sudoku .cell.wrong{color:var(--red);background:color-mix(in srgb,var(--red) 13%,transparent)}
+.sudoku .cell.notes i{font-size:10px;font-weight:600;color:var(--ink-2)}
+
+/* cards */
+.card{background:var(--sheet);color:var(--ink);border-radius:var(--r-card-play);box-shadow:0 0 0 1px var(--line-strong),0 1px 2px rgb(0 0 0/.06)}
+.card b{font-weight:700}
+.card.red{color:var(--red)}
+.card.down{background:var(--back);box-shadow:inset 0 0 0 3px var(--sheet),0 0 0 1px var(--line-strong)}
+.card.hint{box-shadow:0 0 0 2px var(--cat),0 0 0 5px color-mix(in srgb,var(--cat) 28%,transparent);z-index:1}
+.slot-card.empty{border:1.5px dashed var(--line-strong);border-radius:var(--r-card-play);color:var(--line-strong)}
+.slot-card.stock .card.down{background:var(--back)}
+
+/* connect four */
+.chip{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:600;font-size:14px;background:var(--sheet);box-shadow:var(--pad-card);color:var(--ink)}
+.chip b{font-size:17px;font-weight:700}
+.chip.p1::before,.chip.p2::before{content:"";width:10px;height:10px;border-radius:50%;flex:none}
+.chip.p1::before{background:var(--d1)} .chip.p2::before{background:var(--d2)}
+.chip b{margin-left:auto}
+.status-line{font-size:15px;color:var(--ink-2)}
+.status-line b{color:var(--ink);font-weight:700}
+.board.c4{background:var(--c4-board);border-radius:var(--r-board);--c4pad:10px;--c4gap:6px;box-shadow:var(--lift)}
+.board.c4 .slot{background:var(--c4-hole);box-shadow:inset 0 1px 2px rgb(0 0 0/.12)}
+.board.c4 .slot.a{background:var(--d1);box-shadow:inset 0 -2px 0 rgb(0 0 0/.14)}
+.board.c4 .slot.b{background:var(--d2);box-shadow:inset 0 -2px 0 rgb(0 0 0/.14)}
+.board.c4 .slot.b::before{content:"";position:absolute;inset:30%;border-radius:50%;background:rgb(255 255 255/.55)}
+.board.c4 .slot.last::after{content:"";position:absolute;inset:-4px;border:2px solid var(--ink);border-radius:50%;opacity:.7}
+.board.c4 .slot.next{box-shadow:inset 0 0 0 2px var(--d1),0 0 0 3px color-mix(in srgb,var(--d1) 30%,transparent)}
+.drop .slot.ghost{background:color-mix(in srgb,var(--d1) 40%,transparent);box-shadow:none}
+
+@media (prefers-reduced-motion:no-preference){
+  .tool,.key,.game,.continue,.icon-btn,.timer{transition:transform .12s cubic-bezier(.2,.8,.2,1),opacity .12s}
+  .tool:active,.key:active,.continue:active,.icon-btn:active{transform:scale(.97)}
+}

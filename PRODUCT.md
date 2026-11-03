@@ -25,7 +25,7 @@ The design language is shared by every game in this suite, current and future. E
 ## Brand commitments
 
 - Name: Games (it was Free Games until 3.1.0). Tagline: "Free. Offline. No ads."
-- Visual direction (chosen 2026-11-03, replacing Riso): Graph Paper, a pen-and-pencil puzzle notebook. The earlier constraints (colourful but not too vibrant, soft rounded corners) were released by the owner. Light and dark themes are both still required.
+- Visual direction (chosen 2026-11-03, replacing Graph Paper, which was too harsh on the eyes): Mist, cool and airy, white tiles on a pale blue-grey ground, soft shadows, no outlines, blue-charcoal text instead of black. Light and dark themes are both required. Three candidates were prototyped in `design-candidates/`.
 
 ## Constraints
 

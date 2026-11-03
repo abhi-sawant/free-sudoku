@@ -1,0 +1,30 @@
+/* D. Linen: warm cream paper, a soft serif for titles, hairline edges, terracotta-free calm. Lists, not tiles. */
+:root{
+  --paper:#f6f1e7; --sheet:#fffdf8; --sunk:#ebe4d6; --stage:#e6e0d3;
+  --ink:#332e29; --ink-2:#6a6055; --line:#e2d9c8; --line-strong:#b3a894;
+  --pen:#2f5f8f; --red:#b0383f;
+  --c-number:#35658f; --c-logic:#9a5d12; --c-tiles:#67529a; --c-computer:#2d6a66;
+  --c-cards:#55702a; --c-words:#9b3b57; --c-dice:#a1472a; --c-arcade:#6e4b36;
+  --cont-bg:#f1e3bd; --cont-ink:#3a3020; --cont-ink-2:#6b5c3a;
+  --back:#8a6f56; --d1:#35658f; --d2:#c98a2e; --c4-board:#e4d9c4; --c4-hole:#fffdf8;
+  --font-display:'Fraunces',Georgia,serif;
+  --r-card:18px; --r-ctl:14px; --r-key:10px; --r-board:10px; --r-icon:10px;
+  --lift:0 1px 2px rgb(70 50 20/.06);
+}
+:root[data-theme=dark]{
+  --paper:#1e1a16; --sheet:#28231e; --sunk:#161310; --stage:#0f0d0b;
+  --ink:#ede5d8; --ink-2:#b3a897; --line:#3a342d; --line-strong:#6f6558;
+  --pen:#8db6e0; --red:#f08f94; --tint:20%;
+  --c-number:#8db6e0; --c-logic:#e0a85c; --c-tiles:#b9a2e6; --c-computer:#7fcbc2;
+  --c-cards:#a8cb77; --c-words:#eb9ab2; --c-dice:#ec9a78; --c-arcade:#cfa98a;
+  --cont-bg:#3a3223; --cont-ink:#f3e9d2; --cont-ink-2:#c9b88f;
+  --back:#6d5a48; --d1:#8db6e0; --d2:#e0a85c; --c4-board:#332c25; --c4-hole:#1e1a16;
+  --lift:0 0 0 rgb(0 0 0/0);
+}
+.wordmark{font-weight:600;font-size:44px;font-variation-settings:'SOFT' 100,'WONK' 0}
+.tagline{font-style:italic;font-family:var(--font-display);font-size:16px}
+.cat-name,.continue b,.topbar .meta b{font-weight:600;font-variation-settings:'SOFT' 100}
+.game{border-bottom:1px solid var(--line)}
+.games .game:last-child{border-bottom:0}
+.game .name{font-weight:550}
+.timer,.score,.chip{box-shadow:0 0 0 1px var(--line)}

@@ -7,9 +7,9 @@
   --hatch: 0%;
   --wash: 0%;
   background-color: color-mix(in srgb, var(--p) var(--wash), var(--sheet));
-  background-image: repeating-linear-gradient(45deg, color-mix(in srgb, var(--p) var(--hatch), transparent) 0 1.5px, transparent 1.5px 6px);
+  background-image: linear-gradient(color-mix(in srgb, color-mix(in srgb, var(--p) var(--hatch), transparent) 42%, transparent), color-mix(in srgb, color-mix(in srgb, var(--p) var(--hatch), transparent) 42%, transparent));
   color: var(--ink);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: inset 0 0 0 1px var(--rule);
   border-radius: var(--wob);
 }
 [data-exp='1'] { --p: var(--yellow); --wash: 55%; }

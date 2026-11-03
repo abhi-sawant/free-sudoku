@@ -3,6 +3,6 @@
   "appName": "Games",
   "webDir": "dist",
   "android": {
-    "backgroundColor": "#fbfcff"
+    "backgroundColor": "#eef2f7"
   }
 }

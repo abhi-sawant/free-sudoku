@@ -32,7 +32,7 @@
   font-variant-numeric: tabular-nums;
 }
 .tally .draws b { color: var(--ink-2); }
-.tally small { font-family: var(--pen-font); font-size: 1.1rem; font-weight: 600; color: var(--ink-2); line-height: 1; }
+.tally small { font-family: var(--pen-font); font-size: 0.85rem; font-weight: 600; color: var(--ink-2); line-height: 1; }
 .meta span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 360px) {
   .tally { gap: 6px; }
@@ -56,7 +56,7 @@
   padding: 8px;
   border-radius: var(--r-board);
   background: var(--sheet);
-  box-shadow: 0 0 0 3px var(--ink);
+  box-shadow: 0 0 0 2px var(--rule-2);
   user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none;
@@ -67,7 +67,7 @@
   display: block;
   border-radius: 50%;
   background: var(--s0);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: inset 0 0 0 1px var(--rule);
 }
 .piece.s1 { background: var(--s1); box-shadow: inset 0 0 0 calc(var(--ring, 3px)) var(--s1-ring); }
 
@@ -93,7 +93,7 @@
   border-radius: 50%;
   vertical-align: -0.05em;
   background: var(--s0);
-  box-shadow: inset 0 0 0 1.5px var(--ink);
+  box-shadow: inset 0 0 0 1px var(--rule);
 }
 .side-1::before { background: var(--s1); }
 

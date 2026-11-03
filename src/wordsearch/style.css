@@ -28,6 +28,6 @@
 .letter.picking { background: color-mix(in srgb, var(--yellow) 75%, transparent); mix-blend-mode: var(--blend); color: var(--ink); }
 .letter.hint { outline: 3px solid var(--yellow); outline-offset: -3px; animation: hint 1s ease-in-out infinite alternate; }
 .wordlist { display: flex; flex-wrap: wrap; gap: 4px 14px; padding: 10px 4px 2px; font-family: var(--pen-font); font-weight: 700; font-size: 1.4rem; line-height: 1.15; color: var(--c); }
-.wordlist b { width: 100%; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 0.95rem; font-weight: 800; color: var(--ink); }
+.wordlist b { width: 100%; font-family: 'Nunito', system-ui, sans-serif; font-size: 0.95rem; font-weight: 800; color: var(--ink); }
 .wordlist span.done { text-decoration: line-through; text-decoration-thickness: 2px; text-decoration-color: var(--c); color: var(--ink-2); background: linear-gradient(transparent 50%, var(--swipe) 50% 90%, transparent 90%); }
 .board.is-paused .letters { visibility: hidden; }

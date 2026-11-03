@@ -16,13 +16,13 @@
   opacity: 0.75;
   transition: opacity 0.15s ease;
 }
-.player.active { opacity: 1; background: var(--note); box-shadow: inset 0 0 0 2px var(--ink); }
+.player.active { opacity: 1; background: var(--note); box-shadow: inset 0 0 0 1px var(--rule); }
 .player .who { font-size: 0.8rem; font-weight: 750; color: var(--ink-2); }
 .player .score { font-family: var(--pen-font); font-size: 2.6rem; font-weight: 700; color: var(--c); line-height: 0.9; text-align: left; min-width: 0; }
-.track { position: relative; display: flex; height: 10px; border-radius: 5px; background: var(--sheet); box-shadow: inset 0 0 0 1.5px var(--ink); overflow: hidden; }
+.track { position: relative; display: flex; height: 10px; border-radius: 5px; background: var(--sheet); box-shadow: inset 0 0 0 1px var(--rule); overflow: hidden; }
 .track .fill { background: var(--c); }
-.track .pending { background: repeating-linear-gradient(45deg, var(--c) 0 1.5px, transparent 1.5px 5px); }
-.player.s1 .fill { background: repeating-linear-gradient(-45deg, var(--c) 0 2px, transparent 2px 4px); }
+.track .pending { background: linear-gradient(color-mix(in srgb, var(--c) 42%, transparent), color-mix(in srgb, var(--c) 42%, transparent)); }
+.player.s1 .fill { background: linear-gradient(color-mix(in srgb, var(--c) 42%, transparent), color-mix(in srgb, var(--c) 42%, transparent)); }
 
 .dice-row { min-height: 64px; align-items: center; }
 .actions { display: flex; gap: 10px; }

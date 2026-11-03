@@ -1,0 +1,40 @@
+/* E. Mist: cool, airy, rounded. White tiles floating on a pale blue-grey ground, soft diffuse shadows, no outlines. */
+:root{
+  --paper:#eef2f7; --sheet:#ffffff; --sunk:#e3e9f1; --stage:#dde4ee;
+  --ink:#1f2a3a; --ink-2:#5a687c; --line:#e1e7f0; --line-strong:#a3b0c4;
+  --pen:#3b63d9; --red:#c63a50; --tint:14%;
+  --c-number:#3f64d8; --c-logic:#c4620e; --c-tiles:#6a5ae0; --c-computer:#0f8a7e;
+  --c-cards:#4d8a1f; --c-words:#d8447f; --c-dice:#a24fc4; --c-arcade:#8a6a4f;
+  --cont-bg:#ffffff; --cont-ink:#1f2a3a; --cont-ink-2:#5a687c;
+  --back:#6f86d8; --d1:#3f64d8; --d2:#f0a23a; --c4-board:#cdd8ee; --c4-hole:#f5f8fd;
+  --font-ui:'Nunito',system-ui,sans-serif;
+  --r-card:22px; --r-ctl:16px; --r-key:12px; --r-board:18px; --r-icon:12px; --r-card-play:7px;
+  --pad-card:0 0 0 0 transparent;
+  --lift:0 1px 2px rgb(31 42 58/.05),0 6px 18px -6px rgb(31 42 58/.12);
+}
+:root[data-theme=dark]{
+  --paper:#121825; --sheet:#1a2233; --sunk:#0e1420; --stage:#0a0e17;
+  --ink:#e6ebf5; --ink-2:#a2aec3; --line:#27324a; --line-strong:#5b6a88;
+  --pen:#8fa9ff; --red:#ff8e9f; --tint:20%;
+  --c-number:#8fa9ff; --c-logic:#f0a867; --c-tiles:#ad9cff; --c-computer:#6fd3c6;
+  --c-cards:#a3d36f; --c-words:#f59bc0; --c-dice:#d6a0ee; --c-arcade:#d2b08f;
+  --cont-bg:#1a2233; --cont-ink:#e6ebf5; --cont-ink-2:#a2aec3;
+  --back:#4b5f9c; --d1:#8fa9ff; --d2:#f0b45a; --c4-board:#26314a; --c4-hole:#121825;
+  --lift:0 1px 0 rgb(255 255 255/.03) inset,0 8px 20px -10px rgb(0 0 0/.6);
+}
+.wordmark{font-weight:800;font-size:38px}
+.cat-name,.continue b,.topbar .meta b{font-weight:800}
+.continue{padding:14px 16px 14px 14px;border-radius:24px}
+.continue .go{background:var(--c-number);color:#fff;border-radius:50%;width:36px;height:36px;padding:8px;flex:none}
+:root[data-theme=dark] .continue .go{color:#121825}
+/* games as a two-column grid of soft tiles */
+.games{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.game{flex-direction:column;align-items:flex-start;gap:10px;min-height:112px;padding:14px;background:var(--sheet);border-radius:var(--r-card);box-shadow:var(--lift)}
+.game .icon{width:44px;height:44px;border-radius:14px}
+.game .name{font-size:15.5px;font-weight:700;line-height:1.2;margin-top:auto}
+.game .meta{flex:none;justify-content:flex-start;font-size:12.5px}
+.game .meta:empty{display:none}
+.game.more{background:transparent;box-shadow:inset 0 0 0 1.5px var(--line-strong);opacity:.9;justify-content:center;align-items:center;flex-direction:row;gap:6px;min-height:112px}
+.game.more .plus{width:auto}
+.tool,.key,.timer,.score,.chip,.topbar .icon-btn{box-shadow:var(--lift)}
+.sudoku .cell.sel{box-shadow:inset 0 0 0 2.5px var(--cat);border-radius:6px}

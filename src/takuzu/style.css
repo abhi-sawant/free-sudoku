@@ -15,7 +15,7 @@
   font-size: calc(100cqi / var(--cols) * 0.7);
   color: var(--orange);
 }
-.cell.v1 { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--orange) 30%, transparent) 0 1.5px, transparent 1.5px 6px), var(--sheet); }
+.cell.v1 { background: linear-gradient(color-mix(in srgb, color-mix(in srgb, var(--orange) 30%, transparent) 42%, transparent), color-mix(in srgb, color-mix(in srgb, var(--orange) 30%, transparent) 42%, transparent)), var(--sheet); }
 .cell.given { font-family: inherit; font-weight: 800; font-size: calc(100cqi / var(--cols) * 0.5); color: var(--ink); background: var(--sunk); }
 
 /* A broken rule is circled in the red pen. */

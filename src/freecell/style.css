@@ -4,7 +4,7 @@
 /* FreeCell prints in olive, with the card games. Free cells are hatched in olive so they read apart from the foundations. */
 :root { --c: var(--olive); }
 
-.pile.cell { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--c) 45%, transparent) 0 1px, transparent 1px 6px); }
+.pile.cell { background: linear-gradient(color-mix(in srgb, color-mix(in srgb, var(--c) 45%, transparent) 42%, transparent), color-mix(in srgb, color-mix(in srgb, var(--c) 45%, transparent) 42%, transparent)); }
 
 .deal-input {
   width: 100%;
@@ -13,7 +13,7 @@
   border: 0;
   border-radius: var(--wob);
   background: var(--sheet);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: inset 0 0 0 1px var(--rule);
   color: var(--c);
   font-family: var(--pen-font);
   font-size: 2rem;
