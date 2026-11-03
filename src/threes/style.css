@@ -1,7 +1,7 @@
 @import '../base.css';
 
 /* Threes prints in lilac, with the number tiles. 1s are coral and 2s blue, so the pair that makes 3
-   reads at a glance; from 3 up a tile is sheet with a lilac rim, then a lilac tint, then solid lilac. */
+   reads at a glance; from 3 up a tile is a pen-outlined sheet, then lilac hatching, then solid lilac. */
 :root { --c: var(--lilac); }
 
 .is-over .history-status { color: var(--c); }
@@ -14,8 +14,8 @@
 /* ---------- Game ---------- */
 
 .score { text-align: right; line-height: 1.05; min-width: 64px; }
-.score b { display: block; font-size: 1.5rem; font-weight: 850; color: var(--c); }
-.score span { font-size: 0.72rem; font-weight: 700; color: var(--ink-2); font-variation-settings: 'CASL' 0.35, 'MONO' 0; }
+.score b { display: block; font-family: var(--pen-font); font-size: 2rem; font-weight: 700; line-height: 1; color: var(--c); }
+.score span { font-size: 0.72rem; font-weight: 700; color: var(--ink-2); }
 
 .tools { grid-template-columns: repeat(2, 88px); justify-content: center; margin-bottom: 0; }
 .tool:disabled { opacity: 0.4; cursor: default; }
@@ -43,8 +43,7 @@
   position: static;
   width: 34px;
   height: 46px;
-  border-radius: 9px;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   translate: none;
 }
 
@@ -54,7 +53,7 @@
   padding: 8px;
   border-radius: var(--r-board);
   background: var(--sheet);
-  box-shadow: var(--shadow);
+  box-shadow: 0 0 0 3px var(--ink);
 }
 
 /* Threes tiles are taller than they are wide, like cards. */
@@ -73,31 +72,33 @@
   left: 0;
   width: calc((100% - 3 * var(--gap)) / 4);
   height: calc((100% - 3 * var(--gap)) / 4);
-  border-radius: 12px;
+  border-radius: var(--wob);
   translate: calc(var(--x) * (100% + var(--gap))) calc(var(--y) * (100% + var(--gap)));
 }
 
-.cell-bg { background: var(--sunk); }
+.cell-bg { background: none; box-shadow: inset 0 0 0 1px var(--rule); }
 
 .tile {
   display: grid;
   place-items: center;
-  font-weight: 850;
-  font-variation-settings: 'CASL' 1;
-  font-size: 10cqw;
+  font-family: var(--pen-font);
+  font-weight: 700;
+  font-size: 14cqw;
   line-height: 1;
   z-index: 2;
   color: var(--ink);
   transition: translate 0.12s ease-in-out;
 }
-.tile[data-len='3'] { font-size: 8.5cqw; }
-.tile[data-len='4'] { font-size: 7cqw; }
-.tile[data-len='5'] { font-size: 5.8cqw; }
+.tile[data-len='3'] { font-size: 11.5cqw; }
+.tile[data-len='4'] { font-size: 9.5cqw; }
+.tile[data-len='5'] { font-size: 7.8cqw; }
 
-.tile[data-kind='one'] { background: var(--coral); color: var(--on-ink); }
-.tile[data-kind='two'] { background: var(--blue); color: var(--on-ink); }
-.tile[data-kind='low'] { background: var(--sheet); box-shadow: inset 0 0 0 2px var(--lilac); }
-.tile[data-kind='mid'] { background: color-mix(in srgb, var(--lilac) 35%, var(--sheet)); box-shadow: inset 0 0 0 2px var(--lilac); }
+/* 1s are hatched in the red pen and 2s in blue ballpoint; solid pen is kept for the big tiles. */
+.tile { box-shadow: inset 0 0 0 2px var(--ink); background: var(--sheet); }
+.tile[data-kind='one'] { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--coral) 75%, transparent) 0 1.5px, transparent 1.5px 6px), color-mix(in srgb, var(--coral) 14%, var(--sheet)); }
+.tile[data-kind='two'] { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--blue) 75%, transparent) 0 1.5px, transparent 1.5px 6px), color-mix(in srgb, var(--blue) 14%, var(--sheet)); }
+.tile[data-kind='low'] { background: var(--sheet); }
+.tile[data-kind='mid'] { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--lilac) 70%, transparent) 0 1.5px, transparent 1.5px 6px), color-mix(in srgb, var(--lilac) 12%, var(--sheet)); }
 .tile[data-kind='big'] { background: var(--lilac); color: var(--on-ink); }
 
 .tile.absorbed { z-index: 1; }

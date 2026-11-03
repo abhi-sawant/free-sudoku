@@ -1,0 +1,145 @@
+/* B. Graph Paper: printed grid, ballpoint, pencil, red pen, highlighters. */
+:root{
+  --paper:#fbfcff; --sheet:#ffffff; --sunk:#eaf0f8; --grid:#d3e3f2; --line:#9fb6cf;
+  --ink:#14171f; --ink-2:#555d70; --pen:#1c3fa6; --pencil:#7b8296; --red:#d33a48; --on-ink:#fff;
+  --hl-a:.8; --hl-blend:multiply;
+  --y:#ffe45c; --pk:#ff9fc6; --gn:#86e08f; --or:#ffb35c; --cy:#79d6ff; --li:#c8aeff; --lm:#d6ee62; --pc:#ffc4a8;
+  --stage:#e4ebf3; --stage-ink:#14171f;
+}
+:root[data-theme=dark]{
+  --paper:#10151f; --sheet:#151b28; --sunk:#0c1019; --grid:#1b2638; --line:#34445f;
+  --ink:#e9edf6; --ink-2:#a0a9bf; --pen:#8fb2ff; --pencil:#8790a6; --red:#ff7d88; --on-ink:#10151f;
+  --hl-a:.34; --hl-blend:screen;
+  --stage:#080b12; --stage-ink:#e9edf6;
+}
+body{background:var(--stage);color:var(--stage-ink);font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:500;min-height:100vh}
+.stage-head .theme{background:var(--ink);color:var(--paper);border-radius:999px;font-weight:700}
+.phone{background:#15171c}
+.screen{background:var(--paper);color:var(--ink)}
+.app{
+  background:
+    linear-gradient(to right,var(--grid) 1px,transparent 1px) 0 0/20px 20px,
+    linear-gradient(to bottom,var(--grid) 1px,transparent 1px) 0 0/20px 20px,
+    var(--paper);
+  background-position:-1px -1px;
+  font-size:16px;
+}
+.mono{font-variant-numeric:tabular-nums}
+.hand{font-family:'Caveat',cursive}
+
+/* every pen outline is its own pseudo layer so the roughen filter never distorts text */
+.tool,.key,.timer,.score,.chip,.icon-btn,.card,.continue,.board.c4,.sudoku{position:relative}
+.tool::before,.key::before,.timer::before,.score::before,.icon-btn::before,.continue::before,.board.c4::before,.sudoku::before{
+  content:"";position:absolute;inset:0;border:2px solid var(--pen);border-radius:12px;filter:url(#rough);pointer-events:none;
+}
+.tool>*,.key>*,.timer>*,.score>*,.icon-btn>*,.continue>*{position:relative}
+
+/* home */
+.mast{display:flex;align-items:flex-end;gap:10px;padding:8px 0 0 12px;position:relative}
+.wordmark{font-size:50px;line-height:1;font-weight:800;letter-spacing:-.025em;position:relative;z-index:0}
+.wordmark::before{content:"";position:absolute;left:-6px;right:-8px;bottom:5px;height:.42em;background:var(--y);opacity:var(--hl-a);mix-blend-mode:var(--hl-blend);z-index:-1;border-radius:3px;transform:rotate(-1.2deg);filter:url(#rough)}
+.tagline{font-family:'Caveat',cursive;font-weight:700;font-size:24px;color:var(--pen);transform:rotate(-3deg);line-height:1;padding-bottom:6px}
+.continue{display:flex;align-items:center;gap:14px;padding:12px 14px;min-height:76px;transform:rotate(-.6deg);background:color-mix(in srgb,var(--y) 55%,var(--paper))}
+:root[data-theme=dark] .continue{background:color-mix(in srgb,var(--y) 16%,var(--paper))}
+.continue::before{border-color:var(--ink);border-radius:6px}
+.continue .txt{flex:1;display:flex;flex-direction:column}
+.continue b{font-size:19px;font-weight:800}
+.continue small{font-size:14px;color:var(--ink-2)}
+.continue .go{color:var(--ink)}
+.cats{display:flex;flex-direction:column;gap:20px;padding-left:12px;position:relative}
+.cats::before{content:"";position:absolute;left:0;top:-6px;bottom:0;width:2px;background:var(--red);opacity:.7}
+.cat h2{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:2px}
+.cat-name{font-size:20px;font-weight:800;letter-spacing:-.01em;position:relative;z-index:0;padding:0 4px;margin-left:-4px}
+.cat-name::before{content:"";position:absolute;inset:55% 0 -1px 0;background:var(--hl);opacity:var(--hl-a);mix-blend-mode:var(--hl-blend);z-index:-1;border-radius:3px;filter:url(#rough)}
+.count{font-family:'Caveat',cursive;font-size:19px;font-weight:600;color:var(--pencil)}
+[data-cat=number]{--hl:var(--cy)} [data-cat=logic]{--hl:var(--y)} [data-cat=tiles]{--hl:var(--gn)} [data-cat=computer]{--hl:var(--pk)}
+[data-cat=cards]{--hl:var(--or)} [data-cat=words]{--hl:var(--li)} [data-cat=dice]{--hl:var(--lm)} [data-cat=arcade]{--hl:var(--pc)}
+.games{display:flex;flex-direction:column}
+.game{display:flex;align-items:center;gap:12px;min-height:48px;padding:3px 0}
+.game .name{font-size:17px;font-weight:600;flex:none}
+.game .meta{flex:1;display:flex;justify-content:flex-end;align-items:baseline;font-family:'Caveat',cursive;font-size:19px;font-weight:600;color:var(--pen);min-width:0;white-space:nowrap}
+.game .meta::before{content:"";flex:1;border-bottom:2px dotted var(--line);margin:0 8px;transform:translateY(-5px)}
+.game:hover .name,.game:active .name{background:linear-gradient(transparent 55%,color-mix(in srgb,var(--hl) 70%,transparent) 55%)}
+.game.more{min-height:40px}
+.game.more .plus{font-family:'Caveat',cursive;font-size:24px;font-weight:700;color:var(--pen);width:36px;text-align:center}
+.game.more .name{color:var(--ink-2);font-weight:500}
+.demo-note{font-family:'Caveat',cursive;font-size:17px;color:var(--pencil);text-align:center}
+.icon{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);width:38px;height:38px;flex:none;background:var(--sheet);position:relative;font-family:'Hanken Grotesk';font-size:10px;font-weight:700;line-height:1;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:33.33% 33.33%;outline:2px solid var(--ink);outline-offset:0}
+.icon i{font-style:normal;display:grid;place-items:center;overflow:hidden;color:var(--ink)}
+.icon i.x{background:repeating-linear-gradient(45deg,var(--pen) 0 1.5px,transparent 0 4px)}
+.icon i.o::after{content:"";width:62%;height:62%;border:1.5px solid var(--pen);border-radius:50%}
+.continue .icon{width:46px;height:46px;font-size:12px}
+
+/* top bar, tools, keys */
+.topbar .icon-btn{border-radius:50%}
+.icon-btn::before{border-radius:50%}
+.topbar .meta b{font-size:20px;font-weight:800;line-height:1.1}
+.topbar .meta span{font-family:'Caveat',cursive;font-size:21px;font-weight:600;color:var(--pen);line-height:1}
+.timer,.score{background:color-mix(in srgb,var(--cy) 60%,var(--paper));font-weight:800;font-size:18px;min-height:44px}
+:root[data-theme=dark] .timer,:root[data-theme=dark] .score{background:color-mix(in srgb,var(--cy) 20%,var(--paper))}
+.timer::before,.score::before{border-radius:999px}
+.tool{font-weight:600;font-size:13px;background:var(--sheet);border-radius:12px}
+.tool::before{border-radius:12px;border-color:var(--ink)}
+.tool.active{background:color-mix(in srgb,var(--y) 70%,var(--paper))}
+:root[data-theme=dark] .tool.active{background:color-mix(in srgb,var(--y) 24%,var(--paper))}
+.pad{gap:4px}
+.key{background:var(--sheet);border-radius:8px;min-height:60px}
+.key::before{border-radius:8px;border-width:1.5px}
+.key b{font-family:'Caveat',cursive;font-size:34px;font-weight:700;color:var(--pen);line-height:.9}
+.key small{font-family:'Caveat',cursive;font-size:15px;color:var(--pencil);font-weight:600;margin-top:0}
+.key.done{opacity:.45}
+.key.done b{text-decoration:line-through}
+
+/* sudoku */
+.board.sudoku{background:var(--sheet);border-radius:3px;--bw:2.5px}
+.sudoku::before{border-radius:2px;border:3px solid var(--ink);inset:-2px}
+.sudoku .cell{border:solid var(--line);border-width:0 1px 1px 0;font-weight:600;font-size:22px;color:var(--ink)}
+.sudoku .cell.br{border-right:2.5px solid var(--ink)}
+.sudoku .cell.bb{border-bottom:2.5px solid var(--ink)}
+.sudoku .cell:nth-child(9n){border-right:0}
+.sudoku .cell:nth-child(n+73){border-bottom:0}
+.sudoku .cell.entry{font-family:'Caveat',cursive;font-weight:700;font-size:32px;color:var(--pen);line-height:1;padding-bottom:2px}
+.sudoku .cell.peer{background:color-mix(in srgb,var(--cy) 28%,transparent)}
+.sudoku .cell.sel{background:color-mix(in srgb,var(--y) 85%,transparent)}
+:root[data-theme=dark] .sudoku .cell.peer{background:color-mix(in srgb,var(--cy) 12%,transparent)}
+:root[data-theme=dark] .sudoku .cell.sel{background:color-mix(in srgb,var(--y) 32%,transparent)}
+.sudoku .cell.wrong{color:var(--red)}
+.sudoku .cell.wrong::after{content:"";position:absolute;inset:3px;border:2px solid var(--red);border-radius:50%;filter:url(#rough);transform:rotate(-8deg)}
+.sudoku .cell.notes i{font-family:'Caveat',cursive;font-size:14px;font-weight:600;color:var(--pencil)}
+
+/* cards */
+.card{background:var(--sheet);color:var(--ink);border-radius:6px;box-shadow:0 0 0 1.5px var(--ink);padding:3px 4px}
+.card.red{color:var(--red)}
+.card b{font-weight:800}
+.card.down{background:
+  repeating-linear-gradient(45deg,var(--pen) 0 1px,transparent 1px 5px),
+  repeating-linear-gradient(-45deg,var(--pen) 0 1px,transparent 1px 5px),var(--sheet);
+  box-shadow:0 0 0 1.5px var(--pen)}
+.card.hint::after{content:"";position:absolute;inset:0;background:var(--y);opacity:var(--hl-a);mix-blend-mode:var(--hl-blend)}
+.slot-card.empty{border:2px dashed var(--line);border-radius:6px;color:var(--line)}
+.slot-card .card{width:100%}
+.hint{z-index:1}
+
+/* connect four */
+.tally{gap:4px}
+.chip{display:flex;justify-content:space-between;align-items:baseline;padding:4px 2px;font-weight:700;font-size:15px;border-bottom:2px solid var(--ink)}
+.chip.p1{border-color:var(--pen)}
+.chip.p1 b{color:var(--pen)}
+.chip.p2{border-color:var(--red)}
+.chip.p2 b{color:var(--red)}
+.chip.draw{border-color:var(--line);min-width:96px}
+.chip b{font-size:20px;font-weight:800}
+.status-line{font-family:'Caveat',cursive;font-size:22px;color:var(--pen);font-weight:600}
+.status-line b{color:var(--ink);font-weight:700}
+.c4wrap{display:flex;flex-direction:column;gap:6px}
+.board.c4{background:var(--sheet);--c4pad:10px;--c4gap:5px}
+.board.c4::before{border-color:var(--ink);border-radius:6px}
+.board.c4 .slot{border:1.5px solid var(--line)}
+.board.c4 .slot.a{background:repeating-linear-gradient(45deg,var(--pen) 0 2px,transparent 2px 5px);border:2px solid var(--pen)}
+.board.c4 .slot.b{background:repeating-linear-gradient(-45deg,var(--red) 0 2px,transparent 2px 5px);border:2px solid var(--red)}
+.board.c4 .slot.last::after{content:"";position:absolute;inset:-5px;border:2px solid var(--ink);border-radius:50%;filter:url(#rough)}
+.board.c4 .slot.next{border:2px dotted var(--ink);background:color-mix(in srgb,var(--gn) 55%,transparent)}
+.drop .slot.ghost{background:repeating-linear-gradient(45deg,var(--pen) 0 2px,transparent 2px 5px);border:2px dashed var(--pen);opacity:.6}
+
+.mark{display:none}

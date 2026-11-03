@@ -1,20 +1,20 @@
 @import '../base.css';
 @import '../shared/vs.css';
 
-/* Hex prints in sky, with the board games. Sky's stones are solid sky, Ring's are paper ringed in sky, as in
-   the other board games; each side's two edges are ruled in its own way, and the winning chain glows. */
+/* Hex prints in sky, with the board games. Sky's stones are solid sky, Ring's are paper, both ringed in ink; each side's
+   two edges are ruled in its own way, and the winning chain is outlined in ink. */
 
 .board { display: block; }
 .board-frame { width: min(100%, 520px, calc((100dvh - 320px) * 1.5)); }
 .hex { display: block; width: 100%; height: auto; stroke: none; }
 
-.hex .cell { fill: var(--sunk); stroke: var(--sheet); stroke-width: 1.2; cursor: default; }
+.hex .cell { fill: var(--sheet); stroke: var(--ink-2); stroke-width: 0.9; cursor: default; }
 .hex .cell.open { cursor: pointer; }
-.hex .cell.open:hover { fill: color-mix(in srgb, var(--sky) 18%, var(--sunk)); }
-.hex .cell.s0 { fill: var(--s0); }
-.hex .cell.s1 { fill: var(--s1); stroke: var(--s1-ring); stroke-width: 2.2; }
-.hex .cell.last { stroke: var(--yellow); stroke-width: 2.4; }
-.hex .cell.path { filter: drop-shadow(0 0 2px var(--yellow)); }
+.hex .cell.open:hover { fill: var(--note); }
+.hex .cell.s0 { fill: var(--s0); stroke: var(--ink); stroke-width: 1.6; }
+.hex .cell.s1 { fill: var(--s1); stroke: var(--ink); stroke-width: 1.6; }
+.hex .cell.last { stroke: var(--coral); stroke-width: 2.4; }
+.hex .cell.path { stroke: var(--ink); stroke-width: 3; }
 
 .hex .edge { fill: none; stroke-width: 4; stroke-linecap: round; }
 .hex .edge.e0 { stroke: var(--sky); }

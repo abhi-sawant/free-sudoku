@@ -2,8 +2,8 @@
 @import '../shared/grid.css';
 @import '../shared/logic.css';
 
-/* Masyu prints in orange, with the logic puzzles. White pearls are paper ringed in navy, black pearls solid
-   navy; the loop runs under them in thick ink. */
+/* Masyu prints in orange, with the logic puzzles. White pearls are paper ringed in ink, black pearls solid
+   ink; the loop runs under them in ballpoint pen. */
 :root { --c: var(--orange); }
 
 .lattice .pearls circle { stroke: var(--ink); stroke-width: 6; }

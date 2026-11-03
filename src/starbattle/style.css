@@ -1,31 +1,21 @@
 @import '../base.css';
 @import '../shared/grid.css';
 
-/* Star Battle prints in orange, with the logic puzzles. Regions are four tints of the ink, outlined in
-   ink; stars are solid ink, cells you rule out get a small dot. Clashing stars go coral. */
-:root { --c: var(--orange); --edge: calc(100cqi / var(--cols) * 0.06); }
+/* Star Battle prints in orange, with the logic puzzles. Regions are outlined in heavy ink rules over a
+   hairline grid, with the odd region lightly hatched; stars are pen-coloured, cells you rule out get a small dot. Clashing stars go red. */
+:root { --c: var(--orange); --edge: max(2.5px, calc(100cqi / var(--cols) * 0.06)); }
 
 .summary th, .summary td { padding: 12px 8px; }
 
 /* Cells butt up against each other so region outlines read as one line. */
-.board { gap: 0; padding: 4px; }
+.board { gap: 0; padding: 0; }
 .cell { cursor: pointer; border-radius: 0; position: relative; box-shadow: inset 0 0 0 0.5px var(--rule); }
 .cell:disabled { cursor: default; }
-.cell[data-shade='0'] { background: color-mix(in srgb, var(--orange) 6%, var(--sheet)); }
-.cell[data-shade='1'] { background: color-mix(in srgb, var(--orange) 26%, var(--sheet)); }
-.cell[data-shade='2'] { background: color-mix(in srgb, var(--orange) 16%, var(--sheet)); }
-.cell[data-shade='3'] { background: color-mix(in srgb, var(--orange) 36%, var(--sheet)); }
-
-/* Orange mixed into dark paper goes brown, so at night the regions step through the pale ink instead. */
-@media (prefers-color-scheme: dark) {
-  .cell[data-shade='0'] { background: color-mix(in srgb, var(--ink) 3%, var(--sheet)); }
-  .cell[data-shade='1'] { background: color-mix(in srgb, var(--ink) 15%, var(--sheet)); }
-  .cell[data-shade='2'] { background: color-mix(in srgb, var(--ink) 9%, var(--sheet)); }
-  .cell[data-shade='3'] { background: color-mix(in srgb, var(--ink) 21%, var(--sheet)); }
-}
+.cell[data-shade='0'], .cell[data-shade='2'] { background: var(--sheet); }
+.cell[data-shade='1'], .cell[data-shade='3'] { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--ink) 16%, transparent) 0 1px, transparent 1px 6px), var(--sheet); }
 
 /* Region outlines: one ink rule on each side where the region changes. */
-.cell::before { content: ''; position: absolute; inset: 0; pointer-events: none; border: 0 solid var(--ink); }
+.cell::before { content: ''; position: absolute; inset: 0; pointer-events: none; border: 0 solid var(--ink); z-index: 1; }
 .cell[data-edges*='t']::before { border-top-width: var(--edge); }
 .cell[data-edges*='r']::before { border-right-width: var(--edge); }
 .cell[data-edges*='b']::before { border-bottom-width: var(--edge); }

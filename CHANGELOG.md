@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.2.8 — 2026-11-03
+
+Games gets a new look: a puzzle notebook on graph paper.
+
+### Changed
+
+- Every page is redrawn as a notebook sheet: a printed grid, clues in black type, and your entries in ballpoint,
+  pencil notes, red pen for mistakes and a highlighter for the cursor.
+- Each family of games writes in its own pen colour, so you can still tell number puzzles, logic puzzles, cards and
+  the rest apart at a glance.
+- Entries, notes, counts and status lines are set in a handwriting font; clues and menus use a clean printed font.
+  Both are bundled with the app, so they work offline.
+- New app icons and a restyled home page, top bar, menus, tools, history and dialogs, in light and dark.
+
 ## 3.2.7 — 2026-10-25
 
 A new puzzle, a game picked for you each day, and a guide for every game.

@@ -1,31 +1,39 @@
-/* Riso: the shared look for the home page and every game. Risograph inks on cool paper.
-   Each game owns one ink (--c) and uses it for its menu, buttons, timer and board accents.
-   Highlights are translucent ink layers that overprint where they cross. See DESIGN.md. */
+/* Graph Paper: the shared look for the home page and every game. A pen-and-pencil puzzle notebook: printed clues,
+   ballpoint entries in your own hand, pencil notes, a red pen for mistakes and a highlighter for the cursor.
+   Each family of games writes in one pen colour (--c). See DESIGN.md. */
 
 @font-face {
-  font-family: 'Recursive';
-  font-style: oblique 0deg 15deg;
-  font-weight: 300 1000;
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 100 900;
   font-display: swap;
-  src: url('./fonts/recursive-latin-full.woff2') format('woff2-variations');
+  src: url('./fonts/hanken-grotesk-latin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('./fonts/caveat-latin.woff2') format('woff2');
 }
 
 :root {
-  --paper: #eef0f3;
-  --sheet: #f9fafb;
-  --sunk: #e1e5ec;
-  --ink: #1e2741;
-  --ink-2: #4b5472;
-  --rule: #c9cfdb;
-  --on-ink: #f9fafb;
+  --paper: #fbfcff;
+  --sheet: #ffffff;
+  --sunk: #eaf0f8;
+  --ink: #14171f;
+  --ink-2: #555d70;
+  --rule: #b9cadd;
+  --grid: #d3e3f2;
+  --on-ink: #ffffff;
 
-  /* The ink set. Each family of games prints in one ink (see DESIGN.md): number puzzles blue,
-     logic puzzles orange, number tiles lilac, board games sky, cards olive, word games berry, dice
-     games plum, arcade games cocoa. Teal, coral, yellow and mint are accents shared by all. */
-  --blue: #3f5fb0;
+  /* The pens. Each family of games writes in one pen colour (see DESIGN.md): number puzzles ballpoint blue,
+     logic puzzles orange, number tiles lilac, board games sky, cards olive, word games berry, dice games plum,
+     arcade games cocoa. Teal, coral (the red pen), yellow (the highlighter) and mint are shared by all. */
+  --blue: #2a4cb5;
   --teal: #1f6d66;
-  --coral: #bc4c37;
-  --yellow: #efbf45;
+  --coral: #d33a48;
+  --yellow: #ffe45c;
   --lilac: #6c5aa8;
   --mint: #2f7a5f;
   --orange: #a4520f;
@@ -38,30 +46,35 @@
   --c: var(--blue);
   --field: 15%;
   --tint: color-mix(in srgb, var(--c) var(--field), var(--paper));
+  --swipe: color-mix(in srgb, var(--c) 34%, transparent);
+  --note: color-mix(in srgb, var(--yellow) 62%, var(--paper));
   --blend: multiply;
-  --grain-op: 0.22;
-  --shadow: 0 0.6em 1.4em -0.8em rgb(20 25 50 / 0.35);
+  --shadow: 0 0 #0000;
   --wrong: var(--coral);
+  --pen-font: 'Caveat', 'Segoe Print', cursive;
 
-  --r-card: 24px;
-  --r-board: 20px;
-  --r-tile: 16px;
-  --r-key: 13px;
+  --r-card: 14px;
+  --r-board: 6px;
+  --r-tile: 12px;
+  --r-key: 8px;
+  /* A hand-drawn outline: corners that are never quite the same. */
+  --wob: 14px 17px 13px 16px / 16px 13px 17px 14px;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #141927;
-    --sheet: #1b2132;
-    --sunk: #0f131e;
-    --ink: #e9ecf4;
-    --ink-2: #a7aec3;
-    --rule: #2d3549;
-    --on-ink: #141927;
-    --blue: #7f9cec;
+    --paper: #10151f;
+    --sheet: #151b28;
+    --sunk: #0c1019;
+    --ink: #e9edf6;
+    --ink-2: #a0a9bf;
+    --rule: #34445f;
+    --grid: #1b2638;
+    --on-ink: #10151f;
+    --blue: #8fb2ff;
     --teal: #5cc0b5;
-    --coral: #f08f78;
+    --coral: #ff7d88;
     --yellow: #e8c062;
     --lilac: #a897e6;
     --mint: #86d1b4;
@@ -72,9 +85,8 @@
     --plum: #d6a0ea;
     --cocoa: #dcb497;
     --field: 20%;
+    --note: color-mix(in srgb, var(--yellow) 22%, var(--paper));
     --blend: screen;
-    --grain-op: 0.1;
-    --shadow: 0 0.6em 1.4em -0.8em rgb(0 0 0 / 0.6);
     color-scheme: dark;
   }
 }
@@ -88,15 +100,24 @@
 html, body {
   margin: 0;
   min-height: 100%;
-  background: var(--paper);
+  background-color: var(--paper);
   color: var(--ink);
-  font-family: 'Recursive', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  font-variation-settings: 'CASL' 0.35, 'MONO' 0;
+  font-family: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior: none;
 }
+/* The printed grid. */
+body {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: -1px -1px;
+}
 
-::selection { background: color-mix(in srgb, var(--yellow) 60%, transparent); color: var(--ink); }
+::selection { background: color-mix(in srgb, var(--yellow) 70%, transparent); color: var(--ink); }
+input, textarea { caret-color: var(--c); }
+* { scrollbar-color: var(--rule) transparent; }
 
 button {
   font: inherit;
@@ -105,7 +126,7 @@ button {
   touch-action: manipulation;
 }
 
-:focus-visible { outline: 2.5px solid var(--c); outline-offset: 2px; }
+:focus-visible { outline: 2.5px dashed var(--c); outline-offset: 3px; }
 
 [hidden] { display: none !important; }
 
@@ -131,25 +152,16 @@ svg {
   stroke-linejoin: round;
 }
 
-/* Timers, counts, scores and tables: Recursive's mono axis, tabular figures. */
+/* Timers, counts, scores and tables: tabular figures. */
 .mono, .timer, .score, .summary, .pad-left, .continue small, .history-time {
-  font-variation-settings: 'CASL' 0, 'MONO' 1;
   font-variant-numeric: tabular-nums;
 }
 
-/* Paper tooth: fine noise printed over an ink field. */
-.grain { position: relative; isolation: isolate; }
-.grain::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: var(--grain-op);
-  mix-blend-mode: var(--blend);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1.4 -.5'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 160px;
-}
+/* The pen layer: anything you wrote, or a note in the margin. */
+.pen { font-family: var(--pen-font); font-weight: 700; }
+
+/* Retired: paper tooth belonged to the previous look. Kept so existing markup still works. */
+.grain { position: relative; }
 
 /* ---------- Game menus ---------- */
 
@@ -162,27 +174,39 @@ svg {
 }
 
 .logo {
-  font-size: clamp(2.6rem, 12vw, 3.6rem);
-  font-weight: 900;
-  font-variation-settings: 'CASL' 1, 'MONO' 0;
-  letter-spacing: -0.035em;
-  line-height: 0.95;
-  color: var(--c);
+  display: block;
+  width: fit-content;
+  font-size: clamp(2.6rem, 12vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--ink);
   margin: 0;
+  padding: 0 6px;
+  background: linear-gradient(transparent 56%, var(--swipe) 56% 94%, transparent 94%);
+  border-radius: 4px;
 }
 
 .tagline {
-  color: var(--ink-2);
+  font-family: var(--pen-font);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--c);
   margin: 10px 0 32px;
-  font-weight: 550;
 }
 
+/* A section heading is underlined with a highlighter swipe in the family's pen colour. */
 .section-label {
-  font-size: 1rem;
+  width: fit-content;
+  justify-self: start;
+  font-size: 1.15rem;
   font-weight: 800;
-  font-variation-settings: 'CASL' 1;
+  letter-spacing: -0.01em;
   color: var(--ink);
   margin: 28px 0 10px;
+  padding: 0 5px;
+  background: linear-gradient(transparent 55%, var(--swipe) 55% 95%, transparent 95%);
+  border-radius: 4px;
 }
 
 .back-link {
@@ -191,63 +215,70 @@ svg {
   align-items: center;
   gap: 4px;
   margin: 0 0 24px;
-  padding: 8px 14px 8px 8px;
-  border-radius: 999px;
-  background: var(--tint);
-  color: var(--c);
+  padding: 8px 16px 8px 8px;
+  border-radius: var(--wob);
+  background: var(--sheet);
+  box-shadow: inset 0 0 0 2px var(--ink);
+  color: var(--ink);
   font-weight: 700;
   font-size: 0.9rem;
   text-decoration: none;
 }
 .back-link svg { width: 20px; height: 20px; stroke-width: 2.4; }
-.back-link:active { filter: brightness(0.95); }
+.back-link:active { background: var(--tint); }
 
 .btn {
   border: 0;
   background: var(--sheet);
-  box-shadow: inset 0 0 0 2px var(--rule);
-  border-radius: 999px;
+  box-shadow: inset 0 0 0 2px var(--ink);
+  border-radius: var(--wob);
   padding: 14px 20px;
   font-weight: 700;
-  transition: transform 0.08s ease, filter 0.15s ease;
+  transition: transform 0.08s ease, background 0.15s ease;
 }
-.btn:active { transform: scale(0.98); filter: brightness(0.96); }
+.btn:active { transform: scale(0.98); background: var(--tint); }
 
+/* A solid pen stroke: the one thing to do next. */
 .btn-primary {
   background: var(--c);
   box-shadow: none;
   color: var(--on-ink);
 }
+.btn-primary:active { background: var(--c); filter: brightness(0.92); }
 
 .btn-quiet { background: none; box-shadow: none; color: var(--ink-2); }
 
-.continue {
+/* Continue is a sticky note in highlighter yellow. */
+.continue, .btn-primary.continue {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 1.1rem;
-  padding: 18px 22px;
-  border-radius: var(--r-card);
+  padding: 16px 20px;
+  border-radius: var(--wob);
+  background: var(--note);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 2px var(--ink);
 }
-.continue small { font-weight: 600; opacity: 0.9; font-size: 0.95rem; }
+.continue small { font-family: var(--pen-font); font-weight: 600; color: var(--c); font-size: 1.3rem; line-height: 1; }
 
 .levels { display: grid; gap: 10px; }
 
-/* Level buttons are tinted ink fields, not outlined boxes. */
+/* Level buttons are lines on the page: a pen outline, the detail written small beside it. */
 .level, .new-game {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 1.05rem;
   text-align: left;
-  border-radius: var(--r-tile);
+  border-radius: var(--wob);
   padding: 16px 18px;
-  background: var(--tint);
-  box-shadow: none;
+  background: var(--sheet);
+  box-shadow: inset 0 0 0 2px var(--ink);
   color: var(--ink);
 }
-.level small, .new-game small { color: var(--ink-2); font-weight: 600; font-size: 0.85rem; }
+.level small, .new-game small { font-family: var(--pen-font); color: var(--c); font-weight: 600; font-size: 1.2rem; line-height: 1; }
 
 .history-link {
   display: flex;
@@ -266,7 +297,7 @@ a.history-link { text-decoration: none; }
 
 #history { padding-bottom: 24px; }
 
-.topbar-title { font-size: 1.15rem; font-weight: 850; font-variation-settings: 'CASL' 1; margin: 0; }
+.topbar-title { font-size: 1.2rem; font-weight: 800; margin: 0; }
 
 .summary {
   width: 100%;
@@ -276,7 +307,7 @@ a.history-link { text-decoration: none; }
   border-radius: var(--r-board);
   overflow: hidden;
   margin-top: 8px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 0 0 2px var(--ink);
 }
 .summary th, .summary td { padding: 12px 10px; text-align: right; }
 .summary th:first-child { text-align: left; padding-left: 16px; }
@@ -286,11 +317,10 @@ a.history-link { text-decoration: none; }
   font-weight: 700;
   color: var(--c);
   background: var(--tint);
-  font-variation-settings: 'CASL' 0.35, 'MONO' 0;
 }
 .summary tbody th, .summary tbody td { border-top: 1px solid var(--rule); }
 .summary tbody tr:first-child th, .summary tbody tr:first-child td { border-top: 0; }
-.summary tbody th { font-weight: 700; font-variation-settings: 'CASL' 0.35, 'MONO' 0; }
+.summary tbody th { font-weight: 700; }
 .muted { color: var(--ink-2); }
 
 .history-empty { color: var(--ink-2); font-size: 0.9rem; line-height: 1.5; }
@@ -310,7 +340,7 @@ a.history-link { text-decoration: none; }
 .history-date { color: var(--ink-2); font-size: 0.8rem; margin-top: 2px; }
 .history-result { text-align: right; flex-shrink: 0; }
 .history-time { font-weight: 700; }
-.history-status { font-size: 0.75rem; font-weight: 700; margin-top: 2px; color: var(--c); }
+.history-status { font-family: var(--pen-font); font-size: 1.1rem; font-weight: 600; line-height: 1; margin-top: 2px; color: var(--c); }
 .is-unfinished .history-status { color: var(--ink-2); }
 
 /* ---------- Game screen ---------- */
@@ -338,28 +368,30 @@ a.history-link { text-decoration: none; }
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: var(--tint);
-  color: var(--c);
+  background: var(--sheet);
+  box-shadow: inset 0 0 0 2px var(--ink);
+  color: var(--ink);
 }
 .icon-btn svg { width: 22px; height: 22px; stroke-width: 2.4; }
-span.icon-btn { background: none; }
-.icon-btn:active { filter: brightness(0.94); }
+span.icon-btn { background: none; box-shadow: none; }
+.icon-btn:active { background: var(--tint); }
 
 /* Topbar title: level on top, game name and status underneath. */
 .meta { min-width: 0; line-height: 1.2; }
-.meta b { display: block; font-size: 1.15rem; font-weight: 850; font-variation-settings: 'CASL' 1; }
-.meta span { font-size: 0.82rem; color: var(--ink-2); font-weight: 600; }
+.meta b { display: block; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.01em; }
+.meta span { font-family: var(--pen-font); font-size: 1.3rem; color: var(--c); font-weight: 600; line-height: 1; }
 
-/* The timer is a solid-ink pill; its icon shows what a tap does. */
+/* The timer is a highlighted pill; its icon shows what a tap does. */
 .timer {
   border: 0;
   height: 40px;
   min-width: 82px;
   padding: 0 14px 0 12px;
   border-radius: 999px;
-  background: var(--c);
-  color: var(--on-ink);
-  font-weight: 700;
+  background: color-mix(in srgb, var(--c) 24%, var(--paper));
+  box-shadow: inset 0 0 0 2px var(--ink);
+  color: var(--ink);
+  font-weight: 800;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -383,7 +415,7 @@ span.icon-btn { background: none; }
   place-items: center;
 }
 
-/* Tools: an ink-tinted tile with the label underneath. Switched-on tools print in solid ink. */
+/* Tools: a pen-outlined key with the label underneath. A tool that is switched on is highlighted. */
 .tools {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -408,35 +440,39 @@ span.icon-btn { background: none; }
   width: 26px;
   height: 26px;
   padding: 10px 15px;
-  border-radius: var(--r-tile);
-  background: var(--tint);
-  color: var(--c);
-  transition: background 0.15s ease, color 0.15s ease;
+  border-radius: var(--wob);
+  background: var(--sheet);
+  box-shadow: inset 0 0 0 2px var(--ink);
+  color: var(--ink);
+  transition: background 0.15s ease;
 }
-.tool:active svg { filter: brightness(0.94); }
-.tool b { font-weight: 800; color: var(--ink-2); }
-.tool.active svg { background: var(--c); color: var(--on-ink); }
-.tool.active b { color: var(--c); }
+.tool:active svg { background: var(--tint); }
+.tool b { font-weight: 700; color: var(--ink-2); }
+.tool.active svg { background: var(--note); }
+.tool.active b { color: var(--ink); }
 
 /* ---------- Dialogs ---------- */
 
 .dialog {
   border: 0;
-  border-radius: var(--r-card);
+  border-radius: var(--wob);
   padding: 28px 24px 20px;
   width: min(360px, calc(100vw - 32px));
   background: var(--sheet);
   color: var(--ink);
   text-align: center;
-  box-shadow: 0 24px 48px -16px rgb(10 14 30 / 0.45);
+  box-shadow: 0 0 0 2px var(--ink);
 }
-.dialog::backdrop { background: rgb(14 18 32 / 0.45); }
+.dialog::backdrop { background: rgb(16 21 31 / 0.4); }
 .dialog h2 {
-  margin: 0 0 8px;
+  display: inline-block;
+  margin: 0 0 10px;
+  padding: 0 6px;
   font-size: 1.8rem;
-  font-weight: 900;
-  font-variation-settings: 'CASL' 1;
-  color: var(--c);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  background: linear-gradient(transparent 56%, var(--swipe) 56% 94%, transparent 94%);
 }
 .dialog p { color: var(--ink-2); margin: 0 0 24px; line-height: 1.5; }
 .dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }

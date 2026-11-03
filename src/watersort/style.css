@@ -2,8 +2,8 @@
 @import '../shared/grid.css';
 
 /* Water Sort prints in orange, with the logic puzzles. Each colour takes an ink from the shared set, the way
-   Flow's pairs do. Tubes are sunk paper; a picked tube
-   lifts and rings in navy, and a full one rings in the category ink. */
+   Flow's pairs do. Tubes are drawn in pen on the sheet; a picked tube lifts and takes a highlighter swipe, and a
+   full one is ringed in the family pen. */
 :root { --c: var(--orange); }
 
 .summary th, .summary td { padding: 12px 8px; }
@@ -29,20 +29,21 @@
   padding: 4px;
   border: 0;
   border-radius: 8px 8px 24px 24px;
-  background: var(--sunk);
-  box-shadow: inset 0 2px 4px rgb(20 25 50 / 0.14);
+  background: var(--sheet);
+  box-shadow: inset 0 0 0 2px var(--ink);
   cursor: pointer;
   touch-action: manipulation;
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  transition: transform 0.12s ease, background 0.12s ease;
 }
 .tube:disabled { cursor: default; }
-.tube.picked { transform: translateY(-12px); box-shadow: 0 0 0 3px var(--ink); }
+.tube.picked { transform: translateY(-12px); background: var(--note); }
 .tube.done { box-shadow: inset 0 0 0 3px var(--c); }
 
 .tube i {
   flex: 1 1 0;
   min-height: 0;
   border-radius: 6px;
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--ink) 45%, transparent);
 }
 .tube i:first-child { border-radius: 6px 6px 20px 20px; }
 .tube i.k1 { background: var(--orange); }
@@ -56,5 +57,5 @@
 .tube i.k9 { background: var(--yellow); }
 
 .board.solved .tube { animation: ripple 0.5s ease both; animation-delay: calc(var(--d, 0) * 35ms); }
-.board.tubes.is-paused .tube { background: var(--c); box-shadow: none; }
+.board.tubes.is-paused .tube { background: repeating-linear-gradient(45deg, var(--c) 0 2px, var(--sheet) 2px 8px); }
 .board.tubes.is-paused .tube i { visibility: hidden; }

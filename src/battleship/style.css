@@ -1,28 +1,33 @@
 @import '../base.css';
 @import '../shared/vs.css';
 
-/* Battleship prints in sky, with the board games. The sea is sunk paper; your ships are solid sky, the
-   computer's show only when hit (sky) or sunk (navy) or at the end (sky ring). Misses get a small dot;
-   hits on your fleet are coral, the shared accent for the other side. */
+/* Battleship prints in sky, with the board games. The sea is ruled paper; your ships are hatched in sky inside a pen
+   outline, the computer's show only when hit, sunk (solid ink) or at the end. Misses are a hairline X in
+   pencil; hits are marked in red pen. */
 
 .board-wrap { gap: 0; }
-.sea-label { margin: 10px 0 6px; font-size: 0.8rem; font-weight: 750; color: var(--ink-2); letter-spacing: 0.04em; text-transform: uppercase; }
+.sea-label { margin: 10px 0 6px; font-family: var(--pen-font); font-size: 1.25rem; font-weight: 600; color: var(--ink-2); }
 .board-frame { width: min(100%, 380px, calc((100dvh - 340px) * 0.62)); }
 .board-frame.small { width: min(62%, 230px, calc((100dvh - 340px) * 0.38)); padding: 5px; }
-.seas { display: grid; grid-template: repeat(10, 1fr) / repeat(10, 1fr); gap: 2px; aspect-ratio: 1; }
+.seas { display: grid; grid-template: repeat(10, 1fr) / repeat(10, 1fr); gap: 1px; aspect-ratio: 1; background: var(--rule); }
 .board-wrap .status { margin-top: 10px; }
 
-.sea { border: 0; padding: 0; min-width: 0; border-radius: 3px; background: var(--sunk); display: grid; place-items: center; }
+.sea { border: 0; padding: 0; min-width: 0; border-radius: 0; background: var(--sheet); display: grid; place-items: center; }
 .sea:not(:disabled) { cursor: crosshair; }
-.sea:not(:disabled):hover { background: color-mix(in srgb, var(--sky) 20%, var(--sunk)); }
-.sea.miss::after { content: ''; width: 26%; height: 26%; border-radius: 50%; background: var(--ink-2); opacity: 0.6; }
-.sea.ship { background: var(--sky); }
-#target .sea.ship { background: var(--sheet); box-shadow: inset 0 0 0 2px var(--sky); }
-.sea.hit { background: var(--sky); }
-.sea.hit::after { content: ''; width: 46%; height: 46%; border-radius: 50%; background: var(--on-ink); }
-#fleet .sea.hit { background: var(--coral); }
-.sea.sunk { background: var(--ink) !important; }
-.sea.sunk::after { background: var(--paper); }
+.sea:not(:disabled):hover { background: var(--note); }
+.sea.miss::after {
+  content: '';
+  width: 60%;
+  height: 60%;
+  background:
+    linear-gradient(45deg, transparent calc(50% - 0.75px), var(--ink-2) calc(50% - 0.75px) calc(50% + 0.75px), transparent calc(50% + 0.75px)),
+    linear-gradient(-45deg, transparent calc(50% - 0.75px), var(--ink-2) calc(50% - 0.75px) calc(50% + 0.75px), transparent calc(50% + 0.75px));
+}
+.sea.ship { background: repeating-linear-gradient(45deg, var(--sky) 0 2px, transparent 2px 5px), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--ink); }
+#target .sea.ship { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--sky) 55%, transparent) 0 1.5px, transparent 1.5px 5px), var(--sheet); }
+.sea.hit::after { content: ''; width: 48%; height: 48%; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 1.5px var(--sheet); }
+.sea.sunk { background: var(--ink) !important; box-shadow: none; }
+.sea.sunk::after { background: var(--coral); }
 
 #placing-tools[hidden] { display: none; }
 .next { margin: 12px auto 0; display: block; }

@@ -22,14 +22,15 @@
 .tally span { min-width: 30px; }
 .tally b {
   display: block;
-  font-size: 1.4rem;
-  font-weight: 850;
+  font-family: var(--pen-font);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 0.9;
   color: var(--c);
-  font-variation-settings: 'CASL' 0, 'MONO' 1;
   font-variant-numeric: tabular-nums;
 }
 .tally .draws b { color: var(--ink-2); }
-.tally small { font-size: 0.72rem; font-weight: 700; color: var(--ink-2); }
+.tally small { font-family: var(--pen-font); font-size: 1.1rem; font-weight: 600; color: var(--ink-2); line-height: 1; }
 /* The tally takes room from the title, so keep the round line to one line. */
 .meta span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 360px) {
@@ -54,7 +55,7 @@
   padding: 10px;
   border-radius: var(--r-board);
   background: var(--sheet);
-  box-shadow: var(--shadow);
+  box-shadow: 0 0 0 3px var(--ink);
 }
 
 .grid {
@@ -62,22 +63,24 @@
   aspect-ratio: 1;
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-  gap: 10px;
+  gap: 0;
 }
 
-/* Empty cells you can play are an ink field; played cells sink into the paper. */
+/* The hash is four ink rules; a cell you can play lights up in highlighter under your finger. */
 .cell {
   border: 0;
   padding: 0;
-  border-radius: 18px;
-  background: var(--tint);
+  border-radius: 0;
+  background: transparent;
   display: grid;
   place-items: center;
   transition: background 0.15s ease, opacity 0.2s ease;
 }
-.cell:not(:disabled):active { filter: brightness(0.94); }
+.cell:nth-of-type(3n + 1), .cell:nth-of-type(3n + 2) { border-right: 3px solid var(--ink); }
+.cell:nth-of-type(-n + 6) { border-bottom: 3px solid var(--ink); }
+.cell:not(:disabled):active { background: var(--note); }
+@media (hover: hover) { .cell:not(:disabled):hover { background: var(--note); } }
 .cell:disabled { cursor: default; }
-.cell.filled { background: var(--sunk); }
 /* Once someone has won, the marks off the line step back. */
 .grid.decided .cell:not(.in-line) svg { opacity: 0.3; }
 
@@ -97,7 +100,7 @@
   from { stroke-dashoffset: 1; }
 }
 
-/* The winning line is navy ink overprinted across the board. */
+/* The winning line is a swipe of highlighter overprinted across the board. */
 .win-line {
   position: absolute;
   inset: 0;
@@ -107,10 +110,10 @@
   mix-blend-mode: var(--blend);
 }
 .win-line line {
-  stroke: var(--ink);
-  stroke-width: 0.16;
+  stroke: var(--yellow);
+  stroke-width: 0.2;
   stroke-linecap: round;
-  opacity: 0.45;
+  opacity: 0.85;
   stroke-dasharray: 1;
   animation: draw 0.3s ease-out 0.1s backwards;
 }
@@ -118,9 +121,10 @@
 .status {
   min-height: 1.5em;
   margin: 18px 0 0;
-  font-size: 1.05rem;
-  font-weight: 750;
-  font-variation-settings: 'CASL' 1;
+  font-family: var(--pen-font);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.1;
   color: var(--ink);
 }
 .status .turn-x { color: var(--x); }

@@ -1,5 +1,5 @@
-/* The card table shared by the solitaire games. Cards print on --sheet with red suits in coral and black
-   suits in --ink; backs are the family's olive with paper grain. Empty piles are sunk paper outlines.
+/* The card table shared by the solitaire games. Cards are white with a pen outline, red suits in the red pen and black
+   suits in --ink; backs are cross-hatched in the family's pen. Empty piles are dashed outlines.
    A game sets --cols on .table: 7 for Klondike, 8 for FreeCell. */
 
 #game { height: 100dvh; min-height: 0; overflow: hidden; }
@@ -31,7 +31,10 @@
   position: relative;
   aspect-ratio: 5 / 7;
   border-radius: calc(100cqi / var(--cols) * 0.12);
-  background: var(--sunk);
+  background: none;
+  border: 0;
+  outline: 2px dashed var(--rule);
+  outline-offset: -2px;
 }
 .tableau .pile { aspect-ratio: auto; height: calc((100cqi - (var(--cols) - 1) * var(--gap)) / var(--cols) * 1.4); }
 /* Layouts of single-card slots (Pyramid, TriPeaks): each slot sits at column --x of a --cols grid, row --r,
@@ -43,6 +46,7 @@
   height: calc(var(--w) * 1.4 * ((var(--rows) - 1) * var(--overlap) + 1));
 }
 .spread .slot {
+  outline: 0;
   position: absolute;
   width: var(--w);
   left: calc(var(--x) * (var(--w) + var(--gap)));
@@ -58,7 +62,6 @@
   color: color-mix(in srgb, var(--ink-2) 45%, transparent);
   font-size: calc(100cqi / var(--cols) * 0.42);
   font-weight: 800;
-  font-variation-settings: 'CASL' 1;
   pointer-events: none;
 }
 .pile .mark svg { width: 45%; height: 45%; stroke-width: 2.4; }
@@ -70,14 +73,14 @@
   aspect-ratio: 5 / 7;
   border-radius: calc(100cqi / var(--cols) * 0.12);
   background: var(--sheet);
-  box-shadow: inset 0 0 0 1px var(--rule), 0 1px 3px -1px rgb(20 25 50 / 0.35);
+  box-shadow: 0 0 0 1.5px var(--ink);
   color: var(--ink);
   cursor: pointer;
-  font-variation-settings: 'CASL' 1;
   font-variant-emoji: text;
   will-change: transform;
 }
 .card.red { color: var(--coral); }
+.card.red .idx { color: var(--coral); }
 
 /* Rank and suit in the top strip, the only part a fanned card shows; a big suit underneath. */
 .card .idx {
@@ -88,7 +91,7 @@
   align-items: baseline;
   gap: 1px;
   font-size: calc(100cqi / var(--cols) * 0.34);
-  font-weight: 850;
+  font-weight: 800;
   line-height: 1;
   letter-spacing: -0.04em;
 }
@@ -102,14 +105,21 @@
   line-height: 1;
 }
 
-.card.down { background: var(--olive); box-shadow: inset 0 0 0 calc(100cqi / var(--cols) * 0.05) var(--sheet), 0 1px 3px -1px rgb(20 25 50 / 0.35); cursor: default; }
+.card.down {
+  background:
+    repeating-linear-gradient(45deg, var(--c) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(-45deg, var(--c) 0 1px, transparent 1px 5px),
+    var(--sheet);
+  box-shadow: 0 0 0 1.5px var(--c);
+  cursor: default;
+}
 .card.down > span { visibility: hidden; }
 
-.card.selected { translate: 0 -6%; box-shadow: inset 0 0 0 2px var(--c), var(--shadow); }
+.card.selected { translate: 0 -6%; box-shadow: 0 0 0 2.5px var(--c); background: color-mix(in srgb, var(--yellow) 55%, var(--sheet)); }
 
-.card.dragging { z-index: 100 !important; box-shadow: inset 0 0 0 1px var(--rule), var(--shadow); cursor: grabbing; }
+.card.dragging { z-index: 100 !important; box-shadow: 0 0 0 2px var(--ink), 0 8px 12px -8px rgb(16 21 31 / 0.5); cursor: grabbing; }
 
-.table.is-paused .card:not(.down) { background: var(--olive); box-shadow: inset 0 0 0 calc(100cqi / var(--cols) * 0.05) var(--sheet); }
+.table.is-paused .card:not(.down) { background: repeating-linear-gradient(45deg, var(--c) 0 1px, transparent 1px 5px), repeating-linear-gradient(-45deg, var(--c) 0 1px, transparent 1px 5px), var(--sheet); box-shadow: 0 0 0 1.5px var(--c); }
 .table.is-paused .card > span { visibility: hidden; }
 .table.is-paused .pile { pointer-events: none; }
 

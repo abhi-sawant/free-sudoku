@@ -10,8 +10,8 @@
 
 /* Sits where the timer is in the other games. */
 .score { text-align: right; line-height: 1.05; min-width: 64px; }
-.score b { display: block; font-size: 1.5rem; font-weight: 850; color: var(--c); }
-.score span { font-size: 0.72rem; font-weight: 700; color: var(--ink-2); font-variation-settings: 'CASL' 0.35, 'MONO' 0; }
+.score b { display: block; font-family: var(--pen-font); font-size: 2.1rem; font-weight: 700; line-height: 0.9; color: var(--c); }
+.score span { font-family: var(--pen-font); font-size: 1.1rem; font-weight: 600; color: var(--ink-2); }
 
 .board-wrap {
   touch-action: none; /* taps jump, they don't zoom or scroll the page */
@@ -32,7 +32,7 @@
   aspect-ratio: 360 / 420;
   border-radius: var(--r-board);
   background: var(--sheet);
-  box-shadow: var(--shadow);
+  box-shadow: 0 0 0 3px var(--ink);
   overflow: hidden;
   cursor: pointer;
 }
@@ -44,9 +44,11 @@
   width: 88px;
   height: 88px;
   padding: 0;
+  font-family: var(--pen-font);
+  font-size: 1.8rem;
+  font-weight: 700;
   margin-top: 16px;
   border-radius: 50%;
-  font-size: 1.1rem;
   touch-action: manipulation;
 }
 @media (pointer: coarse) {
@@ -59,11 +61,12 @@
   inset: 22% 12% auto;
   margin: 0;
   text-align: center;
-  font-size: 1.15rem;
-  font-weight: 800;
-  line-height: 1.3;
+  font-family: var(--pen-font);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.1;
   color: var(--ink);
   pointer-events: none;
 }
 .stage-status:empty { display: none; }
-.stage-status small { display: block; margin-top: 6px; font-size: 0.85rem; font-weight: 650; color: var(--ink-2); }
+.stage-status small { display: block; margin-top: 6px; font-size: 1.3rem; font-weight: 600; color: var(--ink-2); }

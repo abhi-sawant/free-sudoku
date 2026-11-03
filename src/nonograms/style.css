@@ -1,7 +1,7 @@
 @import '../base.css';
 
-/* Nonograms print in orange, with the logic puzzles. Painted cells are solid ink, the rest sunk
-   paper; the clues sit in tinted gutters along the top and left and fade once their line is right. */
+/* Nonograms print in orange, with the logic puzzles. Painted cells are solid pen on printed
+   squares; the clues are printed along the top and left and are struck through once their line is right. */
 :root { --c: var(--orange); }
 
 .summary th, .summary td { padding: 12px 8px; }
@@ -18,12 +18,12 @@
   --u: 24px;
   --seam: 2px;
   display: grid;
-  gap: 1.5px;
+  gap: 0;
   width: max-content;
-  padding: 5px;
-  border-radius: var(--r-board);
+  padding: 0;
+  border-radius: 3px;
   background: var(--sheet);
-  box-shadow: var(--shadow);
+  box-shadow: 0 0 0 3px var(--ink);
   touch-action: none; /* strokes paint, they don't scroll */
   user-select: none;
   -webkit-user-select: none;
@@ -33,11 +33,10 @@
 .clue {
   display: flex;
   gap: calc(var(--u) * 0.24);
-  background: var(--tint);
+  background: var(--sheet);
   color: var(--ink);
   font-size: max(10px, calc(var(--u) * 0.48));
   font-weight: 800;
-  font-variation-settings: 'CASL' 0.6;
   font-variant-numeric: tabular-nums;
   line-height: 1;
   transition: opacity 0.2s ease;
@@ -48,43 +47,44 @@
   align-items: center;
   padding: 4px 0 calc(var(--u) * 0.18);
   gap: calc(var(--u) * 0.16);
-  border-radius: calc(var(--u) * 0.3) calc(var(--u) * 0.3) 2px 2px;
+  border-bottom: 1.5px solid var(--ink);
 }
 .row-clue {
   justify-content: flex-end;
   align-items: center;
   padding: 0 calc(var(--u) * 0.22) 0 5px;
-  border-radius: calc(var(--u) * 0.3) 2px 2px calc(var(--u) * 0.3);
+  border-right: 1.5px solid var(--ink);
 }
-.clue.done { opacity: 0.35; }
+.clue.done { opacity: 0.4; text-decoration: line-through; text-decoration-thickness: 1.5px; }
 
 .cell {
   position: relative;
-  border-radius: calc(var(--u) * 0.18);
-  background: var(--sunk);
+  border-radius: 0;
+  background: var(--sheet);
+  box-shadow: inset 0 0 0 0.5px var(--rule);
   cursor: pointer;
   transition: background 0.1s ease;
 }
-.cell.filled { background: var(--orange); }
+.cell.filled { background: var(--orange); box-shadow: inset 0 0 0 1px var(--sheet); }
 .cell.crossed::before, .cell.crossed::after {
   content: '';
   position: absolute;
   left: 22%;
   right: 22%;
   top: calc(50% - 1px);
-  height: 2px;
-  border-radius: 1px;
+  height: 2.5px;
+  border-radius: 2px;
   background: var(--ink-2);
   transform: rotate(45deg);
 }
 .cell.crossed::after { transform: rotate(-45deg); }
-.cell.cursor { outline: 2.5px solid var(--yellow); outline-offset: -2.5px; }
+.cell.cursor { outline: 2.5px solid var(--yellow); outline-offset: -2.5px; background-image: linear-gradient(color-mix(in srgb, var(--yellow) 55%, transparent), color-mix(in srgb, var(--yellow) 55%, transparent)); }
 .board.is-over .cell { cursor: default; }
 
 .board.solved .cell { animation: ripple 0.5s ease both; animation-delay: calc(var(--d, 0) * 30ms); }
 @keyframes ripple { 40% { transform: scale(0.82); } }
 
-.board.is-paused .cell { background: var(--sunk); }
+.board.is-paused .cell { background: repeating-linear-gradient(45deg, var(--orange) 0 2px, var(--sheet) 2px 8px); }
 .board.is-paused .cell::before, .board.is-paused .cell::after { display: none; }
 .board.is-paused .clue span { visibility: hidden; }
 

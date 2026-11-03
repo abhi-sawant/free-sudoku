@@ -4,15 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content="Free offline puzzle, board and card games." />
-    <meta name="theme-color" content="#eef0f3" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#141927" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fbfcff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#10151f" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
-    <link rel="preload" href="/src/fonts/recursive-latin-full.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/src/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/src/fonts/caveat-latin.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="color-scheme" content="light dark" />
     <!-- The paper colour from base.css, so the page never shows the browser's white canvas while the stylesheet loads. -->
-    <style>html { background: #eef0f3; } @media (prefers-color-scheme: dark) { html { background: #141927; } }</style>
+    <style>html { background: #fbfcff; } @media (prefers-color-scheme: dark) { html { background: #10151f; } }</style>
     <link rel="stylesheet" href="/src/style.css" />
     <title>Games</title>
   </head>
@@ -23,7 +24,6 @@
           <h1 class="wordmark">Games<span class="reg" aria-hidden="true">Games</span></h1>
           <p class="stamps"><span>Free</span><span>Offline</span><span>No ads</span></p>
           <button class="btn btn-primary ink-blue install-btn" id="install-btn" type="button" hidden>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path class="arrow" d="M12 4v11M7 11l5 5 5-5" /><path d="M5 20h14" /></svg>
             Install
           </button>
         </header>
@@ -46,7 +46,7 @@
         <!-- Each card sets its family's ink with a class: ink-blue, ink-orange, ink-lilac, ink-sky, ink-olive, ink-berry, ink-plum or ink-cocoa.
              Cards sit in their family's section. -->
         <nav class="games" aria-label="Games">
-          <section class="family">
+          <section class="family ink-blue">
           <h2 class="section-label">Number puzzles</h2>
           <a class="game-card ink-blue grain" href="/sudoku/index.html">
             <span class="game-icon game-icon-sudoku" aria-hidden="true">
@@ -123,7 +123,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family">
+          <section class="family ink-orange">
           <h2 class="section-label">Logic puzzles</h2>
           <a class="game-card ink-orange grain" href="/minesweeper/index.html">
             <span class="game-icon game-icon-mines" aria-hidden="true">
@@ -272,7 +272,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family">
+          <section class="family ink-lilac">
           <h2 class="section-label">Number tiles</h2>
           <a class="game-card ink-lilac grain" href="/2248/index.html">
             <span class="game-icon game-icon-2248" aria-hidden="true">
@@ -342,7 +342,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family">
+          <section class="family ink-sky">
           <h2 class="section-label">Play the computer</h2>
           <a class="game-card ink-sky grain" href="/tictactoe/index.html">
             <span class="game-icon game-icon-ttt" aria-hidden="true">
@@ -480,7 +480,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family">
+          <section class="family ink-olive">
           <h2 class="section-label">Cards</h2>
           <a class="game-card ink-olive grain" href="/klondike/index.html">
             <span class="game-icon game-icon-klondike" aria-hidden="true"><b class="card back"></b><b class="card red">A<small>♥</small></b><b class="card">K<small>♠</small></b></span>
@@ -564,7 +564,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family">
+          <section class="family ink-berry">
           <h2 class="section-label">Word games</h2>
           <a class="game-card ink-berry grain" href="/wordguess/index.html">
             <span class="game-icon game-icon-wordguess" aria-hidden="true"><i class="h">W</i><i class="n">O</i><i class="m">R</i><i class="m">D</i><i class="h">S</i><i></i><i></i><i></i><i></i></span>
@@ -594,7 +594,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family">
+          <section class="family ink-plum">
           <h2 class="section-label">Dice games</h2>
           <a class="game-card ink-plum grain" href="/yacht/index.html">
             <span class="game-icon game-icon-dice game-icon-yacht" aria-hidden="true"><i class="d p5"></i><i class="d p5"></i><i class="d p5"></i><i></i><i class="d p2"></i><i class="d p2"></i><i></i><i></i><i></i></span>
@@ -624,7 +624,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family">
+          <section class="family ink-cocoa">
           <h2 class="section-label">Arcade</h2>
           <a class="game-card ink-cocoa grain" href="/crazycat/index.html">
             <span class="game-icon game-icon-crazycat" aria-hidden="true"><i class="f"></i><i class="c"></i><i class="o"></i><i class="g"></i></span>

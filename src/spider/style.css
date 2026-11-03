@@ -13,9 +13,14 @@
   right: 8%;
   bottom: 6%;
   z-index: 60;
-  color: var(--on-ink);
-  font-size: calc(100cqi / var(--cols) * 0.3);
-  font-weight: 800;
+  color: var(--ink);
+  font-family: var(--pen-font);
+  font-size: calc(100cqi / var(--cols) * 0.42);
+  font-weight: 700;
+  line-height: 1;
+  padding: 0 2px;
+  border-radius: 4px;
+  background: var(--sheet);
   pointer-events: none;
 }
 .stock[data-deals="0"]::after { content: none; }

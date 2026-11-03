@@ -1,8 +1,8 @@
 @import '../base.css';
 @import '../shared/vs.css';
 
-/* Gomoku prints in sky, with the board games. Stones sit on the crossings of fine rule lines: sky stones
-   for side 0, coral for side 1. */
+/* Gomoku prints in sky, with the board games. Stones sit on the crossings of ink lines: sky stones
+   for side 0, red pen for side 1. */
 :root { --s1: var(--coral); --s1-ring: var(--coral); }
 
 .board-frame { padding: 6px; }
@@ -11,8 +11,8 @@
   display: grid;
   grid-template: repeat(15, 1fr) / repeat(15, 1fr);
   aspect-ratio: 1;
-  background: color-mix(in srgb, var(--sky) 10%, var(--sheet));
-  border-radius: 14px;
+  background: var(--sheet);
+  border-radius: 0;
 }
 
 /* Each point draws its half of the lines through it, so the edges stop at the outer stones. */
@@ -21,8 +21,8 @@
   padding: 0;
   min-width: 0;
   background:
-    linear-gradient(var(--rule), var(--rule)) center / 100% 1.5px no-repeat,
-    linear-gradient(var(--rule), var(--rule)) center / 1.5px 100% no-repeat;
+    linear-gradient(var(--ink), var(--ink)) center / 100% 1.5px no-repeat,
+    linear-gradient(var(--ink), var(--ink)) center / 1.5px 100% no-repeat;
   display: grid;
   place-items: center;
   position: relative;
@@ -35,7 +35,7 @@
 .pt.top.right { background-size: 50% 1.5px, 1.5px 50%; background-position: left center, center bottom; }
 .pt.bottom.left { background-size: 50% 1.5px, 1.5px 50%; background-position: right center, center top; }
 .pt.bottom.right { background-size: 50% 1.5px, 1.5px 50%; background-position: left center, center top; }
-.pt.star::after { content: ''; width: 18%; height: 18%; border-radius: 50%; background: var(--ink-2); }
+.pt.star::after { content: ''; width: 22%; height: 22%; border-radius: 50%; background: var(--ink); }
 .pt:disabled { cursor: default; }
 
 .stone {
@@ -44,12 +44,14 @@
   border-radius: 50%;
   position: relative;
   z-index: 1;
+  box-shadow: inset 0 0 0 1.5px var(--ink);
   animation: drop 0.15s ease-out;
 }
 .stone.s0 { background: var(--s0); }
 .stone.s1 { background: var(--s1); }
 
-/* The last stone carries a small paper dot. */
+/* The last stone carries a small paper dot, with a swipe of highlighter under it. */
+.pt.last::before { content: ''; position: absolute; inset: 8%; border-radius: 50%; background: var(--yellow); mix-blend-mode: var(--blend); }
 .pt.last .stone::after {
   content: '';
   position: absolute;
