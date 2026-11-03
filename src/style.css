@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 40px 0 24px;
+  padding: 20px 0 20px;
 }
 /* The phone column widens on bigger screens so the game grid gets more columns. */
 .screen.home { max-width: 1120px; }
@@ -18,7 +18,9 @@
 .mast { padding: 0 4px 28px; }
 
 .wordmark {
-  display: inline-block;
+  display: block;
+  justify-self: start;
+  width: fit-content;
   margin: 0;
   padding: 0 8px;
   font-size: clamp(3.2rem, 16vw, 4.2rem);
@@ -41,7 +43,7 @@
 /* The Install button sits at the right of the wordmark; the stamps drop to the row below. */
 .mast { display: grid; grid-template-columns: 1fr auto; align-items: center; }
 .mast .stamps { grid-column: 1 / -1; }
-.install-btn { grid-row: 1; grid-column: 2; padding: 10px 20px; display: inline-flex; align-items: center; gap: 8px; }
+.install-btn { grid-row: 1; grid-column: 2; padding: 10px; display: inline-flex; align-items: center; gap: 8px; }
 .install-btn svg { width: 20px; height: 20px; stroke-width: 2.4; }
 /* The arrow dips into the tray, then rests. */
 .install-btn .arrow { animation: install-dip 2.4s ease-in-out infinite; }
