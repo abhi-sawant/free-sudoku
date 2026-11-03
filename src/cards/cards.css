@@ -2,7 +2,7 @@
    suits in --ink; backs are cross-hatched in the family's pen. Empty piles are dashed outlines.
    A game sets --cols on .table: 7 for Klondike, 8 for FreeCell. */
 
-#game { height: 100dvh; min-height: 0; overflow: hidden; }
+#game { height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom)); min-height: 0; overflow: hidden; }
 
 .table {
   --gap: clamp(3px, 1.2cqi, 8px);

@@ -1,5 +1,19 @@
 # Changelog
 
+## 4.0.1 — 2026-11-03
+
+Fixes the bottom controls being partly cut off on Android.
+
+### Fixed
+
+- On Android phones, in the browser and in the app, game screens were a little taller than the display, so the page
+  scrolled and the controls at the bottom (number pad, undo, new deal) were partly hidden. Every game and menu now
+  fits the screen exactly.
+
+### Changed
+
+- The game menus sit a little higher on the page, with tighter spacing, so more of each menu fits without scrolling.
+
 ## 4.0.0 — 2026-11-03
 
 A softer look that is easier on the eyes.

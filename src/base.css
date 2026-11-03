@@ -152,11 +152,10 @@ svg {
 /* ---------- Game menus ---------- */
 
 .home-inner {
-  min-height: 100dvh;
+  min-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 32px 0;
+  padding: 16px 0;
 }
 
 .logo {
@@ -174,7 +173,7 @@ svg {
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--ink-2);
-  margin: 8px 0 32px;
+  margin: 8px 0;
 }
 
 /* A section heading: a dot in the family colour, then the name. */
@@ -185,7 +184,7 @@ svg {
   font-weight: 800;
   letter-spacing: -0.01em;
   color: var(--ink);
-  margin: 28px 0 10px;
+  margin: 16px 0 10px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -328,10 +327,12 @@ a.history-link { text-decoration: none; }
 
 /* ---------- Game screen ---------- */
 
+/* #app already pads by the safe-area insets, so the game fills the viewport minus them; a bare 100dvh would
+   overflow by the insets, which is what scrolls the page on Android (edge-to-edge) and hides the controls. */
 #game {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  min-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   padding-bottom: 16px;
 }
 
