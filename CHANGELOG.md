@@ -1,5 +1,22 @@
 # Changelog
 
+## 4.1.0 — 2026-11-03
+
+Choose how Games looks: six themes.
+
+### Added
+
+- A palette button on the home page opens a Theme picker with six looks, each shown in its own colours. Your choice
+  applies to every game and is remembered on your device.
+- **Mist** is still the default. **Linen** is warm cream paper with serif titles and a ruled list of games. **Sage**
+  is muted greens with pill buttons and no shadows. **Graph Paper** is a printed grid with ballpoint-blue outlines,
+  handwritten entries and highlighter marker. **Block Party** is flat primary colours, with every game filling its
+  screen in its family's colour. **Pocket** is a handheld LCD in four greens with pixel-stepped borders.
+- Each theme changes more than colour: layout, borders, type, game icons and the boards and cards themselves. All
+  have a light and a dark version that follow your device.
+- The extra fonts are bundled with the app, so every theme works offline. Nothing about how the games play has
+  changed.
+
 ## 4.0.1 — 2026-11-03
 
 Fixes the bottom controls being partly cut off on Android.
