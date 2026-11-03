@@ -11,6 +11,8 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
     <link rel="preload" href="/src/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="color-scheme" content="light dark" />
+    <!-- Sets the theme the player picked before the first paint; see src/theme.ts. -->
+    <script>try{var t=localStorage.getItem('games.theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
     <!-- The paper colour from base.css, so the page never shows the browser's white canvas while the stylesheet loads. -->
     <style>html { background: #eef2f7; } @media (prefers-color-scheme: dark) { html { background: #121825; } }</style>
     <link rel="stylesheet" href="/src/style.css" />
@@ -22,9 +24,14 @@
         <header class="mast">
           <h1 class="wordmark">Games<span class="reg" aria-hidden="true">Games</span></h1>
           <p class="stamps"><span>Free</span><span>Offline</span><span>No ads</span></p>
-          <button class="btn btn-primary ink-blue install-btn" id="install-btn" type="button" hidden>
-            Install
-          </button>
+          <div class="mast-actions">
+            <button class="btn btn-primary ink-blue install-btn" id="install-btn" type="button" hidden>
+              Install
+            </button>
+            <button class="icon-btn" id="theme-btn" type="button" aria-label="Theme" aria-haspopup="dialog">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.7 1.8-1.7H16a5 5 0 0 0 5-5c0-3.9-4-7-9-7z" /><circle cx="7.5" cy="11" r="1" /><circle cx="10.5" cy="7" r="1" /><circle cx="15.5" cy="7.5" r="1" /></svg>
+            </button>
+          </div>
         </header>
 
         <!-- Filled in by src/gotd.ts from the game's own card below. -->
@@ -45,7 +52,7 @@
         <!-- Each card sets its family's ink with a class: ink-blue, ink-orange, ink-lilac, ink-sky, ink-olive, ink-berry, ink-plum or ink-cocoa.
              Cards sit in their family's section. -->
         <nav class="games" aria-label="Games">
-          <section class="family ink-blue">
+          <section class="family ink-blue" data-family="blue">
           <h2 class="section-label">Number puzzles</h2>
           <a class="game-card ink-blue grain" href="/sudoku/index.html">
             <span class="game-icon game-icon-sudoku" aria-hidden="true">
@@ -122,7 +129,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family ink-orange">
+          <section class="family ink-orange" data-family="orange">
           <h2 class="section-label">Logic puzzles</h2>
           <a class="game-card ink-orange grain" href="/minesweeper/index.html">
             <span class="game-icon game-icon-mines" aria-hidden="true">
@@ -271,7 +278,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family ink-lilac">
+          <section class="family ink-lilac" data-family="lilac">
           <h2 class="section-label">Number tiles</h2>
           <a class="game-card ink-lilac grain" href="/2248/index.html">
             <span class="game-icon game-icon-2248" aria-hidden="true">
@@ -341,7 +348,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family ink-sky">
+          <section class="family ink-sky" data-family="sky">
           <h2 class="section-label">Play the computer</h2>
           <a class="game-card ink-sky grain" href="/tictactoe/index.html">
             <span class="game-icon game-icon-ttt" aria-hidden="true">
@@ -479,7 +486,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family ink-olive">
+          <section class="family ink-olive" data-family="olive">
           <h2 class="section-label">Cards</h2>
           <a class="game-card ink-olive grain" href="/klondike/index.html">
             <span class="game-icon game-icon-klondike" aria-hidden="true"><b class="card back"></b><b class="card red">A<small>♥</small></b><b class="card">K<small>♠</small></b></span>
@@ -563,7 +570,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family ink-berry">
+          <section class="family ink-berry" data-family="berry">
           <h2 class="section-label">Word games</h2>
           <a class="game-card ink-berry grain" href="/wordguess/index.html">
             <span class="game-icon game-icon-wordguess" aria-hidden="true"><i class="h">W</i><i class="n">O</i><i class="m">R</i><i class="m">D</i><i class="h">S</i><i></i><i></i><i></i><i></i></span>
@@ -593,7 +600,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family ink-plum">
+          <section class="family ink-plum" data-family="plum">
           <h2 class="section-label">Dice games</h2>
           <a class="game-card ink-plum grain" href="/yacht/index.html">
             <span class="game-icon game-icon-dice game-icon-yacht" aria-hidden="true"><i class="d p5"></i><i class="d p5"></i><i class="d p5"></i><i></i><i class="d p2"></i><i class="d p2"></i><i></i><i></i><i></i></span>
@@ -623,7 +630,7 @@
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
           </section>
-          <section class="family ink-cocoa">
+          <section class="family ink-cocoa" data-family="cocoa">
           <h2 class="section-label">Arcade</h2>
           <a class="game-card ink-cocoa grain" href="/crazycat/index.html">
             <span class="game-icon game-icon-crazycat" aria-hidden="true"><i class="f"></i><i class="c"></i><i class="o"></i><i class="g"></i></span>
@@ -639,6 +646,12 @@
         <footer class="home-foot">Works offline after the first visit · <span id="app-version"></span></footer>
       </main>
     </div>
+    <dialog class="dialog theme-dialog" id="theme-dialog" aria-labelledby="theme-title">
+      <h2 id="theme-title">Theme</h2>
+      <p>Pick a look for every game. It is kept on this device.</p>
+      <div class="theme-grid" id="theme-grid" role="radiogroup" aria-labelledby="theme-title"></div>
+      <button class="btn btn-primary" id="theme-close" type="button">Done</button>
+    </dialog>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

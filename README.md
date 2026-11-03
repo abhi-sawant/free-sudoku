@@ -59,6 +59,8 @@ Offline puzzle, board and card games: a PWA that also ships as an Android app th
 - **Crazy Cat**: an arcade runner in cocoa. The cat runs by itself; tap, click or press Space to jump, and again in the
   air to jump higher. Clear crates (+1) and catch fish (+2) at Kitten, Tabby or Crazy speed until you hit one. Best score
   and history per level; the rules are in `src/crazycat/engine.ts`, free of any drawing.
+- Themes: Mist (default), Linen, Sage, Graph Paper, Block Party and Pocket, picked from the palette button on the home
+  page and kept on the device. Each is a whole design (layout, borders, type and boards, from `design-candidates/`) in `src/themes/`; `src/theme.ts` applies and remembers the choice.
 - Works with no connection: the service worker installs with just the home page, caches each game when it's opened,
   then fetches the rest in the background, the open game first (see `src/sw.ts`).
 
@@ -70,6 +72,7 @@ Each game is its own page with its own folder of code; the root page is the game
 index.html, src/main.ts, src/style.css   home page
 src/sw.ts, src/pwa.ts                    the service worker, and the registration every page imports
 src/base.css                             the shared Mist design: colours, type, buttons, top bar, tools, dialogs
+src/themes/, src/theme.ts                the six selectable themes, and the code that applies and remembers one
 src/fonts/                               Nunito, self-hosted so the app works offline
 sudoku/index.html, src/sudoku/           Sudoku
 minesweeper/index.html, src/minesweeper/ Minesweeper

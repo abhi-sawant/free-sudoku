@@ -5,6 +5,7 @@ import { Capacitor } from "@capacitor/core";
 import "./pwa";
 import { showGameOfTheDay } from "./gotd";
 import { checkForUpdate } from "./update";
+import { THEMES, getTheme, setTheme } from "./theme";
 
 type Save = Record<string, any> | null;
 
@@ -140,8 +141,42 @@ function setupInstallButton() {
   btn.hidden = false;
 }
 
+/** The Theme button: a dialog of the looks in src/themes.css, each drawn in its own colours. Picking one applies it at once. */
+function setupThemePicker() {
+  const dialog = document.getElementById("theme-dialog") as HTMLDialogElement;
+  const grid = document.getElementById("theme-grid")!;
+  const options = THEMES.map((t) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "theme-opt";
+    btn.dataset.theme = t.id;
+    btn.setAttribute("role", "radio");
+    btn.innerHTML = `<span class="theme-chip" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="theme-name"></span><span class="theme-note"></span>`;
+    btn.querySelector(".theme-name")!.textContent = t.name;
+    btn.querySelector(".theme-note")!.textContent = t.note;
+    btn.addEventListener("click", () => {
+      setTheme(t.id);
+      mark();
+    });
+    grid.append(btn);
+    return btn;
+  });
+  const mark = () => {
+    const current = getTheme();
+    for (const btn of options) btn.setAttribute("aria-checked", String(btn.dataset.theme === current));
+  };
+  mark();
+
+  document.getElementById("theme-btn")!.addEventListener("click", () => dialog.showModal());
+  document.getElementById("theme-close")!.addEventListener("click", () => dialog.close());
+  // A tap on the backdrop closes it too.
+  dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
+}
+
 document.getElementById("app-version")!.textContent = `v${__APP_VERSION__}`;
 
+setupThemePicker();
 showGameOfTheDay();
 renderStatus();
 // Coming back with the browser's back button can restore this page from the bfcache.

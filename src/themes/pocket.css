@@ -1,0 +1,206 @@
+/* Pocket: a handheld's reflective LCD (design-candidates/a-pocket). Four greens and one red LED, a dot-matrix screen,
+   2px ink borders with stepped corners (four offset shadows, never a radius), pressed and selected things inverted,
+   families told apart by a dither pattern instead of hue. Jersey 15 for text, Silkscreen for titles. */
+
+@font-face { font-family: 'Jersey 15'; font-weight: 400; font-display: swap; src: url('../fonts/jersey-15-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Silkscreen'; font-weight: 400; font-display: swap; src: url('../fonts/silkscreen-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Silkscreen'; font-weight: 700; font-display: swap; src: url('../fonts/silkscreen-latin-700-normal.woff2') format('woff2'); }
+
+/* ---------- The screen ---------- */
+
+/* Jersey 15 is a small face; the whole page steps up with it. */
+:root[data-theme='pocket'] { font-size: 118%; --dither: repeating-conic-gradient(var(--ink) 0 25%, transparent 0 50%) 0 0 / 4px 4px; }
+:root[data-theme='pocket'] {
+  background-image: linear-gradient(to right, var(--grid) 1px, transparent 1px), linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+:root[data-theme='pocket'] body { background-color: transparent; }
+:root[data-theme='pocket'] body { font-weight: 400; letter-spacing: 0.01em; text-shadow: 1px 1px 0 rgb(42 56 34 / 0.18); }
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='pocket'] body { text-shadow: 1px 1px 0 rgb(0 0 0 / 0.35); }
+}
+:root[data-theme='pocket'] :is(b, strong, h1, h2, h3, th) { font-weight: 400; }
+:root[data-theme='pocket'] ::selection { background: var(--ink); color: var(--on-ink); }
+:root[data-theme='pocket'] :focus-visible { outline: 2px dashed var(--ink); outline-offset: 3px; }
+
+/* Inverted surfaces print without the ghost. */
+:root[data-theme='pocket'] :is(.btn-primary, .timer, .section-label, .summary thead th, .tool.active, .game-card:active, .level:active, .btn:active) { text-shadow: none; }
+
+/* ---------- Titles ---------- */
+
+:root[data-theme='pocket'] :is(.wordmark, .logo) {
+  font-family: 'Silkscreen', var(--font-ui);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 0.95;
+  text-shadow: 2px 2px 0 var(--sunk);
+}
+:root[data-theme='pocket'] .wordmark { font-size: clamp(2.2rem, 11vw, 3rem); }
+:root[data-theme='pocket'] .logo { font-size: clamp(1.9rem, 9vw, 2.6rem); }
+:root[data-theme='pocket'] :is(.tagline, .stamps) { color: var(--ink-2); font-weight: 400; }
+:root[data-theme='pocket'] .meta b { font-size: 1.35rem; line-height: 1; }
+:root[data-theme='pocket'] .topbar-title { font-size: 1.3rem; }
+
+/* A family heading is an inverted bar. */
+:root[data-theme='pocket'] .section-label {
+  width: auto;
+  justify-self: stretch;
+  padding: 4px 10px;
+  margin: 18px 0 8px;
+  background: var(--ink);
+  color: var(--on-ink);
+  font-size: 1.2rem;
+  letter-spacing: 0;
+}
+:root[data-theme='pocket'] .section-label::before { display: none; }
+:root[data-theme='pocket'] .family .section-label { margin: 22px 0 4px; }
+
+/* ---------- Home: three columns of pixel tiles ---------- */
+
+:root[data-theme='pocket'] .family { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 10px; padding: 0 2px; }
+:root[data-theme='pocket'] .game-card {
+  position: relative;
+  padding: 12px 4px 10px;
+  gap: 6px;
+  min-height: 118px;
+  justify-content: center;
+  transition: none;
+}
+:root[data-theme='pocket'] .game-card:active,
+:root[data-theme='pocket'] .game-card:hover { background: var(--ink); color: var(--on-ink); transform: none; }
+:root[data-theme='pocket'] .game-name { font-size: 1.05rem; line-height: 1; letter-spacing: 0; }
+:root[data-theme='pocket'] .game-status { border-radius: 0; background: var(--ink); color: var(--on-ink); font-size: 0.8rem; font-weight: 400; padding: 2px 6px; text-shadow: none; }
+:root[data-theme='pocket'] .game-card:active .game-status { background: var(--on-ink); color: var(--ink); }
+
+/* The icon: an ink-framed little board, plus a dither chip in the corner that stands for the family. */
+:root[data-theme='pocket'] .game-icon { border-radius: 0; box-shadow: inset 0 0 0 2px var(--ink); background: var(--sheet); color: var(--ink); }
+:root[data-theme='pocket'] .game-icon i { box-shadow: none; }
+:root[data-theme='pocket'] .game-card:active .game-icon { background: var(--sheet); }
+:root[data-theme='pocket'] .game-card::after,
+:root[data-theme='pocket'] .gotd-card::after {
+  content: '';
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  width: 11px;
+  height: 11px;
+  background: var(--pat, var(--ink));
+  box-shadow: 0 0 0 2px var(--sheet);
+}
+:root[data-theme='pocket'] .game-card:active::after { box-shadow: 0 0 0 2px var(--ink); filter: invert(1); }
+:root[data-theme='pocket'] .gotd-card { position: relative; background: var(--sheet); }
+:root[data-theme='pocket'] [data-family='blue'] { --pat: var(--dither); }
+:root[data-theme='pocket'] [data-family='orange'] { --pat: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 0 4px); }
+:root[data-theme='pocket'] [data-family='lilac'] { --pat: repeating-linear-gradient(0deg, var(--ink) 0 2px, transparent 0 4px); }
+:root[data-theme='pocket'] [data-family='sky'] { --pat: repeating-linear-gradient(45deg, var(--ink) 0 2px, transparent 0 4px); }
+:root[data-theme='pocket'] [data-family='olive'] { --pat: var(--ink); }
+:root[data-theme='pocket'] [data-family='berry'] { --pat: linear-gradient(var(--ink) 0 0) center / 100% 2px no-repeat, linear-gradient(var(--ink) 0 0) center / 2px 100% no-repeat; }
+:root[data-theme='pocket'] [data-family='plum'] { --pat: radial-gradient(var(--ink) 1.5px, transparent 2px) 0 0 / 5px 5px; }
+:root[data-theme='pocket'] [data-family='cocoa'] { --pat: repeating-linear-gradient(-45deg, var(--ink) 0 2px, transparent 0 4px); }
+
+:root[data-theme='pocket'] .gotd-card { background: var(--sheet); }
+:root[data-theme='pocket'] .gotd-name { font-size: 1.5rem; }
+:root[data-theme='pocket'] .gotd-tag { font-weight: 400; }
+:root[data-theme='pocket'] .home-foot { color: var(--ink-2); }
+
+/* ---------- Buttons, menus, top bar ---------- */
+
+:root[data-theme='pocket'] :is(.btn, .back-link, .icon-btn, .tool svg, .pad-btn, .timer) { transition: none; }
+:root[data-theme='pocket'] :is(.btn, .back-link, .icon-btn):active { background: var(--ink); color: var(--on-ink); transform: none; filter: none; }
+:root[data-theme='pocket'] .btn-primary { background: var(--ink); color: var(--on-ink); box-shadow: var(--edge); }
+:root[data-theme='pocket'] .btn-primary:active { background: var(--sunk); color: var(--ink); filter: none; }
+:root[data-theme='pocket'] .btn-quiet { box-shadow: none; }
+:root[data-theme='pocket'] .back-link { padding: 6px 14px 6px 6px; }
+:root[data-theme='pocket'] .levels { gap: 12px; }
+:root[data-theme='pocket'] .level small, :root[data-theme='pocket'] .new-game small { font-weight: 400; }
+:root[data-theme='pocket'] .level-bars i { border-radius: 0; background: var(--ink); }
+:root[data-theme='pocket'] .continue { background: var(--ink); color: var(--on-ink); text-shadow: none; }
+:root[data-theme='pocket'] .continue small { color: var(--on-ink); opacity: 0.85; }
+:root[data-theme='pocket'] .history-link { box-shadow: none; }
+:root[data-theme='pocket'] .icon-btn { border-radius: 0; }
+:root[data-theme='pocket'] .timer { background: var(--ink); color: var(--on-ink); font-weight: 400; font-size: 1.25rem; border-radius: 0; }
+
+:root[data-theme='pocket'] .tool { font-weight: 400; }
+:root[data-theme='pocket'] .tool svg { color: var(--ink); }
+:root[data-theme='pocket'] .tool:active svg { background: var(--sunk); transform: none; box-shadow: var(--edge); }
+:root[data-theme='pocket'] .tool.active svg { background: var(--ink); color: var(--on-ink); box-shadow: var(--edge); }
+:root[data-theme='pocket'] .tool b { color: var(--ink-2); font-weight: 400; }
+
+:root[data-theme='pocket'] .dialog { box-shadow: var(--edge); border-radius: 0; margin: auto; }
+:root[data-theme='pocket'] .dialog::backdrop { background: rgb(42 56 34 / 0.55); }
+:root[data-theme='pocket'] .dialog h2 { font-family: 'Silkscreen', var(--font-ui); text-transform: uppercase; font-size: 1.3rem; letter-spacing: 0; }
+:root[data-theme='pocket'] .summary { box-shadow: var(--edge); border-radius: 0; margin: 2px; width: calc(100% - 4px); }
+:root[data-theme='pocket'] .summary thead th { background: var(--ink); color: var(--on-ink); font-weight: 400; font-size: 0.95rem; }
+:root[data-theme='pocket'] .history-status { font-weight: 400; }
+
+/* ---------- Boards ---------- */
+
+/* Every board is framed in ink, square. */
+:root[data-theme='pocket'] :is(.board, .board-frame) { border-radius: 0; box-shadow: 0 0 0 3px var(--ink); }
+:root[data-theme='pocket'] .board-frame .board { box-shadow: none; }
+:root[data-theme='pocket'] .board-wrap { padding-inline: 3px; }
+:root[data-theme='pocket'] .board { --line: var(--ink); }
+:root[data-theme='pocket'] .cell { font-weight: 400; }
+:root[data-theme='pocket'] .cell.br { border-right-width: 3px; }
+:root[data-theme='pocket'] .cell.bb { border-bottom-width: 3px; }
+:root[data-theme='pocket'] .cell :is(b, strong) { font-weight: 400; }
+:root[data-theme='pocket'] .overprint { display: none; }
+
+/* Peers and matches are a dither checker, the selection is inverted, a mistake is the LED. */
+:root[data-theme='pocket'] .cell.in-unit::before,
+:root[data-theme='pocket'] .cell.same::before {
+  background: repeating-conic-gradient(var(--rule-2) 0 25%, transparent 0 50%) 0 0 / 4px 4px;
+  opacity: 0.55;
+  mix-blend-mode: normal;
+}
+:root[data-theme='pocket'] .cell.selected::before { background: var(--ink); opacity: 1; mix-blend-mode: normal; }
+:root[data-theme='pocket'] .cell.selected,
+:root[data-theme='pocket'] .cell.selected.user,
+:root[data-theme='pocket'] .cell.selected .notes,
+:root[data-theme='pocket'] .cell.selected .notes .hl { color: var(--on-ink); text-shadow: none; }
+:root[data-theme='pocket'] .cell.user { color: var(--ink); font-weight: 400; text-decoration: underline 2px; text-underline-offset: 4px; }
+:root[data-theme='pocket'] .cell.wrong::before { inset: 0; border: 0; border-radius: 0; rotate: none; background: var(--coral); opacity: 1; }
+:root[data-theme='pocket'] .cell.wrong { color: var(--sheet); text-decoration: none; }
+:root[data-theme='pocket'] .notes, :root[data-theme='pocket'] .notes .hl { font-weight: 400; color: var(--ink-2); }
+:root[data-theme='pocket'] .sum, :root[data-theme='pocket'] .sign { border-radius: 0; font-weight: 400; }
+:root[data-theme='pocket'] .pad-btn { box-shadow: var(--edge); margin: 2px; color: var(--ink); }
+:root[data-theme='pocket'] .pad-btn:active { background: var(--ink); color: var(--on-ink); }
+:root[data-theme='pocket'] .pad-btn:active :is(.pad-digit, .pad-left) { color: var(--on-ink); }
+:root[data-theme='pocket'] :is(.pad-digit, .pad-left) { font-weight: 400; }
+:root[data-theme='pocket'] .pad-digit { font-size: clamp(2rem, 9vw, 2.6rem); }
+
+/* Grid puzzles: the cursor is inverted, a hint is a red frame. */
+:root[data-theme='pocket'] .cell.cursor { outline: 0; background-image: none; background-color: var(--ink); color: var(--on-ink); }
+:root[data-theme='pocket'] .cell.hint { outline: 3px solid var(--coral); outline-offset: -3px; }
+
+/* Cards: LCD faces, dithered backs, pile slots dashed in ink. */
+:root[data-theme='pocket'] .card { border-radius: 0; background: var(--sheet); box-shadow: 0 0 0 2px var(--ink); text-shadow: none; }
+:root[data-theme='pocket'] .card .idx { font-weight: 400; }
+:root[data-theme='pocket'] .card.down {
+  background: repeating-conic-gradient(var(--ink) 0 25%, var(--paper) 0 50%) 0 0 / 4px 4px;
+  box-shadow: 0 0 0 2px var(--ink);
+}
+:root[data-theme='pocket'] .card.selected { translate: 0 -6%; background: var(--sunk); box-shadow: 0 0 0 2px var(--ink), 0 0 0 5px var(--coral); }
+:root[data-theme='pocket'] .pile { border-radius: 0; outline: 2px dashed var(--ink-2); }
+:root[data-theme='pocket'] .table.is-paused .card:not(.down) { background: var(--sunk); box-shadow: 0 0 0 2px var(--ink); }
+
+/* Discs: your side solid, the other side dithered, set in square-cornered holes. */
+:root[data-theme='pocket'] .slot span {
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--sunk);
+  clip-path: polygon(0 20%, 20% 20%, 20% 0, 80% 0, 80% 20%, 100% 20%, 100% 80%, 80% 80%, 80% 100%, 20% 100%, 20% 80%, 0 80%);
+}
+:root[data-theme='pocket'] .slot[data-side='1'] span { background: var(--ink); box-shadow: none; }
+:root[data-theme='pocket'] .slot[data-side='2'] span { background: repeating-conic-gradient(var(--ink) 0 25%, var(--sheet) 0 50%) 0 0 / 4px 4px; box-shadow: none; }
+:root[data-theme='pocket'] .slot.in-line span { outline: 0; background: var(--coral); }
+:root[data-theme='pocket'] .tally .a b { color: var(--ink); }
+:root[data-theme='pocket'] .tally .b b { color: var(--ink); }
+
+/* Dice and tiles. */
+:root[data-theme='pocket'] .die { border-radius: 0; box-shadow: var(--edge); margin: 2px 2px 8px; }
+:root[data-theme='pocket'] .die i { border-radius: 0; }
+:root[data-theme='pocket'] .die.held { background: var(--ink); }
+:root[data-theme='pocket'] .die.held i.pip { background: var(--on-ink); }
+:root[data-theme='pocket'] .die.held::after { background: var(--ink); }

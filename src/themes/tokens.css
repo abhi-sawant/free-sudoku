@@ -1,0 +1,150 @@
+/* The six looks a player can pick from the home page's Theme dialog. Mist is the default and is also what base.css
+   declares on :root, so a page with no data-theme looks the same as one with data-theme="mist".
+
+   Each theme sets the surface and text tokens, the family accents, a shadow, the radii and the fonts, in a light
+   and a dark form. The `.theme-opt` half of every selector lets a swatch in the picker show its own theme whatever
+   the page is set to. Only tokens that resolve to a plain value are set here: --tint, --note and --swipe are made
+   from these on :root and follow along (a swatch uses none of them). Fonts are system stacks so every theme works
+   offline without another download. See "Themes" in DESIGN.md. */
+
+/* ---------- Mist: cool and airy, white tiles floating on blue-grey ---------- */
+
+:root[data-theme='mist'], .theme-opt[data-theme='mist'] {
+  --paper: #eef2f7; --sheet: #ffffff; --sunk: #e3e9f1; --ink: #1f2a3a; --ink-2: #5a687c;
+  --rule: #dbe2ed; --rule-2: #a3b0c4; --on-ink: #ffffff;
+  --blue: #3b5fd0; --teal: #0b7a8a; --coral: #c63a50; --yellow: #f2b73f; --lilac: #6a5ae0; --mint: #1f7a5a;
+  --orange: #b85a0b; --sky: #0c7f74; --olive: #44771a; --berry: #c23070; --plum: #9a45bd; --cocoa: #8a6a4f;
+  --shadow: 0 1px 2px rgb(31 42 58 / 0.05), 0 6px 18px -6px rgb(31 42 58 / 0.12);
+  --r-card: 22px; --r-board: 14px; --r-tile: 14px; --r-key: 12px; --wob: 16px;
+  --font-ui: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-ui);
+  --pen-font: var(--font-ui);
+  color-scheme: light;
+}
+
+/* ---------- Linen: warm cream paper, serif titles, hairline edges ---------- */
+
+:root[data-theme='linen'], .theme-opt[data-theme='linen'] {
+  --paper: #f6f1e7; --sheet: #fffdf8; --sunk: #ebe4d6; --ink: #332e29; --ink-2: #6a6055;
+  --rule: #e2d9c8; --rule-2: #b3a894; --on-ink: #ffffff;
+  --blue: #35658f; --teal: #2d6a66; --coral: #b0383f; --yellow: #e0b04a; --lilac: #67529a; --mint: #3f7a52;
+  --orange: #9a5d12; --sky: #2d6a66; --olive: #55702a; --berry: #9b3b57; --plum: #a1472a; --cocoa: #6e4b36;
+  --shadow: 0 1px 2px rgb(70 50 20 / 0.06), 0 0 0 1px #e2d9c8;
+  --r-card: 18px; --r-board: 10px; --r-tile: 10px; --r-key: 10px; --wob: 12px;
+  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  color-scheme: light;
+}
+
+/* ---------- Graph Paper: a printed grid, ballpoint-blue outlines ---------- */
+
+:root[data-theme='graph'], .theme-opt[data-theme='graph'] {
+  --paper: #fbfcff; --sheet: #ffffff; --sunk: #eaf0f8; --ink: #14171f; --ink-2: #555d70;
+  --rule: #d3e3f2; --rule-2: #9fb6cf; --on-ink: #ffffff; --grid: #d3e3f2;
+  --blue: #1c3fa6; --teal: #0a7387; --coral: #c8303f; --yellow: #ffd83d; --lilac: #6a4ad0; --mint: #1f7a4f;
+  --orange: #b85a0b; --sky: #0a7387; --olive: #3d7a1a; --berry: #c2305f; --plum: #8f3fb5; --cocoa: #7a5a40;
+  --shadow: 0 0 0 1.5px #1c3fa6;
+  --r-card: 14px; --r-board: 6px; --r-tile: 10px; --r-key: 8px; --wob: 10px;
+  --font-ui: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-ui);
+  --pen-font: 'Caveat', 'Bradley Hand', 'Segoe Print', cursive;
+  color-scheme: light;
+}
+
+/* ---------- Block Party: flat primaries, square corners, bold ink lines ---------- */
+
+:root[data-theme='block'], .theme-opt[data-theme='block'] {
+  --paper: #f3f3f0; --sheet: #ffffff; --sunk: #e6e6e1; --ink: #15151a; --ink-2: #55565f;
+  --rule: #cfcfc8; --rule-2: #15151a; --on-ink: #ffffff;
+  --blue: #2447c9; --teal: #0b6fa8; --coral: #cc2a1b; --yellow: #f6c317; --lilac: #b82d73; --mint: #08795a;
+  --orange: #8f6000; --sky: #cc2a1b; --olive: #08795a; --berry: #b84600; --plum: #0b6fa8; --cocoa: #15151a;
+  --shadow: none;
+  --r-card: 8px; --r-board: 4px; --r-tile: 6px; --r-key: 6px; --wob: 8px;
+  --font-ui: 'Jost', 'Avenir Next', 'Century Gothic', system-ui, sans-serif;
+  --font-display: var(--font-ui);
+  color-scheme: light;
+}
+
+/* ---------- Sage: muted greens and earth tones, pills, no shadows ---------- */
+
+:root[data-theme='sage'], .theme-opt[data-theme='sage'] {
+  --paper: #eceee5; --sheet: #f8f9f3; --sunk: #dfe3d6; --ink: #28302a; --ink-2: #5b665c;
+  --rule: #d3d9c8; --rule-2: #98a393; --on-ink: #ffffff;
+  --blue: #3c6a8f; --teal: #2f776c; --coral: #b4493a; --yellow: #dba43f; --lilac: #725a9c; --mint: #36704f;
+  --orange: #965c24; --sky: #2f776c; --olive: #557530; --berry: #a24a69; --plum: #a0503a; --cocoa: #7a6445;
+  --shadow: none;
+  --r-card: 26px; --r-board: 20px; --r-tile: 18px; --r-key: 14px; --wob: 20px;
+  --font-ui: 'Lexend', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-ui);
+  color-scheme: light;
+}
+
+/* ---------- Pocket: a handheld LCD, four greens and one LED red ---------- */
+
+:root[data-theme='pocket'], .theme-opt[data-theme='pocket'] {
+  --paper: #bccb98; --sheet: #d3dcb4; --sunk: #9fb279; --ink: #2a3822; --ink-2: #455637;
+  --rule: #a2b47c; --rule-2: #55683f; --on-ink: #d3dcb4; --grid: #2a38220b;
+  --blue: #2a3822; --teal: #26483a; --coral: #9c200c; --yellow: #f0e060; --lilac: #333f4a; --mint: #1f4a30;
+  --orange: #4f4418; --sky: #1f4a3c; --olive: #34501a; --berry: #5a2a2a; --plum: #3a2f4a; --cocoa: #4a3a1f;
+  --shadow: var(--edge);
+  --r-card: 0; --r-board: 0; --r-tile: 0; --r-key: 0; --wob: 0;
+  --font-ui: 'Jersey 15', ui-monospace, Menlo, monospace;
+  --font-display: var(--font-ui);
+  --edge: 0 -2px 0 0 var(--ink), 0 2px 0 0 var(--ink), -2px 0 0 0 var(--ink), 2px 0 0 0 var(--ink);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme='mist'], .theme-opt[data-theme='mist'] {
+    --paper: #121825; --sheet: #1a2233; --sunk: #0e1420; --ink: #e6ebf5; --ink-2: #a2aec3;
+    --rule: #2b3650; --rule-2: #5b6a88; --on-ink: #121825;
+    --blue: #8fa9ff; --teal: #6cc4ea; --coral: #ff8e9f; --yellow: #e8c062; --lilac: #ad9cff; --mint: #86d1b4;
+    --orange: #f0a867; --sky: #6fd3c6; --olive: #a3d36f; --berry: #f59bc0; --plum: #d6a0ee; --cocoa: #d2b08f;
+    --shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 8px 20px -10px rgb(0 0 0 / 0.6);
+    color-scheme: dark;
+  }
+
+  :root[data-theme='linen'], .theme-opt[data-theme='linen'] {
+    --paper: #1e1a16; --sheet: #28231e; --sunk: #161310; --ink: #ede5d8; --ink-2: #b3a897;
+    --rule: #3a342d; --rule-2: #6f6558; --on-ink: #1e1a16;
+    --blue: #8db6e0; --teal: #7fcbc2; --coral: #f08f94; --yellow: #e0b85c; --lilac: #b9a2e6; --mint: #8fcfa6;
+    --orange: #e0a85c; --sky: #7fcbc2; --olive: #a8cb77; --berry: #eb9ab2; --plum: #ec9a78; --cocoa: #cfa98a;
+    --shadow: 0 0 0 1px #3a342d;
+    color-scheme: dark;
+  }
+
+  :root[data-theme='graph'], .theme-opt[data-theme='graph'] {
+    --paper: #10151f; --sheet: #151b28; --sunk: #0c1019; --ink: #e9edf6; --ink-2: #a0a9bf;
+    --rule: #223049; --rule-2: #4a5c7c; --on-ink: #10151f; --grid: #1b2638;
+    --blue: #8fb2ff; --teal: #6fd3e8; --coral: #ff7d88; --yellow: #ffe45c; --lilac: #b9a2ff; --mint: #86e0b0;
+    --orange: #f0a867; --sky: #6fd3e8; --olive: #a8dc6f; --berry: #ff9cc0; --plum: #d9a2f0; --cocoa: #d2b08f;
+    --shadow: 0 0 0 1.5px #5f7fcf;
+    color-scheme: dark;
+  }
+
+  :root[data-theme='block'], .theme-opt[data-theme='block'] {
+    --paper: #121317; --sheet: #1e1f27; --sunk: #16171d; --ink: #f3f3ee; --ink-2: #a9aab4;
+    --rule: #2c2d38; --rule-2: #9a9ba8; --on-ink: #15151a;
+    --blue: #8aa0ff; --teal: #6cc3ee; --coral: #ff7a66; --yellow: #f6c317; --lilac: #f08ab8; --mint: #40c99a;
+    --orange: #e5b520; --sky: #ff7a66; --olive: #40c99a; --berry: #ff9547; --plum: #6cc3ee; --cocoa: #c9c9d2;
+    --shadow: none;
+    color-scheme: dark;
+  }
+
+  :root[data-theme='sage'], .theme-opt[data-theme='sage'] {
+    --paper: #161b17; --sheet: #1f2620; --sunk: #111512; --ink: #e4eadf; --ink-2: #a5b1a3;
+    --rule: #2e372f; --rule-2: #647063; --on-ink: #161b17;
+    --blue: #8fb8da; --teal: #86cbbf; --coral: #ef9a8d; --yellow: #e0b86a; --lilac: #bba8e0; --mint: #9ad3a8;
+    --orange: #e0a872; --sky: #86cbbf; --olive: #b0d07a; --berry: #e6a0b8; --plum: #eba48f; --cocoa: #d0b690;
+    color-scheme: dark;
+  }
+
+  :root[data-theme='pocket'], .theme-opt[data-theme='pocket'] {
+    --paper: #1a2415; --sheet: #27341f; --sunk: #101709; --ink: #c3d69b; --ink-2: #8ea06a;
+    --rule: #36472b; --rule-2: #6f8450; --on-ink: #1a2415; --grid: #ffffff08;
+    --blue: #c3d69b; --teal: #9ad6b8; --coral: #ff6b4f; --yellow: #e8e060; --lilac: #b7c8d6; --mint: #9ad6a8;
+    --orange: #d6c98a; --sky: #8fd6b0; --olive: #b4d67f; --berry: #d6b09b; --plum: #c3b8d6; --cocoa: #cfc08a;
+    --shadow: var(--edge);
+    color-scheme: dark;
+  }
+}
