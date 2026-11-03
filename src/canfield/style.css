@@ -1,14 +1,14 @@
 @import '../base.css';
 @import '../cards/cards.css';
 
-/* Canfield prints in olive, with the card games. The reserve is tinted olive and counts the cards left in it;
+/* Canfield prints in olive, with the card games. The reserve is hatched in olive and counts the cards left in it;
    the foundations show the rank they start at. */
 :root { --c: var(--olive); }
 
 .stock { cursor: pointer; }
 .stock .mark { opacity: 0; transition: opacity 0.15s ease; }
 .stock.can-recycle .mark { opacity: 1; }
-.pile.reserve { background: var(--tint); }
+.pile.reserve { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--c) 45%, transparent) 0 1px, transparent 1px 6px); }
 .reserve-count {
   position: absolute;
   top: 100%;
@@ -16,7 +16,9 @@
   right: 0;
   margin-top: 4px;
   color: var(--ink-2);
-  font-size: 0.8rem;
+  font-family: var(--pen-font);
+  font-size: 1.15rem;
   font-weight: 700;
+  line-height: 1;
   text-align: center;
 }

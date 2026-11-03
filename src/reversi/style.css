@@ -1,22 +1,24 @@
 @import '../base.css';
 @import '../shared/vs.css';
 
-/* Reversi prints in sky, with the board games. The board is a sky field; sky discs and ring discs (the sheet inside a sky ring). */
+/* Reversi prints in sky, with the board games. Ruled squares on the sheet; sky discs and paper discs, each in a pen ring. */
 
 .board {
   display: grid;
   grid-template: repeat(8, 1fr) / repeat(8, 1fr);
   aspect-ratio: 1;
-  gap: 3px;
+  gap: 1.5px;
   container-type: inline-size;
+  background: var(--ink);
+  box-shadow: 0 0 0 1.5px var(--ink);
 }
 
 .cell {
   border: 0;
   padding: 0;
   min-width: 0;
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--sky) 20%, var(--sheet));
+  border-radius: 0;
+  background: var(--sheet);
   display: grid;
   place-items: center;
   position: relative;
@@ -28,18 +30,18 @@
 .cell .piece.flip { animation: flip 0.3s ease-in-out; }
 @keyframes flip { 50% { transform: scaleX(0); } }
 
-/* Legal moves are a faint dot of ink. */
+/* Legal moves are a small pen ring. */
 .cell.target::after {
   content: '';
-  width: 26%;
-  height: 26%;
+  width: 34%;
+  height: 34%;
   border-radius: 50%;
-  background: var(--sky);
-  opacity: 0.35;
+  box-shadow: inset 0 0 0 2px var(--c);
 }
-.cell.target:active { filter: brightness(0.94); }
+.cell.target:active { background: var(--note); }
 
-/* The last disc played carries a small coral dot. */
+/* The last disc played sits on a swipe of highlighter, with a red dot on it. */
+.cell.last { background: var(--note); }
 .cell.last::before {
   content: '';
   position: absolute;

@@ -1,17 +1,25 @@
 @import '../base.css';
 @import '../shared/grid.css';
 
-/* Hitori prints in orange, with the logic puzzles. Numbers sit on a pale tint; a shaded cell is solid
-   ink with its number knocked back, and a kept cell gets an ink ring. Kept repeats and touching shades go coral. */
+/* Hitori prints in orange, with the logic puzzles. Numbers are printed in ink on the sheet; a shaded cell is
+   scribbled out in pen hatching, and a kept cell is circled in the pen. Kept repeats and touching shades go red. */
 :root { --c: var(--orange); }
 
 .summary th, .summary td { padding: 12px 8px; }
 
-.cell { cursor: pointer; background: var(--tint); }
+.cell { cursor: pointer; }
 .cell:disabled { cursor: default; }
-.cell.m1 { background: var(--orange); color: color-mix(in srgb, var(--on-ink) 45%, var(--orange)); }
-.cell.m2 { background: var(--sheet); color: var(--orange); box-shadow: inset 0 0 0 calc(100cqi / var(--cols) * 0.05) var(--orange); }
+.cell.m1 { background: repeating-linear-gradient(45deg, var(--orange) 0 2.5px, var(--sheet) 2.5px 5.5px); color: var(--ink-2); }
+.cell.m2::after {
+  content: '';
+  width: 78%;
+  aspect-ratio: 1;
+  border: 2px solid var(--orange);
+  border-radius: 46% 54% 50% 50% / 52% 46% 54% 48%;
+  position: absolute;
+}
+.cell.m2 { position: relative; }
 
 .cell.wrong { color: var(--wrong); }
-.cell.wrong.m1 { background: var(--wrong); color: color-mix(in srgb, var(--on-ink) 45%, var(--wrong)); }
-.cell.wrong.m2 { box-shadow: inset 0 0 0 calc(100cqi / var(--cols) * 0.05) var(--wrong); }
+.cell.wrong.m1 { background: repeating-linear-gradient(45deg, var(--wrong) 0 2.5px, var(--sheet) 2.5px 5.5px); }
+.cell.wrong.m2::after { border-color: var(--wrong); }

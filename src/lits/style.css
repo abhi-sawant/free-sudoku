@@ -2,5 +2,5 @@
 @import '../shared/grid.css';
 @import '../shared/logic.css';
 
-/* LITS prints in orange, with the logic puzzles. Regions are outlined in ink and shaded cells are solid ink. */
+/* LITS prints in orange, with the logic puzzles. Regions are outlined in ink and shaded cells are scribbled in with pen hatching. */
 :root { --c: var(--orange); }

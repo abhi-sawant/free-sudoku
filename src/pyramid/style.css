@@ -2,7 +2,7 @@
 @import '../cards/cards.css';
 
 /* Pyramid prints in olive, with the card games. The rows overlap so every card shows its corner; a card
-   picked as the first of a pair lifts with an olive ring. */
+   picked as the first of a pair lifts and is highlighted. */
 :root { --c: var(--olive); }
 
 .spread { --overlap: 0.36; margin-top: 4px; }

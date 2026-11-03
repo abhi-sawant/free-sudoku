@@ -1,17 +1,18 @@
 @import '../base.css';
 @import '../shared/vs.css';
 
-/* Chess prints in sky, with the board games. Dark squares are a sky field on the sheet, as in Checkers;
-   Sky's pieces are solid sky, Ring's are outlined in sky. The last move is overprinted, a king in check
-   gets a coral ring, and the promotion picker sits under the board. */
+/* Chess prints in sky, with the board games. Dark squares are sky pen hatching on the sheet, as in Checkers;
+   Sky's pieces are solid sky, Ring's are paper, both outlined in ink. The last move is a swipe of highlighter,
+   a king in check is circled in red pen, and the promotion picker sits under the board. */
 
 .board {
   display: grid;
   grid-template: repeat(8, 1fr) / repeat(8, 1fr);
   aspect-ratio: 1;
-  border-radius: 12px;
+  border-radius: 0;
   overflow: hidden;
   container-type: inline-size;
+  box-shadow: 0 0 0 2px var(--ink);
 }
 
 .sq {
@@ -23,22 +24,21 @@
   place-items: center;
   position: relative;
 }
-.sq.dark { background: color-mix(in srgb, var(--sky) 26%, var(--sheet)); }
-.sq.last { background: color-mix(in srgb, var(--yellow) 40%, var(--sheet)); }
-.sq.dark.last { background: color-mix(in srgb, var(--yellow) 40%, color-mix(in srgb, var(--sky) 26%, var(--sheet))); }
+.sq.dark { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--sky) 45%, transparent) 0 1.5px, transparent 1.5px 5px), var(--sheet); }
+.sq.last, .sq.dark.last { background-color: var(--note); }
 .sq:disabled { cursor: default; }
-.sq.selected { box-shadow: inset 0 0 0 3px var(--yellow); }
-.sq.check { box-shadow: inset 0 0 0 3px var(--coral); }
+.sq.selected { background-color: var(--yellow); box-shadow: inset 0 0 0 2.5px var(--ink); }
+.sq.check { box-shadow: inset 0 0 0 3px var(--coral); border-radius: var(--wob); }
 .sq.target::after {
   content: '';
   position: absolute;
   width: 28%;
   height: 28%;
   border-radius: 50%;
-  background: var(--sky);
-  opacity: 0.55;
+  background: var(--sheet);
+  box-shadow: inset 0 0 0 2px var(--ink);
 }
-.sq.target:has(.piece-glyph)::after { width: 86%; height: 86%; background: none; box-shadow: inset 0 0 0 3px var(--sky); opacity: 0.7; }
+.sq.target:has(.piece-glyph)::after { width: 86%; height: 86%; background: none; box-shadow: inset 0 0 0 2.5px var(--coral); }
 
 .piece-glyph {
   font-family: 'Apple Symbols', 'Segoe UI Symbol', 'Noto Sans Symbols 2', 'DejaVu Sans', serif;
@@ -47,8 +47,8 @@
   font-variant-emoji: text;
   user-select: none;
 }
-.piece-glyph.s0 { color: var(--sky); }
-.piece-glyph.s1 { color: var(--sheet); -webkit-text-stroke: 1.6px var(--sky); paint-order: stroke fill; }
+.piece-glyph.s0 { color: var(--sky); -webkit-text-stroke: 1.2px var(--ink); paint-order: stroke fill; }
+.piece-glyph.s1 { color: var(--sheet); -webkit-text-stroke: 1.6px var(--ink); paint-order: stroke fill; }
 
 .promote { display: flex; gap: 10px; margin-top: 14px; container-type: inline-size; width: min(100%, 300px); }
 .promote[hidden] { display: none; }
@@ -56,9 +56,9 @@
   flex: 1;
   aspect-ratio: 1;
   border: 0;
-  border-radius: var(--r-key);
+  border-radius: var(--wob);
   background: var(--sheet);
-  box-shadow: inset 0 0 0 2px var(--sky);
+  box-shadow: inset 0 0 0 2px var(--ink);
   display: grid;
   place-items: center;
 }

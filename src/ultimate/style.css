@@ -2,32 +2,34 @@
 @import '../shared/vs.css';
 
 /* Ultimate tic-tac-toe prints in sky, with the board games. Nine small boards on the sheet; the ones you may
-   play in are lit with a sky field, and a decided board is screened with its winner's piece. */
+   play in sit on a swipe of highlighter, and a decided board is screened with its winner's piece. */
 
 .board {
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-  gap: 8px;
+  gap: 12px;
   aspect-ratio: 1;
+  padding: 3px;
 }
 
 .small {
   position: relative;
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-  gap: 2px;
-  padding: 3px;
-  border-radius: 10px;
-  background: var(--sunk);
+  gap: 1.5px;
+  padding: 0;
+  border-radius: 0;
+  background: var(--rule);
+  box-shadow: 0 0 0 2.5px var(--ink);
   transition: background 0.15s ease;
 }
-.small.live { background: color-mix(in srgb, var(--sky) 30%, var(--sheet)); }
+.small.live .sq { background: var(--note); }
 
 .sq {
   border: 0;
   padding: 0;
   min-width: 0;
-  border-radius: 5px;
+  border-radius: 0;
   background: var(--sheet);
   display: grid;
   place-items: center;
@@ -35,10 +37,10 @@
 }
 .sq:disabled { cursor: default; }
 .sq .piece { width: 64%; height: 64%; }
-.sq.last { box-shadow: inset 0 0 0 2px var(--yellow); }
+.small .sq.last { background: var(--yellow); }
 
 /* A decided board: its winner's piece, large, over a screen of paper. */
-.won { position: absolute; inset: 0; display: none; place-items: center; border-radius: 10px; pointer-events: none; }
+.won { position: absolute; inset: 0; display: none; place-items: center; border-radius: 0; pointer-events: none; }
 .small[data-won='0'] .won, .small[data-won='1'] .won, .small[data-won='full'] .won {
   display: grid;
   background: color-mix(in srgb, var(--sheet) 70%, transparent);
