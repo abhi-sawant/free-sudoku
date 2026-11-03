@@ -15,8 +15,8 @@
 
 /* Sits where the timer is in the other games. */
 .score { text-align: right; line-height: 1.05; min-width: 64px; }
-.score b { display: block; font-size: 1.5rem; font-weight: 850; color: var(--c); }
-.score span { font-size: 0.72rem; font-weight: 700; color: var(--ink-2); font-variation-settings: 'CASL' 0.35, 'MONO' 0; }
+.score b { display: block; font-family: var(--pen-font); font-size: 2rem; font-weight: 700; line-height: 1; color: var(--c); }
+.score span { font-size: 0.72rem; font-weight: 700; color: var(--ink-2); }
 
 .tools { display: flex; justify-content: center; margin-bottom: 0; }
 
@@ -31,7 +31,7 @@
   padding: 6px;
   border-radius: var(--r-board);
   background: var(--sheet);
-  box-shadow: var(--shadow);
+  box-shadow: 0 0 0 3px var(--ink);
 }
 
 .grid {
@@ -41,7 +41,6 @@
   width: calc(5 * var(--tile) + 4 * var(--gap));
   height: calc(8 * var(--tile) + 7 * var(--gap));
   overflow: hidden;
-  border-radius: 14px;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
@@ -54,12 +53,12 @@
   left: 0;
   width: var(--tile);
   height: var(--tile);
-  border-radius: calc(var(--tile) * 0.22);
+  border-radius: var(--wob);
 }
 
-.cell-bg { background: var(--sunk); }
+.cell-bg { background: none; box-shadow: inset 0 0 0 1px var(--rule); border-radius: 0; }
 
-/* The drag path is navy ink overprinted on the tiles. */
+/* The drag path is a yellow highlighter swipe overprinted on the tiles. */
 .line-canvas {
   position: absolute;
   inset: 0;
@@ -71,25 +70,24 @@
 }
 .line-canvas polyline {
   fill: none;
-  stroke: var(--ink);
-  stroke-width: 7;
+  stroke: var(--yellow);
+  stroke-width: 12;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0.45;
+  opacity: 0.85;
 }
 
 .tile {
   display: grid;
   place-items: center;
-  font-weight: 850;
-  font-variation-settings: 'CASL' 1;
+  font-weight: 800; /* sized inline by main.ts for Hanken, so the tile digits stay printed */
   line-height: 1;
   z-index: 2;
   cursor: pointer;
   transition: translate 0.22s cubic-bezier(0.2, 0, 0, 1), opacity 0.2s ease, scale 0.2s ease;
 }
 /* Inset ring rather than an outline, which the grid's overflow would clip on edge tiles. */
-.tile.selected { z-index: 4; scale: 0.9; box-shadow: inset 0 0 0 3px var(--ink); }
+.tile.selected { z-index: 4; scale: 0.9; box-shadow: inset 0 0 0 2px var(--ink), inset 0 0 0 6px var(--yellow); }
 .tile.pop { animation: pop 0.2s ease-out; }
 
 @keyframes pop {
@@ -103,10 +101,12 @@
   margin: 12px 0 auto;
   padding: 4px 14px;
   border-radius: 999px;
-  background: var(--ink);
-  color: var(--paper);
-  font-weight: 750;
-  font-size: 0.9rem;
+  background: var(--note);
+  box-shadow: inset 0 0 0 2px var(--ink);
+  color: var(--ink);
+  font-family: var(--pen-font);
+  font-weight: 700;
+  font-size: 1.35rem;
   font-variant-numeric: tabular-nums;
   display: grid;
   place-items: center;

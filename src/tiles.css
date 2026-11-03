@@ -1,27 +1,33 @@
 /* The value scale shared by the number-tile games (2248, 2048). A tile sets data-exp to its exponent, wrapped
-   to 1-12. See "Boards" in DESIGN.md. */
+   to 1-12. On graph paper a tile is a pen-outlined square shaded like a hand-coloured index: highlighter tint,
+   then pen hatching that gets denser, then solid pen for the top values. See "Boards" in DESIGN.md. */
 
-/* Tiles: sunflower, coral, teal, blue, lilac, mint, each as a 40% screen and then solid, repeating every 12 steps. */
-[data-exp='1'] { background: color-mix(in srgb, var(--yellow) 38%, var(--sheet)); color: var(--ink); }
-[data-exp='2'] { background: var(--yellow); color: #1e2741; }
-[data-exp='3'] { background: color-mix(in srgb, var(--coral) 40%, var(--sheet)); color: var(--ink); }
-[data-exp='4'] { background: var(--coral); color: var(--on-ink); }
-[data-exp='5'] { background: color-mix(in srgb, var(--teal) 40%, var(--sheet)); color: var(--ink); }
-[data-exp='6'] { background: var(--teal); color: var(--on-ink); }
-[data-exp='7'] { background: color-mix(in srgb, var(--blue) 40%, var(--sheet)); color: var(--ink); }
-[data-exp='8'] { background: var(--blue); color: var(--on-ink); }
-[data-exp='9'] { background: color-mix(in srgb, var(--lilac) 40%, var(--sheet)); color: var(--ink); }
-[data-exp='10'] { background: var(--lilac); color: var(--on-ink); }
-[data-exp='11'] { background: color-mix(in srgb, var(--mint) 40%, var(--sheet)); color: var(--ink); }
-[data-exp='12'] { background: var(--ink); color: var(--paper); }
+[data-exp] {
+  --p: var(--ink);
+  --hatch: 0%;
+  --wash: 0%;
+  background-color: color-mix(in srgb, var(--p) var(--wash), var(--sheet));
+  background-image: repeating-linear-gradient(45deg, color-mix(in srgb, var(--p) var(--hatch), transparent) 0 1.5px, transparent 1.5px 6px);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 2px var(--ink);
+  border-radius: var(--wob);
+}
+[data-exp='1'] { --p: var(--yellow); --wash: 55%; }
+[data-exp='2'] { --p: var(--yellow); --wash: 100%; }
+[data-exp='3'] { --p: var(--coral); --hatch: 60%; --wash: 8%; }
+[data-exp='4'] { --p: var(--coral); --hatch: 80%; --wash: 22%; }
+[data-exp='5'] { --p: var(--teal); --hatch: 60%; --wash: 8%; }
+[data-exp='6'] { --p: var(--teal); --hatch: 80%; --wash: 24%; }
+[data-exp='7'] { --p: var(--blue); --hatch: 60%; --wash: 8%; }
+[data-exp='8'] { --p: var(--blue); --hatch: 80%; --wash: 24%; }
+[data-exp='9'] { --p: var(--lilac); --hatch: 60%; --wash: 12%; }
+[data-exp='10'] { --p: var(--lilac); --wash: 100%; background-image: none; color: var(--on-ink); }
+[data-exp='11'] { --p: var(--mint); --hatch: 80%; --wash: 26%; }
+[data-exp='12'] { --p: var(--ink); --wash: 100%; background-image: none; color: var(--paper); }
 
-/* At night a tint mixed with dark paper goes muddy, so the screen steps lighten towards the pale ink instead. */
+/* The yellow highlighter is a fill, so it should not carry a hatch. */
+[data-exp='1'], [data-exp='2'] { background-image: none; }
+/* At night the highlighter is muted, so its tint stays pale enough for ink text. */
 @media (prefers-color-scheme: dark) {
-  [data-exp='1'] { background: color-mix(in srgb, var(--yellow) 45%, var(--ink)); }
-  [data-exp='3'] { background: color-mix(in srgb, var(--coral) 45%, var(--ink)); }
-  [data-exp='5'] { background: color-mix(in srgb, var(--teal) 45%, var(--ink)); }
-  [data-exp='7'] { background: color-mix(in srgb, var(--blue) 45%, var(--ink)); }
-  [data-exp='9'] { background: color-mix(in srgb, var(--lilac) 45%, var(--ink)); }
-  [data-exp='11'] { background: color-mix(in srgb, var(--mint) 45%, var(--ink)); }
-  [data-exp='1'], [data-exp='3'], [data-exp='5'], [data-exp='7'], [data-exp='9'], [data-exp='11'] { color: #1e2741; }
+  [data-exp='1'], [data-exp='2'] { color: var(--on-ink); }
 }

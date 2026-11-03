@@ -28,14 +28,12 @@
   background: var(--sheet);
   font-size: clamp(0.5rem, 2.3vw, 0.66rem);
   font-weight: 800;
-  font-variation-settings: 'CASL' 0, 'MONO' 1;
   color: var(--ink);
   line-height: 1.15;
 }
-.cell.selected .sum { background: none; color: var(--on-ink); }
+.cell.selected .sum { background: none; color: var(--ink); }
 .cell.has-sum .notes { top: 11px; }
 
-.cell.user { font-weight: 650; }
 .board.is-paused .sum, .board.is-paused .cell::after { visibility: hidden; }
 
 .summary th, .summary td { padding: 12px 8px; }

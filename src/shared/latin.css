@@ -10,7 +10,7 @@
 .board-frame { --clue: 0px; display: grid; grid-template-columns: var(--clue) 1fr var(--clue); grid-template-rows: var(--clue) auto var(--clue); }
 .board-frame.has-clues { --clue: calc(100cqi / (var(--n) + 2) * 0.8); }
 .board-frame > .board { grid-area: 2 / 2; }
-.clues { display: grid; color: var(--c); font-weight: 800; font-variation-settings: 'CASL' 1; font-size: clamp(0.95rem, 4.6vw, 1.3rem); }
+.clues { display: grid; color: var(--ink); font-weight: 800; font-size: clamp(0.95rem, 4.6vw, 1.3rem); }
 .clues span { display: grid; place-items: center; }
 .clues.top, .clues.bottom { grid-column: 2; grid-template-columns: repeat(var(--n), 1fr); }
 .clues.top { grid-row: 1; }
@@ -22,7 +22,7 @@
 .board-frame.is-paused .clues { visibility: hidden; }
 
 .board {
-  --line: color-mix(in srgb, var(--c) 70%, var(--paper));
+  --line: var(--ink);
   position: relative;
   display: grid;
   grid-template-columns: repeat(var(--n), 1fr);
@@ -32,19 +32,19 @@
   border-radius: var(--r-board);
   overflow: hidden;
   background: var(--sheet);
-  box-shadow: 0 0 0 2px var(--line), var(--shadow);
+  box-shadow: 0 0 0 3px var(--ink);
   container-type: inline-size;
   user-select: none;
   -webkit-user-select: none;
 }
 
-/* Overprint: the selected cell's row and column in sunflower, multiplied under the digits. */
+/* Overprint: the selected cell's row and column in highlighter, multiplied under the digits. */
 .overprint { position: absolute; inset: 0; pointer-events: none; }
-.overprint i { position: absolute; mix-blend-mode: var(--blend); background: var(--yellow); opacity: 0.5; }
+.overprint i { position: absolute; mix-blend-mode: var(--blend); background: var(--yellow); opacity: 0.4; }
 .op-row { left: 0; right: 0; top: calc(var(--row) * 100% / var(--n)); height: calc(100% / var(--n)); }
 .op-col { top: 0; bottom: 0; left: calc(var(--col) * 100% / var(--n)); width: calc(100% / var(--n)); }
 @media (prefers-color-scheme: dark) {
-  /* Sunflower screened on navy turns olive, so at night the highlighter is the ink. */
+  /* Yellow screened on navy turns olive, so at night the highlighter is the pen. */
   .overprint i { background: var(--c); opacity: 0.22; }
 }
 
@@ -55,7 +55,6 @@
   border-bottom: 1px solid var(--rule);
   font-size: calc(100cqi / var(--n) * 0.52);
   font-weight: 600;
-  font-variation-settings: 'CASL' 0.6;
   line-height: 1;
   position: relative;
   z-index: 1;
@@ -65,11 +64,11 @@
 .cell.br { border-right: 2.5px solid var(--line); }
 .cell.bb { border-bottom: 2.5px solid var(--line); }
 
-.cell.given { font-weight: 780; }
-.cell.user { color: var(--c); }
+.cell.given { font-weight: 700; }
+.cell.user { font-family: var(--pen-font); font-weight: 700; font-size: calc(100cqi / var(--n) * 0.7); color: var(--c); padding-bottom: 2px; }
 .cell.wrong { color: var(--coral); }
 
-/* Marks are ink spots inside the cell, so they never cover the grid lines. */
+/* Marks sit inside the cell, so they never cover the grid lines. */
 .cell::before {
   content: '';
   position: absolute;
@@ -78,13 +77,15 @@
   z-index: -1;
   opacity: 0;
 }
-.cell.in-unit::before { background: var(--c); opacity: 0.12; mix-blend-mode: var(--blend); }
-.cell.wrong::before { background: var(--coral); opacity: 0.2; }
-.cell.same { font-weight: 850; }
-.cell.same::before { background: var(--c); opacity: 0.22; mix-blend-mode: var(--blend); }
-.cell.selected { color: var(--on-ink); font-weight: 850; }
-.cell.selected::before { background: var(--c); opacity: 1; inset: 2px; }
-.cell.selected.wrong::before { background: var(--coral); }
+.cell.in-unit::before { background: var(--c); opacity: 0.1; mix-blend-mode: var(--blend); inset: 0; border-radius: 0; }
+/* A mistake is circled in red pen. */
+.cell.wrong::before { background: none; border: 2px solid var(--coral); border-radius: 46% 54% 50% 50% / 52% 48% 54% 46%; opacity: 1; rotate: -6deg; }
+.cell.same { font-weight: 800; }
+.cell.same::before { background: var(--yellow); opacity: 0.45; mix-blend-mode: var(--blend); inset: 0; border-radius: 0; }
+.cell.selected { color: var(--ink); font-weight: 800; }
+.cell.selected.user { color: var(--c); }
+.cell.selected::before { background: var(--yellow); opacity: 0.9; inset: 0; border-radius: 0; }
+.cell.selected.wrong::before { background: color-mix(in srgb, var(--coral) 25%, var(--yellow)); border: 2px solid var(--coral); inset: 3px; border-radius: 46% 54% 50% 50% / 52% 48% 54% 46%; }
 
 .notes {
   position: absolute;
@@ -92,14 +93,14 @@
   display: grid;
   grid-template-columns: repeat(var(--nc), 1fr);
   align-content: center;
-  font-size: calc(100cqi / var(--n) * 0.2);
-  font-weight: 650;
-  font-variation-settings: 'CASL' 0, 'MONO' 1;
+  font-family: var(--pen-font);
+  font-size: calc(100cqi / var(--n) * 0.27);
+  font-weight: 600;
   color: var(--ink-2);
 }
 .notes span { display: grid; place-items: center; }
-.notes .hl { color: var(--c); font-weight: 900; }
-.cell.selected .notes, .cell.selected .notes .hl { color: var(--on-ink); }
+.notes .hl { color: var(--c); font-weight: 700; }
+.cell.selected .notes, .cell.selected .notes .hl { color: var(--ink); }
 .cell.has-sum .notes { top: 30%; }
 
 /* Cages: dashed outlines just inside the cells, the label tucked into the first cell. */
@@ -125,16 +126,15 @@
   background: var(--sheet);
   font-size: calc(100cqi / var(--n) * 0.19);
   font-weight: 800;
-  font-variation-settings: 'CASL' 0, 'MONO' 1;
   color: var(--ink);
   line-height: 1.15;
 }
-.cell.selected .sum { background: none; color: var(--on-ink); }
+.cell.selected .sum { background: none; color: var(--ink); }
 
 /* Diagonals and inequality signs, over the cells. */
 .decor { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .diagonals { position: absolute; inset: 0; width: 100%; height: 100%; }
-.diagonals path { fill: none; stroke: var(--c); stroke-width: 0.6; opacity: 0.35; vector-effect: non-scaling-stroke; stroke-width: 2px; }
+.diagonals path { fill: none; stroke: var(--c); opacity: 0.45; vector-effect: non-scaling-stroke; stroke-width: 2px; stroke-dasharray: 6 4; }
 .sign {
   position: absolute;
   left: calc(var(--x) * 100% / var(--n));
@@ -146,9 +146,9 @@
   height: 1.3em;
   border-radius: 999px;
   background: var(--sheet);
-  color: var(--c);
+  color: var(--ink);
   font-size: calc(100cqi / var(--n) * 0.3);
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1;
 }
 .sign.down { rotate: 90deg; }
@@ -177,24 +177,24 @@
 .pad-btn {
   border: 0;
   background: var(--sheet);
-  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--c) 25%, var(--paper));
+  box-shadow: inset 0 0 0 1.5px var(--ink);
   border-radius: var(--r-key);
-  padding: 8px 0 6px;
+  padding: 8px 0 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 0;
   color: var(--c);
 }
 .pad-btn:active { background: var(--tint); }
 .pad-btn:disabled { visibility: hidden; }
 .pad-digit {
-  font-size: clamp(1.5rem, 7.4vw, 2rem);
-  font-weight: 750;
-  font-variation-settings: 'CASL' 1;
-  line-height: 1.1;
+  font-family: var(--pen-font);
+  font-size: clamp(1.9rem, 9vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1;
 }
-.pad-left { font-size: 0.7rem; font-weight: 700; color: var(--ink-2); min-height: 1em; }
+.pad-left { font-family: var(--pen-font); font-size: 1rem; font-weight: 600; color: var(--ink-2); min-height: 1em; line-height: 1; }
 
 .summary th, .summary td { padding: 12px 8px; }
 

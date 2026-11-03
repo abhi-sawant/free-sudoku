@@ -1,30 +1,30 @@
 @import '../base.css';
 @import '../shared/grid.css';
 
-/* Sokoban prints in lilac, with the number tiles. Walls are solid navy, targets a lilac ring, boxes a lilac
-   tint that goes solid once home, and the player a navy counter that slides from square to square. */
+/* Sokoban prints in lilac, with the number tiles. Walls are printed ink hatching, targets dashed pen circles, boxes
+   pen-outlined crates hatched in lilac that go solid once home, and the player a pen disc that slides from square to square. */
 :root { --c: var(--lilac); }
 
 .summary th, .summary td { padding: 12px 8px; }
 
-.board.sokoban { position: relative; gap: 0; padding: 6px; touch-action: none; }
-.square { position: relative; background: var(--sheet); }
-.square.wall { background: var(--ink); border-radius: 3px; }
+.board.sokoban { position: relative; gap: 0; padding: 6px; touch-action: none; box-shadow: 0 0 0 3px var(--ink); }
+.square { position: relative; background: var(--sheet); box-shadow: inset 0 0 0 0.5px var(--rule); }
+.square.wall { background: repeating-linear-gradient(45deg, var(--ink) 0 1.5px, transparent 1.5px 5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--ink); }
 .square.target::after {
   content: '';
   position: absolute;
   inset: 32%;
   border-radius: 50%;
-  box-shadow: 0 0 0 calc(100cqi / var(--cols) * 0.05) var(--c);
+  border: 2px dashed var(--c);
 }
 .square.box::before {
   content: '';
   position: absolute;
   inset: 9%;
   z-index: 1;
-  border-radius: calc(100cqi / var(--cols) * 0.12);
-  background: color-mix(in srgb, var(--c) 40%, var(--sheet));
-  box-shadow: inset 0 0 0 calc(100cqi / var(--cols) * 0.05) var(--c);
+  border-radius: var(--wob);
+  background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--c) 70%, transparent) 0 1.5px, transparent 1.5px 5px), color-mix(in srgb, var(--c) 12%, var(--sheet));
+  box-shadow: inset 0 0 0 2px var(--ink);
 }
 .square.box.home::before { background: var(--c); }
 .square.hint { outline: 3px solid var(--yellow); outline-offset: -3px; animation: hint 1s ease-in-out infinite alternate; }
@@ -40,7 +40,7 @@
   transition: translate 0.1s ease-out;
   pointer-events: none;
 }
-.player::after { content: ''; position: absolute; inset: 20%; border-radius: 50%; background: var(--ink); }
+.player::after { content: ''; position: absolute; inset: 20%; border-radius: 50%; background: var(--yellow); box-shadow: inset 0 0 0 2px var(--ink); }
 
 .board.sokoban.is-paused > * { visibility: hidden; }
 .board.sokoban.is-paused { background: var(--c); }

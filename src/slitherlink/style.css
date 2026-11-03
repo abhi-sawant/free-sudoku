@@ -2,7 +2,7 @@
 @import '../shared/grid.css';
 @import '../shared/logic.css';
 
-/* Slitherlink prints in orange, with the logic puzzles: navy dots, the loop in thick ink. A clue fades once met
+/* Slitherlink prints in orange, with the logic puzzles: printed dots, the loop in ballpoint pen. A clue fades once met
    and goes coral when the loop passes it too often. */
 :root { --c: var(--orange); }
 

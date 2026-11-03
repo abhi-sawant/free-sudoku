@@ -1,15 +1,16 @@
 @import '../base.css';
 @import '../shared/vs.css';
 
-/* Checkers prints in sky, with the board games. Dark squares are a sky field on the sheet; sky men and
-   ring men, kings marked with a crown. */
+/* Checkers prints in sky, with the board games. Dark squares are sky pen hatching on the sheet; sky men and
+   paper men, kings marked with a crown. */
 
 .board {
   display: grid;
   grid-template: repeat(8, 1fr) / repeat(8, 1fr);
   aspect-ratio: 1;
-  border-radius: 12px;
+  border-radius: 0;
   overflow: hidden;
+  box-shadow: 0 0 0 2px var(--ink);
 }
 
 .sq {
@@ -22,10 +23,10 @@
   position: relative;
   --ring: 3px;
 }
-.sq.dark { background: color-mix(in srgb, var(--sky) 26%, var(--sheet)); }
+.sq.dark { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--sky) 55%, transparent) 0 1.5px, transparent 1.5px 5px), var(--sheet); }
 .sq:disabled { cursor: default; }
-/* The last move's squares, and any piece it took, are overprinted a shade darker. */
-.sq.dark.last { background: color-mix(in srgb, var(--sky) 42%, var(--sheet)); }
+/* The last move's squares are swiped with highlighter. */
+.sq.dark.last { background-color: var(--note); }
 
 .sq .piece {
   width: 78%;
@@ -36,21 +37,20 @@
 }
 .piece svg { width: 56%; height: 56%; stroke-width: 2.2; fill: currentColor; }
 .piece.s0 { color: var(--on-ink); }
-.piece.s1 { color: var(--sky); }
+.piece.s1 { color: var(--ink); }
 
-/* Pieces that can move carry a yellow ring; the selected one lifts. */
-.sq.movable .piece { box-shadow: 0 0 0 3px var(--yellow); }
-.sq.movable .piece.s1 { box-shadow: inset 0 0 0 var(--ring) var(--s1-ring), 0 0 0 3px var(--yellow); }
-.sq.selected .piece { transform: scale(1.08); box-shadow: 0 0 0 3px var(--yellow), var(--shadow); }
-.sq.selected .piece.s1 { box-shadow: inset 0 0 0 var(--ring) var(--s1-ring), 0 0 0 3px var(--yellow), var(--shadow); }
+/* Pieces that can move sit on a swipe of highlighter; the selected one lifts. */
+.sq.dark.movable { background-color: var(--note); }
+.sq.dark.selected { background-color: var(--yellow); }
+.sq.selected .piece { transform: scale(1.08); }
 .sq.taking .piece { opacity: 0.35; }
 
-/* Where the selected piece can land is a faint dot of ink. */
+/* Where the selected piece can land is a small pen ring. */
 .sq.target::after {
   content: '';
-  width: 30%;
-  height: 30%;
+  width: 34%;
+  height: 34%;
   border-radius: 50%;
-  background: var(--sky);
-  opacity: 0.55;
+  background: var(--sheet);
+  box-shadow: inset 0 0 0 2px var(--ink);
 }

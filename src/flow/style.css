@@ -4,7 +4,7 @@
 
 /* Flow prints in orange, with the logic puzzles. Each pair takes an ink from the shared set, the way
    Minesweeper's numbers do, and carries its number, so colour is never the only cue. Filled cells take a
-   light screen of their path's ink. */
+   light overprint of their path's ink. */
 :root { --c: var(--orange); }
 
 .lattice .k1 { --k: var(--orange); }
@@ -17,8 +17,8 @@
 .lattice .k8 { --k: var(--olive); }
 .lattice .k9 { --k: var(--yellow); }
 .lattice .fills rect { fill: transparent; }
-.lattice .fills rect[class] { fill: color-mix(in srgb, var(--k) 22%, transparent); }
-.lattice .paths line { stroke: var(--k); stroke-width: 30; stroke-linecap: round; }
+.lattice .fills rect[class] { fill: color-mix(in srgb, var(--k) 16%, transparent); }
+.lattice .paths line { stroke: var(--k); stroke-width: 24; stroke-linecap: round; }
 .lattice .dot circle { fill: var(--k); }
 .lattice .dot text { fill: var(--on-ink); font-size: 40px; }
 .lattice .dot.k9 text { fill: var(--ink); } /* navy on sunflower, both themes */

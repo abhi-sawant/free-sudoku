@@ -2,6 +2,6 @@
 @import '../shared/grid.css';
 @import '../shared/logic.css';
 
-/* Heyawake prints in orange, with the logic puzzles. Rooms are outlined in ink, shaded cells are solid ink, and
+/* Heyawake prints in orange, with the logic puzzles. Rooms are outlined in ink, shaded cells are scribbled in with pen hatching, and
    cells on a white line through three rooms get a coral dot. */
 :root { --c: var(--orange); }

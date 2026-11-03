@@ -1,28 +1,29 @@
-# Design: Riso
+# Design: Graph Paper
 
-Games looks like a risograph print: a few soft inks on cool paper. It is colourful without being loud, friendly, and soft-cornered. Every game in the suite, current and future, uses this one language. A category of games is told apart only by its **ink**.
+Games looks like a puzzle notebook: a printed grid, clues in black type, your entries in ballpoint, pencil notes, a red pen for mistakes and a highlighter for the cursor. It replaced the Riso look on 2026-11-03. Every game, current and future, uses this one language. A family of games is told apart only by its **pen colour**.
 
-All tokens and shared components live in [`src/base.css`](src/base.css). Game stylesheets import it and add only what their board needs.
+All tokens and shared components live in [`src/base.css`](src/base.css). Game stylesheets import it and add only what their board needs. Candidate prototypes from the redesign are in [`design-candidates/`](design-candidates).
 
-## Paper and inks
+## Paper and pens
 
 | Token | Light | Dark | Use |
 |---|---|---|---|
-| `--paper` | `#eef0f3` | `#141927` | Page ground |
-| `--sheet` | `#f9fafb` | `#1b2132` | Boards, keys, dialogs, tables |
-| `--sunk` | `#e1e5ec` | `#0f131e` | Empty or finished cells under the board |
-| `--ink` | `#1e2741` | `#e9ecf4` | Text |
-| `--ink-2` | `#4b5472` | `#a7aec3` | Secondary text |
-| `--rule` | `#c9cfdb` | `#2d3549` | Hairlines and outlines |
-| `--on-ink` | `#f9fafb` | `#141927` | Text on solid ink |
+| `--paper` | `#fbfcff` | `#10151f` | Page ground, printed with a 20px grid (`--grid`) |
+| `--sheet` | `#ffffff` | `#151b28` | Boards, keys, cards, dialogs |
+| `--sunk` | `#eaf0f8` | `#0c1019` | Empty or finished cells |
+| `--ink` | `#14171f` | `#e9edf6` | Printed text and every pen outline |
+| `--ink-2` | `#555d70` | `#a0a9bf` | Pencil: secondary text and notes |
+| `--rule` | `#b9cadd` | `#34445f` | Hairlines inside a board |
+| `--on-ink` | `#ffffff` | `#10151f` | Text on a solid pen stroke |
+| `--note` | yellow 62% on paper | yellow 22% on paper | Sticky-note fill: Continue, game of the day, a switched-on tool |
 
-## Categories
+## Families
 
-Every game belongs to exactly one **category**, shown as a section on the home page. The category owns the ink: every game in it prints in that ink, and no game picks its own. A game that fits no existing category gets a new category with a new ink, never a one-off colour.
+Each family writes in one pen (`--c`); no game picks its own. A new game joins the family that fits, or a new family gets a new pen first.
 
-| Category | Ink | Games |
+| Family | Pen | Games |
 |---|---|---|
-| Number puzzles | `--blue` | Sudoku, Killer Sudoku, Kakuro, Calcudoku, Futoshiki, Skyscrapers, Jigsaw Sudoku, Sudoku X |
+| Number puzzles | `--blue` (ballpoint) | Sudoku, Killer Sudoku, Kakuro, Calcudoku, Futoshiki, Skyscrapers, Jigsaw Sudoku, Sudoku X |
 | Logic puzzles | `--orange` | Minesweeper, Nonograms, Takuzu, Nurikabe, Hitori, Star Battle, Lights Out, Tents, Light Up, Heyawake, LITS, Slitherlink, Masyu, Bridges, Flow, Water Sort |
 | Number tiles | `--lilac` | 2248, 2048, Threes, 15-puzzle, Sokoban, Rush Hour, Peg Solitaire |
 | Play the computer | `--sky` | Tic-tac-toe, Dots and Boxes, Connect Four, Reversi, Gomoku, Nine Men's Morris, Checkers, Mancala, Ultimate Tic-tac-toe, Hex, Go, Chess, Backgammon, Battleship |
@@ -31,86 +32,49 @@ Every game belongs to exactly one **category**, shown as a section on the home p
 | Dice games | `--plum` | Yacht, Farkle, Pig |
 | Arcade | `--cocoa` | Crazy Cat |
 
-The inks. Each category ink belongs to one category; the other inks are accents shared by all.
+Shared pens: `--coral` is the red pen (mistakes, the other side in two-player games), `--yellow` the highlighter, `--teal` and `--mint` accents. Light pens meet 4.5:1 on paper; dark-mode pens are light enough for `--on-ink`.
 
-| Ink | Light | Dark | Use |
-|---|---|---|---|
-| `--blue` | `#3f5fb0` | `#7f9cec` | Number puzzles category |
-| `--teal` | `#1f6d66` | `#5cc0b5` | Accent: Minesweeper's 2s and the tile scale |
-| `--orange` | `#a4520f` | `#f2a766` | Logic puzzles category |
-| `--coral` | `#bc4c37` | `#f08f78` | Accent: errors and the second player |
-| `--yellow` | `#efbf45` | `#e8c062` | Shared highlighter, never a game's ink |
-| `--lilac` | `#6c5aa8` | `#a897e6` | Number tiles category |
-| `--mint` | `#2f7a5f` | `#86d1b4` | Accent: the tile scale |
-| `--sky` | `#1d6a8f` | `#6cc4ea` | Play the computer category |
-| `--olive` | `#62661c` | `#c3c86f` | Cards category (card backs; red suits print in coral, black suits in `--ink`) |
-| `--berry` | `#a3376f` | `#f19ac5` | Word games category (6.0:1 with white text, 8.5:1 with navy) |
-| `--plum` | `#7e3f96` | `#d6a0ea` | Dice games category (6.6:1 with white text, 8.4:1 with navy) |
-| `--cocoa` | `#7a5236` | `#dcb497` | Arcade category (6.5:1 with white text, 9.2:1 with navy) |
+## The rules
 
-Two-sided games print you (or player one) in the category ink and the other side in coral. Where pieces read as black and white (Reversi, Checkers, Morris), one side is solid ink and the other is `--sheet` with an ink ring.
-
-Light inks are dark enough for white text (4.5:1); dark-mode inks are light enough for `--on-ink` navy text. A new ink must meet the same contrast in both themes.
-
-## The four rules
-
-1. **Fields, not borders.** A game's surfaces are its ink tinted onto paper (`--tint`: 15% in light, 20% in dark). Cards, level buttons, tool tiles and the back button are tints, not outlined boxes. Home cards also carry a fine paper grain (`.grain`).
-2. **Solid ink means action or state.** Primary buttons, the timer, a switched-on tool and the selected cell are full-strength ink with `--on-ink` text. Everything else is a tint.
-3. **Overprint.** Highlights are translucent ink layers with `mix-blend-mode: var(--blend)` (multiply on paper, screen at night), so where two cross they darken into a third tone instead of stacking grey boxes. Sudoku's row, column and box highlight is the reference. Sunflower overprinted on dark paper goes olive, so at night the highlighter is the game's own ink.
-4. **Misregistration belongs to the wordmark only.** The home "Games" wordmark has a coral pass printed a hair out of register under the blue. Boards and text are always in register.
-
-## App icon
-
-The app icon is the night overprint: a `--blue` tile and a `--coral` counter in the dark-theme inks on `--ink` navy, screened where they cross (`#f8d4f5`). It stands for the suite, not one game, so it carries no category ink of its own. `public/icon.svg` is the source; every PNG (PWA, favicon, apple-touch, Android launcher and splash) is drawn from the same geometry. The Android adaptive background is `#1e2741` and the splash ground is `--paper`.
+1. **Outlines are pen strokes.** Buttons, keys, tiles, dialogs and cards are drawn with a 2px `--ink` outline (`box-shadow: inset 0 0 0 2px`) and slightly uneven corners (`--wob`). Boards use a plain 3px ink rule. No drop shadows.
+2. **What you write is handwriting.** Entries, pencil notes, pad digits, status lines, counts and margin notes are Caveat (`--pen-font`, `.pen`). Printed clues and UI are Hanken Grotesk.
+3. **Highlighter marks state.** The cursor, a switched-on tool and Continue are yellow (`--note`). Headings are underlined with a swipe of the family's pen (`--swipe`). Row, column and box overprint in Sudoku is blue multiplied (screened at night).
+4. **The red pen is for mistakes.** A wrong entry is circled in `--coral`, never filled.
+5. **Hatching, not fills.** Discs and card backs are shaded with 45-degree pen hatching in the side's or family's pen.
 
 ## Type
 
-One family, **Recursive**, self-hosted from [`src/fonts/`](src/fonts) (Latin subset, OFL licence alongside), so it works offline.
-
-- Headings, game names and board digits: `'CASL' 1` (casual), weight 750–900.
-- Body and labels: `'CASL' 0.35`, weight 550–700.
-- Timers, counts, scores, tables and note digits: `'CASL' 0, 'MONO' 1` with tabular figures. Use the `.mono` class, or rely on the elements `base.css` already sets (`.timer`, `.score`, `.summary`, `.pad-left`).
-- Don't use uppercase eyebrow labels. Section labels are sentence case at weight 800.
+Self-hosted from [`src/fonts/`](src/fonts) (Latin, OFL licences alongside): **Hanken Grotesk** (400-800) for UI, titles and printed clues; **Caveat** (400-700) for the pen layer. Section labels are sentence case at weight 800. Timers and counts use `.mono` (tabular figures).
 
 ## Shape and depth
 
-- Radii: `--r-card` 24px (cards, dialogs, Continue), `--r-board` 20px (boards, tables), `--r-tile` 16px (level buttons, tool tiles), `--r-key` 13px (keypad). Pills (999px) for buttons, the timer, chips and the back link. Cells inside a board scale their radius with their size.
-- Depth is one soft shadow (`--shadow`) under boards, tables and home icons. No other elevation, no hard offset shadows, no glows.
-- Touch targets are at least 44px.
+Radii: `--r-card` 14px, `--r-board` 6px, `--r-tile` 12px, `--r-key` 8px; pills 999px for the timer and chips; `--wob` for hand-drawn buttons and tiles. Touch targets are at least 44px. `--shadow` is a no-op kept so old rules still parse; use no elevation, except a card being dragged.
 
 ## Components (in `base.css`)
 
-| Component | Markup | Notes |
-|---|---|---|
-| Menu title | `h1.logo` | In the game's ink |
-| Back to all games | `a.back-link` | Tinted pill |
-| Continue | `button.btn.btn-primary.continue` | Solid ink, with `<small>` meta in mono |
-| Level choices | `div.levels > button.btn.level` | Tinted tiles; put level details in `<small>` |
-| History link | `button.btn.history-link` | Quiet outlined pill |
-| Top bar | `header.topbar` | `button.icon-btn` back, `div.meta` (`<b>` level, `<span>` game name and status), then `button.timer` or `div.score` |
-| Timer | `button.timer` | Solid-ink pill. Pause/play icon comes from CSS and follows `aria-label` (`Pause` / `Resume`) |
-| Tools | `div.tools > button.tool` | Tinted icon tile with a label; add `.active` to print it in solid ink |
-| History | `table.summary`, `ul.history-list > li.history-row` | Sheet table with an ink-tinted header |
-| Dialog | `dialog.dialog` | Title in the game's ink, two actions in `.dialog-actions` |
+Same markup as before: `h1.logo`, `a.back-link`, `button.btn.btn-primary.continue`, `div.levels > button.btn.level`, `header.topbar` with `button.timer`, `div.tools > button.tool`, `table.summary`, `dialog.dialog`. Only the skin changed.
 
 ## Boards
 
-Boards sit on `--sheet` with `--r-board` corners and `--shadow`. Use paper as the material:
-
-- Something you can still act on (an unopened cell) is **solid ink**.
-- Something finished or empty is **`--sunk` paper**.
-- Numbers that carry meaning take inks from the set (Minesweeper counts: 1 blue, 2 teal, 3 coral, 4 lilac). Flow's pairs do the same, starting from the category's orange, and every pair carries its number too. Keep accents clear of the category ink: on Minesweeper's orange cells, flags are pale and a hit mine is navy, not coral.
-- Value scales (2248 and 2048 tiles, shared in `src/tiles.css`) step through the inks as a 40% screen, then solid: sunflower, coral, teal, blue, lilac, mint. At night the screen steps lighten towards `--ink` rather than darken towards paper, which goes muddy.
-- Paths and selections over a board are navy ink overprinted at about 45%.
+Boards sit on `--sheet` with a plain ink rule, hairlines in `--rule`. Printed givens are ink; entries are ballpoint in `--c`; pencil notes are `--ink-2`. Card games print cards white with an ink outline, red suits in `--coral`, backs cross-hatched in the family's pen, empty piles as dashed outlines. Value scales (2248, 2048) and per-game accents are unchanged for now and will be moved onto this language family by family.
 
 ## Motion
 
-Quick and physical: presses scale to 0.98 in 80ms, merged tiles pop, a solved board ripples. Everything respects `prefers-reduced-motion`.
+Quick and physical: presses scale to 0.98 in 80ms. Everything respects `prefers-reduced-motion`.
 
 ## Adding a new game
 
-1. **Pick a category.** Every game must have one. Put the game in the category that fits and use that category's ink. If no category fits, add a new one: a new ink in `:root` and the dark block in `base.css` (white-text contrast of 4.5:1 or more in light, navy-text contrast of 4.5:1 or more in dark), a row in the categories and inks tables above, a `.ink-<name>` class in `src/style.css`, and a new `section.family` with its `h2.section-label` on the home page.
-2. **Stylesheet.** Create `src/<game>/style.css` that starts with `@import '../base.css';` and `:root { --c: var(--<category ink>); }`. Add only the board's own styles. Don't redefine colours, buttons, top bars, tools, tables or dialogs.
-3. **Page.** Copy an existing game page (`minesweeper/index.html` is the simplest) so the menu, history and game screens use the shared components above. Keep the `theme-color` metas (`#eef0f3` light, `#141927` dark), and link the stylesheet from `<head>` with `<link rel="stylesheet" href="/src/<game>/style.css" />` rather than importing it from `main.ts`: an import loads it after the page has painted, so the unstyled HTML flashes on every navigation.
-4. **Home card.** In `index.html`, copy a `.game-card` into its category's section and give it the category's `ink-<name>` and `grain`. Draw its `.game-icon` as a tiny 3×3 version of the board on `--sheet`, in the category ink, and add the icon's styles to `src/style.css`. Add its `<game>-status` element and an entry in `IN_PROGRESS` in `src/main.ts`. Home cards are tiles in a grid (three across on a phone, more on wider screens) that show only the icon and name; keep the `.game-desc` sentence anyway, since screen readers still read it.
-5. **Check both themes** on a phone-sized screen: text contrast, the board in light and dark, and any overprint in dark mode (screen blending can turn warm inks olive).
+1. **Pick a family** and use its pen. A new family needs a pen in `:root` and the dark block of `base.css`, a row above, an `.ink-<name>` class in `src/style.css` and a `section.family.ink-<name>` on the home page.
+2. **Stylesheet.** `src/<game>/style.css` starts with `@import '../base.css';` and `:root { --c: var(--<pen>); }`, then only the board's own styles. Entries use `var(--pen-font)`.
+3. **Page.** Copy `minesweeper/index.html`. `theme-color` metas are `#fbfcff` and `#10151f`; link the stylesheet from `<head>`.
+4. **Home card.** Copy a `.game-card` into the family's section and draw its `.game-icon` as a 3x3 printed board.
+5. **Check both themes** on a phone-sized screen.
+
+## Rollout status
+
+Every family now uses Graph Paper: base, home page and icons, and all game boards (number puzzles, logic puzzles, number tiles, play the computer, cards, word games, dice, arcade, how to play). Known leftovers:
+
+- 2248 tile digits stay Hanken because `main.ts` sizes them inline; its hairline cells also show a ragged edge from the `--tile` sizing.
+- Dots and Boxes claimed boxes and Battleship hulls need `.ts` classes to be hatched or outlined as one piece.
+- Nonograms' heavier every-fifth-cell rules need a `.ts` class.
+- Android launcher and splash icons still carry the old navy and blue palette.

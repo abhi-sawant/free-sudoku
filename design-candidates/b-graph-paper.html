@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Candidate B: Graph Paper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="structure.css">
+<link rel="stylesheet" href="b-graph-paper.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter>
+</svg>
+<header class="stage-head">
+  <a class="back-all" href="index.html">All candidates</a>
+  <h1>B. Graph Paper</h1>
+  <p>A pen-and-pencil puzzle notebook. Printed clues, ballpoint entries in your own hand, pencil notes, a red pen for mistakes, highlighter for categories and the cursor. Wobbly pen outlines instead of boxes and shadows.</p>
+  <button id="theme" class="theme" type="button">Show dark</button>
+</header>
+<main class="phones" id="phones"></main>
+<script src="shared.js"></script>
+<script>Proto.mount({ suitStyle: 'vector' });</script>
+</body>
+</html>

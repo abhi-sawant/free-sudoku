@@ -70,7 +70,7 @@ Each game is its own page with its own folder of code; the root page is the game
 index.html, src/main.ts, src/style.css   home page
 src/sw.ts, src/pwa.ts                    the service worker, and the registration every page imports
 src/base.css                             the shared Riso design: inks, type, buttons, top bar, tools, dialogs
-src/fonts/                               Recursive, self-hosted so the app works offline
+src/fonts/                               Hanken Grotesk and Caveat, self-hosted so the app works offline
 sudoku/index.html, src/sudoku/           Sudoku
 minesweeper/index.html, src/minesweeper/ Minesweeper
 2248/index.html, src/2248/               2248
