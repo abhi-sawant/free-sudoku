@@ -11,7 +11,7 @@
 /* Sits where the timer is in the other games. */
 .score { text-align: right; line-height: 1.05; min-width: 64px; }
 .score b { display: block; font-family: var(--pen-font); font-size: 2.1rem; font-weight: 700; line-height: 0.9; color: var(--c); }
-.score span { font-family: var(--pen-font); font-size: 1.1rem; font-weight: 600; color: var(--ink-2); }
+.score span { font-family: var(--pen-font); font-size: 0.9rem; font-weight: 600; color: var(--ink-2); }
 
 .board-wrap {
   touch-action: none; /* taps jump, they don't zoom or scroll the page */
@@ -32,7 +32,7 @@
   aspect-ratio: 360 / 420;
   border-radius: var(--r-board);
   background: var(--sheet);
-  box-shadow: 0 0 0 3px var(--ink);
+  box-shadow: 0 0 0 2px var(--rule-2);
   overflow: hidden;
   cursor: pointer;
 }

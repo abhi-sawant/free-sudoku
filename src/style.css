@@ -22,22 +22,18 @@
   justify-self: start;
   width: fit-content;
   margin: 0;
-  padding: 0 8px;
-  font-size: clamp(3.2rem, 16vw, 4.2rem);
+  padding: 0;
+  font-size: clamp(2.8rem, 14vw, 3.6rem);
   line-height: 1.02;
   font-weight: 800;
   letter-spacing: -0.035em;
   color: var(--ink);
-  background: linear-gradient(transparent 58%, color-mix(in srgb, var(--yellow) 85%, transparent) 58% 92%, transparent 92%);
-  border-radius: 4px;
-  transform: rotate(-1deg);
 }
 /* The old out-of-register pass is retired. */
 .wordmark .reg { display: none; }
 
 /* "Free. Offline. No ads." written in the margin. */
-.stamps { display: flex; gap: 4px 12px; flex-wrap: wrap; margin: 14px 0 0 6px; font-family: var(--pen-font); font-size: 1.5rem; font-weight: 700; color: var(--blue); line-height: 1; }
-.stamps span { transform: rotate(-2deg); }
+.stamps { display: flex; gap: 4px 12px; flex-wrap: wrap; margin: 12px 0 0 2px; font-size: 1.05rem; font-weight: 600; color: var(--ink-2); line-height: 1.2; }
 .stamps span + span::before { content: '·'; margin-right: 12px; color: var(--ink-2); }
 
 /* The Install button sits at the right of the wordmark; the stamps drop to the row below. */
@@ -62,19 +58,18 @@
   align-items: center;
   gap: 16px;
   padding: 16px;
-  border-radius: var(--wob);
+  border-radius: var(--r-card);
   background: var(--note);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: var(--shadow);
   color: var(--ink);
   text-decoration: none;
-  transform: rotate(-0.4deg);
   transition: transform 0.08s ease;
 }
 .gotd-card:active { transform: scale(0.98); }
 .gotd-icon { flex-shrink: 0; display: grid; }
 .gotd-icon .game-icon { width: 88px; height: 88px; }
 .gotd-text { min-width: 0; flex: 1; display: grid; gap: 4px; justify-items: start; }
-.gotd-tag { font-family: var(--pen-font); font-size: 1.3rem; font-weight: 700; line-height: 1; color: var(--c); }
+.gotd-tag { font-size: 0.85rem; font-weight: 800; line-height: 1; color: var(--ink-2); }
 .gotd-name { font-size: 1.35rem; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; }
 .gotd-desc { color: var(--ink-2); font-size: 0.88rem; font-weight: 500; line-height: 1.35; }
 .gotd-go { flex-shrink: 0; width: 22px; height: 22px; color: var(--ink); stroke-width: 2.6; }
@@ -106,15 +101,14 @@
   align-items: center;
   gap: 10px;
   padding: 14px 6px 16px;
-  border-radius: var(--wob);
+  border-radius: var(--r-card);
   background: var(--sheet);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: var(--shadow);
   color: var(--ink);
   text-align: center;
   text-decoration: none;
   transition: transform 0.08s ease, background 0.15s ease;
 }
-.game-card:nth-child(even) { border-radius: 17px 13px 16px 14px / 13px 16px 14px 17px; }
 .game-card:active { transform: scale(0.97); background: var(--tint); }
 @media (hover: hover) {
   .game-card:hover { background: var(--tint); }
@@ -130,15 +124,15 @@
 }
 /* The tile has room for the name only; the description stays for screen readers. */
 .game-desc { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-/* A game in progress: a note in your own hand, with a pen-stroke underline. */
+/* A game in progress: a small pill in the family colour. */
 .game-status {
-  font-family: var(--pen-font);
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-size: 0.78rem;
+  font-weight: 800;
   line-height: 1.15;
   color: var(--c);
-  background: linear-gradient(transparent 62%, var(--swipe) 62%);
-  padding: 0 4px 2px;
+  background: var(--tint);
+  border-radius: 999px;
+  padding: 3px 9px;
   white-space: nowrap;
 }
 
@@ -163,7 +157,7 @@
   padding: 6px;
   border-radius: 8px;
   background: var(--sheet);
-  box-shadow: inset 0 0 0 1.5px var(--ink);
+  box-shadow: inset 0 0 0 1px var(--rule);
   position: relative;
   font-size: 0.85rem;
   font-weight: 800;
@@ -196,7 +190,7 @@
 }
 
 /* Minesweeper: unopened cells are hatched, opened ones are bare sheet with the count, the flag is a pen mark. */
-.game-icon-mines i { background: repeating-linear-gradient(45deg, var(--orange) 0 1.5px, transparent 1.5px 4px); }
+.game-icon-mines i { background: linear-gradient(color-mix(in srgb, var(--orange) 42%, transparent), color-mix(in srgb, var(--orange) 42%, transparent)); }
 .game-icon-mines i.o { background: var(--sheet); color: var(--orange); font-family: var(--pen-font); font-size: 1.15rem; font-weight: 700; }
 .game-icon-mines i.m-flag { background: var(--sheet); }
 .game-icon-mines svg { width: 72%; height: 72%; color: var(--orange); stroke: currentColor; fill: none; stroke-width: 2.4; }
@@ -205,9 +199,9 @@
 /* 2248 and 2048: tiles climb a hatching scale in the family pen; empty cells stay bare. */
 .game-icon-2248 i, .game-icon-2048 i { font-size: 0.72rem; color: var(--ink); background: var(--sheet); }
 .game-icon-2248 [data-exp='1'], .game-icon-2048 [data-exp='1'] { background: var(--sheet); box-shadow: inset 0 0 0 1.5px var(--lilac); }
-.game-icon-2248 [data-exp='2'], .game-icon-2048 [data-exp='2'] { background: repeating-linear-gradient(45deg, var(--lilac) 0 1px, transparent 1px 5px), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--lilac); }
-.game-icon-2248 [data-exp='3'], .game-icon-2048 [data-exp='3'] { background: repeating-linear-gradient(45deg, var(--lilac) 0 1.5px, transparent 1.5px 4px), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--lilac); }
-.game-icon-2248 [data-exp='4'], .game-icon-2048 [data-exp='4'] { background: repeating-linear-gradient(45deg, var(--lilac) 0 1.5px, transparent 1.5px 4px), repeating-linear-gradient(-45deg, var(--lilac) 0 1.5px, transparent 1.5px 4px), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--lilac); }
+.game-icon-2248 [data-exp='2'], .game-icon-2048 [data-exp='2'] { background: linear-gradient(color-mix(in srgb, var(--lilac) 42%, transparent), color-mix(in srgb, var(--lilac) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--lilac); }
+.game-icon-2248 [data-exp='3'], .game-icon-2048 [data-exp='3'] { background: linear-gradient(color-mix(in srgb, var(--lilac) 42%, transparent), color-mix(in srgb, var(--lilac) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--lilac); }
+.game-icon-2248 [data-exp='4'], .game-icon-2048 [data-exp='4'] { background: linear-gradient(color-mix(in srgb, var(--lilac) 42%, transparent), color-mix(in srgb, var(--lilac) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--lilac); }
 .game-icon-2248 [data-exp='5'], .game-icon-2048 [data-exp='5'] { background: var(--lilac); color: var(--on-ink); box-shadow: none; }
 .game-icon-2048 i:empty { box-shadow: inset 0 0 0 0.5px var(--rule); }
 
@@ -226,7 +220,7 @@
 .game-icon-dots .p1 { stroke: var(--coral); }
 .game-icon-dots .own { display: none; }
 .game-icon-dots .dots { fill: var(--ink); stroke: none; }
-.game-icon-dots::before { content: ''; position: absolute; left: 17px; top: 17px; width: 18px; height: 18px; background: repeating-linear-gradient(45deg, var(--sky) 0 1.5px, transparent 1.5px 4px); }
+.game-icon-dots::before { content: ''; position: absolute; left: 17px; top: 17px; width: 18px; height: 18px; background: linear-gradient(color-mix(in srgb, var(--sky) 42%, transparent), color-mix(in srgb, var(--sky) 42%, transparent)); }
 
 /* Killer Sudoku: ballpoint digits, a dashed pen cage round the top-left corner, its sum printed in ink. */
 .game-icon-killer i, .game-icon-calcudoku i { color: var(--blue); position: relative; font-family: var(--pen-font); font-size: 1.15rem; font-weight: 700; }
@@ -239,8 +233,8 @@
 
 /* Kakuro: clue cells are cross-hatched with the sum printed on a sheet patch, answers are ballpoint. */
 .game-icon-kakuro i { color: var(--blue); font-family: var(--pen-font); font-size: 1.15rem; font-weight: 700; }
-.game-icon-kakuro i.k { background: repeating-linear-gradient(45deg, var(--blue) 0 1px, transparent 1px 3px), repeating-linear-gradient(-45deg, var(--blue) 0 1px, transparent 1px 3px); }
-.game-icon-kakuro b { font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 0.55rem; font-weight: 800; color: var(--ink); background: var(--sheet); align-self: start; justify-self: end; padding: 1px 2px; margin: 1px; line-height: 1; }
+.game-icon-kakuro i.k { background: linear-gradient(color-mix(in srgb, var(--blue) 42%, transparent), color-mix(in srgb, var(--blue) 42%, transparent)); }
+.game-icon-kakuro b { font-family: 'Nunito', system-ui, sans-serif; font-size: 0.55rem; font-weight: 800; color: var(--ink); background: var(--sheet); align-self: start; justify-self: end; padding: 1px 2px; margin: 1px; line-height: 1; }
 
 /* Futoshiki: ballpoint digits with the printed signs between them. */
 .game-icon-futoshiki i { color: var(--blue); font-family: var(--pen-font); font-size: 1.15rem; font-weight: 700; }
@@ -250,12 +244,12 @@
 /* Skyscrapers: ink edge clues, buildings hatched to the height they print: the taller, the more pen. */
 .game-icon-skyscrapers i { font-family: var(--pen-font); font-size: 1.15rem; font-weight: 700; color: var(--ink); background-repeat: no-repeat; background-position: bottom; }
 .game-icon-skyscrapers i.k { font-family: inherit; font-size: 0.7rem; font-weight: 800; box-shadow: none; }
-.game-icon-skyscrapers i.h1 { background-image: repeating-linear-gradient(45deg, var(--blue) 0 1.5px, transparent 1.5px 4px); background-size: 100% 34%; }
-.game-icon-skyscrapers i.h2 { background-image: repeating-linear-gradient(45deg, var(--blue) 0 1.5px, transparent 1.5px 4px); background-size: 100% 67%; }
-.game-icon-skyscrapers i.h3 { background-image: repeating-linear-gradient(45deg, var(--blue) 0 1.5px, transparent 1.5px 4px); background-size: 100% 100%; }
+.game-icon-skyscrapers i.h1 { background-image: linear-gradient(color-mix(in srgb, var(--blue) 42%, transparent), color-mix(in srgb, var(--blue) 42%, transparent)); background-size: 100% 34%; }
+.game-icon-skyscrapers i.h2 { background-image: linear-gradient(color-mix(in srgb, var(--blue) 42%, transparent), color-mix(in srgb, var(--blue) 42%, transparent)); background-size: 100% 67%; }
+.game-icon-skyscrapers i.h3 { background-image: linear-gradient(color-mix(in srgb, var(--blue) 42%, transparent), color-mix(in srgb, var(--blue) 42%, transparent)); background-size: 100% 100%; }
 
 /* Jigsaw Sudoku: one odd-shaped region shaded in blue hatching, printed digits in ink. */
-.game-icon-jigsaw i.r { background: repeating-linear-gradient(45deg, var(--blue) 0 1.5px, transparent 1.5px 4px); }
+.game-icon-jigsaw i.r { background: linear-gradient(color-mix(in srgb, var(--blue) 42%, transparent), color-mix(in srgb, var(--blue) 42%, transparent)); }
 
 /* Sudoku X: digits over the two diagonals ruled in blue. */
 .game-icon-sudokux i { position: relative; z-index: 1; color: var(--blue); font-family: var(--pen-font); font-size: 1.15rem; font-weight: 700; }
@@ -272,18 +266,18 @@
 .game-icon-nonograms i, .game-icon-nurikabe i, .game-icon-hitori i, .game-icon-lightsout i,
 .game-icon-takuzu i, .game-icon-starbattle i, .game-icon-tents i, .game-icon-lightup i, .game-icon-heyawake i,
 .game-icon-lits i, .game-icon-slitherlink i, .game-icon-masyu i, .game-icon-bridges i, .game-icon-flow i { color: var(--orange); }
-.game-icon-nonograms i.f, .game-icon-nurikabe i.f, .game-icon-lightsout i.f, .game-icon-heyawake i.f, .game-icon-lits i.f { background: repeating-linear-gradient(45deg, var(--orange) 0 1.5px, transparent 1.5px 4px), repeating-linear-gradient(-45deg, var(--orange) 0 1.5px, transparent 1.5px 4px); }
+.game-icon-nonograms i.f, .game-icon-nurikabe i.f, .game-icon-lightsout i.f, .game-icon-heyawake i.f, .game-icon-lits i.f { background: linear-gradient(color-mix(in srgb, var(--orange) 42%, transparent), color-mix(in srgb, var(--orange) 42%, transparent)); }
 .game-icon-nurikabe i:not(.f), .game-icon-hitori i, .game-icon-takuzu i { font-size: 0.85rem; font-weight: 800; }
 .game-icon-nurikabe i:not(.f) { color: var(--ink); }
 .game-icon-hitori i { color: var(--ink); }
-.game-icon-hitori i.f { background: repeating-linear-gradient(45deg, var(--orange) 0 1.5px, transparent 1.5px 4px); color: var(--ink-2); }
+.game-icon-hitori i.f { background: linear-gradient(color-mix(in srgb, var(--orange) 42%, transparent), color-mix(in srgb, var(--orange) 42%, transparent)); color: var(--ink-2); }
 .game-icon-takuzu i { font-family: var(--pen-font); font-size: 1.15rem; font-weight: 700; }
-.game-icon-takuzu i.f { background: repeating-linear-gradient(45deg, var(--orange) 0 1px, transparent 1px 5px); }
+.game-icon-takuzu i.f { background: linear-gradient(color-mix(in srgb, var(--orange) 42%, transparent), color-mix(in srgb, var(--orange) 42%, transparent)); }
 .game-icon-heyawake b { align-self: start; justify-self: start; padding: 2px 0 0 3px; font-size: 0.55rem; color: var(--ink); }
 
 /* Star Battle: regions printed as hatched and bare blocks, stars in the pen. */
 .game-icon-starbattle i { font-size: 1rem; }
-.game-icon-starbattle i:nth-child(2), .game-icon-starbattle i:nth-child(3), .game-icon-starbattle i:nth-child(6) { background: repeating-linear-gradient(45deg, var(--orange) 0 1px, transparent 1px 5px); }
+.game-icon-starbattle i:nth-child(2), .game-icon-starbattle i:nth-child(3), .game-icon-starbattle i:nth-child(6) { background: linear-gradient(color-mix(in srgb, var(--orange) 42%, transparent), color-mix(in srgb, var(--orange) 42%, transparent)); }
 
 /* Tents: ink tents and mint trees. */
 .game-icon-tents i.g { color: var(--mint); font-size: 1rem; }
@@ -299,12 +293,12 @@
 .game-icon-slitherlink::after { content: ''; position: absolute; inset: 6px 26px 26px 6px; border: 2.5px solid var(--orange); border-bottom: 0; border-radius: 3px 3px 0 0; }
 
 /* Masyu: a white and a black pearl. */
-.game-icon-masyu i.pw::after, .game-icon-masyu i.pb::after { content: ''; width: 62%; height: 62%; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--ink); }
+.game-icon-masyu i.pw::after, .game-icon-masyu i.pb::after { content: ''; width: 62%; height: 62%; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--rule); }
 .game-icon-masyu i.pb::after { background: var(--ink); }
 
 /* Bridges: islands ringed in ink, bridges in pen. */
 .game-icon-bridges i { box-shadow: none; }
-.game-icon-bridges i.is { background: var(--sheet); border-radius: 50%; box-shadow: inset 0 0 0 2px var(--ink); color: var(--ink); }
+.game-icon-bridges i.is { background: var(--sheet); border-radius: 50%; box-shadow: inset 0 0 0 1px var(--rule); color: var(--ink); }
 .game-icon-bridges i.br { background: linear-gradient(var(--orange), var(--orange)) center / 100% 2.5px no-repeat; }
 .game-icon-bridges i.bv { background: linear-gradient(var(--orange), var(--orange)) center / 2.5px 100% no-repeat; }
 
@@ -312,17 +306,17 @@
 .game-icon-flow i.d1, .game-icon-flow i.d2 { border-radius: 50%; color: var(--on-ink); box-shadow: none; }
 .game-icon-flow i.d1 { background: var(--orange); }
 .game-icon-flow i.d2 { background: var(--blue); }
-.game-icon-flow i.p1 { background: repeating-linear-gradient(45deg, var(--orange) 0 1.5px, transparent 1.5px 4px); }
-.game-icon-flow i.p2 { background: repeating-linear-gradient(45deg, var(--blue) 0 1.5px, transparent 1.5px 4px); }
+.game-icon-flow i.p1 { background: linear-gradient(color-mix(in srgb, var(--orange) 42%, transparent), color-mix(in srgb, var(--orange) 42%, transparent)); }
+.game-icon-flow i.p2 { background: linear-gradient(color-mix(in srgb, var(--blue) 42%, transparent), color-mix(in srgb, var(--blue) 42%, transparent)); }
 
 /* Water Sort: three tubes, two sorted and one mixed, the liquids hatched. */
-.game-icon-watersort i { background: repeating-linear-gradient(45deg, var(--orange) 0 1.5px, transparent 1.5px 3.5px); margin: 0 3px; box-shadow: inset 0 0 0 1px var(--ink); }
-.game-icon-watersort i.b { background: repeating-linear-gradient(45deg, var(--blue) 0 1.5px, transparent 1.5px 3.5px); }
+.game-icon-watersort i { background: linear-gradient(color-mix(in srgb, var(--orange) 42%, transparent), color-mix(in srgb, var(--orange) 42%, transparent)); margin: 0 3px; box-shadow: inset 0 0 0 1px var(--rule-2); }
+.game-icon-watersort i.b { background: linear-gradient(color-mix(in srgb, var(--blue) 42%, transparent), color-mix(in srgb, var(--blue) 42%, transparent)); }
 
 /* Threes: 1s hatch coral, 2s hatch blue, everything from 3 up is a sheet tile with a lilac rim. */
 .game-icon-threes i { font-size: 0.72rem; }
-.game-icon-threes i.one { background: repeating-linear-gradient(45deg, var(--coral) 0 1.5px, transparent 1.5px 4px), var(--sheet); }
-.game-icon-threes i.two { background: repeating-linear-gradient(45deg, var(--blue) 0 1.5px, transparent 1.5px 4px), var(--sheet); }
+.game-icon-threes i.one { background: linear-gradient(color-mix(in srgb, var(--coral) 42%, transparent), color-mix(in srgb, var(--coral) 42%, transparent)), var(--sheet); }
+.game-icon-threes i.two { background: linear-gradient(color-mix(in srgb, var(--blue) 42%, transparent), color-mix(in srgb, var(--blue) 42%, transparent)), var(--sheet); }
 .game-icon-threes i.t { background: var(--sheet); box-shadow: inset 0 0 0 1.5px var(--lilac); }
 
 /* 15-puzzle: sheet tiles in a lilac rim and one empty slot. */
@@ -332,28 +326,28 @@
 /* Sokoban: solid ink walls, an ink player, a hatched box and a ringed target. */
 .game-icon-sokoban i.w { background: var(--ink); box-shadow: none; }
 .game-icon-sokoban i.p::after { content: ''; width: 55%; height: 55%; border-radius: 50%; background: var(--ink); }
-.game-icon-sokoban i.b { background: repeating-linear-gradient(45deg, var(--lilac) 0 1px, transparent 1px 4px), repeating-linear-gradient(-45deg, var(--lilac) 0 1px, transparent 1px 4px), var(--sheet); box-shadow: inset 0 0 0 2px var(--lilac); }
+.game-icon-sokoban i.b { background: linear-gradient(color-mix(in srgb, var(--lilac) 42%, transparent), color-mix(in srgb, var(--lilac) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--lilac); }
 .game-icon-sokoban i.t::after { content: ''; width: 36%; height: 36%; border-radius: 50%; box-shadow: 0 0 0 2px var(--lilac); }
 
 /* Rush Hour: hatched cars outlined in ink, the red-pen one is the target. */
 .game-icon-rushhour { gap: 3px; }
 .game-icon-rushhour i { box-shadow: inset 0 0 0 0.5px var(--rule); }
-.game-icon-rushhour i.v, .game-icon-rushhour i.h, .game-icon-rushhour i.h2 { background: repeating-linear-gradient(45deg, var(--lilac) 0 1.5px, transparent 1.5px 4px), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--ink); border-radius: 3px; }
-.game-icon-rushhour i.r { background: repeating-linear-gradient(45deg, var(--coral) 0 1.5px, transparent 1.5px 4px), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--ink); border-radius: 3px; }
+.game-icon-rushhour i.v, .game-icon-rushhour i.h, .game-icon-rushhour i.h2 { background: linear-gradient(color-mix(in srgb, var(--lilac) 42%, transparent), color-mix(in srgb, var(--lilac) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 1px var(--rule); border-radius: 3px; }
+.game-icon-rushhour i.r { background: linear-gradient(color-mix(in srgb, var(--coral) 42%, transparent), color-mix(in srgb, var(--coral) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 1px var(--rule); border-radius: 3px; }
 
 /* Peg Solitaire: hatched pegs ringed in lilac, empty holes as small rings. */
 .game-icon-pegs i { box-shadow: none; }
 .game-icon-pegs i::after { content: ''; width: 40%; height: 40%; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--rule); }
-.game-icon-pegs i.g::after { width: 72%; height: 72%; background: repeating-linear-gradient(45deg, var(--lilac) 0 1.5px, transparent 1.5px 3.5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--lilac); }
+.game-icon-pegs i.g::after { width: 72%; height: 72%; background: linear-gradient(color-mix(in srgb, var(--lilac) 42%, transparent), color-mix(in srgb, var(--lilac) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--lilac); }
 
 /* Board games in sky: your discs are sky hatching, the other side's are coral, or sheet discs with a sky ring. */
 .game-icon-connect4 i, .game-icon-reversi i { box-shadow: none; }
 .game-icon-connect4 i::after { content: ''; width: 82%; height: 82%; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--ink-2); }
-.game-icon-connect4 i.a::after { background: repeating-linear-gradient(45deg, var(--sky) 0 1.5px, transparent 1.5px 3.5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--sky); }
-.game-icon-connect4 i.b::after { background: repeating-linear-gradient(45deg, var(--coral) 0 1.5px, transparent 1.5px 3.5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--coral); }
+.game-icon-connect4 i.a::after { background: linear-gradient(color-mix(in srgb, var(--sky) 42%, transparent), color-mix(in srgb, var(--sky) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--sky); }
+.game-icon-connect4 i.b::after { background: linear-gradient(color-mix(in srgb, var(--coral) 42%, transparent), color-mix(in srgb, var(--coral) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--coral); }
 .game-icon-reversi i { box-shadow: inset 0 0 0 0.5px var(--rule); }
 .game-icon-reversi i.a::after, .game-icon-reversi i.b::after { content: ''; width: 80%; height: 80%; border-radius: 50%; }
-.game-icon-reversi i.a::after { background: repeating-linear-gradient(45deg, var(--sky) 0 1.5px, transparent 1.5px 3.5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--sky); }
+.game-icon-reversi i.a::after { background: linear-gradient(color-mix(in srgb, var(--sky) 42%, transparent), color-mix(in srgb, var(--sky) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--sky); }
 .game-icon-reversi i.b::after { background: var(--sheet); box-shadow: inset 0 0 0 2px var(--sky); }
 
 /* Gomoku and Go: ruled lines through the cell centres, stones on the crossings. */
@@ -369,8 +363,8 @@
 }
 .game-icon-gomoku i, .game-icon-go i { box-shadow: none; }
 .game-icon-gomoku i.a::after, .game-icon-gomoku i.b::after { content: ''; width: 72%; height: 72%; border-radius: 50%; }
-.game-icon-gomoku i.a::after { background: repeating-linear-gradient(45deg, var(--sky) 0 1.5px, transparent 1.5px 3.5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--sky); }
-.game-icon-gomoku i.b::after { background: repeating-linear-gradient(45deg, var(--coral) 0 1.5px, transparent 1.5px 3.5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--coral); }
+.game-icon-gomoku i.a::after { background: linear-gradient(color-mix(in srgb, var(--sky) 42%, transparent), color-mix(in srgb, var(--sky) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--sky); }
+.game-icon-gomoku i.b::after { background: linear-gradient(color-mix(in srgb, var(--coral) 42%, transparent), color-mix(in srgb, var(--coral) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--coral); }
 .game-icon-morris { display: block; padding: 4px; }
 .game-icon-morris svg { width: 100%; height: 100%; }
 .game-icon-morris path { stroke: var(--ink-2); stroke-width: 2; fill: none; }
@@ -380,21 +374,21 @@
 
 /* Checkers: dark squares hatched in sky, hatched discs ringed in the side's pen. */
 .game-icon-checkers i { box-shadow: none; background: var(--sheet); }
-.game-icon-checkers i.d, .game-icon-checkers i.da, .game-icon-checkers i.db { background: repeating-linear-gradient(45deg, var(--sky) 0 1px, transparent 1px 4px), var(--sheet); }
+.game-icon-checkers i.d, .game-icon-checkers i.da, .game-icon-checkers i.db { background: linear-gradient(color-mix(in srgb, var(--sky) 42%, transparent), color-mix(in srgb, var(--sky) 42%, transparent)), var(--sheet); }
 .game-icon-checkers i.da::after, .game-icon-checkers i.db::after { content: ''; width: 72%; height: 72%; border-radius: 50%; }
-.game-icon-checkers i.da::after { background: repeating-linear-gradient(45deg, var(--sky) 0 1.5px, transparent 1.5px 3.5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--sky); }
-.game-icon-checkers i.db::after { background: repeating-linear-gradient(45deg, var(--coral) 0 1.5px, transparent 1.5px 3.5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--coral); }
+.game-icon-checkers i.da::after { background: linear-gradient(color-mix(in srgb, var(--sky) 42%, transparent), color-mix(in srgb, var(--sky) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--sky); }
+.game-icon-checkers i.db::after { background: linear-gradient(color-mix(in srgb, var(--coral) 42%, transparent), color-mix(in srgb, var(--coral) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--coral); }
 
 /* Mancala: two rows of pits, the near row ringed in sky and lightly hatched. */
 .game-icon-mancala { grid-template: repeat(2, 1fr) / repeat(3, 1fr); padding: 10px 6px; }
 .game-icon-mancala i { border-radius: 50%; box-shadow: inset 0 0 0 1px var(--ink-2); color: var(--ink); font-family: var(--pen-font); font-size: 1.05rem; font-weight: 700; margin: 1px; }
-.game-icon-mancala i.s { background: repeating-linear-gradient(45deg, var(--sky) 0 1px, transparent 1px 5px); box-shadow: inset 0 0 0 2px var(--sky); }
+.game-icon-mancala i.s { background: linear-gradient(color-mix(in srgb, var(--sky) 42%, transparent), color-mix(in srgb, var(--sky) 42%, transparent)); box-shadow: inset 0 0 0 2px var(--sky); }
 .game-icon-mancala i:nth-child(n + 7) { display: none; }
 
 /* Ultimate, Hex: ruled cells with sky stones; sheet stones ringed in sky are the other side. */
 .game-icon-ultimate i.a::after, .game-icon-hex i.a::after, .game-icon-go i.a::after,
 .game-icon-ultimate i.b::after, .game-icon-hex i.b::after, .game-icon-go i.b::after {
-  content: ''; width: 64%; height: 64%; border-radius: 50%; background: repeating-linear-gradient(45deg, var(--sky) 0 1.5px, transparent 1.5px 3.5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--sky);
+  content: ''; width: 64%; height: 64%; border-radius: 50%; background: linear-gradient(color-mix(in srgb, var(--sky) 42%, transparent), color-mix(in srgb, var(--sky) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--sky);
 }
 .game-icon-ultimate i.b::after, .game-icon-hex i.b::after, .game-icon-go i.b::after { background: var(--sheet); box-shadow: inset 0 0 0 2.5px var(--sky); }
 .game-icon-ultimate i { box-shadow: inset 0 0 0 1px var(--ink-2); }
@@ -405,31 +399,31 @@
 
 /* Chess: pieces on a board hatched in sky. */
 .game-icon-chess i { color: var(--sky); font-size: 1rem; font-family: 'Apple Symbols', 'Segoe UI Symbol', serif; box-shadow: none; }
-.game-icon-chess i.d { background: repeating-linear-gradient(45deg, var(--sky) 0 1px, transparent 1px 4.5px); }
+.game-icon-chess i.d { background: linear-gradient(color-mix(in srgb, var(--sky) 42%, transparent), color-mix(in srgb, var(--sky) 42%, transparent)); }
 .game-icon-chess i.s { color: var(--ink); }
 
 /* Backgammon: hatched points and a pair of ruled dice. */
 .game-icon-backgammon i { box-shadow: none; }
-.game-icon-backgammon i.t { background: repeating-linear-gradient(45deg, var(--sky) 0 1.5px, transparent 1.5px 4px); clip-path: polygon(0 0, 100% 0, 50% 100%); }
-.game-icon-backgammon i.u { background: repeating-linear-gradient(45deg, var(--sky) 0 1.5px, transparent 1.5px 4px); clip-path: polygon(0 100%, 100% 100%, 50% 0); }
-.game-icon-backgammon i.t.b, .game-icon-backgammon i.u.b { background: repeating-linear-gradient(45deg, var(--ink-2) 0 1.5px, transparent 1.5px 4px); }
-.game-icon-backgammon i.die { clip-path: none; background: var(--sheet); box-shadow: inset 0 0 0 1.5px var(--ink); color: var(--ink); font-size: 0.7rem; border-radius: 4px; margin: 2px; }
+.game-icon-backgammon i.t { background: linear-gradient(color-mix(in srgb, var(--sky) 42%, transparent), color-mix(in srgb, var(--sky) 42%, transparent)); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.game-icon-backgammon i.u { background: linear-gradient(color-mix(in srgb, var(--sky) 42%, transparent), color-mix(in srgb, var(--sky) 42%, transparent)); clip-path: polygon(0 100%, 100% 100%, 50% 0); }
+.game-icon-backgammon i.t.b, .game-icon-backgammon i.u.b { background: linear-gradient(color-mix(in srgb, var(--ink-2) 42%, transparent), color-mix(in srgb, var(--ink-2) 42%, transparent)); }
+.game-icon-backgammon i.die { clip-path: none; background: var(--sheet); box-shadow: inset 0 0 0 1px var(--rule); color: var(--ink); font-size: 0.7rem; border-radius: 4px; margin: 2px; }
 
 /* Battleship: hits are hatched sky, misses are small rings, on the printed sea grid. */
-.game-icon-battleship i.h { background: repeating-linear-gradient(45deg, var(--sky) 0 1.5px, transparent 1.5px 3.5px), repeating-linear-gradient(-45deg, var(--sky) 0 1.5px, transparent 1.5px 3.5px); box-shadow: inset 0 0 0 1.5px var(--sky); }
+.game-icon-battleship i.h { background: linear-gradient(color-mix(in srgb, var(--sky) 42%, transparent), color-mix(in srgb, var(--sky) 42%, transparent)); box-shadow: inset 0 0 0 1.5px var(--sky); }
 .game-icon-battleship i.m::after { content: ''; width: 30%; height: 30%; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--ink-2); }
 
 /* Word games in berry: letters in hand, marked the way each game marks them. */
 .game-icon-wordguess { grid-template: repeat(2, 1fr) / repeat(5, 1fr); padding: 14px 6px; }
 .game-icon-wordguess i { box-shadow: inset 0 0 0 1px var(--ink-2); color: var(--ink-2); font-family: var(--pen-font); font-size: 1.1rem; font-weight: 700; }
 .game-icon-wordguess i:nth-child(n + 6) { display: none; }
-.game-icon-wordguess i.h { background: repeating-linear-gradient(45deg, var(--berry) 0 1px, transparent 1px 5px); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--berry); }
+.game-icon-wordguess i.h { background: linear-gradient(color-mix(in srgb, var(--berry) 42%, transparent), color-mix(in srgb, var(--berry) 42%, transparent)); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--berry); }
 .game-icon-wordguess i.n { background: var(--sheet); box-shadow: inset 0 0 0 2px var(--berry); color: var(--ink); border-radius: 50%; }
 .game-icon-wordsearch i { color: var(--ink); font-size: 0.75rem; }
-.game-icon-wordsearch i.f { background: repeating-linear-gradient(45deg, var(--berry) 0 1px, transparent 1px 4px); box-shadow: inset 0 0 0 2px var(--berry); border-radius: 50%; }
+.game-icon-wordsearch i.f { background: linear-gradient(color-mix(in srgb, var(--berry) 42%, transparent), color-mix(in srgb, var(--berry) 42%, transparent)); box-shadow: inset 0 0 0 2px var(--berry); border-radius: 50%; }
 .game-icon-letterwheel i { box-shadow: none; }
 .game-icon-letterwheel i.w { box-shadow: inset 0 0 0 2px var(--berry); border-radius: 50%; color: var(--ink); font-size: 0.75rem; margin: 1px; }
-.game-icon-letterwheel i.c { background: repeating-linear-gradient(45deg, var(--berry) 0 1.5px, transparent 1.5px 3.5px); border-radius: 50%; margin: 3px; box-shadow: inset 0 0 0 2px var(--berry); }
+.game-icon-letterwheel i.c { background: linear-gradient(color-mix(in srgb, var(--berry) 42%, transparent), color-mix(in srgb, var(--berry) 42%, transparent)); border-radius: 50%; margin: 3px; box-shadow: inset 0 0 0 2px var(--berry); }
 
 /* Dice games in plum: little dice with a pip pattern each; dice set aside are hatched. */
 .game-icon-dice { gap: 4px; padding: 8px; }
@@ -437,7 +431,7 @@
 .game-icon-dice i.d { border-radius: 4px; background: var(--sheet); box-shadow: inset 0 0 0 1.5px var(--plum);
   background-image: radial-gradient(circle, var(--plum) 1.6px, transparent 2px); background-repeat: no-repeat; }
 .game-icon-dice i.k { position: relative; isolation: isolate; }
-.game-icon-dice i.k::before { content: ''; position: absolute; inset: 1.5px; z-index: -1; border-radius: 3px; background: repeating-linear-gradient(45deg, var(--plum) 0 1px, transparent 1px 3.5px); opacity: 0.6; }
+.game-icon-dice i.k::before { content: ''; position: absolute; inset: 1.5px; z-index: -1; border-radius: 3px; background: linear-gradient(color-mix(in srgb, var(--plum) 42%, transparent), color-mix(in srgb, var(--plum) 42%, transparent)); opacity: 0.6; }
 .game-icon-dice i.p1 { background-position: center; background-size: 100% 100%; }
 .game-icon-dice i.p2, .game-icon-dice i.p3, .game-icon-dice i.p5, .game-icon-dice i.p6 { background-size: 50% 50%; background-repeat: repeat; }
 .game-icon-pig { grid-template: 1fr / 1fr; padding: 14px; }
@@ -449,9 +443,9 @@
 .game-icon-crazycat i { background: none; box-shadow: none; }
 .game-icon-crazycat i:not(.c, .o, .f, .g) { display: none; }
 .game-icon-crazycat i.g { grid-area: 3 / 1 / 4 / 4; margin: 0 -2px -2px; background: none; border-top: 2px solid var(--ink); border-radius: 0; }
-.game-icon-crazycat i.c { grid-area: 2 / 1 / 3 / 2; align-self: end; height: 78%; background: repeating-linear-gradient(45deg, var(--cocoa) 0 1px, transparent 1px 3.5px), repeating-linear-gradient(-45deg, var(--cocoa) 0 1px, transparent 1px 3.5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--cocoa); border-radius: 10px 10px 3px 3px; }
-.game-icon-crazycat i.o { grid-area: 2 / 3 / 3 / 4; align-self: end; height: 62%; background: repeating-linear-gradient(45deg, var(--coral) 0 1.5px, transparent 1.5px 3.5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--coral); border-radius: 3px; }
-.game-icon-crazycat i.f { grid-area: 1 / 2 / 2 / 3; margin: 25% 0; background: repeating-linear-gradient(45deg, var(--teal) 0 1.5px, transparent 1.5px 3.5px), var(--sheet); box-shadow: inset 0 0 0 2px var(--teal); border-radius: 50%; }
+.game-icon-crazycat i.c { grid-area: 2 / 1 / 3 / 2; align-self: end; height: 78%; background: linear-gradient(color-mix(in srgb, var(--cocoa) 42%, transparent), color-mix(in srgb, var(--cocoa) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--cocoa); border-radius: 10px 10px 3px 3px; }
+.game-icon-crazycat i.o { grid-area: 2 / 3 / 3 / 4; align-self: end; height: 62%; background: linear-gradient(color-mix(in srgb, var(--coral) 42%, transparent), color-mix(in srgb, var(--coral) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--coral); border-radius: 3px; }
+.game-icon-crazycat i.f { grid-area: 1 / 2 / 2 / 3; margin: 25% 0; background: linear-gradient(color-mix(in srgb, var(--teal) 42%, transparent), color-mix(in srgb, var(--teal) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--teal); border-radius: 50%; }
 
 /* Cards: three overlapping cards, white with an ink outline, backs hatched in the family pen, red suits in coral. */
 .game-icon-klondike, .game-icon-freecell, .game-icon-cards { display: flex; align-items: center; justify-content: center; padding: 6px; gap: 0; }
@@ -462,7 +456,7 @@
   margin-right: -6px;
   border-radius: 4px;
   background: var(--sheet);
-  box-shadow: inset 0 0 0 1.5px var(--ink);
+  box-shadow: inset 0 0 0 1px var(--rule);
   color: var(--ink);
   font-size: 0.7rem;
   padding: 3px 0 0 4px;
@@ -474,7 +468,7 @@
 .game-icon .card:nth-child(2) { transform: translateY(-4px); }
 .game-icon .card small { font-size: 0.65rem; }
 .game-icon .card.red { color: var(--coral); }
-.game-icon .card.back { background: repeating-linear-gradient(45deg, var(--olive) 0 1px, transparent 1px 3.5px), repeating-linear-gradient(-45deg, var(--olive) 0 1px, transparent 1px 3.5px), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.game-icon .card.back { background: linear-gradient(color-mix(in srgb, var(--olive) 42%, transparent), color-mix(in srgb, var(--olive) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 1px var(--rule); }
 
 .home-foot { margin-top: 28px; padding: 0 4px; font-size: 0.8rem; color: var(--ink-2); }
 

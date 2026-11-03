@@ -1,92 +1,84 @@
-/* Graph Paper: the shared look for the home page and every game. A pen-and-pencil puzzle notebook: printed clues,
-   ballpoint entries in your own hand, pencil notes, a red pen for mistakes and a highlighter for the cursor.
-   Each family of games writes in one pen colour (--c). See DESIGN.md. */
+/* Mist: the shared look for the home page and every game. Cool and airy: white tiles on a pale blue-grey ground,
+   soft diffuse shadows, generous radii, no outlines. Text is blue-charcoal, never black. Each family of games has one
+   accent colour (--c). See DESIGN.md. */
 
 @font-face {
-  font-family: 'Hanken Grotesk';
+  font-family: 'Nunito';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 200 1000;
   font-display: swap;
-  src: url('./fonts/hanken-grotesk-latin.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Caveat';
-  font-style: normal;
-  font-weight: 400 700;
-  font-display: swap;
-  src: url('./fonts/caveat-latin.woff2') format('woff2');
+  src: url('./fonts/nunito-latin.woff2') format('woff2');
 }
 
 :root {
-  --paper: #fbfcff;
+  --paper: #eef2f7;
   --sheet: #ffffff;
-  --sunk: #eaf0f8;
-  --ink: #14171f;
-  --ink-2: #555d70;
-  --rule: #b9cadd;
-  --grid: #d3e3f2;
+  --sunk: #e3e9f1;
+  --ink: #1f2a3a;
+  --ink-2: #5a687c;
+  --rule: #dbe2ed;
+  --rule-2: #a3b0c4;
   --on-ink: #ffffff;
 
-  /* The pens. Each family of games writes in one pen colour (see DESIGN.md): number puzzles ballpoint blue,
-     logic puzzles orange, number tiles lilac, board games sky, cards olive, word games berry, dice games plum,
-     arcade games cocoa. Teal, coral (the red pen), yellow (the highlighter) and mint are shared by all. */
-  --blue: #2a4cb5;
-  --teal: #1f6d66;
-  --coral: #d33a48;
-  --yellow: #ffe45c;
-  --lilac: #6c5aa8;
-  --mint: #2f7a5f;
-  --orange: #a4520f;
-  --sky: #1d6a8f;
-  --olive: #62661c;
-  --berry: #a3376f;
-  --plum: #7e3f96;
-  --cocoa: #7a5236;
+  /* Family accents. Number puzzles blue, logic puzzles orange, number tiles indigo, board games teal, cards green,
+     word games pink, dice games orchid, arcade brown. Coral marks mistakes and the other side in two-player games;
+     yellow is the hint colour; sky and teal are shared accents. */
+  --blue: #3b5fd0;
+  --teal: #0b7a8a;
+  --coral: #c63a50;
+  --yellow: #f2b73f;
+  --lilac: #6a5ae0;
+  --mint: #1f7a5a;
+  --orange: #b85a0b;
+  --sky: #0c7f74;
+  --olive: #44771a;
+  --berry: #c23070;
+  --plum: #9a45bd;
+  --cocoa: #8a6a4f;
 
   --c: var(--blue);
-  --field: 15%;
+  --field: 13%;
   --tint: color-mix(in srgb, var(--c) var(--field), var(--paper));
-  --swipe: color-mix(in srgb, var(--c) 34%, transparent);
-  --note: color-mix(in srgb, var(--yellow) 62%, var(--paper));
-  --blend: multiply;
-  --shadow: 0 0 #0000;
+  --swipe: color-mix(in srgb, var(--c) 30%, transparent);
+  --note: color-mix(in srgb, var(--c) 14%, var(--sheet));
+  --blend: normal;
+  --shadow: 0 1px 2px rgb(31 42 58 / 0.05), 0 6px 18px -6px rgb(31 42 58 / 0.12);
   --wrong: var(--coral);
-  --pen-font: 'Caveat', 'Segoe Print', cursive;
+  --pen-font: 'Nunito', system-ui, sans-serif;
 
-  --r-card: 14px;
-  --r-board: 6px;
-  --r-tile: 12px;
-  --r-key: 8px;
-  /* A hand-drawn outline: corners that are never quite the same. */
-  --wob: 14px 17px 13px 16px / 16px 13px 17px 14px;
+  --r-card: 22px;
+  --r-board: 14px;
+  --r-tile: 14px;
+  --r-key: 12px;
+  --wob: 16px;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: #10151f;
-    --sheet: #151b28;
-    --sunk: #0c1019;
-    --ink: #e9edf6;
-    --ink-2: #a0a9bf;
-    --rule: #34445f;
-    --grid: #1b2638;
-    --on-ink: #10151f;
-    --blue: #8fb2ff;
-    --teal: #5cc0b5;
-    --coral: #ff7d88;
+    --paper: #121825;
+    --sheet: #1a2233;
+    --sunk: #0e1420;
+    --ink: #e6ebf5;
+    --ink-2: #a2aec3;
+    --rule: #2b3650;
+    --rule-2: #5b6a88;
+    --on-ink: #121825;
+    --blue: #8fa9ff;
+    --teal: #6cc4ea;
+    --coral: #ff8e9f;
     --yellow: #e8c062;
-    --lilac: #a897e6;
+    --lilac: #ad9cff;
     --mint: #86d1b4;
-    --orange: #f2a766;
-    --sky: #6cc4ea;
-    --olive: #c3c86f;
-    --berry: #f19ac5;
-    --plum: #d6a0ea;
-    --cocoa: #dcb497;
+    --orange: #f0a867;
+    --sky: #6fd3c6;
+    --olive: #a3d36f;
+    --berry: #f59bc0;
+    --plum: #d6a0ee;
+    --cocoa: #d2b08f;
     --field: 20%;
-    --note: color-mix(in srgb, var(--yellow) 22%, var(--paper));
-    --blend: screen;
+    --note: color-mix(in srgb, var(--c) 22%, var(--sheet));
+    --shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 8px 20px -10px rgb(0 0 0 / 0.6);
     color-scheme: dark;
   }
 }
@@ -102,22 +94,16 @@ html, body {
   min-height: 100%;
   background-color: var(--paper);
   color: var(--ink);
-  font-family: 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior: none;
 }
-/* The printed grid. */
-body {
-  background-image:
-    linear-gradient(to right, var(--grid) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
-  background-size: 20px 20px;
-  background-position: -1px -1px;
-}
 
-::selection { background: color-mix(in srgb, var(--yellow) 70%, transparent); color: var(--ink); }
+::selection { background: color-mix(in srgb, var(--c) 28%, transparent); color: var(--ink); }
 input, textarea { caret-color: var(--c); }
-* { scrollbar-color: var(--rule) transparent; }
+* { scrollbar-color: var(--rule-2) transparent; }
 
 button {
   font: inherit;
@@ -126,7 +112,7 @@ button {
   touch-action: manipulation;
 }
 
-:focus-visible { outline: 2.5px dashed var(--c); outline-offset: 3px; }
+:focus-visible { outline: 3px solid color-mix(in srgb, var(--c) 42%, transparent); outline-offset: 2px; }
 
 [hidden] { display: none !important; }
 
@@ -157,10 +143,10 @@ svg {
   font-variant-numeric: tabular-nums;
 }
 
-/* The pen layer: anything you wrote, or a note in the margin. */
-.pen { font-family: var(--pen-font); font-weight: 700; }
+/* The accent layer: entries, counts and status lines. Same face, heavier, in the family colour where it sets one. */
+.pen { font-weight: 700; }
 
-/* Retired: paper tooth belonged to the previous look. Kept so existing markup still works. */
+/* Retired: paper tooth belonged to an earlier look. Kept so existing markup still works. */
 .grain { position: relative; }
 
 /* ---------- Game menus ---------- */
@@ -176,38 +162,35 @@ svg {
 .logo {
   display: block;
   width: fit-content;
-  font-size: clamp(2.6rem, 12vw, 3.4rem);
+  font-size: clamp(2.4rem, 11vw, 3rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1;
   color: var(--ink);
   margin: 0;
-  padding: 0 6px;
-  background: linear-gradient(transparent 56%, var(--swipe) 56% 94%, transparent 94%);
-  border-radius: 4px;
 }
 
 .tagline {
-  font-family: var(--pen-font);
-  font-size: 1.4rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  color: var(--c);
-  margin: 10px 0 32px;
+  color: var(--ink-2);
+  margin: 8px 0 32px;
 }
 
-/* A section heading is underlined with a highlighter swipe in the family's pen colour. */
+/* A section heading: a dot in the family colour, then the name. */
 .section-label {
   width: fit-content;
   justify-self: start;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   font-weight: 800;
   letter-spacing: -0.01em;
   color: var(--ink);
   margin: 28px 0 10px;
-  padding: 0 5px;
-  background: linear-gradient(transparent 55%, var(--swipe) 55% 95%, transparent 95%);
-  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
+.section-label::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--c); flex: none; }
 
 .back-link {
   align-self: flex-start;
@@ -218,7 +201,7 @@ svg {
   padding: 8px 16px 8px 8px;
   border-radius: var(--wob);
   background: var(--sheet);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: var(--shadow);
   color: var(--ink);
   font-weight: 700;
   font-size: 0.9rem;
@@ -230,7 +213,7 @@ svg {
 .btn {
   border: 0;
   background: var(--sheet);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: var(--shadow);
   border-radius: var(--wob);
   padding: 14px 20px;
   font-weight: 700;
@@ -248,7 +231,7 @@ svg {
 
 .btn-quiet { background: none; box-shadow: none; color: var(--ink-2); }
 
-/* Continue is a sticky note in highlighter yellow. */
+/* Continue is a tinted card in the family colour. */
 .continue, .btn-primary.continue {
   width: 100%;
   display: flex;
@@ -259,9 +242,9 @@ svg {
   border-radius: var(--wob);
   background: var(--note);
   color: var(--ink);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: var(--shadow);
 }
-.continue small { font-family: var(--pen-font); font-weight: 600; color: var(--c); font-size: 1.3rem; line-height: 1; }
+.continue small { font-weight: 700; color: var(--ink-2); font-size: 0.9rem; line-height: 1; }
 
 .levels { display: grid; gap: 10px; }
 
@@ -275,10 +258,10 @@ svg {
   border-radius: var(--wob);
   padding: 16px 18px;
   background: var(--sheet);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: var(--shadow);
   color: var(--ink);
 }
-.level small, .new-game small { font-family: var(--pen-font); color: var(--c); font-weight: 600; font-size: 1.2rem; line-height: 1; }
+.level small, .new-game small { color: var(--ink-2); font-weight: 700; font-size: 0.85rem; line-height: 1; }
 
 .history-link {
   display: flex;
@@ -307,7 +290,7 @@ a.history-link { text-decoration: none; }
   border-radius: var(--r-board);
   overflow: hidden;
   margin-top: 8px;
-  box-shadow: 0 0 0 2px var(--ink);
+  box-shadow: var(--shadow);
 }
 .summary th, .summary td { padding: 12px 10px; text-align: right; }
 .summary th:first-child { text-align: left; padding-left: 16px; }
@@ -340,7 +323,7 @@ a.history-link { text-decoration: none; }
 .history-date { color: var(--ink-2); font-size: 0.8rem; margin-top: 2px; }
 .history-result { text-align: right; flex-shrink: 0; }
 .history-time { font-weight: 700; }
-.history-status { font-family: var(--pen-font); font-size: 1.1rem; font-weight: 600; line-height: 1; margin-top: 2px; color: var(--c); }
+.history-status { font-size: 0.85rem; font-weight: 700; line-height: 1; margin-top: 2px; color: var(--c); }
 .is-unfinished .history-status { color: var(--ink-2); }
 
 /* ---------- Game screen ---------- */
@@ -369,7 +352,7 @@ a.history-link { text-decoration: none; }
   display: grid;
   place-items: center;
   background: var(--sheet);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: var(--shadow);
   color: var(--ink);
 }
 .icon-btn svg { width: 22px; height: 22px; stroke-width: 2.4; }
@@ -379,7 +362,7 @@ span.icon-btn { background: none; box-shadow: none; }
 /* Topbar title: level on top, game name and status underneath. */
 .meta { min-width: 0; line-height: 1.2; }
 .meta b { display: block; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.01em; }
-.meta span { font-family: var(--pen-font); font-size: 1.3rem; color: var(--c); font-weight: 600; line-height: 1; }
+.meta span { font-size: 0.95rem; color: var(--ink-2); font-weight: 600; line-height: 1.2; }
 
 /* The timer is a highlighted pill; its icon shows what a tap does. */
 .timer {
@@ -388,8 +371,8 @@ span.icon-btn { background: none; box-shadow: none; }
   min-width: 82px;
   padding: 0 14px 0 12px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--c) 24%, var(--paper));
-  box-shadow: inset 0 0 0 2px var(--ink);
+  background: var(--sheet);
+  box-shadow: var(--shadow);
   color: var(--ink);
   font-weight: 800;
   display: inline-flex;
@@ -442,13 +425,13 @@ span.icon-btn { background: none; box-shadow: none; }
   padding: 10px 15px;
   border-radius: var(--wob);
   background: var(--sheet);
-  box-shadow: inset 0 0 0 2px var(--ink);
-  color: var(--ink);
+  box-shadow: var(--shadow);
+  color: var(--c);
   transition: background 0.15s ease;
 }
 .tool:active svg { background: var(--tint); }
 .tool b { font-weight: 700; color: var(--ink-2); }
-.tool.active svg { background: var(--note); }
+.tool.active svg { background: var(--note); box-shadow: inset 0 0 0 1.5px var(--c); }
 .tool.active b { color: var(--ink); }
 
 /* ---------- Dialogs ---------- */
@@ -461,18 +444,16 @@ span.icon-btn { background: none; box-shadow: none; }
   background: var(--sheet);
   color: var(--ink);
   text-align: center;
-  box-shadow: 0 0 0 2px var(--ink);
+  box-shadow: 0 24px 60px -20px rgb(15 22 35 / 0.5);
 }
-.dialog::backdrop { background: rgb(16 21 31 / 0.4); }
+.dialog::backdrop { background: rgb(15 22 35 / 0.4); }
 .dialog h2 {
   display: inline-block;
   margin: 0 0 10px;
-  padding: 0 6px;
-  font-size: 1.8rem;
+  font-size: 1.7rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--ink);
-  background: linear-gradient(transparent 56%, var(--swipe) 56% 94%, transparent 94%);
 }
 .dialog p { color: var(--ink-2); margin: 0 0 24px; line-height: 1.5; }
 .dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }

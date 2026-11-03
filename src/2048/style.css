@@ -37,7 +37,7 @@
   padding: 8px;
   border-radius: var(--r-board);
   background: var(--sheet);
-  box-shadow: 0 0 0 3px var(--ink);
+  box-shadow: 0 0 0 2px var(--rule-2);
 }
 
 .grid {

@@ -23,7 +23,7 @@
   padding: 0;
   border-radius: 3px;
   background: var(--sheet);
-  box-shadow: 0 0 0 3px var(--ink);
+  box-shadow: 0 0 0 2px var(--rule-2);
   touch-action: none; /* strokes paint, they don't scroll */
   user-select: none;
   -webkit-user-select: none;
@@ -47,13 +47,13 @@
   align-items: center;
   padding: 4px 0 calc(var(--u) * 0.18);
   gap: calc(var(--u) * 0.16);
-  border-bottom: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--rule-2);
 }
 .row-clue {
   justify-content: flex-end;
   align-items: center;
   padding: 0 calc(var(--u) * 0.22) 0 5px;
-  border-right: 1.5px solid var(--ink);
+  border-right: 1.5px solid var(--rule-2);
 }
 .clue.done { opacity: 0.4; text-decoration: line-through; text-decoration-thickness: 1.5px; }
 
@@ -78,13 +78,13 @@
   transform: rotate(45deg);
 }
 .cell.crossed::after { transform: rotate(-45deg); }
-.cell.cursor { outline: 2.5px solid var(--yellow); outline-offset: -2.5px; background-image: linear-gradient(color-mix(in srgb, var(--yellow) 55%, transparent), color-mix(in srgb, var(--yellow) 55%, transparent)); }
+.cell.cursor { outline: 2.5px solid var(--yellow); outline-offset: -2.5px; background-image: linear-gradient(color-mix(in srgb, var(--yellow) 42%, transparent), color-mix(in srgb, var(--yellow) 42%, transparent)); }
 .board.is-over .cell { cursor: default; }
 
 .board.solved .cell { animation: ripple 0.5s ease both; animation-delay: calc(var(--d, 0) * 30ms); }
 @keyframes ripple { 40% { transform: scale(0.82); } }
 
-.board.is-paused .cell { background: repeating-linear-gradient(45deg, var(--orange) 0 2px, var(--sheet) 2px 8px); }
+.board.is-paused .cell { background: color-mix(in srgb, var(--orange) 38%, var(--sheet)); }
 .board.is-paused .cell::before, .board.is-paused .cell::after { display: none; }
 .board.is-paused .clue span { visibility: hidden; }
 

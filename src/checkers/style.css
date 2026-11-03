@@ -10,7 +10,7 @@
   aspect-ratio: 1;
   border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 0 0 2px var(--ink);
+  box-shadow: 0 0 0 1.5px var(--rule-2);
 }
 
 .sq {
@@ -23,7 +23,7 @@
   position: relative;
   --ring: 3px;
 }
-.sq.dark { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--sky) 55%, transparent) 0 1.5px, transparent 1.5px 5px), var(--sheet); }
+.sq.dark { background: linear-gradient(color-mix(in srgb, color-mix(in srgb, var(--sky) 42%, transparent) 42%, transparent), color-mix(in srgb, color-mix(in srgb, var(--sky) 42%, transparent) 42%, transparent)), var(--sheet); }
 .sq:disabled { cursor: default; }
 /* The last move's squares are swiped with highlighter. */
 .sq.dark.last { background-color: var(--note); }
@@ -52,5 +52,5 @@
   height: 34%;
   border-radius: 50%;
   background: var(--sheet);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: inset 0 0 0 1px var(--rule);
 }

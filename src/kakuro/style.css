@@ -14,7 +14,7 @@
   padding: 0;
   overflow: hidden;
   background: var(--sheet);
-  box-shadow: 0 0 0 3px var(--ink);
+  box-shadow: 0 0 0 2px var(--rule-2);
   width: min(100%, calc(100dvh - 330px));
 }
 
@@ -27,12 +27,12 @@
 }
 /* Empty blocks and clue blocks are printed hatched; a clue block is split by a diagonal rule. */
 .cell.block, .cell.clue {
-  background: repeating-linear-gradient(45deg, transparent 0 4px, color-mix(in srgb, var(--ink) 22%, transparent) 4px 5px), var(--sunk);
+  background: linear-gradient(transparent, transparent), var(--sunk);
 }
 .cell.clue {
   background:
-    linear-gradient(to top right, transparent calc(50% - 1px), var(--ink) 50%, transparent calc(50% + 1px)),
-    repeating-linear-gradient(45deg, transparent 0 4px, color-mix(in srgb, var(--ink) 16%, transparent) 4px 5px),
+    linear-gradient(to top right, transparent calc(50% - 1px), var(--rule-2) 50%, transparent calc(50% + 1px)),
+    linear-gradient(transparent, transparent),
     var(--sunk);
   color: var(--ink);
 }
@@ -55,7 +55,7 @@
   cursor: pointer;
 }
 .cell.open.in-run { background: color-mix(in srgb, var(--yellow) 35%, var(--sheet)); }
-.cell.open.selected { background: var(--yellow); box-shadow: inset 0 0 0 2px var(--ink); }
+.cell.open.selected { background: var(--yellow); box-shadow: inset 0 0 0 1px var(--rule); }
 .cell.open.wrong { color: var(--coral); box-shadow: inset 0 0 0 2px var(--coral); border-radius: 46% 54% 50% 50% / 52% 48% 54% 46%; }
 .cell.open.wrong.selected { background: color-mix(in srgb, var(--coral) 25%, var(--yellow)); }
 @media (prefers-color-scheme: dark) {
@@ -94,7 +94,7 @@
 .pad-btn {
   border: 0;
   background: var(--sheet);
-  box-shadow: inset 0 0 0 1.5px var(--ink);
+  box-shadow: inset 0 0 0 1px var(--rule);
   border-radius: var(--r-key);
   padding: 10px 0;
   display: grid;

@@ -20,7 +20,7 @@
   padding: 0;
   border-radius: 0;
   background: var(--rule);
-  box-shadow: 0 0 0 2.5px var(--ink);
+  box-shadow: 0 0 0 1.5px var(--rule-2);
   transition: background 0.15s ease;
 }
 .small.live .sq { background: var(--note); }

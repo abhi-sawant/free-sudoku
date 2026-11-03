@@ -37,14 +37,14 @@
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 .point.bottom::before { clip-path: polygon(0 100%, 100% 100%, 50% 0); }
-.point:nth-child(odd)::before { background: repeating-linear-gradient(45deg, color-mix(in srgb, var(--sky) 60%, transparent) 0 1.5px, transparent 1.5px 5px), var(--sheet); }
+.point:nth-child(odd)::before { background: linear-gradient(color-mix(in srgb, color-mix(in srgb, var(--sky) 60%, transparent) 42%, transparent), color-mix(in srgb, color-mix(in srgb, var(--sky) 60%, transparent) 42%, transparent)), var(--sheet); }
 .point.target::before { background: var(--yellow); }
 .point.last::before { box-shadow: none; }
 .point:disabled, .bar:disabled, .tray:disabled { cursor: default; }
 
-.bar { flex-direction: column; justify-content: center; border-radius: var(--wob); background: var(--sunk); box-shadow: inset 0 0 0 2px var(--ink); }
+.bar { flex-direction: column; justify-content: center; border-radius: var(--wob); background: var(--sunk); box-shadow: inset 0 0 0 1px var(--rule); }
 .bar .gap { flex: 0 0 18%; }
-.tray { flex-direction: column; justify-content: space-between; border-radius: var(--wob); background: var(--sunk); box-shadow: inset 0 0 0 2px var(--ink); padding: 6px 0; }
+.tray { flex-direction: column; justify-content: space-between; border-radius: var(--wob); background: var(--sunk); box-shadow: inset 0 0 0 1px var(--rule); padding: 6px 0; }
 .tray.target, .bar.target { background: var(--note); }
 .off { font-family: var(--pen-font); font-weight: 700; font-size: clamp(1.1rem, 5cqi, 1.5rem); color: var(--c); }
 
@@ -54,10 +54,10 @@
   aspect-ratio: 1;
   border-radius: 50%;
   background: var(--s0);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: inset 0 0 0 1px var(--rule);
 }
 .chk.s1 { background: var(--s1); }
-.point.lifting .chk:last-of-type, .bar.lifting .chk:last-of-type { box-shadow: inset 0 0 0 2px var(--ink), 0 0 0 3px var(--yellow), 0 0 0 4.5px var(--ink); }
+.point.lifting .chk:last-of-type, .bar.lifting .chk:last-of-type { box-shadow: inset 0 0 0 1px var(--rule), 0 0 0 3px var(--yellow), 0 0 0 4.5px var(--ink); }
 .count { font-family: var(--pen-font); font-size: clamp(0.95rem, 3.8cqi, 1.25rem); font-weight: 700; color: var(--ink); }
 
 .dice { display: flex; gap: 8px; min-height: 40px; margin-bottom: 10px; }
@@ -73,7 +73,7 @@
   line-height: 1;
   background: var(--sheet);
   color: var(--c);
-  box-shadow: inset 0 0 0 2px var(--ink);
+  box-shadow: inset 0 0 0 1px var(--rule);
   transition: opacity 0.15s ease;
 }
 .die.s1 { color: var(--ink); }

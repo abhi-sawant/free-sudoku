@@ -1,0 +1,50 @@
+/* F. Sage: muted greens and earth tones, Lexend (made for low visual stress), pill shapes, no shadows at all.
+   Depth is tone only: each category is a tinted lozenge holding its games. */
+:root{
+  --paper:#eceee5; --sheet:#f8f9f3; --sunk:#dfe3d6; --stage:#e0e3d8;
+  --ink:#28302a; --ink-2:#5b665c; --line:#d3d9c8; --line-strong:#98a393;
+  --pen:#2e6a87; --red:#b4493a; --tint:20%;
+  --c-number:#4a7aa0; --c-logic:#965c24; --c-tiles:#8068a8; --c-computer:#2f776c;
+  --c-cards:#557530; --c-words:#b05a78; --c-dice:#a85943; --c-arcade:#8a7355;
+  --cont-bg:#3d6b52; --cont-ink:#f4f7ef; --cont-ink-2:#cfe0d3;
+  --back:#6f9a82; --d1:#2e6a87; --d2:#d08a4a; --c4-board:#c9d3c0; --c4-hole:#f8f9f3;
+  --font-ui:'Lexend',system-ui,sans-serif;
+  --r-card:26px; --r-ctl:999px; --r-key:999px; --r-board:20px; --r-icon:999px; --r-card-play:8px;
+  --pad-card:0 0 0 0 transparent; --lift:none;
+}
+:root[data-theme=dark]{
+  --paper:#161b17; --sheet:#1f2620; --sunk:#111512; --stage:#0d100e;
+  --ink:#e4eadf; --ink-2:#a5b1a3; --line:#2e372f; --line-strong:#647063;
+  --pen:#8cc0d9; --red:#ef9a8d; --tint:18%;
+  --c-number:#8fb8da; --c-logic:#e0a872; --c-tiles:#bba8e0; --c-computer:#86cbbf;
+  --c-cards:#b0d07a; --c-words:#e6a0b8; --c-dice:#eba48f; --c-arcade:#d0b690;
+  --cont-bg:#2f4f3d; --cont-ink:#e8f1e6; --cont-ink-2:#aac7b3;
+  --back:#4d6e5a; --d1:#8cc0d9; --d2:#e0a872; --c4-board:#2a352c; --c4-hole:#161b17;
+}
+body{font-weight:400}
+.wordmark{font-size:36px;font-weight:600;letter-spacing:-.03em}
+.cat-name,.continue b,.topbar .meta b{font-weight:600;letter-spacing:-.01em}
+.game .name{font-weight:500;font-size:16px}
+.tagline{font-weight:400}
+.continue{border-radius:999px;padding:12px 22px 12px 12px;min-height:80px}
+.continue .icon{background:rgb(255 255 255/.16)}
+.continue .icon i{color:var(--cont-ink)}
+.continue .icon i.x::after{background:var(--cont-ink)} .continue .icon i.o::after{border-color:var(--cont-ink)} .continue .icon i.e::after{background:var(--cont-ink)}
+/* each category is one tinted lozenge */
+.cats{gap:14px}
+.cat{background:var(--cat-bg);border-radius:var(--r-card);padding:16px 12px 10px}
+.cat h2{padding:0 6px;margin-bottom:8px}
+.cat-name::before{display:none}
+.count{color:var(--ink-2)}
+.game{background:color-mix(in srgb,var(--sheet) 78%,transparent);border-radius:999px;padding:6px 16px 6px 6px;min-height:56px;margin-bottom:6px}
+.games .game:last-child{margin-bottom:0}
+.game .icon{background:var(--cat-bg);width:44px;height:44px}
+.game.more{background:transparent;padding-left:6px;box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--cat) 45%,transparent)}
+.topbar .icon-btn,.timer,.score,.tool,.chip{background:var(--sheet)}
+.tool{flex-direction:row;gap:8px;min-height:48px;font-size:13px}
+.tools{grid-template-columns:repeat(2,1fr)}
+.key{background:var(--sheet)}
+.key{min-height:56px;border-radius:14px}
+.board.sudoku{box-shadow:0 0 0 3px var(--line-strong)}
+.chip{background:var(--cat-bg)}
+.card.down{background:var(--back)}

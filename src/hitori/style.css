@@ -9,7 +9,7 @@
 
 .cell { cursor: pointer; }
 .cell:disabled { cursor: default; }
-.cell.m1 { background: repeating-linear-gradient(45deg, var(--orange) 0 2.5px, var(--sheet) 2.5px 5.5px); color: var(--ink-2); }
+.cell.m1 { background: color-mix(in srgb, var(--orange) 38%, var(--sheet)); color: var(--ink-2); }
 .cell.m2::after {
   content: '';
   width: 78%;
@@ -21,5 +21,5 @@
 .cell.m2 { position: relative; }
 
 .cell.wrong { color: var(--wrong); }
-.cell.wrong.m1 { background: repeating-linear-gradient(45deg, var(--wrong) 0 2.5px, var(--sheet) 2.5px 5.5px); }
+.cell.wrong.m1 { background: color-mix(in srgb, var(--wrong) 38%, var(--sheet)); }
 .cell.wrong.m2::after { border-color: var(--wrong); }

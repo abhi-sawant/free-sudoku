@@ -34,7 +34,7 @@
   border-radius: var(--r-board);
   overflow: hidden;
   background: var(--sheet);
-  box-shadow: 0 0 0 3px var(--ink);
+  box-shadow: 0 0 0 2px var(--rule-2);
   user-select: none;
   -webkit-user-select: none;
 }
@@ -77,8 +77,8 @@
 
 .cell:nth-child(9n + 1) { border-right: 0; } /* the overprint layer is child 1, so column 9 is 9n + 1 */
 .cell:nth-child(n + 74) { border-bottom: 0; }
-.cell.br { border-right: 2.5px solid var(--ink); }
-.cell.bb { border-bottom: 2.5px solid var(--ink); }
+.cell.br { border-right: 2px solid var(--rule-2); }
+.cell.bb { border-bottom: 2px solid var(--rule-2); }
 
 /* Printed clues are Hanken; what you write is ballpoint in your own hand. */
 .cell.given { font-weight: 700; }
@@ -139,7 +139,7 @@
 .pad-btn {
   border: 0;
   background: var(--sheet);
-  box-shadow: inset 0 0 0 1.5px var(--ink);
+  box-shadow: inset 0 0 0 1px var(--rule);
   border-radius: var(--r-key);
   padding: 8px 0 5px;
   display: flex;
@@ -156,7 +156,7 @@
   font-weight: 700;
   line-height: 1;
 }
-.pad-left { font-family: var(--pen-font); font-size: 1rem; font-weight: 600; color: var(--ink-2); min-height: 1em; line-height: 1; }
+.pad-left { font-family: var(--pen-font); font-size: 0.85rem; font-weight: 600; color: var(--ink-2); min-height: 1em; line-height: 1; }
 
 /* Short screens: keep the pad visible without scrolling. */
 @media (max-height: 700px) {

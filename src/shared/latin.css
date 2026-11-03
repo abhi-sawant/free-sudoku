@@ -32,7 +32,7 @@
   border-radius: var(--r-board);
   overflow: hidden;
   background: var(--sheet);
-  box-shadow: 0 0 0 3px var(--ink);
+  box-shadow: 0 0 0 2px var(--rule-2);
   container-type: inline-size;
   user-select: none;
   -webkit-user-select: none;
@@ -177,7 +177,7 @@
 .pad-btn {
   border: 0;
   background: var(--sheet);
-  box-shadow: inset 0 0 0 1.5px var(--ink);
+  box-shadow: inset 0 0 0 1px var(--rule);
   border-radius: var(--r-key);
   padding: 8px 0 5px;
   display: flex;
@@ -194,7 +194,7 @@
   font-weight: 700;
   line-height: 1;
 }
-.pad-left { font-family: var(--pen-font); font-size: 1rem; font-weight: 600; color: var(--ink-2); min-height: 1em; line-height: 1; }
+.pad-left { font-family: var(--pen-font); font-size: 0.85rem; font-weight: 600; color: var(--ink-2); min-height: 1em; line-height: 1; }
 
 .summary th, .summary td { padding: 12px 8px; }
 

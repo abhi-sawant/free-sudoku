@@ -69,8 +69,8 @@ Each game is its own page with its own folder of code; the root page is the game
 ```
 index.html, src/main.ts, src/style.css   home page
 src/sw.ts, src/pwa.ts                    the service worker, and the registration every page imports
-src/base.css                             the shared Riso design: inks, type, buttons, top bar, tools, dialogs
-src/fonts/                               Hanken Grotesk and Caveat, self-hosted so the app works offline
+src/base.css                             the shared Mist design: colours, type, buttons, top bar, tools, dialogs
+src/fonts/                               Nunito, self-hosted so the app works offline
 sudoku/index.html, src/sudoku/           Sudoku
 minesweeper/index.html, src/minesweeper/ Minesweeper
 2248/index.html, src/2248/               2248
@@ -97,7 +97,7 @@ scripts/gen-<game>.ts                    puzzle generators writing public/puzzle
 src/tiles.css                            the number-tile colour scale shared by 2248 and 2048
 ```
 
-Every page follows the Riso design language in [DESIGN.md](DESIGN.md): every game belongs to a category (a home page
+Every page follows the Mist design language in [DESIGN.md](DESIGN.md): every game belongs to a category (a home page
 section), prints in that category's ink, and reuses the shared components in `src/base.css`. To add a game, follow "Adding a new game" in DESIGN.md (pick its category, or add one, a
 stylesheet that imports `base.css`, the page, and a home card), then add its folder name to `games`
 in `vite.config.ts`, in home page order; the service worker learns its files from the build. Link to pages as `/<game>/index.html`, not `/<game>/`: the Android

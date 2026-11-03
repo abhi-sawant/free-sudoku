@@ -10,7 +10,7 @@
   gap: 1.5px;
   container-type: inline-size;
   background: var(--ink);
-  box-shadow: 0 0 0 1.5px var(--ink);
+  box-shadow: 0 0 0 1.5px var(--rule-2);
 }
 
 .cell {
