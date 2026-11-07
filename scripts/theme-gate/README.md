@@ -6,12 +6,13 @@ and Chromium (`export PLAYWRIGHT_CHROMIUM=/path/to/chrome`, or let playwright-co
 ```bash
 node --test "scripts/theme-gate/*.test.mjs"             # the axes rule's own tests, including axes.json
 node scripts/theme-gate/axes-check.mjs <id>              # >= 4 axes differ from every theme, >= 2 values of its own
-node scripts/theme-gate/capture.mjs --out /tmp/shots     # screenshots + contrast; --themes a,b to limit
-node scripts/theme-gate/distance.mjs /tmp/shots --check <id>   # pairwise distance; fails if closer than baseline.json's min
+node scripts/theme-gate/theme-check.mjs <id> --paper '#hex' [--paper-dark '#hex']   # first paint, scheme, theme-color, picker swatch
+node scripts/theme-gate/capture.mjs --out /tmp/shots     # screenshots + contrast; --themes a,b to limit; --scheme dark
+node scripts/theme-gate/distance.mjs /tmp/shots --check <id>   # pairwise distance; fails if closer than baseline.json's min (--scheme dark for a dark capture)
 ```
 
 - `axes.json`: every theme scored on eight axes. Describe what the CSS really does; a new theme adds its own row.
-- `baseline.json`: the smallest distance between two of the original six themes (Graph Paper / Mist). A new theme must be at
+- `baseline.json`: the smallest distance between two of the original six themes, one value per colour scheme (light: Graph Paper / Mist; dark: Linen / Sage). Capture and check in BOTH schemes. A new theme must be at
   least this far from every other theme. Rework the theme, never the baseline.
 - `contrast-known.json`: contrast gaps that existed before the gate (Mist's orange, lilac, sky and cocoa on its paper are just
   under 4.5:1). New gaps still fail.

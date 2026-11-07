@@ -39,7 +39,7 @@ Shared: `--coral` marks mistakes and the other side in two-player games, `--yell
 
 ## Themes
 
-Mist is the default. The player can switch to any of six looks from the palette button on the home page (a dialog that draws each option in its own colours); the choice is kept in `localStorage` as `games.theme` and applies to every page. A theme is a whole design, not a palette: the six prototypes in [`design-candidates/`](design-candidates) are the reference for each.
+Mist is the default. The player can switch to any of the looks from the palette button on the home page (a dialog that draws each option in its own colours); the choice is kept in `localStorage` as `games.theme` and applies to every page. A theme is a whole design, not a palette: the six prototypes in [`design-candidates/`](design-candidates) are the reference for each.
 
 | Theme | Character |
 |---|---|
@@ -49,6 +49,7 @@ Mist is the default. The player can switch to any of six looks from the palette 
 | Graph Paper | A printed grid, ballpoint-blue outlines drawn a little wobbly (an SVG displacement filter on pseudo layers), Caveat handwriting for entries, notes and asides, highlighter marker for headings, selection and the timer, a red margin line |
 | Block Party | Bauhaus: every family a flat field of one primary (home bands, and every game screen drenched in it), square white tiles, round buttons, heavy lowercase Jost, a circle-square-triangle mark |
 | Pocket | A handheld LCD in four greens: Silkscreen and Jersey 15, 2px ink borders with stepped corners (four offset shadows, no radius), pressed and selected things inverted, families told apart by a dither chip, not hue |
+| Midnight | True black for an OLED screen, dark only: tiles drawn by a hairline, active things lit by a glow ring in the family colour, system type, no shadows |
 
 How it is built:
 

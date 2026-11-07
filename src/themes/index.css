@@ -1,4 +1,4 @@
-/* The six looks. tokens.css holds every theme's colours, radii, shadow and fonts (light and dark); each other file
+/* The looks. tokens.css holds every theme's colours, radii, shadow and fonts (light and dark); each other file
    holds that theme's character: its @font-face, and the layout, border and board rules a token can't carry.
    Mist is the default and has no file of its own: it is base.css. See "Themes" in DESIGN.md. */
 @import './tokens.css';
@@ -8,3 +8,4 @@
 @import './block.css';
 @import './linen.css';
 @import './sage.css';
+@import './midnight.css';

@@ -1,7 +1,8 @@
 // Pairwise visual distance between themes from capture.mjs's screenshots. 0 = identical, 1 = opposite.
 // Per screen: the mean of a downscaled-pixel distance (24x40, RGB) and a colour-histogram distance (8 bins a channel),
 // then the mean over screens. With --check <id>, exits 1 if <id> is closer than baseline.json's min to any theme.
-// Usage: node scripts/theme-gate/distance.mjs <dir> [--check <id>] [--write-baseline]
+// Usage: node scripts/theme-gate/distance.mjs <dir> [--scheme light|dark] [--check <id>] [--write-baseline]
+// baseline.json keeps one minimum per colour scheme, taken from the original six themes; capture with the same --scheme.
 
 import { chromium } from 'playwright-core';
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -9,6 +10,8 @@ import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 const dir = process.argv[2];
 const arg = (name) => { const i = process.argv.indexOf(`--${name}`); return i > 0 ? process.argv[i + 1] : undefined; };
 const baselinePath = new URL('./baseline.json', import.meta.url);
+const scheme = arg('scheme') ?? 'light';
+const readBaseline = () => JSON.parse(readFileSync(baselinePath, 'utf8'));
 if (!dir) { console.error('usage: distance.mjs <dir> [--check <id>] [--write-baseline]'); process.exit(2); }
 
 const themes = readdirSync(dir).filter((t) => !t.startsWith('.')).sort();
@@ -64,14 +67,16 @@ const [minPair, min] = Object.entries(matrix).sort((x, y) => x[1] - y[1])[0];
 console.log(`\ncloser pair: ${minPair.replace('|', ' / ')} = ${min.toFixed(3)}`);
 
 if (process.argv.includes('--write-baseline')) {
-  writeFileSync(baselinePath, JSON.stringify({ min: Number(min.toFixed(4)), pair: minPair.split('|') }, null, 2) + '\n');
-  console.log('baseline written');
+  const all = readBaseline().light ? readBaseline() : {};
+  all[scheme] = { min: Number(min.toFixed(4)), pair: minPair.split('|') };
+  writeFileSync(baselinePath, JSON.stringify(all, null, 2) + '\n');
+  console.log(`${scheme} baseline written`);
 }
 const id = arg('check');
 if (id) {
-  const base = JSON.parse(readFileSync(baselinePath, 'utf8'));
+  const base = readBaseline()[scheme];
   const mine = Object.entries(matrix).filter(([k]) => k.split('|').includes(id)).map(([k, v]) => [k.split('|').find((x) => x !== id), v]).sort((a, b) => a[1] - b[1]);
-  console.log(`${id}: closest to ${mine[0][0]} at ${mine[0][1].toFixed(3)} (baseline min ${base.min})`);
+  console.log(`${id}: closest to ${mine[0][0]} at ${mine[0][1].toFixed(3)} (${scheme} baseline min ${base.min})`);
   const bad = mine.filter(([, v]) => v < base.min);
   for (const [o, v] of bad) console.log(`  TOO CLOSE: ${id} / ${o} = ${v.toFixed(3)}`);
   process.exit(bad.length ? 1 : 0);

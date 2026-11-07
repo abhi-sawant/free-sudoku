@@ -9,6 +9,7 @@ export const THEMES = [
   { id: 'graph', name: 'Graph Paper', note: 'A printed grid and ballpoint blue' },
   { id: 'block', name: 'Block Party', note: 'Flat primaries and bold ink lines' },
   { id: 'pocket', name: 'Pocket', note: 'A handheld LCD in four greens' },
+  { id: 'midnight', name: 'Midnight', note: 'True black with glowing accents' },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]['id'];

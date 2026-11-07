@@ -1,7 +1,8 @@
 // Captures the same screens in each theme at phone width and checks the contrast rules from DESIGN.md.
 // Needs the dev server (`npm run dev`) and Chromium: set PLAYWRIGHT_CHROMIUM to a chrome binary, or let
 // playwright-core use its own.
-// Usage: node scripts/theme-gate/capture.mjs --base http://localhost:5173 --out <dir> [--themes a,b,c]
+// Usage: node scripts/theme-gate/capture.mjs --base http://localhost:5173 --out <dir> [--themes a,b,c] [--scheme light|dark]
+// Run it in both schemes: a dark-only theme has to stand apart from the others' dark forms, not just their light ones.
 
 import { chromium } from 'playwright-core';
 import { mkdirSync, readFileSync, existsSync } from 'node:fs';
@@ -9,6 +10,7 @@ import { mkdirSync, readFileSync, existsSync } from 'node:fs';
 const arg = (name, fallback) => { const i = process.argv.indexOf(`--${name}`); return i > 0 ? process.argv[i + 1] : fallback; };
 const base = arg('base', 'http://localhost:5173');
 const out = arg('out');
+const scheme = arg('scheme', 'light');
 const axes = JSON.parse(readFileSync(new URL('./axes.json', import.meta.url), 'utf8'));
 const themes = (arg('themes') ?? Object.keys(axes).join(',')).split(',');
 if (!out) { console.error('--out <dir> is required'); process.exit(2); }
@@ -39,7 +41,7 @@ const ratio = (a, b) => { const [hi, lo] = [luminance(a), luminance(b)].sort((x,
 
 let failed = false;
 for (const theme of themes) {
-  const ctx = await browser.newContext({ viewport: { width: 390, height: 800 }, deviceScaleFactor: 1, isMobile: true });
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 800 }, deviceScaleFactor: 1, isMobile: true, colorScheme: scheme });
   await ctx.addInitScript((t) => localStorage.setItem('games.theme', t), theme);
   mkdirSync(`${out}/${theme}`, { recursive: true });
   const page = await ctx.newPage();

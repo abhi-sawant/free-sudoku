@@ -94,6 +94,21 @@
   color-scheme: light;
 }
 
+/* ---------- Midnight: true black, outlined tiles, glow rings. Dark only: one set of tokens whatever the OS says ---------- */
+
+:root[data-theme='midnight'], .theme-opt[data-theme='midnight'] {
+  --paper: #000000; --sheet: #08090b; --sunk: #000000; --ink: #f2f4f8; --ink-2: #9aa0ad;
+  --rule: #1c1f26; --rule-2: #3a3f4b; --on-ink: #000000;
+  --blue: #6ea0ff; --teal: #3fd0e0; --coral: #ff6b7d; --yellow: #ffd24a; --lilac: #a08bff; --mint: #4be0a8;
+  --orange: #ff9a3d; --sky: #33d6c4; --olive: #9be15a; --berry: #ff6fae; --plum: #d27bff; --cocoa: #d6b28a;
+  --field: 20%; --note: color-mix(in srgb, var(--c) 22%, var(--sheet));
+  --shadow: 0 0 0 1px var(--rule);
+  --r-card: 20px; --r-board: 12px; --r-tile: 12px; --r-key: 12px; --wob: 14px;
+  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-ui);
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
   :root[data-theme='mist'], .theme-opt[data-theme='mist'] {
     --paper: #121825; --sheet: #1a2233; --sunk: #0e1420; --ink: #e6ebf5; --ink-2: #a2aec3;
