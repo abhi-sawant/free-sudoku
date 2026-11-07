@@ -14,6 +14,8 @@ const SCROLL = 420;
 const MIN_TOP = 225;
 const MAX_TOP = 295;
 const TOPPLE = 1100; // degrees/s² pulling a leaning tower over once it has been left
+const SLIDE = 420; // px/s² the cube slides along a tilted top, before friction
+const FRICTION = 0.34; // it only starts to slide once the lean is steeper than this (as tan)
 const START_VEL = 6; // degrees/s a fresh tower starts tipping at
 const ACC = 15; // degrees/s² of tipping at the start, and
 const ACC_LEAN = 2.2; // how much more for each degree it already leans
@@ -30,6 +32,9 @@ export interface World {
   angle: number; // lean in degrees, positive toward the next tower
   vel: number; // degrees/s the tower is tipping at
   fallen: Fallen[];
+  offset: number; // how far the cube sits from the middle of its tower's top, along the top; it stays where it landed
+  slide: number; // px/s the cube is sliding along the tower's top
+  landed: number; // which tower ahead the cube came down on: 1 is the next, 2 the one beyond
   cubeAngle: number; // degrees the cube is tilted: with the tower, easing upright in the air
   cubeX: number; // left edge
   cubeY: number; // bottom edge
@@ -59,8 +64,8 @@ function nextTower(from: Tower, rng: () => number, score: number): Tower {
 function seat(w: World) {
   const t = w.towers[0];
   const a = rad(w.angle);
-  w.cubeX = pivotX(t) + towerLen(t) * Math.sin(a) - CUBE / 2;
-  w.cubeY = H - towerLen(t) * Math.cos(a);
+  w.cubeX = pivotX(t) + towerLen(t) * Math.sin(a) + w.offset * Math.cos(a) - CUBE / 2;
+  w.cubeY = H - towerLen(t) * Math.cos(a) + w.offset * Math.sin(a);
   w.cubeAngle = w.angle;
 }
 
@@ -69,7 +74,7 @@ export function createWorld(rng: () => number = Math.random): World {
   const b = nextTower(a, rng, 0);
   const w: World = {
     phase: 'wait', towers: [a, b, nextTower(b, rng, 0)], angle: 0, vel: START_VEL,
-    fallen: [], cubeAngle: 0, cubeX: 0, cubeY: 0, vx: 0, vy: 0, cam: 0, camTarget: 0, score: 0, over: false,
+    fallen: [], offset: 0, slide: 0, landed: 1, cubeAngle: 0, cubeX: 0, cubeY: 0, vx: 0, vy: 0, cam: 0, camTarget: 0, score: 0, over: false,
   };
   seat(w);
   return w;
@@ -81,8 +86,8 @@ export function launch(w: World) {
   const t = w.towers[0];
   const a = rad(w.angle);
   const tip = towerLen(t) * rad(w.vel); // tip speed, across the tower
-  w.vx = THROW * Math.sin(a) + tip * Math.cos(a);
-  w.vy = -THROW * Math.cos(a) + tip * Math.sin(a);
+  w.vx = THROW * Math.sin(a) + (tip + w.slide) * Math.cos(a);
+  w.vy = -THROW * Math.cos(a) + (tip + w.slide) * Math.sin(a);
   w.fallen.push({ pivot: pivotX(t), w: t.w, len: towerLen(t), angle: w.angle, vel: w.vel });
   w.phase = 'air';
 }
@@ -98,12 +103,18 @@ export function step(w: World, dt: number, rng: () => number = Math.random) {
     case 'wait':
       w.vel += (ACC + ACC_LEAN * w.angle) * (1 + Math.min(0.6, w.score * 0.03)) * dt;
       w.angle += w.vel * dt;
+      {
+        // The cube slides down the tilted top, toward the next tower, once the lean beats friction.
+        const a = rad(w.angle);
+        w.slide += SLIDE * Math.max(0, Math.sin(a) - FRICTION * Math.cos(a)) * dt;
+        w.offset += w.slide * dt;
+      }
       seat(w);
-      if (w.angle >= FALL_AT) {
-        // Too late: the tower goes over and takes the cube with it.
+      if (w.angle >= FALL_AT || w.offset > w.towers[0].w / 2 + CUBE * 0.3) {
+        // Too late: the cube slides off the edge, or the tower goes over, and takes the cube with it.
         const t = w.towers[0];
         w.fallen.push({ pivot: pivotX(t), w: t.w, len: towerLen(t), angle: w.angle, vel: w.vel });
-        w.vx = towerLen(t) * rad(w.vel) * Math.cos(rad(w.angle));
+        w.vx = towerLen(t) * rad(w.vel) * Math.cos(rad(w.angle)) + w.slide;
         w.vy = 0;
         w.phase = 'drop';
       }
@@ -114,20 +125,23 @@ export function step(w: World, dt: number, rng: () => number = Math.random) {
       w.vy += GRAVITY * dt;
       w.cubeX += w.vx * dt;
       w.cubeY += w.vy * dt;
-      const next = w.towers[1];
       const left = w.cubeX + 3;
       const right = w.cubeX + CUBE - 3;
-      if (right > next.x && left < next.x + next.w) {
-        if (w.vy > 0 && prev <= next.top + 0.5 && w.cubeY >= next.top) {
-          w.cubeY = next.top; // landed on top
-          w.cubeX = pivotX(next) - CUBE / 2;
+      // The next two towers are both in reach: landing on the far one skips the middle one.
+      for (let i = 1; i < w.towers.length; i++) {
+        const t = w.towers[i];
+        if (right <= t.x || left >= t.x + t.w) continue;
+        if (w.vy > 0 && prev <= t.top + 0.5 && w.cubeY >= t.top) {
+          w.cubeY = t.top; // landed on top
+          w.offset = Math.max(-t.w / 2, Math.min(t.w / 2, w.cubeX + CUBE / 2 - pivotX(t))); // stays where it landed
           w.vx = 0; w.vy = 0; w.cubeAngle = 0;
-          w.score++;
-          w.camTarget = next.x + next.w - START_RIGHT;
+          w.score += i; // a tower skipped counts too
+          w.landed = i;
+          w.camTarget = t.x + t.w - START_RIGHT;
           w.phase = 'scroll';
           return;
         }
-        if (w.cubeY > next.top + 6) { w.vx = 0; w.phase = 'drop'; return; } // hit the side
+        if (w.cubeY > t.top + 6) { w.vx = 0; w.phase = 'drop'; return; } // hit the side
       }
       if (w.cubeY > H + CUBE) { w.phase = 'over'; w.over = true; }
       break;
@@ -135,10 +149,14 @@ export function step(w: World, dt: number, rng: () => number = Math.random) {
     case 'scroll':
       w.cam = Math.min(w.camTarget, w.cam + SCROLL * dt);
       if (w.cam >= w.camTarget) {
-        w.towers = [w.towers[1], w.towers[2], nextTower(w.towers[2], rng, w.score)];
+        for (let k = 0; k < w.landed; k++) {
+          w.towers.shift();
+          w.towers.push(nextTower(w.towers[w.towers.length - 1], rng, w.score));
+        }
         w.fallen = []; // the toppled tower has scrolled away
         w.angle = 0;
         w.vel = START_VEL;
+        w.slide = 0;
         w.phase = 'wait';
         seat(w);
       }
