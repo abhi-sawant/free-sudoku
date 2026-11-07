@@ -108,6 +108,21 @@
   color-scheme: light;
 }
 
+/* Claymorphism: pastel lilac, puffy tiles lit from the top left. --hi/--lo/--drop are the clay's highlight, shade and
+   drop shadow; a pressed key swaps the two insets (clay.css). */
+:root[data-theme='clay'], .theme-opt[data-theme='clay'] {
+  --paper: #ece2fa; --sheet: #f8f3ff; --sunk: #ddd0f0; --ink: #36264f; --ink-2: #66558a;
+  --rule: #d9cbee; --rule-2: #a996c8; --on-ink: #ffffff;
+  --blue: #3a54c2; --teal: #0d6f7a; --coral: #bd2f48; --yellow: #f2c94c; --lilac: #6941c6; --mint: #11704f;
+  --orange: #ab470c; --sky: #0c6c7d; --olive: #4a6a10; --berry: #ae2469; --plum: #8a2da3; --cocoa: #7f4e2e;
+  --hi: rgb(255 255 255 / 0.85); --lo: rgb(92 60 150 / 0.2); --drop: rgb(92 60 150 / 0.32);
+  --shadow: inset 3px 3px 6px var(--hi), inset -4px -4px 8px var(--lo), 6px 10px 22px -8px var(--drop);
+  --r-card: 32px; --r-board: 28px; --r-tile: 16px; --r-key: 22px; --wob: 28px;
+  --font-ui: 'Fredoka', 'Nunito', system-ui, sans-serif;
+  --font-display: var(--font-ui);
+  color-scheme: light;
+}
+
 /* ---------- Midnight: true black, outlined tiles, glow rings. Dark only: one set of tokens whatever the OS says ---------- */
 
 :root[data-theme='midnight'], .theme-opt[data-theme='midnight'] {
@@ -203,6 +218,15 @@
     --rule: #3a3326; --rule-2: #fff3d6; --on-ink: #16130e;
     --blue: #8fb0ff; --teal: #67e8f9; --coral: #ff8a8a; --yellow: #fde047; --lilac: #c4a5ff; --mint: #6ee7b7;
     --orange: #ffad66; --sky: #5eead4; --olive: #bef264; --berry: #f9a8d4; --plum: #f0abfc; --cocoa: #e7c29a;
+    color-scheme: dark;
+  }
+
+  :root[data-theme='clay'], .theme-opt[data-theme='clay'] {
+    --paper: #241c33; --sheet: #32284a; --sunk: #1a1426; --ink: #f2ebff; --ink-2: #c0b2dc;
+    --rule: #3d3256; --rule-2: #7a6aa0; --on-ink: #241c33;
+    --blue: #a9b8ff; --teal: #7fdde6; --coral: #ff9fae; --yellow: #f6d77a; --lilac: #c9b4ff; --mint: #8fe3c0;
+    --orange: #ffbb88; --sky: #86dcea; --olive: #c6e58a; --berry: #ffa8cf; --plum: #e7b0ff; --cocoa: #e2bf9f;
+    --hi: rgb(255 255 255 / 0.1); --lo: rgb(0 0 0 / 0.38); --drop: rgb(0 0 0 / 0.55);
     color-scheme: dark;
   }
 

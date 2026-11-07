@@ -13,6 +13,7 @@ export const THEMES = [
   { id: 'brutal', name: 'Neo-brutalist', note: 'Black borders and hard shadows on cream' },
   { id: 'terminal', name: 'Terminal', note: 'Amber phosphor on black, in monospace' },
   { id: 'blueprint', name: 'Blueprint', note: 'White lines on drafting blue' },
+  { id: 'clay', name: 'Claymorphism', note: 'Puffy pastel tiles, soft as clay' },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]['id'];

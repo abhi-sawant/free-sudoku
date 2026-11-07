@@ -98,5 +98,15 @@
     "texture": "grid",
     "home": "ruled-list",
     "families": "sheet-number"
+  },
+  "clay": {
+    "ground": "light-pastel",
+    "edges": "none",
+    "depth": "bevel-soft",
+    "corners": "puffy",
+    "type": "sans-rounded-fat",
+    "texture": "none",
+    "home": "tile-grid",
+    "families": "pastel-fill"
   }
 }
