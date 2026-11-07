@@ -24,6 +24,29 @@ export const arcade: Record<string, Guide> = {
       caption: 'Tap when the tower leans enough to reach the next one.',
     },
   },
+  racer: {
+    name: 'Road Racer',
+    ink: 'cocoa',
+    goal: 'Drive as far as you can, dodging the traffic, until you hit a car.',
+    steps: [
+      'Your car drives by itself. You only choose which lane it is in.',
+      'Cars and trucks come down the road. Move out of their way. Every row of traffic leaves at least one lane free.',
+      'Every few seconds the road gets a little faster. You score a point for every stretch of road you cover.',
+      'Hitting a car ends the run. Your best score is saved for each level.',
+    ],
+    controls: [
+      '<b>Tap</b> the left or right half of the board, or press <b>←</b> / <b>→</b> (or <b>A</b> / <b>D</b>), to move one lane. The first tap starts the run.',
+      'Choose Country Road, Highway, City Rush or Night Rally: later levels have more lanes, more traffic and a higher top speed.',
+    ],
+    tips: [
+      'Look at the gaps two rows ahead, not just the car in front.',
+      'Staying in a middle lane gives you room to go either way.',
+    ],
+    example: {
+      html: grid(3, ['', 'rival|coral small', '', '', '', '', '', 'car|on small', ''], 44),
+      caption: 'Tap left or right to slip into a free lane.',
+    },
+  },
   crazycat: {
     name: 'Crazy Cat',
     ink: 'cocoa',

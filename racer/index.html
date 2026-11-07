@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" data-family="cocoa">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Free offline Road Racer: change lanes to dodge the traffic as the road speeds up." />
+    <meta name="theme-color" content="#eef2f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121825" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+    <link rel="preload" href="/src/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="color-scheme" content="light dark" />
+    <!-- Sets the theme the player picked before the first paint; see src/theme.ts. -->
+    <script>try{var t=localStorage.getItem('games.theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+    <!-- The paper colour from base.css, so the page never shows the browser's white canvas while the stylesheet loads. -->
+    <style>html { background: #eef2f7; } @media (prefers-color-scheme: dark) { html { background: #121825; } }</style>
+    <link rel="stylesheet" href="/src/racer/style.css" />
+    <title>Road Racer</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- Home -->
+      <section id="home" class="screen">
+        <div class="home-inner">
+          <a href="/" class="back-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+            <span>All games</span>
+          </a>
+          <h1 class="logo">Road Racer</h1>
+          <p class="tagline">Change lanes to dodge the traffic. The road keeps getting faster, so see how far you can go.</p>
+
+          <h2 class="section-label">Level</h2>
+          <div class="levels">
+            <button class="btn level" data-level="country"><span>1 · Country Road</span><small>3 lanes, quiet traffic</small></button>
+            <button class="btn level" data-level="highway"><span>2 · Highway</span><small>4 lanes, busier</small></button>
+            <button class="btn level" data-level="city"><span>3 · City Rush</span><small>4 lanes, fast and packed</small></button>
+            <button class="btn level" data-level="night"><span>4 · Night Rally</span><small>5 lanes, flat out</small></button>
+          </div>
+
+          <a class="btn history-link" href="/howto/index.html?g=racer">
+            <span>How to play</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+          </a>
+          <button id="history-btn" class="btn history-link">
+            <span>History &amp; stats</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- History -->
+      <section id="history" class="screen" hidden>
+        <header class="topbar">
+          <button id="history-back-btn" class="icon-btn" aria-label="Back to menu">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+          </button>
+          <h1 class="topbar-title">History</h1>
+          <span class="icon-btn" aria-hidden="true"></span>
+        </header>
+
+        <table class="summary">
+          <thead>
+            <tr><th></th><th scope="col">Runs</th><th scope="col">Best</th></tr>
+          </thead>
+          <tbody id="history-summary"></tbody>
+        </table>
+
+        <h2 class="section-label">Recent runs</h2>
+        <p id="history-empty" class="history-empty">No runs yet. Play one and it will show up here.</p>
+        <ul id="history-list" class="history-list"></ul>
+      </section>
+
+      <!-- Game -->
+      <section id="game" class="screen" hidden>
+        <header class="topbar">
+          <button id="back-btn" class="icon-btn" aria-label="Back to menu">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+          </button>
+          <div class="meta">
+            <b id="level-label"></b>
+            <span>Best <span id="best"></span></span>
+          </div>
+          <div class="score"><b id="score" aria-label="Score">0</b><span>Score</span></div>
+        </header>
+
+        <div class="board-wrap">
+          <div class="board-frame">
+            <canvas id="stage" role="img" aria-label="Road Racer: tap the left or right side, or press the arrow keys, to change lane"></canvas>
+            <button id="sound-btn" class="icon-btn" aria-label="Turn sound off" aria-pressed="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 9v6h4l5 4V5L8 9z" />
+                <path class="sound-on" d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11" />
+                <path class="sound-off" d="M16 9l5 6M21 9l-5 6" />
+              </svg>
+            </button>
+            <p id="status" class="stage-status" aria-live="polite"></p>
+          </div>
+          <div class="steer-row">
+            <button id="left-btn" class="btn steer-btn" aria-label="Move left">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+            </button>
+            <button id="right-btn" class="btn steer-btn" aria-label="Move right">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Run over -->
+      <dialog id="end-dialog" class="dialog">
+        <h2>Crash!</h2>
+        <p id="end-summary"></p>
+        <div class="dialog-actions">
+          <button id="end-menu" class="btn">Menu</button>
+          <button id="end-again" class="btn btn-primary">Race again</button>
+        </div>
+      </dialog>
+    </div>
+    <script type="module" src="/src/racer/main.ts"></script>
+  </body>
+</html>
