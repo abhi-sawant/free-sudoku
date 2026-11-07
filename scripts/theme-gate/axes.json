@@ -88,5 +88,15 @@
     "texture": "scanline",
     "home": "ruled-list",
     "families": "text-tag"
+  },
+  "blueprint": {
+    "ground": "dark-blue",
+    "edges": "outline-fine",
+    "depth": "flat",
+    "corners": "square",
+    "type": "mono-upper",
+    "texture": "grid",
+    "home": "ruled-list",
+    "families": "sheet-number"
   }
 }

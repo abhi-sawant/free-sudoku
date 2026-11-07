@@ -12,6 +12,7 @@ export const THEMES = [
   { id: 'midnight', name: 'Midnight', note: 'True black with glowing accents' },
   { id: 'brutal', name: 'Neo-brutalist', note: 'Black borders and hard shadows on cream' },
   { id: 'terminal', name: 'Terminal', note: 'Amber phosphor on black, in monospace' },
+  { id: 'blueprint', name: 'Blueprint', note: 'White lines on drafting blue' },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]['id'];

@@ -138,6 +138,21 @@
   color-scheme: dark;
 }
 
+/* Blueprint: white lines on cyanotype blue. Dark only. Accents are pale so they read on the blue and carry the dark
+   navy --on-ink. */
+:root[data-theme='blueprint'], .theme-opt[data-theme='blueprint'] {
+  --paper: #123f78; --sheet: #164784; --sunk: #0e3466; --ink: #eef5ff; --ink-2: #b4cdee;
+  --rule: #3767a6; --rule-2: #a9c6ec; --on-ink: #08203f;
+  --blue: #a6d2ff; --teal: #8ff0f0; --coral: #ffb3a3; --yellow: #fff07a; --lilac: #d4c8ff; --mint: #a2f0c9;
+  --orange: #ffcb92; --sky: #a3ecf0; --olive: #d3f08d; --berry: #ffbad9; --plum: #f1bbff; --cocoa: #f0d2ab;
+  --field: 20%; --note: color-mix(in srgb, var(--c) 24%, var(--sheet));
+  --shadow: 0 0 0 1px var(--rule-2);
+  --r-card: 0px; --r-board: 0px; --r-tile: 0px; --r-key: 0px; --wob: 0px;
+  --font-ui: 'Space Mono', ui-monospace, Menlo, monospace;
+  --font-display: var(--font-ui);
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
   :root[data-theme='mist'], .theme-opt[data-theme='mist'] {
     --paper: #121825; --sheet: #1a2233; --sunk: #0e1420; --ink: #e6ebf5; --ink-2: #a2aec3;
