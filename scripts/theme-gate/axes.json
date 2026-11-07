@@ -108,5 +108,15 @@
     "texture": "none",
     "home": "tile-grid",
     "families": "pastel-fill"
+  },
+  "felt": {
+    "ground": "dark-green-felt",
+    "edges": "bevel",
+    "depth": "bevel",
+    "corners": "soft-small",
+    "type": "serif-slab",
+    "texture": "grain",
+    "home": "tile-grid",
+    "families": "wood-tint"
   }
 }

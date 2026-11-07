@@ -123,6 +123,21 @@
   color-scheme: light;
 }
 
+/* Felt & Wood: a card table. Green baize ground, walnut tiles and boards, cream type. Both schemes are a dark table
+   (light is a brighter baize); accents are pale so they read on the felt. Card faces are set in felt.css. */
+:root[data-theme='felt'], .theme-opt[data-theme='felt'] {
+  --paper: #275c3b; --sheet: #6b4528; --sunk: #1f4c30; --ink: #f6edd8; --ink-2: #d6dcc2;
+  --rule: #84603c; --rule-2: #b38b58; --on-ink: #14301f;
+  --blue: #b9d3ff; --teal: #9fe8e0; --coral: #ffb4a6; --yellow: #ffe08a; --lilac: #d9c9ff; --mint: #a8ecc4;
+  --orange: #ffc890; --sky: #a4e6ec; --olive: #d6ef96; --berry: #ffbcd6; --plum: #f0c0ff; --cocoa: #f0d0a8;
+  --field: 20%; --note: color-mix(in srgb, var(--c) 26%, var(--sheet));
+  --shadow: inset 0 1px 0 rgb(255 255 255 / 0.2), inset 0 -2px 0 rgb(0 0 0 / 0.3), 0 2px 4px rgb(0 0 0 / 0.35);
+  --r-card: 10px; --r-board: 8px; --r-tile: 6px; --r-key: 8px; --wob: 10px;
+  --font-ui: 'Zilla Slab', Rockwell, Georgia, serif;
+  --font-display: var(--font-ui);
+  color-scheme: dark;
+}
+
 /* ---------- Midnight: true black, outlined tiles, glow rings. Dark only: one set of tokens whatever the OS says ---------- */
 
 :root[data-theme='midnight'], .theme-opt[data-theme='midnight'] {
@@ -228,6 +243,11 @@
     --orange: #ffbb88; --sky: #86dcea; --olive: #c6e58a; --berry: #ffa8cf; --plum: #e7b0ff; --cocoa: #e2bf9f;
     --hi: rgb(255 255 255 / 0.1); --lo: rgb(0 0 0 / 0.38); --drop: rgb(0 0 0 / 0.55);
     color-scheme: dark;
+  }
+
+  :root[data-theme='felt'], .theme-opt[data-theme='felt'] {
+    --paper: #163a26; --sheet: #4a2f1b; --sunk: #0f2a1a; --ink: #f3e8cf; --ink-2: #c5d0b4;
+    --rule: #6a4a2c; --rule-2: #8a6640; --on-ink: #0f2a1a;
   }
 
   :root[data-theme='pocket'], .theme-opt[data-theme='pocket'] {
