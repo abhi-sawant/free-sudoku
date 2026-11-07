@@ -44,9 +44,10 @@
 
 /* [ Commands ] */
 :root[data-theme='terminal'] .btn > span:first-child::before,
-:root[data-theme='terminal'] .btn:not(:has(> *))::before { content: '[ '; color: var(--ink-2); }
+:root[data-theme='terminal'] .btn:not(:has(> *), .hold-btn)::before { content: '[ '; color: var(--ink-2); }
 :root[data-theme='terminal'] .btn > span:first-child::after,
-:root[data-theme='terminal'] .btn:not(:has(> *))::after { content: ' ]'; color: var(--ink-2); }
+:root[data-theme='terminal'] .btn:not(:has(> *), .hold-btn)::after { content: ' ]'; color: var(--ink-2); }
+/* Qubo's Jump key is too small for brackets; inverse video already marks it as the command. */
 
 /* The primary command is inverse video. */
 :root[data-theme='terminal'] :is(.btn-primary, .continue) { background: var(--c); color: var(--on-ink); box-shadow: none; text-shadow: none; }
@@ -84,7 +85,8 @@
 :root[data-theme='terminal'] .gotd-tag { text-transform: uppercase; letter-spacing: 0.06em; }
 
 /* A game page names its family in the top bar. */
-:root[data-theme='terminal'] .topbar .meta b::before { content: '[' var(--tag) '] '; color: var(--ink-2); font-weight: 500; }
+/* The tag sits on a short line of its own above the title, so a long title (Road Racer's level names) keeps one line. */
+:root[data-theme='terminal'] .topbar .meta b::before { content: '[' var(--tag) ']'; display: block; font-size: 0.68rem; line-height: 1.1; letter-spacing: 0.06em; color: var(--ink-2); font-weight: 500; }
 
 /* ---------- Boards ---------- */
 
@@ -121,5 +123,5 @@
   :root[data-theme='terminal'] .cell.selected::after { animation: terminal-blink 1.06s steps(1) infinite; }
 }
 
-/* Square, like everything else here: the round icon buttons and the timer pill too. */
-:root[data-theme='terminal'] :is(.icon-btn, .timer) { border-radius: 0; }
+/* Square, like everything else here: the round icon buttons, the timer pill and Qubo's Jump button too. */
+:root[data-theme='terminal'] :is(.icon-btn, .timer, .hold-btn) { border-radius: 0; }

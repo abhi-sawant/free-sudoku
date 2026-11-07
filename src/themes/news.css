@@ -25,7 +25,7 @@
   background: var(--sheet);
   box-shadow: 0 0 0 1px var(--ink);
 }
-:root[data-theme='news'] :is(.icon-btn, .timer) { border-radius: 0; }
+:root[data-theme='news'] :is(.icon-btn, .timer, .hold-btn) { border-radius: 0; }
 :root[data-theme='news'] .dialog { box-shadow: var(--double); }
 :root[data-theme='news'] :is(.btn, .level, .new-game, .icon-btn, .pad-btn, .back-link):active,
 :root[data-theme='news'] .tool:active svg { background: var(--sunk); transform: none; }

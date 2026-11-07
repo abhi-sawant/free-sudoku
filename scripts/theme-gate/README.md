@@ -11,10 +11,12 @@ node scripts/theme-gate/capture.mjs --out /tmp/shots     # screenshots + contras
 node scripts/theme-gate/distance.mjs /tmp/shots --check <id>   # pairwise distance; fails if closer than baseline.json's min (--scheme dark for a dark capture)
 node scripts/theme-gate/primary.mjs <id>                 # the primary button keeps its own fill (watch :is() specificity)
 node scripts/theme-gate/picker.mjs                       # the picker scrolls and Done stays on screen at 320x568
+node scripts/theme-gate/icons.mjs                        # every piece Mist draws in a home icon shows (arcade icons; --games a,b)
+node scripts/theme-gate/hold.mjs                         # Qubo's Jump button: one line, square where icon buttons are square
 ```
 
 Theme-specific checks: `brutal.mjs` (a press moves into the shadow), `terminal.mjs` (amber contrast, cursor blink off
-under reduced motion), `blueprint.mjs` (the grid never takes a click), `clay.mjs` (a pressed key flips its shading),
+under reduced motion, the top bar's family tag never wraps a title), `blueprint.mjs` (the grid never takes a click), `clay.mjs` (a pressed key flips its shading),
 `felt.mjs` (cream card faces at 4.5:1), `news.mjs` (strictly neutral greys).
 
 ## Results (2026-11-07, all 13 themes)

@@ -105,4 +105,4 @@
 :root[data-theme='blueprint'] .die { box-shadow: 0 0 0 1px var(--rule-2); }
 
 /* Square, like everything else here: the round icon buttons and the timer pill too. */
-:root[data-theme='blueprint'] :is(.icon-btn, .timer) { border-radius: 0; }
+:root[data-theme='blueprint'] :is(.icon-btn, .timer, .hold-btn) { border-radius: 0; }
