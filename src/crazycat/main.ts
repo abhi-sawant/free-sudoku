@@ -51,6 +51,8 @@ document.addEventListener('keydown', (e) => {
   }
 });
 onVisibility(pause, () => {});
+// The rules dialog (src/help.ts) pauses the run while it is open.
+document.addEventListener('guide:open', pause);
 new ResizeObserver(resize).observe(frame);
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { palette = readPalette(); draw(); });
 

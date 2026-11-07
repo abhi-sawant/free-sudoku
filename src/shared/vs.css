@@ -34,6 +34,8 @@
 .tally .draws b { color: var(--ink-2); }
 .tally small { font-family: var(--pen-font); font-size: 0.85rem; font-weight: 600; color: var(--ink-2); line-height: 1; }
 .meta span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* With the ? button taking room, the status line wraps to a second line (the bar is tall enough) rather than being cut off. */
+.topbar:has(> .help-btn) .meta span { white-space: normal; }
 @media (max-width: 360px) {
   .tally { gap: 6px; }
   .tally span { min-width: 26px; }

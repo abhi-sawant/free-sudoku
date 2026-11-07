@@ -3,6 +3,7 @@
 
 import { Capacitor } from '@capacitor/core';
 import './theme';
+import './help';
 import { registerSW } from 'virtual:pwa-register';
 
 if (!Capacitor.isNativePlatform() && 'serviceWorker' in navigator) {

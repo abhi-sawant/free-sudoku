@@ -1,5 +1,6 @@
 import '../pwa';
 import { GUIDES } from './guides';
+import { guideBody } from './render';
 
 // One page serves every game's guide: /howto/index.html?g=<game>. The game's menu links here, and so does the
 // guide's own Play button back, so a new player can read the rules first and then start.
@@ -22,13 +23,5 @@ if (!guide) {
   const play = $<HTMLAnchorElement>('play');
   play.href = game;
   play.textContent = `Play ${guide.name}`;
-  $('steps').innerHTML = guide.steps.map((s) => `<li>${s}</li>`).join('');
-  $('controls').innerHTML = guide.controls.map((s) => `<li>${s}</li>`).join('');
-  $('tips').innerHTML = guide.tips.map((s) => `<li>${s}</li>`).join('');
-  $('tips-block').hidden = guide.tips.length === 0;
-  if (guide.example) {
-    $('example-art').innerHTML = guide.example.html;
-    $('example-caption').textContent = guide.example.caption;
-    $('example').hidden = false;
-  }
+  $('guide-body').innerHTML = guideBody(guide);
 }

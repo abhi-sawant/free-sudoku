@@ -29,7 +29,7 @@ export function row(...parts: [html: string, label: string][]) {
 
 /** A playing card face: rank and suit, red suits in coral. */
 export const card = (rank: string, suit: '♠' | '♥' | '♦' | '♣') =>
-  `<span class="fc card ${suit === '♥' || suit === '♦' ? 'red' : ''}">${rank}<i>${suit}</i></span>`;
+  `<span class="fc fc-card ${suit === '♥' || suit === '♦' ? 'red' : ''}">${rank}<i>${suit}</i></span>`;
 
 /** A face-down card. */
-export const back = () => '<span class="fc card back"></span>';
+export const back = () => '<span class="fc fc-card back"></span>';

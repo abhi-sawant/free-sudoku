@@ -350,6 +350,16 @@ a.history-link { text-decoration: none; }
   height: 60px;
 }
 #history .topbar { grid-template-columns: 44px 1fr 44px; }
+/* The ? button (src/help.ts) takes a column of its own before the timer, tally or score. */
+.topbar:has(> .help-btn) { grid-template-columns: 44px 1fr 40px auto; gap: 8px; }
+.help-btn { width: 40px; height: 40px; }
+/* On the narrowest phones every pixel of the title column counts, so the buttons and gaps shrink a little. */
+@media (max-width: 360px) {
+  .topbar:has(> .help-btn) { grid-template-columns: 40px 1fr 36px auto; gap: 6px; }
+  .topbar:has(> .help-btn) > .icon-btn:not(.help-btn) { width: 40px; height: 40px; }
+  .topbar:has(> .help-btn) > .help-btn { width: 36px; height: 36px; }
+  .topbar:has(> .help-btn) > .timer { min-width: 0; padding: 0 12px 0 10px; }
+}
 
 .icon-btn {
   width: 44px;

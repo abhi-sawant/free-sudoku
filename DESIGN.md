@@ -77,7 +77,7 @@ Radii: `--r-card` 22px, `--r-board` 14px, `--r-tile` 14px, `--r-key` 12px, `--wo
 
 ## Components (in `base.css`)
 
-`h1.logo`, `a.back-link`, `button.btn.btn-primary.continue`, `div.levels > button.btn.level`, `header.topbar` with `button.timer`, `div.tools > button.tool`, `table.summary`, `dialog.dialog`. Buttons and tools are white tiles with `--shadow`; a switched-on tool takes `--note` and an accent ring.
+`h1.logo`, `a.back-link`, `button.icon-btn.help-btn` (the ? before the timer, added by `src/help.ts` to every game's top bar; it opens the rules in a scrolling `dialog.guide-dialog` and pauses the game), `button.btn.btn-primary.continue`, `div.levels > button.btn.level`, `header.topbar` with `button.timer`, `div.tools > button.tool`, `table.summary`, `dialog.dialog`. Buttons and tools are white tiles with `--shadow`; a switched-on tool takes `--note` and an accent ring.
 
 ## Boards
 
