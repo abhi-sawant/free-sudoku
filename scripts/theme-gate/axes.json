@@ -78,5 +78,15 @@
     "texture": "none",
     "home": "tile-grid",
     "families": "sticker-fill"
+  },
+  "terminal": {
+    "ground": "dark-amber",
+    "edges": "hairline",
+    "depth": "flat",
+    "corners": "square",
+    "type": "mono",
+    "texture": "scanline",
+    "home": "ruled-list",
+    "families": "text-tag"
   }
 }

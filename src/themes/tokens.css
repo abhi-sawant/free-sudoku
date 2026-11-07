@@ -123,6 +123,21 @@
   color-scheme: dark;
 }
 
+/* Terminal: amber phosphor on near-black. Dark only. Every accent is a shade of amber (families are told apart by a
+   text tag, not hue); coral stays a red-orange so a mistake still reads as one. */
+:root[data-theme='terminal'], .theme-opt[data-theme='terminal'] {
+  --paper: #251b0b; --sheet: #2f2310; --sunk: #1b1307; --ink: #ffc246; --ink-2: #d09c42;
+  --rule: #46351a; --rule-2: #7d5e29; --on-ink: #1b1307;
+  --blue: #ffb000; --teal: #ffcf66; --coral: #ff5a3c; --yellow: #ffe08a; --lilac: #ffd27a; --mint: #f0c060;
+  --orange: #ff9d3b; --sky: #ffc44d; --olive: #e6c35c; --berry: #ff9a5a; --plum: #f5b87a; --cocoa: #d9a35f;
+  --field: 20%; --note: color-mix(in srgb, var(--c) 22%, var(--sheet));
+  --shadow: 0 0 0 1px var(--rule-2);
+  --r-card: 0px; --r-board: 0px; --r-tile: 0px; --r-key: 0px; --wob: 0px;
+  --font-ui: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-display: var(--font-ui);
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
   :root[data-theme='mist'], .theme-opt[data-theme='mist'] {
     --paper: #121825; --sheet: #1a2233; --sunk: #0e1420; --ink: #e6ebf5; --ink-2: #a2aec3;

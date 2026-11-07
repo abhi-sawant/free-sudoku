@@ -11,6 +11,7 @@ export const THEMES = [
   { id: 'pocket', name: 'Pocket', note: 'A handheld LCD in four greens' },
   { id: 'midnight', name: 'Midnight', note: 'True black with glowing accents' },
   { id: 'brutal', name: 'Neo-brutalist', note: 'Black borders and hard shadows on cream' },
+  { id: 'terminal', name: 'Terminal', note: 'Amber phosphor on black, in monospace' },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]['id'];

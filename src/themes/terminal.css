@@ -1,0 +1,122 @@
+/* Terminal: amber phosphor on near-black, dark only. One monospace face, square corners, hairline boxes and no
+   shadows; faint scanlines over the whole screen. Buttons read as [ bracketed ] commands, the home page is a listing
+   of > rows, the selected cell carries a blinking cursor, and each family is named by a text tag ([NUM], [LOGIC] ...)
+   rather than a colour, since every accent here is a shade of amber. JetBrains Mono (OFL). */
+
+@font-face { font-family: 'JetBrains Mono'; font-weight: 100 800; font-display: swap; src: url('../fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2'); }
+
+:root[data-theme='terminal'] { --tag: 'SYS'; }
+:root[data-theme='terminal'] [data-family='blue'], :root[data-theme='terminal'][data-family='blue'] { --tag: 'NUM'; }
+:root[data-theme='terminal'] [data-family='orange'], :root[data-theme='terminal'][data-family='orange'] { --tag: 'LOGIC'; }
+:root[data-theme='terminal'] [data-family='lilac'], :root[data-theme='terminal'][data-family='lilac'] { --tag: 'TILES'; }
+:root[data-theme='terminal'] [data-family='sky'], :root[data-theme='terminal'][data-family='sky'] { --tag: 'VS'; }
+:root[data-theme='terminal'] [data-family='olive'], :root[data-theme='terminal'][data-family='olive'] { --tag: 'CARDS'; }
+:root[data-theme='terminal'] [data-family='berry'], :root[data-theme='terminal'][data-family='berry'] { --tag: 'WORDS'; }
+:root[data-theme='terminal'] [data-family='plum'], :root[data-theme='terminal'][data-family='plum'] { --tag: 'DICE'; }
+:root[data-theme='terminal'] [data-family='cocoa'], :root[data-theme='terminal'][data-family='cocoa'] { --tag: 'ARCADE'; }
+
+:root[data-theme='terminal'] body { font-weight: 450; text-shadow: 0 0 6px color-mix(in srgb, var(--ink) 28%, transparent); }
+:root[data-theme='terminal'] :is(.wordmark, .logo, .topbar-title, .meta b, .dialog h2, .gotd-name, .theme-name) { font-weight: 700; letter-spacing: -0.02em; }
+:root[data-theme='terminal'] .wordmark::after { content: '_'; }
+:root[data-theme='terminal'] ::selection { background: var(--ink); color: var(--paper); }
+
+/* Scanlines: a fixed layer over everything that never takes a click. */
+:root[data-theme='terminal'] body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgb(0 0 0 / 0.28) 0 1px, transparent 1px 3px);
+}
+
+/* ---------- Boxes: a hairline, no fill, no shadow ---------- */
+
+:root[data-theme='terminal'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .gotd-card, .summary, .dialog),
+:root[data-theme='terminal'] .tool svg {
+  background: var(--paper);
+  box-shadow: 0 0 0 1px var(--rule-2);
+}
+:root[data-theme='terminal'] :is(.btn, .level, .new-game, .icon-btn, .pad-btn, .back-link):active,
+:root[data-theme='terminal'] .tool:active svg { background: var(--ink); color: var(--paper); transform: none; text-shadow: none; }
+:root[data-theme='terminal'] .dialog::backdrop { background: rgb(0 0 0 / 0.75); }
+:root[data-theme='terminal'] .summary thead th { background: var(--sunk); }
+
+/* [ Commands ] */
+:root[data-theme='terminal'] .btn > span:first-child::before,
+:root[data-theme='terminal'] .btn:not(:has(> *))::before { content: '[ '; color: var(--ink-2); }
+:root[data-theme='terminal'] .btn > span:first-child::after,
+:root[data-theme='terminal'] .btn:not(:has(> *))::after { content: ' ]'; color: var(--ink-2); }
+
+/* The primary command is inverse video. */
+:root[data-theme='terminal'] :is(.btn-primary, .continue) { background: var(--c); color: var(--on-ink); box-shadow: none; text-shadow: none; }
+:root[data-theme='terminal'] :is(.btn-primary, .continue) :is(small, span)::before,
+:root[data-theme='terminal'] :is(.btn-primary, .continue) :is(small, span)::after,
+:root[data-theme='terminal'] .btn-primary:not(:has(> *))::before,
+:root[data-theme='terminal'] .btn-primary:not(:has(> *))::after { color: var(--on-ink); }
+:root[data-theme='terminal'] .continue small { color: var(--on-ink); opacity: 0.8; }
+:root[data-theme='terminal'] .tool.active svg { background: var(--ink); color: var(--paper); box-shadow: none; }
+:root[data-theme='terminal'] :focus-visible { outline: 1px dashed var(--ink); outline-offset: 3px; }
+:root[data-theme='terminal'] .theme-opt[aria-checked='true'] { outline: 1px dashed var(--ink); outline-offset: 3px; }
+
+/* ---------- Home: a listing ---------- */
+
+:root[data-theme='terminal'] .section-label { text-transform: uppercase; font-size: 0.9rem; letter-spacing: 0.06em; color: var(--ink-2); }
+:root[data-theme='terminal'] .section-label::before {
+  content: '[' var(--tag) ']';
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  color: var(--c);
+  font-weight: 700;
+}
+:root[data-theme='terminal'] .gotd .section-label::before { content: '[*]'; }
+:root[data-theme='terminal'] .game-card { border-bottom: 1px dashed var(--rule); min-height: 46px; }
+:root[data-theme='terminal'] .family .game-card:last-of-type { border-bottom: 0; }
+:root[data-theme='terminal'] .family .game-icon { display: none; }
+:root[data-theme='terminal'] .game-name { font-size: 1rem; font-weight: 500; }
+:root[data-theme='terminal'] .game-name::before { content: '> '; color: var(--c); }
+:root[data-theme='terminal'] .game-status { background: none; color: var(--ink-2); font-weight: 500; padding: 0; border-radius: 0; }
+:root[data-theme='terminal'] .game-status::before { content: '['; }
+:root[data-theme='terminal'] .game-status::after { content: ']'; }
+:root[data-theme='terminal'] .gotd-card .game-icon { background: var(--paper); box-shadow: 0 0 0 1px var(--rule-2); }
+:root[data-theme='terminal'] .gotd-tag { text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* A game page names its family in the top bar. */
+:root[data-theme='terminal'] .topbar .meta b::before { content: '[' var(--tag) '] '; color: var(--ink-2); font-weight: 500; }
+
+/* ---------- Boards ---------- */
+
+:root[data-theme='terminal'] :is(.board, .board-frame) { background: var(--paper); box-shadow: 0 0 0 1px var(--rule-2); }
+:root[data-theme='terminal'] .board-frame .board { box-shadow: none; }
+:root[data-theme='terminal'] .cell { font-weight: 500; }
+:root[data-theme='terminal'] .cell.given { font-weight: 700; }
+:root[data-theme='terminal'] .cell.in-unit::before { background: var(--ink); opacity: 0.06; mix-blend-mode: normal; }
+:root[data-theme='terminal'] .cell.same::before { background: var(--ink); opacity: 0.16; mix-blend-mode: normal; }
+:root[data-theme='terminal'] .cell.selected::before { background: var(--ink); opacity: 0.22; mix-blend-mode: normal; box-shadow: inset 0 0 0 1px var(--ink); }
+:root[data-theme='terminal'] .cell.selected,
+:root[data-theme='terminal'] .cell.selected.user { color: var(--ink); }
+:root[data-theme='terminal'] .cell.wrong::before { inset: 2px; border: 1px solid var(--coral); border-radius: 0; rotate: none; background: none; }
+:root[data-theme='terminal'] .cell.selected.wrong::before { background: color-mix(in srgb, var(--coral) 22%, transparent); border: 1px solid var(--coral); border-radius: 0; inset: 2px; }
+/* The cursor: an underscore at the foot of the selected cell. */
+:root[data-theme='terminal'] .cell.selected::after {
+  content: '';
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: 10%;
+  height: 2px;
+  background: var(--ink);
+  pointer-events: none;
+}
+:root[data-theme='terminal'] .overprint i { background: var(--ink); opacity: 0.08; mix-blend-mode: normal; }
+:root[data-theme='terminal'] .card { box-shadow: 0 0 0 1px var(--rule-2); }
+:root[data-theme='terminal'] .card.selected { box-shadow: 0 0 0 2px var(--ink); }
+:root[data-theme='terminal'] .pile { outline: 1px dashed var(--rule-2); }
+:root[data-theme='terminal'] .die { box-shadow: 0 0 0 1px var(--rule-2); }
+
+@keyframes terminal-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-theme='terminal'] .cell.selected::after { animation: terminal-blink 1.06s steps(1) infinite; }
+}

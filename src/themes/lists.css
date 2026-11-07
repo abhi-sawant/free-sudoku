@@ -1,8 +1,8 @@
-/* Graph Paper, Linen and Sage show the home page as a list: an icon, a name and what's going on, one game to a row,
+/* Graph Paper, Linen, Sage and Terminal show the home page as a list: an icon, a name and what's going on, one game to a row,
    instead of Mist's tiles. This is the shared skeleton; each theme dresses the rows. */
 
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage']) .family { grid-template-columns: 1fr; gap: 0; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage']) .game-card {
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal']) .family { grid-template-columns: 1fr; gap: 0; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal']) .game-card {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
@@ -15,15 +15,15 @@
   text-align: left;
   transform: none;
 }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage']) .game-card:active { background: none; transform: none; opacity: 0.7; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal']) .game-card:active { background: none; transform: none; opacity: 0.7; }
 @media (hover: hover) {
-  :root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage']) .game-card:hover { background: none; }
+  :root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal']) .game-card:hover { background: none; }
 }
 /* The icons are drawn for 72px; a row wants about 42. */
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage']) .game-icon { zoom: 0.6; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage']) .game-text { display: contents; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage']) .game-name { font-size: 1.05rem; font-weight: 600; flex: 1; text-align: left; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage']) .game-status { margin-left: auto; flex: none; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage']) .chevron { display: none; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage']) .family .section-label { margin: 24px 0 6px; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage']) .family:first-child .section-label { margin-top: 0; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal']) .game-icon { zoom: 0.6; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal']) .game-text { display: contents; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal']) .game-name { font-size: 1.05rem; font-weight: 600; flex: 1; text-align: left; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal']) .game-status { margin-left: auto; flex: none; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal']) .chevron { display: none; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal']) .family .section-label { margin: 24px 0 6px; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal']) .family:first-child .section-label { margin-top: 0; }
