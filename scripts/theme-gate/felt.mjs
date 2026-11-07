@@ -31,6 +31,15 @@ for (const colorScheme of ['light', 'dark']) {
   say(r.cream, `${colorScheme}: card face is cream (${r.bg})`);
   say(r.black >= 4.5, `${colorScheme}: black suit ${r.black.toFixed(2)}:1`);
   say(r.red >= 4.5, `${colorScheme}: red suit ${r.red.toFixed(2)}:1`);
+  // Yacht's score card is a .card too, but not a playing card: it must keep the theme's own surface, not cream stock.
+  await page.goto(`${base}/yacht/index.html`, { waitUntil: 'networkidle' });
+  const sheet = await page.evaluate(() => {
+    const card = getComputedStyle(document.getElementById('card'));
+    const probe = document.createElement('i'); probe.style.color = 'var(--face)'; document.body.append(probe);
+    const face = getComputedStyle(probe).color; probe.remove();
+    return { bg: card.backgroundColor, face };
+  });
+  say(!sheet.bg.startsWith(sheet.face.replace(')', '')), `${colorScheme}: Yacht's score card is not printed as a playing card (${sheet.bg})`);
   await page.close();
 }
 await browser.close();
