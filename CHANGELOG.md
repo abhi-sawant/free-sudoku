@@ -1,5 +1,24 @@
 # Changelog
 
+## 4.1.2 — 2026-11-08
+
+Two new arcade games, and Space plays again.
+
+### Added
+
+- **Road Racer**: an arcade road racer in the Arcade section. Tap the left or right half of the board, or use the arrow
+  keys (or A and D), to change lane and dodge the traffic. Every few seconds the road gets a little faster. Four levels
+  (Country Road, Highway, City Rush and Night Rally) add lanes, traffic and top speed, with a best score and history for
+  each. It has engine, lane-change and crash sounds, and a speaker button to mute them.
+- **Qubo**: a one-button arcade game. The tower tips over like a pendulum; time your tap to throw the cube onto the next
+  tower. Your best score is saved.
+- A "How to play" guide for both games.
+
+### Changed
+
+- Pressing Space on a game's "play again" screen now starts the next game, in every game that has one.
+- 2248 keeps raising its smallest tile, and labels tiles in clean doublings.
+
 ## 4.1.0 — 2026-11-03
 
 Choose how Games looks: six themes.

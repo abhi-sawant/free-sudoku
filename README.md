@@ -59,6 +59,13 @@ Offline puzzle, board and card games: a PWA that also ships as an Android app th
 - **Crazy Cat**: an arcade runner in cocoa. The cat runs by itself; tap, click or press Space to jump, and again in the
   air to jump higher. Clear crates (+1) and catch fish (+2) at Kitten, Tabby or Crazy speed until you hit one. Best score
   and history per level; the rules are in `src/crazycat/engine.ts`, free of any drawing.
+- **Qubo**: a one-button arcade game in cocoa, after Gamee's Telegram game. The tower tips over like a pendulum; time your tap to throw the cube
+  off the top toward the next tower, where the lean sets the distance. Land on it to score (+1); miss or hit its side and the cube falls. Best score saved; the rules are in
+  `src/qubo/engine.ts`.
+- **Road Racer**: a lane-changing arcade racer in cocoa, after the 90s road racers. Tap the left or right half of the board
+  (or press the arrow keys) to change lane and dodge the traffic as the road speeds up. Four levels (Country Road, Highway,
+  City Rush, Night Rally) add lanes, traffic and speed. Best score and history per level; the rules are in
+  `src/racer/engine.ts`, free of any drawing.
 - Themes: Mist (default), Linen, Sage, Graph Paper, Block Party, Pocket, Midnight, Neo-brutalist, Terminal, Blueprint, Claymorphism, Felt & Wood and Newsprint, picked from the palette button on the home
   page and kept on the device. Each is a whole design (layout, borders, type and boards, from `design-candidates/`) in `src/themes/`; `src/theme.ts` applies and remembers the choice.
 - Works with no connection: the service worker installs with just the home page, caches each game when it's opened,
@@ -86,7 +93,7 @@ dots/index.html, src/dots/               Dots and Boxes
                                          sokoban, rushhour, pegs, connect4, reversi, gomoku, morris, checkers,
                                          mancala, ultimate, hex, go, chess, backgammon, battleship, klondike,
                                          freecell, spider, yukon, canfield, fortythieves, pyramid, tripeaks, golf,
-                                         wordguess, wordsearch, letterwheel, yacht, farkle, pig, crazycat
+                                         wordguess, wordsearch, letterwheel, yacht, farkle, pig, crazycat, qubo, racer
 src/dice/                                dice drawing and rolling, and the race layout, for the dice games
 src/shared/                              helpers the newer games share: screens, timer, storage, puzzle loading,
                                          grid.css for the grid puzzles, the match runner, search and styles for

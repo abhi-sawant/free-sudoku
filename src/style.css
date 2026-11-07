@@ -440,6 +440,22 @@
 .game-icon-pig i:not(.d) { display: none; }
 .game-icon-pig i.d { border-radius: 10px; background-size: 33% 50%; box-shadow: inset 0 0 0 2.5px var(--plum); }
 
+/* Qubo: two outlined towers, and the cube on the left one. */
+.game-icon-qubo { padding: 8px; }
+.game-icon-qubo i { background: none; box-shadow: none; }
+.game-icon-qubo i:not(.a, .b, .q) { display: none; }
+.game-icon-qubo i.a { grid-area: 2 / 1 / 4 / 2; background: var(--sheet); box-shadow: inset 0 0 0 2px var(--ink); border-radius: 2px; }
+.game-icon-qubo i.b { grid-area: 2 / 3 / 4 / 4; background: var(--sheet); box-shadow: inset 0 0 0 2px var(--ink); border-radius: 2px; }
+.game-icon-qubo i.q { grid-area: 1 / 1 / 2 / 2; margin: 18% 12% 0; background: linear-gradient(color-mix(in srgb, var(--cocoa) 42%, transparent), color-mix(in srgb, var(--cocoa) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--cocoa); border-radius: 4px; }
+
+/* Road Racer: a road between two edge lines, a cocoa car at the bottom and a red-pen car ahead. */
+.game-icon-racer { padding: 8px; }
+.game-icon-racer i { background: none; box-shadow: none; }
+.game-icon-racer i:not(.r, .p, .o) { display: none; }
+.game-icon-racer i.r { grid-area: 1 / 1 / 4 / 4; margin: -8px 14%; border-inline: 2px solid var(--ink); border-radius: 0; }
+.game-icon-racer i.p { grid-area: 3 / 2 / 4 / 3; margin: 6% 22%; background: linear-gradient(color-mix(in srgb, var(--cocoa) 42%, transparent), color-mix(in srgb, var(--cocoa) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--cocoa); border-radius: 4px; }
+.game-icon-racer i.o { grid-area: 1 / 2 / 2 / 3; margin: 6% 22%; background: linear-gradient(color-mix(in srgb, var(--coral) 42%, transparent), color-mix(in srgb, var(--coral) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--coral); border-radius: 4px; }
+
 /* Arcade in cocoa: a hatched cat on the ground line, a red-pen crate to jump and a fish above it. */
 .game-icon-crazycat { padding: 8px; }
 .game-icon-crazycat i { background: none; box-shadow: none; }

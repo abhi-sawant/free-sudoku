@@ -67,6 +67,18 @@ export class Screens {
   }
 }
 
+// Space plays again from any game's end dialog. It runs first (capture) and stops the key there, so a game's own
+// Space handling (jump, start) never sees it and the focused button can't fire a second time.
+document.addEventListener('keydown', (e) => {
+  if (e.key !== ' ' || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+  const dialog = document.getElementById('end-dialog') as HTMLDialogElement | null;
+  const again = document.getElementById('end-again');
+  if (!dialog?.open || !again) return;
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  again.click();
+}, true);
+
 /** Calls `hidden` when the page is hidden (tab switch, screen off), and `back` when it returns. */
 export function onVisibility(hidden: () => void, back: () => void) {
   document.addEventListener('visibilitychange', () => (document.hidden ? hidden() : back()));
