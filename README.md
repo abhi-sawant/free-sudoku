@@ -66,7 +66,7 @@ Offline puzzle, board and card games: a PWA that also ships as an Android app th
   (or press the arrow keys) to change lane and dodge the traffic as the road speeds up. Four levels (Country Road, Highway,
   City Rush, Night Rally) add lanes, traffic and speed. Best score and history per level; the rules are in
   `src/racer/engine.ts`, free of any drawing.
-- Themes: Mist (default), Linen, Sage, Graph Paper, Block Party and Pocket, picked from the palette button on the home
+- Themes: Mist (default), Linen, Sage, Graph Paper, Block Party, Pocket, Midnight, Neo-brutalist, Terminal, Blueprint, Claymorphism, Felt & Wood and Newsprint, picked from the palette button on the home
   page and kept on the device. Each is a whole design (layout, borders, type and boards, from `design-candidates/`) in `src/themes/`; `src/theme.ts` applies and remembers the choice.
 - Works with no connection: the service worker installs with just the home page, caches each game when it's opened,
   then fetches the rest in the background, the open game first (see `src/sw.ts`).

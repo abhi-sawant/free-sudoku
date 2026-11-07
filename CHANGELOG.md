@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased
+
+Seven more themes, thirteen in all.
+
+### Added
+
+- **Midnight**: true black for OLED screens; buttons and the selected cell glow in the game's colour.
+- **Neo-brutalist**: cream paper, thick black borders and hard offset shadows; buttons press down into their shadow.
+- **Terminal**: amber monospace on a dark CRT brown, with faint scanlines, `[ bracketed ]` buttons, a blinking cursor
+  in the selected cell and each section tagged `[NUM]`, `[LOGIC]` and so on.
+- **Blueprint**: white lines on drafting blue over a fine grid, uppercase monospace labels and numbered sheets.
+- **Claymorphism**: puffy pastel tiles that sink when pressed, with round, chunky type.
+- **Felt & Wood**: a games-room table: green baize, walnut tiles and cream playing cards.
+- **Newsprint**: a grey broadsheet with headline type, double rules, halftone dots and the games set in two columns.
+
+Every theme covers Qubo and Road Racer too.
+
 ## 4.1.2 — 2026-11-08
 
 Two new arcade games, and Space plays again.

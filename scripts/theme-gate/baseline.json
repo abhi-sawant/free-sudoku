@@ -1,0 +1,16 @@
+{
+  "light": {
+    "min": 0.0995,
+    "pair": [
+      "graph",
+      "mist"
+    ]
+  },
+  "dark": {
+    "min": 0.2134,
+    "pair": [
+      "linen",
+      "sage"
+    ]
+  }
+}

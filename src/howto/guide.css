@@ -37,7 +37,7 @@
   border-radius: 50%;
   background: color-mix(in srgb, var(--yellow) 80%, var(--sheet));
   box-shadow: inset 0 0 0 1px var(--rule);
-  color: var(--c);
+  color: #1e2741; /* dark ink on the yellow disc in every theme; an accent colour vanishes on it in dark mode */
   font-family: var(--pen-font);
   font-size: 1.5rem;
   font-weight: 700;

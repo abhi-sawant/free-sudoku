@@ -1,0 +1,48 @@
+/* Midnight: true black, for an OLED screen at night. Dark only. Nothing is filled or shadowed: tiles and buttons are
+   drawn by a one-pixel hairline, and whatever is active (a switched-on tool, the selected cell, the primary button,
+   focus) lights up with a glow ring in its family colour. System type, so it adds no download. */
+
+:root[data-theme='midnight'] {
+  --glow: 0 0 0 1.5px var(--c), 0 0 18px -2px color-mix(in srgb, var(--c) 55%, transparent);
+}
+:root[data-theme='midnight'] body { font-weight: 450; letter-spacing: 0.005em; }
+:root[data-theme='midnight'] :is(.wordmark, .logo, .section-label, .topbar-title, .meta b, .dialog h2, .gotd-name, .theme-name) { font-weight: 650; letter-spacing: -0.015em; }
+
+/* ---------- Surfaces: a hairline, not a fill or a shadow ---------- */
+
+:root[data-theme='midnight'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .summary, .dialog),
+:root[data-theme='midnight'] .tool svg {
+  background: var(--sheet);
+  box-shadow: 0 0 0 1px var(--rule-2);
+}
+:root[data-theme='midnight'] .game-icon { background: var(--paper); box-shadow: 0 0 0 1px var(--rule); }
+:root[data-theme='midnight'] :is(.btn, .level, .new-game, .icon-btn, .pad-btn):active,
+:root[data-theme='midnight'] .tool:active svg { background: var(--note); }
+:root[data-theme='midnight'] .dialog::backdrop { background: rgb(0 0 0 / 0.72); }
+:root[data-theme='midnight'] .summary thead th { background: var(--sunk); }
+
+/* ---------- The glow: whatever is on or primary ---------- */
+
+:root[data-theme='midnight'] :is(.btn-primary, .continue) { background: var(--note); color: var(--ink); box-shadow: var(--glow); }
+:root[data-theme='midnight'] .continue small { color: var(--ink-2); }
+:root[data-theme='midnight'] .tool.active svg { background: var(--note); box-shadow: var(--glow); }
+:root[data-theme='midnight'] :is(.game-card, .level, .btn, .icon-btn):focus-visible { box-shadow: var(--glow); outline: 0; }
+:root[data-theme='midnight'] :focus-visible { outline: 2px solid var(--c); outline-offset: 2px; }
+:root[data-theme='midnight'] .theme-opt[aria-checked='true'] { outline: 0; box-shadow: var(--glow); }
+
+/* ---------- Boards ---------- */
+
+:root[data-theme='midnight'] :is(.board, .board-frame) { background: var(--sheet); box-shadow: 0 0 0 1.5px var(--rule-2); }
+:root[data-theme='midnight'] .cell { font-weight: 600; }
+:root[data-theme='midnight'] .cell.selected::before { background: var(--c); opacity: 0.28; mix-blend-mode: normal; box-shadow: inset 0 0 0 1.5px var(--c); }
+:root[data-theme='midnight'] .cell.same::before { background: var(--c); opacity: 0.18; mix-blend-mode: normal; }
+:root[data-theme='midnight'] .cell.cursor { outline-color: var(--c); }
+:root[data-theme='midnight'] .overprint i { background: var(--c); opacity: 0.12; mix-blend-mode: normal; }
+:root[data-theme='midnight'] .card { box-shadow: 0 0 0 1px var(--rule-2); }
+:root[data-theme='midnight'] .card.selected { box-shadow: var(--glow); }
+:root[data-theme='midnight'] .pile { outline: 1.5px dashed var(--rule-2); }
+:root[data-theme='midnight'] .die { box-shadow: 0 0 0 1px var(--rule-2); }
+
+@media (prefers-reduced-motion: no-preference) {
+  :root[data-theme='midnight'] :is(.btn, .tool svg, .icon-btn, .game-card) { transition: box-shadow 0.15s ease; }
+}
