@@ -68,5 +68,15 @@
     "texture": "none",
     "home": "tile-grid",
     "families": "hue"
+  },
+  "brutal": {
+    "ground": "light-cream",
+    "edges": "outline-hard",
+    "depth": "hard-shadow",
+    "corners": "soft-small",
+    "type": "sans-grotesque",
+    "texture": "none",
+    "home": "tile-grid",
+    "families": "sticker-fill"
   }
 }

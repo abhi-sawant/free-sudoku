@@ -50,6 +50,7 @@ Mist is the default. The player can switch to any of the looks from the palette 
 | Block Party | Bauhaus: every family a flat field of one primary (home bands, and every game screen drenched in it), square white tiles, round buttons, heavy lowercase Jost, a circle-square-triangle mark |
 | Pocket | A handheld LCD in four greens: Silkscreen and Jersey 15, 2px ink borders with stepped corners (four offset shadows, no radius), pressed and selected things inverted, families told apart by a dither chip, not hue |
 | Midnight | True black for an OLED screen, dark only: tiles drawn by a hairline, active things lit by a glow ring in the family colour, system type, no shadows |
+| Neo-brutalist | Cream paper, 2px black borders and hard offset shadows with no blur; a press moves a button into its shadow; home cards are flat stickers of the family colour, section labels black slabs; heavy Space Grotesk |
 
 How it is built:
 

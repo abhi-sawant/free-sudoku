@@ -94,6 +94,20 @@
   color-scheme: light;
 }
 
+/* ---------- Neo-brutalist: cream paper, black borders, hard offset shadows ---------- */
+
+:root[data-theme='brutal'], .theme-opt[data-theme='brutal'] {
+  --paper: #fff3d6; --sheet: #ffffff; --sunk: #f3e3bd; --ink: #111111; --ink-2: #4a4a4a;
+  --rule: #e5d4a8; --rule-2: #111111; --on-ink: #ffffff;
+  --blue: #1d4ed8; --teal: #0e7490; --coral: #c81e1e; --yellow: #facc15; --lilac: #6d28d9; --mint: #047857;
+  --orange: #b34700; --sky: #0f766e; --olive: #3f6212; --berry: #be185d; --plum: #86198f; --cocoa: #7c4a1e;
+  --shadow: 0 0 0 2px var(--ink), 4px 4px 0 2px var(--ink);
+  --r-card: 8px; --r-board: 6px; --r-tile: 6px; --r-key: 6px; --wob: 8px;
+  --font-ui: 'Space Grotesk', 'Arial Black', system-ui, sans-serif;
+  --font-display: var(--font-ui);
+  color-scheme: light;
+}
+
 /* ---------- Midnight: true black, outlined tiles, glow rings. Dark only: one set of tokens whatever the OS says ---------- */
 
 :root[data-theme='midnight'], .theme-opt[data-theme='midnight'] {
@@ -151,6 +165,14 @@
     --rule: #2e372f; --rule-2: #647063; --on-ink: #161b17;
     --blue: #8fb8da; --teal: #86cbbf; --coral: #ef9a8d; --yellow: #e0b86a; --lilac: #bba8e0; --mint: #9ad3a8;
     --orange: #e0a872; --sky: #86cbbf; --olive: #b0d07a; --berry: #e6a0b8; --plum: #eba48f; --cocoa: #d0b690;
+    color-scheme: dark;
+  }
+
+  :root[data-theme='brutal'], .theme-opt[data-theme='brutal'] {
+    --paper: #16130e; --sheet: #221e17; --sunk: #0f0d09; --ink: #fff3d6; --ink-2: #cfc4a8;
+    --rule: #3a3326; --rule-2: #fff3d6; --on-ink: #16130e;
+    --blue: #8fb0ff; --teal: #67e8f9; --coral: #ff8a8a; --yellow: #fde047; --lilac: #c4a5ff; --mint: #6ee7b7;
+    --orange: #ffad66; --sky: #5eead4; --olive: #bef264; --berry: #f9a8d4; --plum: #f0abfc; --cocoa: #e7c29a;
     color-scheme: dark;
   }
 

@@ -59,7 +59,7 @@ Offline puzzle, board and card games: a PWA that also ships as an Android app th
 - **Crazy Cat**: an arcade runner in cocoa. The cat runs by itself; tap, click or press Space to jump, and again in the
   air to jump higher. Clear crates (+1) and catch fish (+2) at Kitten, Tabby or Crazy speed until you hit one. Best score
   and history per level; the rules are in `src/crazycat/engine.ts`, free of any drawing.
-- Themes: Mist (default), Linen, Sage, Graph Paper, Block Party, Pocket and Midnight, picked from the palette button on the home
+- Themes: Mist (default), Linen, Sage, Graph Paper, Block Party, Pocket, Midnight and Neo-brutalist, picked from the palette button on the home
   page and kept on the device. Each is a whole design (layout, borders, type and boards, from `design-candidates/`) in `src/themes/`; `src/theme.ts` applies and remembers the choice.
 - Works with no connection: the service worker installs with just the home page, caches each game when it's opened,
   then fetches the rest in the background, the open game first (see `src/sw.ts`).
