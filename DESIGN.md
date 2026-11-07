@@ -2,7 +2,7 @@
 
 Games is cool and airy: white tiles float on a pale blue-grey ground, with soft diffuse shadows, generous radii and no outlines. Text is blue-charcoal, never black. It replaced Graph Paper on 2026-11-03 after feedback that the black outlines, near-black-on-white text, printed grid and hatching were too harsh on the eyes. Every game, current and future, uses this one language; a family of games is told apart only by its **accent colour**.
 
-All tokens and shared components live in [`src/base.css`](src/base.css). Game stylesheets import it and add only what their board needs. The prototypes are in [`design-candidates/`](design-candidates); all six are now selectable themes (see Themes).
+All tokens and shared components live in [`src/base.css`](src/base.css). Game stylesheets import it and add only what their board needs. The prototypes are in [`design-candidates/`](design-candidates); all six are now selectable themes, alongside seven more (see Themes).
 
 ## Surfaces and text
 
@@ -39,7 +39,7 @@ Shared: `--coral` marks mistakes and the other side in two-player games, `--yell
 
 ## Themes
 
-Mist is the default. The player can switch to any of the looks from the palette button on the home page (a dialog that draws each option in its own colours); the choice is kept in `localStorage` as `games.theme` and applies to every page. A theme is a whole design, not a palette: the six prototypes in [`design-candidates/`](design-candidates) are the reference for each.
+Mist is the default. The player can switch to any of the looks from the palette button on the home page (a dialog that draws each option in its own colours); the choice is kept in `localStorage` as `games.theme` and applies to every page. A theme is a whole design, not a palette: the six prototypes in [`design-candidates/`](design-candidates) are the reference for the first six, and the table below for the rest.
 
 | Theme | Character |
 |---|---|
@@ -62,7 +62,7 @@ How it is built:
 - [`src/themes/tokens.css`](src/themes/tokens.css) holds every theme's colours, radii, `--shadow` and fonts, light and dark. The `.theme-opt` half of each selector lets a swatch in the picker show its own theme whatever the page uses. Each theme then has a character file (`pocket.css`, `graph.css`, `block.css`, `linen.css`, `sage.css`, `midnight.css`, `brutal.css`, `terminal.css`, `blueprint.css`, `clay.css`, `felt.css`, `news.css`) with its `@font-face` and the layout, border and board rules a token can't carry; `lists.css` is the shared list skeleton for Graph Paper, Linen, Sage, Terminal, Blueprint and Newsprint. Mist has no file: it is `base.css`.
 - `data-theme` is set on `<html>` by an inline script in every page's `<head>` (first paint is already themed) and by `src/theme.ts`, which also keeps `theme-color` in step and adds Graph Paper's filter.
 - `data-family` on `<html>` (game pages) and on each home `.family` names the family (`blue`, `orange`, `lilac`, `sky`, `olive`, `berry`, `plum`, `cocoa`). Block Party's fields, Graph Paper's highlighter colours and Pocket's dither chips key off it.
-- Themes restyle the shared components and the shared board classes (`.board`, `.cell` and its states, `.pad-btn`, `.card`, `.slot`, `.die`); a game never names a theme. Write a new game with tokens and the shared classes and it is themed for free. If a board adds a state of its own, check it in all six.
+- Themes restyle the shared components and the shared board classes (`.board`, `.cell` and its states, `.pad-btn`, `.card`, `.slot`, `.die`); a game never names a theme. Write a new game with tokens and the shared classes and it is themed for free. If a board adds a state of its own, check it in every theme.
 - Fonts are self-hosted in `src/fonts/` (OFL licences alongside) and only the active theme's faces are fetched.
 - To add a theme: a token block (light, and dark in the media query), a character file, an entry in `THEMES` in `src/theme.ts`, an import in `themes/index.css`. Keep each accent at 4.5:1 on `--paper` and `--on-ink` at 4.5:1 on each accent.
 
