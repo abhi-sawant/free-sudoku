@@ -1,8 +1,8 @@
-/* Graph Paper, Linen, Sage, Terminal and Blueprint show the home page as a list: an icon, a name and what's going on, one game to a row,
+/* Graph Paper, Linen, Sage, Terminal, Blueprint and Newsprint show the home page as a list: an icon, a name and what's going on, one game to a row,
    instead of Mist's tiles. This is the shared skeleton; each theme dresses the rows. */
 
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint']) .family { grid-template-columns: 1fr; gap: 0; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint']) .game-card {
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .family { grid-template-columns: 1fr; gap: 0; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .game-card {
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
@@ -15,15 +15,15 @@
   text-align: left;
   transform: none;
 }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint']) .game-card:active { background: none; transform: none; opacity: 0.7; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .game-card:active { background: none; transform: none; opacity: 0.7; }
 @media (hover: hover) {
-  :root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint']) .game-card:hover { background: none; }
+  :root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .game-card:hover { background: none; }
 }
 /* The icons are drawn for 72px; a row wants about 42. */
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint']) .game-icon { zoom: 0.6; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint']) .game-text { display: contents; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint']) .game-name { font-size: 1.05rem; font-weight: 600; flex: 1; text-align: left; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint']) .game-status { margin-left: auto; flex: none; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint']) .chevron { display: none; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint']) .family .section-label { margin: 24px 0 6px; }
-:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint']) .family:first-child .section-label { margin-top: 0; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .game-icon { zoom: 0.6; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .game-text { display: contents; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .game-name { font-size: 1.05rem; font-weight: 600; flex: 1; text-align: left; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .game-status { margin-left: auto; flex: none; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .chevron { display: none; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .family .section-label { margin: 24px 0 6px; }
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .family:first-child .section-label { margin-top: 0; }

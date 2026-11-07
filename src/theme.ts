@@ -15,6 +15,7 @@ export const THEMES = [
   { id: 'blueprint', name: 'Blueprint', note: 'White lines on drafting blue' },
   { id: 'clay', name: 'Claymorphism', note: 'Puffy pastel tiles, soft as clay' },
   { id: 'felt', name: 'Felt & Wood', note: 'Green baize, walnut tiles and cream cards' },
+  { id: 'news', name: 'Newsprint', note: 'Grey stock, black ink and halftone dots' },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]['id'];

@@ -138,6 +138,20 @@
   color-scheme: dark;
 }
 
+/* Newsprint: a broadsheet. Strictly neutral greys (no warm cast, unlike Linen), black ink, inks a little muted as if
+   printed. Playfair Display for headlines, the system serif for body text. */
+:root[data-theme='news'], .theme-opt[data-theme='news'] {
+  --paper: #e4e4e4; --sheet: #f0f0f0; --sunk: #d2d2d2; --ink: #111111; --ink-2: #4a4a4a;
+  --rule: #b4b4b4; --rule-2: #111111; --on-ink: #f0f0f0;
+  --blue: #2b4f8f; --teal: #1f6464; --coral: #ad241c; --yellow: #f2c230; --lilac: #57408f; --mint: #276446;
+  --orange: #9a4510; --sky: #1c606b; --olive: #475c1e; --berry: #9a2858; --plum: #752f84; --cocoa: #6a472c;
+  --shadow: 0 0 0 1px var(--ink);
+  --r-card: 0px; --r-board: 0px; --r-tile: 0px; --r-key: 0px; --wob: 0px;
+  --font-ui: Georgia, 'Times New Roman', serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+  color-scheme: light;
+}
+
 /* ---------- Midnight: true black, outlined tiles, glow rings. Dark only: one set of tokens whatever the OS says ---------- */
 
 :root[data-theme='midnight'], .theme-opt[data-theme='midnight'] {
@@ -248,6 +262,14 @@
   :root[data-theme='felt'], .theme-opt[data-theme='felt'] {
     --paper: #163a26; --sheet: #4a2f1b; --sunk: #0f2a1a; --ink: #f3e8cf; --ink-2: #c5d0b4;
     --rule: #6a4a2c; --rule-2: #8a6640; --on-ink: #0f2a1a;
+  }
+
+  :root[data-theme='news'], .theme-opt[data-theme='news'] {
+    --paper: #313131; --sheet: #3b3b3b; --sunk: #262626; --ink: #efefef; --ink-2: #b4b4b4;
+    --rule: #555555; --rule-2: #efefef; --on-ink: #262626;
+    --blue: #9db8ec; --teal: #86d0cc; --coral: #f29a8f; --yellow: #edd06a; --lilac: #bfaee6; --mint: #93d2ae;
+    --orange: #eab07a; --sky: #8ccdd6; --olive: #bfd28a; --berry: #eca2c0; --plum: #d8a6e2; --cocoa: #d6b898;
+    color-scheme: dark;
   }
 
   :root[data-theme='pocket'], .theme-opt[data-theme='pocket'] {

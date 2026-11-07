@@ -118,5 +118,15 @@
     "texture": "grain",
     "home": "tile-grid",
     "families": "wood-tint"
+  },
+  "news": {
+    "ground": "light-grey-neutral",
+    "edges": "rule-double",
+    "depth": "flat",
+    "corners": "square",
+    "type": "serif-display",
+    "texture": "halftone",
+    "home": "columns",
+    "families": "halftone-tint"
   }
 }
