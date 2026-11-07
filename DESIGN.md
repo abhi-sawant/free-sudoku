@@ -33,7 +33,7 @@ Each family has one accent (`--c`); no game picks its own. A new game joins the 
 | Cards | `--olive` (green) | Klondike, FreeCell, Spider, Yukon, Canfield, Forty Thieves, Pyramid, TriPeaks, Golf |
 | Word games | `--berry` (pink) | Word Guess, Word Search, Letter Wheel |
 | Dice games | `--plum` (orchid) | Yacht, Farkle, Pig |
-| Arcade | `--cocoa` | Crazy Cat |
+| Arcade | `--cocoa` | Crazy Cat, Qubo |
 
 Shared: `--coral` marks mistakes and the other side in two-player games, `--yellow` is the hint colour, `--teal` and `--mint` are accents. Light accents meet 4.5:1 on paper; dark-mode accents are light enough for `--on-ink`.
 

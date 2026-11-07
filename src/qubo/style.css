@@ -1,0 +1,65 @@
+@import '../base.css';
+
+/* Qubo prints in cocoa, the arcade ink. */
+:root { --c: var(--cocoa); }
+
+.score { text-align: right; line-height: 1.05; min-width: 64px; }
+.score b { display: block; font-family: var(--pen-font); font-size: 2.1rem; font-weight: 700; line-height: 0.9; color: var(--c); }
+.score span { font-family: var(--pen-font); font-size: 0.9rem; font-weight: 600; color: var(--ink-2); }
+
+.board-wrap {
+  touch-action: none; /* holding must not zoom or scroll the page */
+  user-select: none;
+  -webkit-user-select: none;
+  margin: auto 0;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.board-frame {
+  position: relative;
+  width: min(100%, 460px, calc((100dvh - 150px) * 360 / 420));
+  min-width: 240px;
+  aspect-ratio: 360 / 420;
+  border-radius: var(--r-board);
+  background: var(--sheet);
+  box-shadow: 0 0 0 2px var(--rule-2);
+  overflow: hidden;
+  cursor: pointer;
+}
+#stage { display: block; width: 100%; height: 100%; }
+
+/* A round thumb button for touch screens; desktop holds Space or the mouse on the board. */
+.hold-btn {
+  display: none;
+  width: 88px;
+  height: 88px;
+  padding: 0;
+  font-family: var(--pen-font);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 16px;
+  border-radius: 50%;
+  touch-action: none;
+}
+@media (pointer: coarse) {
+  .hold-btn { display: block; }
+  .board-frame { width: min(100%, 460px, calc((100dvh - 260px) * 360 / 420)); }
+}
+
+.stage-status {
+  position: absolute;
+  inset: 16% 12% auto;
+  margin: 0;
+  text-align: center;
+  font-family: var(--pen-font);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ink);
+  pointer-events: none;
+}
+.stage-status:empty { display: none; }
+.stage-status small { display: block; margin-top: 6px; font-size: 1.3rem; font-weight: 600; color: var(--ink-2); }
