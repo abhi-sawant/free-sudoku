@@ -31,8 +31,14 @@ $('end-menu').addEventListener('click', () => { endDialog.close(); screens.home(
 for (const el of [frame, $('hold-btn')]) {
   el.addEventListener('pointerdown', (e) => { e.preventDefault(); down(); });
 }
+// Space starts a game from the menu, and plays again from the end dialog.
 document.addEventListener('keydown', (e) => {
-  if (!screens.is('game') || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.key !== ' ' || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (endDialog.open) { e.preventDefault(); endDialog.close(); start(); }
+  else if (screens.is('home') && !document.querySelector('dialog[open]')) { e.preventDefault(); start(); }
+});
+document.addEventListener('keydown', (e) => {
+  if (e.defaultPrevented || !screens.is('game') || e.ctrlKey || e.metaKey || e.altKey) return;
   if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w') { e.preventDefault(); if (!e.repeat) down(); }
 });
 onVisibility(pause, () => {});
@@ -81,7 +87,7 @@ function finish() {
   $('best').textContent = String(best);
   $('end-summary').textContent = `${numberFormat.format(world.score)} ${world.score === 1 ? 'tower' : 'towers'} crossed`
     + (isBest && world.score > 0 ? '. A new best!' : `. Your best is ${numberFormat.format(best)}.`);
-  setTimeout(() => { if (world.over && screens.is('game')) endDialog.showModal(); }, 450);
+  setTimeout(() => { if (world.over && screens.is('game')) { endDialog.showModal(); $('end-again').focus(); } }, 450);
 }
 
 function setScore() { $('score').textContent = numberFormat.format(world.score); }
