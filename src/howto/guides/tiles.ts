@@ -25,6 +25,7 @@ export const tiles: Record<string, Guide> = {
     controls: ['<b>Drag</b> through the tiles you want to merge, then let go. Your game is saved if you leave.'],
     tips: [
       'Longer chains make bigger tiles and score more.',
+      'As you build bigger tiles, the smallest ones vanish from the board and stop appearing, so the numbers keep moving up. Once your biggest tile is 1024, the 2s are gone.',
       'Plan merges so big numbers stay next to each other.',
     ],
     example: {

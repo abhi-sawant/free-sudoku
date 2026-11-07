@@ -19,13 +19,11 @@ export function newTile(exp: number, r: number, c: number): Tile {
   return { id: nextId++, exp, r, c };
 }
 
-/** The smallest tile that can still appear: it rises as bigger tiles are made, to keep the board moving. */
+/** The smallest tile that can still appear: it rises as bigger tiles are made, to keep the board moving. It
+ *  stays 8 doublings below the biggest tile (from a 1024 tile on), with no ceiling, so the range keeps moving
+ *  up however far a game goes. */
 export function minSpawnExp(maxExp: number): number {
-  if (maxExp >= 13) return 5;
-  if (maxExp >= 12) return 4;
-  if (maxExp >= 11) return 3;
-  if (maxExp >= 10) return 2;
-  return 1;
+  return Math.max(1, maxExp - 8);
 }
 
 export function randomExp(maxExp: number): number {
@@ -118,14 +116,13 @@ export function maxTileExp(grid: Grid): number {
   return Math.max(...grid.flat().map((t) => t?.exp ?? 0));
 }
 
-/** Short label for a tile: 2 … 512, then 1K, 2K … 1M, 1B, and two-letter suffixes beyond. */
+/** Short label for a tile. A tile of 1024 reads "1K", so the labels keep doubling cleanly (1K, 2K, 4K … 512K, 1M)
+ *  rather than showing the exact value (4.1K, 8.2K, 16.4K). Each 10 doublings is one step up: K, M, B, then aa, ab,
+ *  ac … This is only the label; a tile's value is still the power of two. */
 export function formatExp(exp: number): string {
-  if (exp <= 9) return String(2 ** exp);
-  const v = 2 ** exp;
-  if (v < 1e6) return (v / 1e3).toFixed(v % 1e3 === 0 ? 0 : 1).replace(/\.0$/, '') + 'K';
-  if (v < 1e9) return (v / 1e6).toFixed(0) + 'M';
-  if (v < 1e12) return (v / 1e9).toFixed(0) + 'B';
-  const thousands = Math.floor((exp * Math.LOG10E * Math.LN2) / 3) - 3;
-  const suffix = String.fromCharCode(97 + Math.floor(thousands / 26)) + String.fromCharCode(97 + (thousands % 26));
-  return (v / 10 ** ((thousands + 3) * 3)).toFixed(1) + suffix;
+  const unit = Math.floor(exp / 10);
+  const digits = String(2 ** (exp % 10));
+  if (unit <= 3) return digits + ['', 'K', 'M', 'B'][unit];
+  const i = unit - 4;
+  return digits + String.fromCharCode(97 + (Math.floor(i / 26) % 26)) + String.fromCharCode(97 + (i % 26));
 }
