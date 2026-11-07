@@ -440,6 +440,14 @@
 .game-icon-pig i:not(.d) { display: none; }
 .game-icon-pig i.d { border-radius: 10px; background-size: 33% 50%; box-shadow: inset 0 0 0 2.5px var(--plum); }
 
+/* Qubo: two outlined towers, and the cube on the left one. */
+.game-icon-qubo { padding: 8px; }
+.game-icon-qubo i { background: none; box-shadow: none; }
+.game-icon-qubo i:not(.a, .b, .q) { display: none; }
+.game-icon-qubo i.a { grid-area: 2 / 1 / 4 / 2; background: var(--sheet); box-shadow: inset 0 0 0 2px var(--ink); border-radius: 2px; }
+.game-icon-qubo i.b { grid-area: 2 / 3 / 4 / 4; background: var(--sheet); box-shadow: inset 0 0 0 2px var(--ink); border-radius: 2px; }
+.game-icon-qubo i.q { grid-area: 1 / 1 / 2 / 2; margin: 18% 12% 0; background: linear-gradient(color-mix(in srgb, var(--cocoa) 42%, transparent), color-mix(in srgb, var(--cocoa) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 2px var(--cocoa); border-radius: 4px; }
+
 /* Arcade in cocoa: a hatched cat on the ground line, a red-pen crate to jump and a fish above it. */
 .game-icon-crazycat { padding: 8px; }
 .game-icon-crazycat i { background: none; box-shadow: none; }
