@@ -1,6 +1,7 @@
 // Log of finished games (ring full, or left unfinished), newest first, kept in localStorage.
 
 import { toScore } from '../shared/tilescore';
+import { capHistory, stampActive } from '../shared/archive';
 
 export interface HistoryEntry {
   startedAt: number | null; // epoch ms of the first move
@@ -9,6 +10,7 @@ export interface HistoryEntry {
   maxExp: number;
   moves: number;
   result: 'over' | 'unfinished';
+  activeMs?: number; // active play time, from the shared playtime tracker
 }
 
 const HISTORY_KEY = 'halo.history';
@@ -25,6 +27,7 @@ export function loadHistory(): HistoryEntry[] {
       maxExp: Number(e?.maxExp) || 0,
       moves: Number(e?.moves) || 0,
       result: e?.result === 'over' ? 'over' : 'unfinished',
+      ...(Number.isFinite(e?.activeMs) ? { activeMs: Number(e.activeMs) } : {}),
     })) : [];
   } catch {
     return [];
@@ -32,9 +35,9 @@ export function loadHistory(): HistoryEntry[] {
 }
 
 export function addHistory(entry: HistoryEntry) {
-  const list = [entry, ...loadHistory()].slice(0, MAX_ENTRIES);
+  const list = [stampActive(HISTORY_KEY, entry), ...loadHistory()].map((e) => ({ ...e, score: e.score.toString() }));
   try {
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(list.map((e) => ({ ...e, score: e.score.toString() }))));
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(capHistory(HISTORY_KEY, list, MAX_ENTRIES)));
   } catch { /* storage full or unavailable */ }
 }
 

@@ -1,5 +1,7 @@
 // Log of finished games (out of moves, or left unfinished), newest first, kept in localStorage.
 
+import { capHistory, stampActive } from '../shared/archive';
+
 export interface HistoryEntry {
   startedAt: number | null; // epoch ms of the first move
   endedAt: number;
@@ -23,9 +25,9 @@ export function loadHistory(): HistoryEntry[] {
 
 export function addHistory(entry: HistoryEntry) {
   const list = loadHistory();
-  list.unshift(entry);
+  list.unshift(stampActive(HISTORY_KEY, entry));
   try {
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(list.slice(0, MAX_ENTRIES)));
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(capHistory(HISTORY_KEY, list, MAX_ENTRIES)));
   } catch { /* storage full or unavailable */ }
 }
 

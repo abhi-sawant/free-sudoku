@@ -5,6 +5,13 @@ import { Capacitor } from '@capacitor/core';
 import './theme';
 import './help';
 import { registerSW } from 'virtual:pwa-register';
+import { trackPlaytime } from './shared/playtime';
+
+// Every game page counts its own time played, for the stats page (src/shared/playtime.ts).
+{
+  const parts = location.pathname.slice(import.meta.env.BASE_URL.length).split('/');
+  if (parts.length > 1 && parts[0] && parts[0] !== 'howto' && parts[0] !== 'stats') trackPlaytime(parts[0]);
+}
 
 if (!Capacitor.isNativePlatform() && 'serviceWorker' in navigator) {
   registerSW({ immediate: true });

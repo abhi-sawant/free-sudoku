@@ -2,13 +2,21 @@
 
 ## Unreleased
 
-A new ring game, Halo, and seven more themes, thirteen in all.
+A new ring game, Halo, a stats page for every game, and seven more themes, thirteen in all.
 
 ### Added
 
 - **Halo**: a new number-tiles game. Place numbers around a ring; a + piece merges the matching pair either side of it,
   and the chain keeps folding outward while the next pair matches. A − piece lifts a tile back into your hand. The ring
   holds 18 pieces, and the game ends when it is full and nothing can merge.
+- **Stats page** at `/stats/`: every game's numbers from this device in one place. Totals, a calendar of the days you
+  played, the hours you play, your top games and highlights, then a card for each game; tap one for its full numbers.
+  Nothing on the site links to it; you have to know the address.
+- **Time played**: every game now counts how long you actually play it (only while a game is on screen and you're
+  playing), how often you open it, and the play time of each game in its history. Qubo now keeps a history too.
+  Like everything else, it stays on your device and is never sent anywhere.
+- **Older history**: each game still keeps its last 500 games in full; older ones are now folded into a summary of
+  counts and averages instead of being dropped.
 - **Midnight**: true black for OLED screens; buttons and the selected cell glow in the game's colour.
 - **Neo-brutalist**: cream paper, thick black borders and hard offset shadows; buttons press down into their shadow.
 - **Terminal**: amber monospace on a dark CRT brown, with faint scanlines, `[ bracketed ]` buttons, a blinking cursor

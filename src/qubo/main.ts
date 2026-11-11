@@ -1,5 +1,5 @@
 import { $, Screens, onVisibility } from '../shared/screens';
-import { loadJSON, saveJSON } from '../shared/store';
+import { createHistory, loadJSON, saveJSON } from '../shared/store';
 import { CUBE, H, W, type World, createWorld, launch, pivotX, step, towerLen } from './engine';
 
 const rad = (d: number) => (d * Math.PI) / 180;
@@ -7,6 +7,9 @@ const rad = (d: number) => (d * Math.PI) / 180;
 // Qubo: the tower tips over toward the next one; tap at the right moment to throw the cube onto it. Only the best score is saved.
 
 const BEST_KEY = 'qubo.best';
+// Runs and history for the stats page, like the other arcade games'. Qubo shows only its best, so nothing here is on screen.
+const STATS_KEY = 'qubo.stats';
+const history = createHistory<{ endedAt: number; score: number; best: boolean }>('qubo.history');
 const MAX_DT = 1 / 30;
 const numberFormat = new Intl.NumberFormat();
 
@@ -84,6 +87,9 @@ function stopLoop() { cancelAnimationFrame(raf); raf = 0; }
 function finish() {
   const isBest = world.score > best;
   if (isBest) { best = world.score; saveJSON(BEST_KEY, best); }
+  const stats = loadJSON<{ runs?: number; best?: number }>(STATS_KEY, {});
+  saveJSON(STATS_KEY, { runs: (stats.runs ?? 0) + 1, best });
+  history.add({ endedAt: Date.now(), score: world.score, best: isBest && world.score > 0 });
   $('best').textContent = String(best);
   $('end-summary').textContent = `${numberFormat.format(world.score)} ${world.score === 1 ? 'tower' : 'towers'} crossed`
     + (isBest && world.score > 0 ? '. A new best!' : `. Your best is ${numberFormat.format(best)}.`);
