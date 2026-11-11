@@ -1,6 +1,6 @@
 // 2248 stats, kept in localStorage.
 
-import { toScore } from './score';
+import { toScore } from '../shared/tilescore';
 
 export interface Stats {
   played: number; // counted on the first merge, so boards opened and left untouched don't count

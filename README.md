@@ -10,6 +10,9 @@ Offline puzzle, board and card games: a PWA that also ships as an Android app th
 - **2248**: drag a path through matching numbers (or each one step higher) to merge them; the sum rounds up to
   the next power of two. Ported from [Parth2500/2248-Merge](https://github.com/Parth2500/2248-Merge), with score,
   game over detection, history and stats per game, and auto-saved progress.
+- **Halo**: place numbers around a ring of 18 spaces. A + piece merges the matching pair either side of it, and keeps
+  folding in the next pair out while it matches; a − piece lifts a tile back into your hand. Scores are exact and
+  tiles have no ceiling. Score, history and stats, and auto-saved progress.
 - **2048**: swipe or use the arrow keys to slide the tiles; equal tiles merge. One-step undo, a "keep going"
   option after 2048, score, history and stats, and auto-saved progress.
 - **Tic-tac-toe**: play the computer (Easy, Medium, or a Hard opponent that never loses) or a friend on one
@@ -84,6 +87,7 @@ src/fonts/                               Nunito, self-hosted so the app works of
 sudoku/index.html, src/sudoku/           Sudoku
 minesweeper/index.html, src/minesweeper/ Minesweeper
 2248/index.html, src/2248/               2248
+halo/index.html, src/halo/               Halo
 2048/index.html, src/2048/               2048
 tictactoe/index.html, src/tictactoe/     Tic-tac-toe
 dots/index.html, src/dots/               Dots and Boxes
@@ -104,7 +108,8 @@ src/shared/                              helpers the newer games share: screens,
 src/cards/                               deck (one or two decks), card drawing and drag, and the solitaire loop
 scripts/gen-<game>.ts                    puzzle generators writing public/puzzles/<game>/<level>.txt; the slow
                                          ones spread over every core with scripts/parallel-gen.ts
-src/tiles.css                            the number-tile colour scale shared by 2248 and 2048
+src/tiles.css                            the number-tile colour scale shared by 2248, 2048 and Halo
+src/shared/tilescore.ts                  tile labels and exact scores for 2248 and Halo
 ```
 
 Every page follows the Mist design language in [DESIGN.md](DESIGN.md): every game belongs to a category (a home page

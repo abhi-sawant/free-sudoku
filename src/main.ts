@@ -32,6 +32,8 @@ const IN_PROGRESS: [id: string, started: (save: Save) => boolean][] = [
   // A 2248 board counts as started from its first merge, a 2048 board from its first move.
   ["2248", (s) => s?.status === "playing" && !!s.startedAt],
   ["2048", (s) => s?.status === "playing" && !!s.startedAt],
+  // A Halo ring counts from its first move.
+  ["halo", (s) => s?.status === "playing" && !!s.startedAt],
   // A tic-tac-toe round or a dots and boxes game counts once someone has played.
   ["tictactoe", (s) => s?.status === "playing" && !!s.moves?.length],
   ["dots", (s) => s?.status === "playing" && !!s.moves?.length],

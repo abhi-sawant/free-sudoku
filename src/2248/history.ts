@@ -1,6 +1,6 @@
 // Log of finished games (out of moves, or left unfinished), newest first, kept in localStorage.
 
-import { toScore } from './score';
+import { toScore } from '../shared/tilescore';
 
 export interface HistoryEntry {
   startedAt: number | null; // epoch ms of the first merge
