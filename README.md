@@ -112,6 +112,7 @@ src/tiles.css                            the number-tile colour scale shared by 
 src/shared/tilescore.ts                  tile labels and exact scores for 2248 and Halo
 src/shared/playtime.ts                   time played per game, counted while a game screen is open (<game>.playtime)
 src/shared/archive.ts                    history past 500 games, folded into per-game summaries (<game>.archive)
+src/shared/seal.ts                       wraps localStorage: saves scrambled, signed and stored under codes (a deterrent, not security)
 stats/index.html, src/stats/             the hidden stats page at /stats/: nothing links to it
 ```
 

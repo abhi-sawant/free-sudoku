@@ -17,6 +17,11 @@ A new ring game, Halo, a stats page for every game, and seven more themes, thirt
   Like everything else, it stays on your device and is never sent anywhere.
 - **Older history**: each game still keeps its last 500 games in full; older ones are now folded into a summary of
   counts and averages instead of being dropped.
+- **Protected saves**: everything the games save is now scrambled, signed and stored under codes rather than game
+  names, so it can't easily be read, recognised or changed by hand in the browser's developer tools; an edited save is
+  simply ignored (a deterrent for casual editing, not security). Your existing saves are moved over the first time you open any page after the update, and a save is only
+  removed from its old place once its new copy has been checked, so nothing is lost even on a nearly full device. It
+  adds no noticeable time to saving or loading.
 - **Midnight**: true black for OLED screens; buttons and the selected cell glow in the game's colour.
 - **Neo-brutalist**: cream paper, thick black borders and hard offset shadows; buttons press down into their shadow.
 - **Terminal**: amber monospace on a dark CRT brown, with faint scanlines, `[ bracketed ]` buttons, a blinking cursor
