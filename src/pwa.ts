@@ -1,6 +1,8 @@
 // Registers the service worker on the web build (the Android app serves every file from the APK) and asks it
 // to cache this page's game for offline play first, then the other games in the background.
 
+// First, before anything reads a save: seal localStorage (src/shared/seal.ts).
+import './shared/seal';
 import { Capacitor } from '@capacitor/core';
 import './theme';
 import './help';
