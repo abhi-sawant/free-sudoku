@@ -120,17 +120,4 @@ export function maxTileExp(grid: Grid): number {
   return Math.max(...grid.flat().map((t) => t?.exp ?? 0));
 }
 
-/** Short label for a tile. A tile of 1024 reads "1K", so the labels keep doubling cleanly (1K, 2K, 4K … 512K, 1M)
- *  rather than showing the exact value (4.1K, 8.2K, 16.4K). Each 10 doublings is one step up: K, M, B, then aa, ab,
- *  ac … zz, then aaa, aab … so no two tiles ever share a label. This is only the label; a tile's value is still the
- *  power of two. */
-export function formatExp(exp: number): string {
-  const unit = Math.floor(exp / 10);
-  const digits = String(2 ** (exp % 10));
-  if (unit <= 3) return digits + ['', 'K', 'M', 'B'][unit];
-  let i = unit - 4, len = 2;
-  while (i >= 26 ** len) { i -= 26 ** len; len++; }
-  let letters = '';
-  for (let k = 0; k < len; k++) { letters = String.fromCharCode(97 + (i % 26)) + letters; i = Math.floor(i / 26); }
-  return digits + letters;
-}
+export { formatExp } from '../shared/tilescore';

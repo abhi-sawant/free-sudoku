@@ -5,7 +5,7 @@ import {
   type Grid, type Tile, COLS, ROWS,
   canExtend, createGrid, formatExp, hasMoves, maxTileExp, mergedExp, pathValue, settle,
 } from './board';
-import { formatScore, scoreParts, toScore } from './score';
+import { formatScore, scoreParts, toScore } from '../shared/tilescore';
 import { loadStats, recordProgress, recordStart } from './stats';
 import { addHistory, averageScore, bestLoggedScore, loadHistory } from './history';
 

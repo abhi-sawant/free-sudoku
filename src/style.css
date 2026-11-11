@@ -206,6 +206,12 @@
 .game-icon-2248 [data-exp='4'], .game-icon-2048 [data-exp='4'] { background: linear-gradient(color-mix(in srgb, var(--lilac) 42%, transparent), color-mix(in srgb, var(--lilac) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--lilac); }
 .game-icon-2248 [data-exp='5'], .game-icon-2048 [data-exp='5'] { background: var(--lilac); color: var(--on-ink); box-shadow: none; }
 .game-icon-2048 i:empty { box-shadow: inset 0 0 0 0.5px var(--rule); }
+/* Halo: round tiles in the same lilac scale circle a solid merge piece. */
+.game-icon-halo i { font-size: 0.68rem; color: var(--ink); background: var(--sheet); border-radius: 50%; scale: 0.86; }
+.game-icon-halo [data-exp='1'] { box-shadow: inset 0 0 0 1.5px var(--lilac); }
+.game-icon-halo [data-exp='2'], .game-icon-halo [data-exp='3'] { background: linear-gradient(color-mix(in srgb, var(--lilac) 42%, transparent), color-mix(in srgb, var(--lilac) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--lilac); }
+.game-icon-halo [data-exp='4'], .game-icon-halo .plus { background: var(--lilac); color: var(--on-ink); box-shadow: none; }
+.game-icon-halo .plus { font-size: 1.1rem; font-weight: 700; }
 
 /* Tic-tac-toe: a ruled # in ink, X in the family pen and O in the red pen, written by hand. */
 .game-icon-ttt i { box-shadow: none; font-family: var(--pen-font); font-size: 1.3rem; font-weight: 700; overflow: hidden; }

@@ -2,10 +2,13 @@
 
 ## Unreleased
 
-Seven more themes, thirteen in all.
+A new ring game, Halo, and seven more themes, thirteen in all.
 
 ### Added
 
+- **Halo**: a new number-tiles game. Place numbers around a ring; a + piece merges the matching pair either side of it,
+  and the chain keeps folding outward while the next pair matches. A − piece lifts a tile back into your hand. The ring
+  holds 18 pieces, and the game ends when it is full and nothing can merge.
 - **Midnight**: true black for OLED screens; buttons and the selected cell glow in the game's colour.
 - **Neo-brutalist**: cream paper, thick black borders and hard offset shadows; buttons press down into their shadow.
 - **Terminal**: amber monospace on a dark CRT brown, with faint scanlines, `[ bracketed ]` buttons, a blinking cursor

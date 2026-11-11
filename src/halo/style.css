@@ -1,0 +1,149 @@
+@import '../base.css';
+@import '../tiles.css';
+
+/* Halo prints in lilac, with the other number-tile games. Tiles take the shared number-tile scale, as round pieces. */
+:root { --c: var(--lilac); }
+
+.is-over .history-status { color: var(--c); }
+
+/* Four even columns, centred, since there is no row label. */
+.summary { table-layout: fixed; }
+.summary th, .summary td, .summary th:first-child { text-align: center; padding: 12px 8px; }
+.summary td { font-weight: 700; }
+/* A big score's name sits under its number, split at its parts if the column is too narrow. */
+.summary .score-name { display: block; font-size: 0.72rem; color: var(--ink-2); hyphens: manual; }
+
+/* ---------- Game ---------- */
+
+.score { text-align: right; line-height: 1.05; min-width: 64px; }
+.score b { display: block; font-family: var(--pen-font); font-size: 2rem; font-weight: 700; line-height: 1; color: var(--c); }
+.score span { font-size: 0.72rem; font-weight: 700; color: var(--ink-2); }
+
+.tools { display: flex; justify-content: center; margin-bottom: 0; }
+
+/* The ring is square, so it sits centred between the top bar and the tools rather than low like 2248's board. */
+.board-wrap {
+  margin-block: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.board-frame {
+  padding: 6px;
+  border-radius: var(--r-board);
+  background: var(--sheet);
+  box-shadow: 0 0 0 2px var(--rule-2);
+}
+
+/* The ring's square. Sizes come from main.ts: --s for the square, --t for a tile, --r for the ring's radius. */
+.halo {
+  --s: 320px;
+  --t: 42px;
+  --r: 130px;
+  position: relative;
+  width: var(--s);
+  height: var(--s);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  cursor: pointer;
+  outline: none;
+}
+.halo:focus-visible { box-shadow: 0 0 0 3px var(--focus, var(--c)); border-radius: 50%; }
+
+/* The circle the tiles sit on. */
+.track {
+  position: absolute;
+  left: calc(50% - var(--r));
+  top: calc(50% - var(--r));
+  width: calc(2 * var(--r));
+  height: calc(2 * var(--r));
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px var(--rule);
+  pointer-events: none;
+}
+
+.piece {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--t);
+  height: var(--t);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-weight: 800; /* sized inline by main.ts */
+  line-height: 1;
+  z-index: 2;
+  transition: translate 0.24s cubic-bezier(0.2, 0, 0, 1), scale 0.24s cubic-bezier(0.2, 0, 0, 1), opacity 0.2s ease;
+}
+/* The tiles' round shape wins over the shared scale's corner. */
+.piece[data-exp] { border-radius: 50%; }
+/* A merge piece is solid ink; a take piece is drawn in ink on paper. */
+.piece.plus { background: var(--c); color: var(--on-ink); box-shadow: none; font-size: calc(var(--t) * 0.6); font-weight: 700; }
+.piece.minus { background: var(--sheet); color: var(--c); box-shadow: inset 0 0 0 2px var(--c); font-size: calc(var(--t) * 0.6); font-weight: 700; }
+/* The piece in your hand sits in the middle, larger. */
+.piece.in-hand { scale: 1.45; z-index: 3; }
+/* The tile a take piece would lift. */
+.piece.aim { box-shadow: inset 0 0 0 1px var(--rule), inset 0 0 0 5px var(--yellow); scale: 0.92; }
+.piece.pop { animation: pop 0.22s ease-out; }
+.piece.in-hand.pop { animation: pop-hand 0.22s ease-out; }
+/* A move the full ring can't take shakes the board. */
+.board-frame.shake { animation: shake 0.3s ease-in-out; }
+
+@keyframes pop {
+  0% { scale: 0.85; }
+  50% { scale: 1.12; }
+  100% { scale: 1; }
+}
+@keyframes pop-hand {
+  0% { scale: 1.2; }
+  50% { scale: 1.6; }
+  100% { scale: 1.45; }
+}
+@keyframes shake {
+  0%, 100% { transform: none; }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+/* Where the piece in hand would go: a highlighter dot in the gap. */
+.marker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--t) * 0.42);
+  height: calc(var(--t) * 0.42);
+  margin: calc(var(--t) * -0.21) 0 0 calc(var(--t) * -0.21);
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: inset 0 0 0 1px var(--rule);
+  z-index: 4;
+  pointer-events: none;
+  transition: translate 0.12s ease;
+}
+
+.path-sum {
+  min-height: 2em;
+  margin: 12px 0 0;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--note);
+  box-shadow: inset 0 0 0 1px var(--rule);
+  color: var(--ink);
+  font-family: var(--pen-font);
+  font-weight: 700;
+  font-size: 1.35rem;
+  font-variant-numeric: tabular-nums;
+  display: grid;
+  place-items: center;
+}
+.path-sum.muted { background: none; color: var(--ink-2); font-weight: 600; }
+.path-sum:empty { visibility: hidden; }
+
+/* Short screens: keep the ring as large as possible. */
+@media (max-height: 700px) {
+  .tool span { display: none; }
+}
