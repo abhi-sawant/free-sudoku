@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 4.2.0 — 2026-11-11
 
 A new ring game, Halo, a stats page, badges, and seven more themes, thirteen in all.
 
