@@ -10,6 +10,8 @@
 .summary { table-layout: fixed; }
 .summary th, .summary td, .summary th:first-child { text-align: center; padding: 12px 8px; }
 .summary td { font-weight: 700; }
+/* A big score's name sits under its number, split at its parts if the column is too narrow. */
+.summary .score-name { display: block; font-size: 0.72rem; color: var(--ink-2); hyphens: manual; }
 
 /* ---------- Game ---------- */
 

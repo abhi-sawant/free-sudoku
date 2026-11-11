@@ -53,14 +53,18 @@ export function canExtend(path: Tile[], t: Tile): boolean | 'backtrack' {
   return t.exp === last.exp || t.exp === last.exp + 1;
 }
 
-/** Sum of the path's values. */
-export function pathValue(path: Tile[]): number {
-  return path.reduce((sum, t) => sum + 2 ** t.exp, 0);
+/** Sum of the path's values, exactly: the points a merge scores. Tiles have no ceiling, so this is a BigInt. */
+export function pathValue(path: Tile[]): bigint {
+  return path.reduce((sum, t) => sum + 2n ** BigInt(t.exp), 0n);
 }
 
-/** The merged tile is the path's sum rounded up to a power of two. */
+/** The merged tile is the path's sum rounded up to a power of two. Worked out from exponents, relative to the path's
+ *  smallest tile, so it stays exact however big the tiles get (2 ** exp alone runs out at 2^1024). A path climbs at
+ *  most one step per tile, so the relative sum stays small. */
 export function mergedExp(path: Tile[]): number {
-  return Math.ceil(Math.log2(pathValue(path)));
+  const base = Math.min(...path.map((t) => t.exp));
+  const sum = path.reduce((s, t) => s + 2 ** (t.exp - base), 0);
+  return base + Math.ceil(Math.log2(sum));
 }
 
 /**
@@ -118,11 +122,15 @@ export function maxTileExp(grid: Grid): number {
 
 /** Short label for a tile. A tile of 1024 reads "1K", so the labels keep doubling cleanly (1K, 2K, 4K … 512K, 1M)
  *  rather than showing the exact value (4.1K, 8.2K, 16.4K). Each 10 doublings is one step up: K, M, B, then aa, ab,
- *  ac … This is only the label; a tile's value is still the power of two. */
+ *  ac … zz, then aaa, aab … so no two tiles ever share a label. This is only the label; a tile's value is still the
+ *  power of two. */
 export function formatExp(exp: number): string {
   const unit = Math.floor(exp / 10);
   const digits = String(2 ** (exp % 10));
   if (unit <= 3) return digits + ['', 'K', 'M', 'B'][unit];
-  const i = unit - 4;
-  return digits + String.fromCharCode(97 + (Math.floor(i / 26) % 26)) + String.fromCharCode(97 + (i % 26));
+  let i = unit - 4, len = 2;
+  while (i >= 26 ** len) { i -= 26 ** len; len++; }
+  let letters = '';
+  for (let k = 0; k < len; k++) { letters = String.fromCharCode(97 + (i % 26)) + letters; i = Math.floor(i / 26); }
+  return digits + letters;
 }
