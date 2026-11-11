@@ -108,3 +108,6 @@
 
 /* The top bar's right-hand spacer only balances the title; some themes would draw it as an empty button. */
 .stats .topbar > span.icon-btn { visibility: hidden; }
+
+/* The one way to the badges page, which is hidden too. */
+.badges-link { color: var(--c); font-weight: 800; text-decoration: none; }

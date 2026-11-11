@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-A new ring game, Halo, a stats page for every game, and seven more themes, thirteen in all.
+A new ring game, Halo, a stats page, badges, and seven more themes, thirteen in all.
 
 ### Added
 
@@ -22,6 +22,10 @@ A new ring game, Halo, a stats page for every game, and seven more themes, thirt
   simply ignored (a deterrent for casual editing, not security). Your existing saves are moved over the first time you open any page after the update, and a save is only
   removed from its old place once its new copy has been checked, so nothing is lost even on a nearly full device. It
   adds no noticeable time to saving or loading.
+- **Badges**: 39 to earn, from your first game to a month-long streak, playing every game in a section, beating the
+  computer on Hard and a few secrets. Unlocking one throws confetti and shows a small popup; anything you'd already
+  earned arrives together the first time. They're worked out on your device from what the games already record. The
+  full list lives at `/badges/`, which, like the stats page, nothing on the site links to.
 - **Midnight**: true black for OLED screens; buttons and the selected cell glow in the game's colour.
 - **Neo-brutalist**: cream paper, thick black borders and hard offset shadows; buttons press down into their shadow.
 - **Terminal**: amber monospace on a dark CRT brown, with faint scanlines, `[ bracketed ]` buttons, a blinking cursor

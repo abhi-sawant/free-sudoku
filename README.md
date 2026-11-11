@@ -114,6 +114,9 @@ src/shared/playtime.ts                   time played per game, counted while a g
 src/shared/archive.ts                    history past 500 games, folded into per-game summaries (<game>.archive)
 src/shared/seal.ts                       wraps localStorage: saves scrambled, signed and stored under codes (a deterrent, not security)
 stats/index.html, src/stats/             the hidden stats page at /stats/: nothing links to it
+src/shared/gamestats.ts                  reads every game's stats, history, playtime and archive into one shape
+src/shared/badges.ts, celebrate.ts       badge rules (games.badges), and the unlock popup with confetti
+badges/index.html, src/badges/           the hidden badges page at /badges/: linked only from the stats page
 ```
 
 Every page follows the Mist design language in [DESIGN.md](DESIGN.md): every game belongs to a category (a home page
