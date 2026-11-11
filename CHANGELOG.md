@@ -17,6 +17,18 @@ Seven more themes, thirteen in all.
 
 Every theme covers Qubo and Road Racer too.
 
+### Changed
+
+- **2248**: big scores read short, with their name: 1.06 unvigintillion instead of a 66-digit number. Below a million
+  the score is still exact. Starting a new board while a game is in progress now asks first, and says what the board
+  scored.
+
+### Fixed
+
+- **2248**: tapping New board while a merge was still animating froze the new board. Tiles and scores no longer
+  break past 2^1024 (a tile labelled NaN, a best score wiped), so a game can go on for ever. Closing the app mid-merge
+  no longer brings back stray 2 tiles, and lifting a second finger no longer ends a drag early.
+
 ## 4.1.2 — 2026-11-08
 
 Two new arcade games, and Space plays again.

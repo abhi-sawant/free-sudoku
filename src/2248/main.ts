@@ -5,14 +5,15 @@ import {
   type Grid, type Tile, COLS, ROWS,
   canExtend, createGrid, formatExp, hasMoves, maxTileExp, mergedExp, pathValue, settle,
 } from './board';
+import { formatScore, scoreParts, toScore } from './score';
 import { loadStats, recordProgress, recordStart } from './stats';
-import { addHistory, averageScore, loadHistory } from './history';
+import { addHistory, averageScore, bestLoggedScore, loadHistory } from './history';
 
 // ---------- State ----------
 
 interface Game {
   grid: Grid;
-  score: number;
+  score: bigint; // exact: tiles have no ceiling, so neither does the score
   merges: number;
   maxExp: number; // highest tile made this game
   status: 'playing' | 'over';
@@ -28,6 +29,7 @@ const MERGE_MS = 200;
 let game: Game | null = loadGame();
 let path: Tile[] = [];
 let dragging = false;
+let dragPointer = -1; // the finger or mouse that started the drag; other pointers are ignored until it lifts
 let busy = false; // while a merge animates, input waits
 let tileSize = 56;
 
@@ -42,6 +44,7 @@ const boardWrap = $('board-wrap');
 const pathLine = document.getElementById('path-line')!;
 const pathSum = $('path-sum');
 const endDialog = $<HTMLDialogElement>('end-dialog');
+const confirmDialog = $<HTMLDialogElement>('confirm-dialog');
 
 let tileEls = new Map<number, HTMLDivElement>();
 const cellEls: HTMLDivElement[] = [];
@@ -52,16 +55,17 @@ for (let i = 0; i < ROWS * COLS; i++) {
   cellEls.push(bg);
 }
 
-const numberFormat = new Intl.NumberFormat();
 
 $('continue-btn').addEventListener('click', () => game && showGame());
-$('new-btn').addEventListener('click', newGame);
+$('new-btn').addEventListener('click', askNewGame);
 $('back-btn').addEventListener('click', showHome);
 $('history-btn').addEventListener('click', showHistory);
 $('history-back-btn').addEventListener('click', showHome);
-$('restart-btn').addEventListener('click', newGame);
+$('restart-btn').addEventListener('click', askNewGame);
 $('end-menu').addEventListener('click', () => { endDialog.close(); showHome(); });
 $('end-again').addEventListener('click', () => { endDialog.close(); newGame(); });
+$('confirm-keep').addEventListener('click', () => confirmDialog.close());
+$('confirm-new').addEventListener('click', () => { confirmDialog.close(); newGame(); });
 
 // ---------- Screens ----------
 
@@ -83,21 +87,36 @@ function showGame() {
   render();
 }
 
+/** Whether there is a board worth keeping: one that has been played and isn't over. */
+function hasLiveGame(): boolean {
+  return !!game && game.status === 'playing' && !!game.startedAt;
+}
+
+/** New board, after asking first if it would throw away a game in progress. */
+function askNewGame() {
+  if (!hasLiveGame()) { newGame(); return; }
+  cancelDrag();
+  $('confirm-summary').textContent =
+    `You can't come back to this board once it's gone. Its score of ${formatScore(game!.score)} goes into your history as unfinished.`;
+  confirmDialog.showModal();
+}
+
 function newGame() {
   // A started game being replaced goes into the history as unfinished.
-  if (game && game.status === 'playing' && game.startedAt) logGame(game, 'unfinished');
-  game = { grid: createGrid(), score: 0, merges: 0, maxExp: 1, status: 'playing' };
+  if (hasLiveGame()) logGame(game!, 'unfinished');
+  game = { grid: createGrid(), score: 0n, merges: 0, maxExp: 1, status: 'playing' };
   game.maxExp = maxTileExp(game.grid);
   path = [];
+  busy = false; // a merge still animating belongs to the old board, and stops itself when it sees the new one
   saveGame();
   showGame();
 }
 
 function renderHome() {
   const cont = $('continue-btn');
-  if (game && game.status === 'playing' && game.startedAt) {
+  if (game && hasLiveGame()) {
     cont.hidden = false;
-    $('continue-meta').textContent = `Score ${numberFormat.format(game.score)} · ${formatExp(game.maxExp)}`;
+    $('continue-meta').textContent = `Score ${formatScore(game.score)} · ${formatExp(game.maxExp)}`;
   } else {
     cont.hidden = true;
   }
@@ -108,6 +127,12 @@ function showHistory() {
   historyEl.hidden = false;
   window.scrollTo(0, 0);
   renderHistory();
+}
+
+/** A score for the narrow stats columns: the number, with a big score's name on a smaller line under it. */
+function scoreCell(score: bigint): string {
+  const { num, unit } = scoreParts(score, true);
+  return unit ? `${num}<small class="score-name">${unit}</small>` : num;
 }
 
 const dateFormat = new Intl.DateTimeFormat(undefined, {
@@ -123,8 +148,8 @@ function renderHistory() {
   $('history-summary').innerHTML = `<tr>
     <td>${stats.played || dash}</td>
     <td>${stats.bestExp ? formatExp(stats.bestExp) : dash}</td>
-    <td>${stats.bestScore ? numberFormat.format(stats.bestScore) : dash}</td>
-    <td>${avg != null ? numberFormat.format(Math.round(avg)) : dash}</td>
+    <td>${stats.bestScore ? scoreCell(stats.bestScore) : dash}</td>
+    <td>${avg != null ? scoreCell(avg) : dash}</td>
   </tr>`;
 
   $('history-empty').hidden = list.length > 0;
@@ -134,7 +159,7 @@ function renderHistory() {
         <div class="history-date">${dateFormat.format(e.endedAt)} · ${e.merges} merge${e.merges === 1 ? '' : 's'}</div>
       </div>
       <div class="history-result">
-        <div class="history-time">${numberFormat.format(e.score)}</div>
+        <div class="history-time">${formatScore(e.score)}</div>
         <div class="history-status">${e.result === 'over' ? 'Out of moves' : 'Unfinished'}</div>
       </div>
     </li>`).join('');
@@ -233,7 +258,10 @@ function render() {
   const best = Math.max(loadStats().bestExp, game.maxExp);
   $('target').textContent = `Target ${formatExp(game.maxExp + 1)}`;
   $('best').textContent = `Best ${formatExp(best)}`;
-  $('score').textContent = numberFormat.format(game.score);
+  const { num, unit } = scoreParts(game.score);
+  $('score').textContent = num;
+  $('score').setAttribute('aria-label', `Score ${formatScore(game.score)}`);
+  $('score-unit').textContent = unit || 'Score'; // a big score's name takes the label's place, keeping the bar one size
   renderLine();
 }
 
@@ -260,13 +288,14 @@ gridEl.addEventListener('pointerdown', (e) => {
   e.preventDefault();
   gridEl.setPointerCapture(e.pointerId);
   dragging = true;
+  dragPointer = e.pointerId;
   path = [t];
   renderTile(t);
   renderLine();
 });
 
 gridEl.addEventListener('pointermove', (e) => {
-  if (!dragging) return;
+  if (!dragging || e.pointerId !== dragPointer) return;
   const t = tileAt(e.clientX, e.clientY, true);
   if (!t) return;
   const ok = canExtend(path, t);
@@ -281,13 +310,13 @@ gridEl.addEventListener('pointermove', (e) => {
   renderLine();
 });
 
-gridEl.addEventListener('pointerup', () => {
-  if (!dragging) return;
+gridEl.addEventListener('pointerup', (e) => {
+  if (!dragging || e.pointerId !== dragPointer) return; // a second finger lifting doesn't end the drag
   dragging = false;
   if (path.length >= 2) merge();
   else cancelDrag();
 });
-gridEl.addEventListener('pointercancel', cancelDrag);
+gridEl.addEventListener('pointercancel', (e) => { if (e.pointerId === dragPointer) cancelDrag(); });
 
 function cancelDrag() {
   dragging = false;
@@ -335,10 +364,13 @@ async function merge() {
   render();
 
   await new Promise((res) => setTimeout(res, MERGE_MS));
+  // A new board was started while this merge animated: it is no longer on screen, so it stops here.
+  if (game !== g) return;
 
   const { removed, spawned, spawnedFrom } = settle(g.grid, g.maxExp);
   for (const t of removed) {
-    const el = tileEls.get(t.id)!;
+    const el = tileEls.get(t.id);
+    if (!el) continue; // the tiles were rebuilt meanwhile (left for the menu and came back)
     el.style.opacity = '0';
     el.style.scale = '0';
     tileEls.delete(t.id);
@@ -351,27 +383,27 @@ async function merge() {
 
   recordProgress(g.maxExp, g.score);
   if (!hasMoves(g.grid)) gameOver();
+  busy = false;
   saveGame();
   render();
-  busy = false;
 }
 
 function gameOver() {
   if (!game) return;
   game.status = 'over';
   // Stats already hold this game's score, so compare against the games logged before it.
-  const previousBest = Math.max(0, ...loadHistory().map((e) => e.score));
+  const previousBest = bestLoggedScore(loadHistory());
   logGame(game, 'over');
   const best = game.score > previousBest ? ' (new best)' : '';
   $('end-summary').textContent =
-    `No two touching tiles match. Best tile ${formatExp(game.maxExp)}, score ${numberFormat.format(game.score)}${best}.`;
+    `No two touching tiles match. Best tile ${formatExp(game.maxExp)}, score ${formatScore(game.score)}${best}.`;
   setTimeout(() => { if (!gameEl.hidden) endDialog.showModal(); }, 600);
 }
 
 // ---------- Keyboard ----------
 
 document.addEventListener('keydown', (e) => {
-  if (e.key !== 'Escape' || endDialog.open) return;
+  if (e.key !== 'Escape' || endDialog.open || confirmDialog.open) return; // Escape closes the dialog itself
   if (!historyEl.hidden || !gameEl.hidden) showHome();
 });
 
@@ -380,6 +412,7 @@ document.addEventListener('keydown', (e) => {
 if (Capacitor.isNativePlatform()) {
   CapApp.addListener('backButton', () => {
     if (endDialog.open) endDialog.close();
+    else if (confirmDialog.open) confirmDialog.close();
     else if (!gameEl.hidden || !historyEl.hidden) showHome();
     else location.href = '/';
   });
@@ -388,12 +421,13 @@ if (Capacitor.isNativePlatform()) {
 
 // ---------- Persistence ----------
 
+/** Saves the board. Not mid-merge: the merged tiles' cells are empty until the refill, and the merge saves when done. */
 function saveGame() {
-  if (!game) return;
-  const { grid, ...rest } = game;
+  if (!game || busy) return;
+  const { grid, score, ...rest } = game;
   const exps = grid.map((row) => row.map((t) => t?.exp ?? 1));
   try {
-    localStorage.setItem(SAVE_KEY, JSON.stringify({ ...rest, exps }));
+    localStorage.setItem(SAVE_KEY, JSON.stringify({ ...rest, score: score.toString(), exps }));
   } catch { /* ignore */ }
 }
 
@@ -401,7 +435,7 @@ function loadGame(): Game | null {
   try {
     const { exps, ...rest } = JSON.parse(localStorage.getItem(SAVE_KEY) ?? 'null') ?? {};
     const valid = Array.isArray(exps) && exps.length === ROWS && exps.every((row: unknown) => Array.isArray(row) && row.length === COLS);
-    return valid ? { ...rest, grid: createGrid(exps) } : null;
+    return valid ? { ...rest, score: toScore(rest.score), grid: createGrid(exps) } : null;
   } catch {
     return null;
   }
