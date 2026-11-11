@@ -110,6 +110,9 @@ scripts/gen-<game>.ts                    puzzle generators writing public/puzzle
                                          ones spread over every core with scripts/parallel-gen.ts
 src/tiles.css                            the number-tile colour scale shared by 2248, 2048 and Halo
 src/shared/tilescore.ts                  tile labels and exact scores for 2248 and Halo
+src/shared/playtime.ts                   time played per game, counted while a game screen is open (<game>.playtime)
+src/shared/archive.ts                    history past 500 games, folded into per-game summaries (<game>.archive)
+stats/index.html, src/stats/             the hidden stats page at /stats/: nothing links to it
 ```
 
 Every page follows the Mist design language in [DESIGN.md](DESIGN.md): every game belongs to a category (a home page
