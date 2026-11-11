@@ -25,7 +25,7 @@ A new ring game, Halo, a stats page, badges, and seven more themes, thirteen in 
 - **Badges**: 39 to earn, from your first game to a month-long streak, playing every game in a section, beating the
   computer on Hard and a few secrets. Unlocking one throws confetti and shows a small popup; anything you'd already
   earned arrives together the first time. They're worked out on your device from what the games already record. The
-  full list lives at `/badges/`, which, like the stats page, nothing on the site links to.
+  full list lives at `/badges/`, linked only from the hidden stats page.
 - **Midnight**: true black for OLED screens; buttons and the selected cell glow in the game's colour.
 - **Neo-brutalist**: cream paper, thick black borders and hard offset shadows; buttons press down into their shadow.
 - **Terminal**: amber monospace on a dark CRT brown, with faint scanlines, `[ bracketed ]` buttons, a blinking cursor
