@@ -80,5 +80,7 @@ export function capHistory<T>(historyKey: string, list: T[], max = 500): T[] {
 export function stampActive<T extends object>(historyKey: string, entry: T): T {
   const e = entry as T & { activeMs?: number };
   if (e.activeMs === undefined) e.activeMs = takeActive(slugOf(historyKey));
+  // A game was just logged: badges check once the writer (and the game's stats) have finished saving.
+  if (typeof window !== 'undefined') setTimeout(() => dispatchEvent(new Event('games:progress')), 0);
   return entry;
 }

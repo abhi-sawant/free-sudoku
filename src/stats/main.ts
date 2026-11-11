@@ -3,7 +3,7 @@
 
 import '../pwa';
 import { formatExp, formatScore } from '../shared/tilescore';
-import { type GameInfo, type GameStats, byHour, collectGame, dayKey, gamesPerDay, loadCatalog, startOfDay, streaks } from './collect';
+import { type GameInfo, type GameStats, byHour, collectGame, dayKey, gamesPerDay, loadCatalog, startOfDay, streaks } from '../shared/gamestats';
 
 try { if (!localStorage.getItem('stats.found')) localStorage.setItem('stats.found', String(Date.now())); } catch { /* storage unavailable */ }
 

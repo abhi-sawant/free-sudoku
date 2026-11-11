@@ -1,10 +1,10 @@
-// Reads every game's saved numbers for the stats page. Games keep their own `<game>.stats` and `<game>.history` in
+// Reads every game's saved numbers, for the stats page and the badges. Games keep their own `<game>.stats` and `<game>.history` in
 // several shapes (per-level puzzle times, win/draw/loss records, scores and tiles, arcade runs), plus the shared
 // `<game>.playtime` and `<game>.archive`; this turns them all into one GameStats per game. Nothing here writes.
 
-import { type Archive, loadArchive } from '../shared/archive';
-import { type Playtime, loadPlaytime } from '../shared/playtime';
-import { toScore } from '../shared/tilescore';
+import { type Archive, loadArchive } from './archive';
+import { type Playtime, loadPlaytime } from './playtime';
+import { toScore } from './tilescore';
 
 /** A game as the home page lists it. */
 export interface GameInfo {
