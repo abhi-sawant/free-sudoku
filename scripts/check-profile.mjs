@@ -107,6 +107,35 @@ try {
   check(await d.page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'phone: no sideways scroll');
   await d.ctx.close();
 
+
+  // ---- Task 6: the title and its picker
+  d = await device();
+  await go(d.page, '/profile/index.html');
+  check((await text(d.page, '#profile-title')).startsWith('The Fresh Newcomer'), 'fresh device: "The Fresh Newcomer"');
+  await d.page.click('#profile-title');
+  check(await d.page.locator('#title-dialog').evaluate((x) => x.open), 'tapping the title opens the picker');
+  check((await d.page.locator('#title-adjs button[aria-pressed]').count()) >= 2 && (await d.page.locator('#title-nouns button[aria-pressed]').count()) >= 1, 'the picker lists adjective and noun chips');
+  await d.page.locator('#title-adjs button', { hasText: 'Breezy' }).click();
+  check((await text(d.page, '#title-preview')) === 'The Breezy Newcomer', 'the preview follows the chips');
+  await d.page.click('#title-done');
+  check((await text(d.page, '#profile-title')).startsWith('The Breezy Newcomer'), 'Done puts it in the banner');
+  check(await d.page.evaluate(() => JSON.parse(localStorage.getItem('games.title')).adj === 'Breezy'), 'the pick is stored in games.title');
+  await d.page.click('#profile-title');
+  await d.page.click('#title-auto');
+  check(await d.page.evaluate(() => JSON.parse(localStorage.getItem('games.title')).auto === true), '"Pick for me" stores automatic');
+  check((await text(d.page, '#profile-title')).startsWith('The Fresh Newcomer'), '"Pick for me" goes back to the automatic title');
+  await d.ctx.close();
+
+  // ---- Review focus 4: a title picked on another device arrives while the profile is open
+  d = await device({ signedIn: true });
+  await go(d.page, '/profile/index.html');
+  await d.page.waitForTimeout(1500);
+  d.api.put('games.title', JSON.stringify({ adj: 'Zen', noun: 'Puzzler', at: Date.now() + 1000 }));
+  await d.page.evaluate(() => dispatchEvent(new Event('online')));
+  await d.page.waitForTimeout(2500);
+  check((await text(d.page, '#profile-title')).startsWith('The Zen Puzzler'), 'a synced title shows without a reload');
+  await d.ctx.close();
+
   // ---- Review focus 3: the games list can't be fetched
   d = await device();
   await d.page.route('**/index.html', (r) => (r.request().resourceType() === 'fetch' ? r.abort() : r.continue()));
