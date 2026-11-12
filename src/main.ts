@@ -5,7 +5,6 @@ import { Capacitor } from "@capacitor/core";
 import "./pwa";
 import { showGameOfTheDay } from "./gotd";
 import { checkForUpdate } from "./update";
-import { THEMES, getTheme, setTheme } from "./theme";
 
 type Save = Record<string, any> | null;
 
@@ -103,82 +102,8 @@ function renderStatus() {
     showStatus(`${id}-status`, started(readSave(`${id}.current`)));
 }
 
-interface InstallPromptEvent extends Event {
-  prompt(): Promise<void>;
-}
-
-/**
- * The Install button on the web home page: installs the PWA when the browser offers it, otherwise (Safari, Firefox,
- * or no prompt available) sends the player to the latest release to download the Android app. Hidden once installed.
- */
-function setupInstallButton() {
-  const btn = document.getElementById(
-    "install-btn",
-  ) as HTMLButtonElement | null;
-  if (!btn || matchMedia("(display-mode: standalone)").matches) return;
-
-  let deferred: InstallPromptEvent | null = null;
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferred = e as InstallPromptEvent;
-  });
-  window.addEventListener("appinstalled", () => {
-    btn.hidden = true;
-    deferred = null;
-  });
-
-  btn.addEventListener("click", async () => {
-    if (deferred) {
-      const prompt = deferred;
-      deferred = null;
-      await prompt.prompt();
-    } else {
-      window.open(
-        "https://github.com/abhi-sawant/games/releases/latest",
-        "_blank",
-        "noopener",
-      );
-    }
-  });
-  btn.hidden = false;
-}
-
-/** The Theme button: a dialog of the looks in src/themes.css, each drawn in its own colours. Picking one applies it at once. */
-function setupThemePicker() {
-  const dialog = document.getElementById("theme-dialog") as HTMLDialogElement;
-  const grid = document.getElementById("theme-grid")!;
-  const options = THEMES.map((t) => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.className = "theme-opt";
-    btn.dataset.theme = t.id;
-    btn.setAttribute("role", "radio");
-    btn.innerHTML = `<span class="theme-chip" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-      <span class="theme-name"></span><span class="theme-note"></span>`;
-    btn.querySelector(".theme-name")!.textContent = t.name;
-    btn.querySelector(".theme-note")!.textContent = t.note;
-    btn.addEventListener("click", () => {
-      setTheme(t.id);
-      mark();
-    });
-    grid.append(btn);
-    return btn;
-  });
-  const mark = () => {
-    const current = getTheme();
-    for (const btn of options) btn.setAttribute("aria-checked", String(btn.dataset.theme === current));
-  };
-  mark();
-
-  document.getElementById("theme-btn")!.addEventListener("click", () => dialog.showModal());
-  document.getElementById("theme-close")!.addEventListener("click", () => dialog.close());
-  // A tap on the backdrop closes it too.
-  dialog.addEventListener("click", (e) => { if (e.target === dialog) dialog.close(); });
-}
-
 document.getElementById("app-version")!.textContent = `v${__APP_VERSION__}`;
 
-setupThemePicker();
 showGameOfTheDay();
 renderStatus();
 // Coming back with the browser's back button can restore this page from the bfcache.
@@ -188,8 +113,6 @@ if (Capacitor.isNativePlatform()) {
   CapApp.addListener("backButton", () => CapApp.exitApp());
   // The web version updates itself through its service worker; the Android app has to be reinstalled from GitHub.
   checkForUpdate(__APP_VERSION__);
-} else {
-  setupInstallButton();
 }
 
 if (!Capacitor.isNativePlatform() && import.meta.env.DEV) {

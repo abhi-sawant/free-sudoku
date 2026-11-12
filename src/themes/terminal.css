@@ -32,7 +32,7 @@
 
 /* ---------- Boxes: a hairline, no fill, no shadow ---------- */
 
-:root[data-theme='terminal'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .gotd-card, .summary, .dialog),
+:root[data-theme='terminal'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .gotd-card, .summary, .panel, .dialog),
 :root[data-theme='terminal'] .tool svg {
   background: var(--paper);
   box-shadow: 0 0 0 1px var(--rule-2);

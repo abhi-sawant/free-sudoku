@@ -24,6 +24,7 @@ try {
   if (localStorage.getItem('sync.session')) addEventListener('load', () => { void import('./shared/sync/engine').then((m) => m.initSync());
     void import('./shared/sync/othergame').then((m) => m.initOtherGame());
     void import('./shared/leaderboard/submit').then((m) => m.initLeaderboard());
+    void import('./shared/leaderboard/button').then((m) => m.initLeaderboardButton());
   }, { once: true });
 } catch { /* storage unavailable */ }
 

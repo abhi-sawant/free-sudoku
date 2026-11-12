@@ -137,7 +137,7 @@
 /* ---------- Boards ---------- */
 
 /* The page's text is the family's; anything printed on a white panel stays ink. */
-:root[data-theme='block'] :is(.board, .summary, .dialog, .die, .history-list, .btn:not(.btn-primary):not(.btn-quiet), .pad-btn, .level, .new-game) { color: var(--ink); }
+:root[data-theme='block'] :is(.board, .summary, .panel, .dialog, .die, .history-list, .btn:not(.btn-primary):not(.btn-quiet), .pad-btn, .level, .new-game) { color: var(--ink); }
 
 :root[data-theme='block'] :is(.board, .board-frame) { border-radius: 2px; box-shadow: 0 0 0 4px var(--ink); }
 :root[data-theme='block'] .board-frame .board { box-shadow: none; }
@@ -191,3 +191,9 @@
 
 /* A yellow timer would vanish on the yellow family's field. */
 :root[data-theme='block'][data-family='orange'] .timer { background: var(--blk); color: #f6c317; }
+
+/* The profile's surfaces (.panel, src/base.css) follow this theme's other surfaces. */
+:root[data-theme='block'] .panel { border-radius: 4px; box-shadow: none; }
+/* A panel is white whatever the family's field, so what's printed on it stays ink. */
+:root[data-theme='block'][data-family] .panel :is(.section-label, .muted, .profile-note, .account-lead, .form-note) { color: var(--ink); }
+:root[data-theme='block'][data-family] .panel .section-label::before { background: var(--ink); }

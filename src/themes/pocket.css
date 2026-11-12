@@ -206,3 +206,6 @@
 :root[data-theme='pocket'] .die.held { background: var(--ink); }
 :root[data-theme='pocket'] .die.held i.pip { background: var(--on-ink); }
 :root[data-theme='pocket'] .die.held::after { background: var(--ink); }
+
+/* The profile's surfaces (.panel, src/base.css) follow this theme's other surfaces. */
+:root[data-theme='pocket'] .panel { box-shadow: var(--edge); border-radius: 0; }

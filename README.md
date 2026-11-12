@@ -113,12 +113,17 @@ src/shared/tilescore.ts                  tile labels and exact scores for 2248 a
 src/shared/playtime.ts                   time played per game, counted while a game screen is open (<game>.playtime)
 src/shared/archive.ts                    history past 500 games, folded into per-game summaries (<game>.archive)
 src/shared/seal.ts                       wraps localStorage: saves scrambled, signed and stored under codes (a deterrent, not security)
-stats/index.html, src/stats/             the hidden stats page at /stats/: nothing links to it
+profile/index.html, src/profile/         the profile at /profile/ (the person icon on the home page): name, personality
+                                         title, the overview of every game, badges, and settings (theme, install, account)
+src/shared/titles.ts, title-store.ts     personality title rules (tested in tests/titles.test.ts) and the chosen title
+                                         (games.title, synced)
+stats/index.html, src/stats/             the stats page at /stats/: every game's numbers, linked from the profile
 src/shared/gamestats.ts                  reads every game's stats, history, playtime and archive into one shape
 src/shared/badges.ts, celebrate.ts       badge rules (games.badges), and the unlock popup with confetti
-badges/index.html, src/badges/           the hidden badges page at /badges/: linked only from the stats page
-signin/, signup/, forgot/, account/      the optional account pages (sign in, sign up with an emailed code, password
-                                         reset, profile and devices); code in src/account/
+badges/index.html, src/badges/           the badges page at /badges/, linked from the profile
+signin/, signup/, forgot/                the optional account pages (sign in, sign up with an emailed code, password
+                                         reset); code in src/account/. account/ and leaderboard/ only redirect to the
+                                         profile
 src/shared/sync/                         account sync: api.ts (talks to the backend), session.ts (tokens and sync
                                          state, `sync.*` keys), merge.ts (how two devices' saves combine, tested in
                                          tests/merge.test.ts), engine.ts (queues changes, pushes and pulls)
@@ -135,12 +140,18 @@ a local or test API. `backend/` is deployed by hand (see its SETUP-GUIDE.md), no
 uploads `dist/`. Which keys sync, and how they merge, is `src/shared/sync/merge.ts`: a new game's `<game>.history`,
 `.stats`, `.archive`, `.playtime`, `.current`, `.played.*` and `.best*` keys sync automatically.
 
-Leaderboards: each timed or scored game (not the ones against the computer) has a global board at `/leaderboard/`, one
-best result per player per level. Signed-in players are on by default and can opt out in their account; the opt-out
-removes their results from every board. `src/shared/leaderboard/` finds each game's bests and sends improvements, and
+Leaderboards: each timed or scored game (not the ones against the computer) has a global board, one best result per
+player per level, opened from a Leaderboard button on the game's menu (signed-in players only:
+`src/shared/leaderboard/button.ts` and `board.ts`). Signed-in players are on by default and can opt out on their
+profile; the opt-out removes their results from every board. `src/shared/leaderboard/` finds each game's bests and
+sends improvements, and
 `backend/src/LeaderboardConfig.php` lists the boards and rejects impossible results (the app can't prove a result is
 genuine). To give a new timed or scored game a board, add its slug to both `games.ts` and `LeaderboardConfig.php`.
 Upgrading an existing database needs the `ALTER TABLE` at the end of `backend/schema.sql`.
+
+Browser checks (need `npm run dev` and Chromium, `PLAYWRIGHT_CHROMIUM=/path/to/chrome`): `node scripts/check-profile.mjs`
+for the profile, stats and badges pages, `node scripts/check-leaderboard.mjs` for the Leaderboard button and dialog, and
+`node scripts/theme-gate/profile-shots.mjs --out <dir>` for screenshots of the new screens in every theme.
 
 Every page follows the Mist design language in [DESIGN.md](DESIGN.md): every game belongs to a category (a home page
 section), prints in that category's ink, and reuses the shared components in `src/base.css`. To add a game, follow "Adding a new game" in DESIGN.md (pick its category, or add one, a

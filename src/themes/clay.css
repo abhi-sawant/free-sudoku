@@ -15,7 +15,7 @@
 
 /* ---------- Clay: puffed at rest, pushed in when pressed ---------- */
 
-:root[data-theme='clay'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .continue, .summary, .dialog, .theme-opt),
+:root[data-theme='clay'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .continue, .summary, .panel, .dialog, .theme-opt),
 :root[data-theme='clay'] .tool svg {
   box-shadow: var(--shadow);
   transition: box-shadow 0.12s ease, transform 0.12s ease;

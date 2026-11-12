@@ -97,3 +97,6 @@
 :root[data-theme='sage'] .slot[data-side='2'] span { background: var(--p2); box-shadow: none; }
 :root[data-theme='sage'] .slot.in-line span { outline-color: var(--ink); }
 :root[data-theme='sage'] .die { border-radius: 20px; box-shadow: none; }
+
+/* The profile's surfaces (.panel, src/base.css) follow this theme's other surfaces. */
+:root[data-theme='sage'] .panel { border-radius: 20px; }

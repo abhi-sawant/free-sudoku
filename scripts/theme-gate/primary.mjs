@@ -1,4 +1,4 @@
-// The primary button (Install on the home page) keeps its own fill in a theme, rather than losing it to the theme's
+// The primary button (Install on the profile page) keeps its own fill in a theme, rather than losing it to the theme's
 // plain button surface. Usage: node scripts/theme-gate/primary.mjs <id> [--base http://localhost:5173]
 
 import { chromium } from 'playwright-core';
@@ -9,7 +9,7 @@ const base = i > 0 ? process.argv[i + 1] : 'http://localhost:5173';
 const browser = await chromium.launch({ executablePath: process.env.PLAYWRIGHT_CHROMIUM || undefined, args: ['--no-sandbox'] });
 const page = await (await browser.newContext({ viewport: { width: 390, height: 800 } })).newPage();
 await page.addInitScript((t) => localStorage.setItem('games.theme', t), id);
-await page.goto(`${base}/`, { waitUntil: 'networkidle' });
+await page.goto(`${base}/profile/index.html`, { waitUntil: 'networkidle' });
 const r = await page.evaluate(() => {
   const btn = document.getElementById('install-btn');
   btn.hidden = false;

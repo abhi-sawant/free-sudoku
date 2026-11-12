@@ -1,109 +1,17 @@
 <!doctype html>
-<html lang="en" data-family="blue">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content="Your account and synced progress." />
-    <meta name="theme-color" content="#eef2f7" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#121825" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" href="/favicon.ico" sizes="48x48" />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
-    <link rel="preload" href="/src/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <meta name="color-scheme" content="light dark" />
     <meta name="robots" content="noindex" />
-    <!-- Sets the theme the player picked before the first paint; see src/theme.ts. -->
-    <script>try{var t=localStorage.getItem('games.theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
-    <!-- The paper colour from base.css, so the page never shows the browser's white canvas while the stylesheet loads. -->
+    <meta name="color-scheme" content="light dark" />
+    <!-- The account settings are on the profile now (src/profile/). This page only sends old links on to the profile. -->
+    <meta http-equiv="refresh" content="0; url=/profile/index.html" />
     <style>html { background: #eef2f7; } @media (prefers-color-scheme: dark) { html { background: #121825; } }</style>
-    <link rel="stylesheet" href="/src/account/style.css" />
-    <title>Your account</title>
+    <title>Your profile</title>
   </head>
   <body>
-    <div id="app">
-      <main class="screen account ink-blue">
-        <header class="topbar">
-          <a class="icon-btn" href="/" aria-label="All games">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
-          </a>
-          <h1 class="topbar-title" id="page-title">Your account</h1>
-          <span class="icon-btn" aria-hidden="true"></span>
-        </header>
-        <section class="account-card" aria-labelledby="who">
-          <h2 class="section-label" id="who">Profile</h2>
-          <p class="account-email" id="email">&nbsp;</p>
-          <form id="name-form" class="account-form" novalidate>
-            <label class="field"><span>Name</span><input id="name" type="text" autocomplete="nickname" maxlength="40" /></label>
-            <p id="name-msg" class="form-note" role="status" hidden></p>
-            <button id="name-save" class="btn" type="submit">Save name</button>
-          </form>
-        </section>
-
-        <section class="account-card" aria-labelledby="sync-label">
-          <h2 class="section-label" id="sync-label">Sync</h2>
-          <p id="sync-line" class="account-lead">Checking…</p>
-          <button id="sync-now" class="btn" type="button">Sync now</button>
-        </section>
-
-        <section class="account-card" aria-labelledby="lb-label">
-          <h2 class="section-label" id="lb-label">Leaderboards</h2>
-          <p class="account-lead">Your name and best results appear on each game's <a href="/leaderboard/index.html">global leaderboard</a>. Turn this off to be removed from every board.</p>
-          <label class="switch-row"><input id="lb-optin" type="checkbox" /><span>Show me on leaderboards</span></label>
-          <p id="lb-msg" class="form-note" role="status" hidden></p>
-        </section>
-
-        <section class="account-card" aria-labelledby="devices-label">
-          <h2 class="section-label" id="devices-label">Signed-in devices</h2>
-          <ul id="devices" class="device-list"></ul>
-        </section>
-
-        <section class="account-card" aria-labelledby="security-label">
-          <h2 class="section-label" id="security-label">Security</h2>
-          <div class="account-actions">
-            <button id="change-password" class="btn" type="button">Change password</button>
-            <button id="signout" class="btn" type="button">Sign out</button>
-            <button id="delete" class="btn btn-quiet" type="button">Delete account</button>
-          </div>
-        </section>
-        <p id="page-error" class="form-error" role="alert" hidden></p>
-      </main>
-
-      <dialog id="signout-dialog" class="dialog" aria-labelledby="signout-title">
-        <h2 id="signout-title">Sign out?</h2>
-        <p>Your progress is saved in your account. Keep a copy on this device, or remove it if this device is shared.</p>
-        <div class="dialog-actions">
-          <button id="signout-keep" class="btn btn-primary">Keep progress</button>
-          <button id="signout-clear" class="btn">Remove it</button>
-        </div>
-        <div class="dialog-actions one"><button id="signout-cancel" class="btn btn-quiet">Cancel</button></div>
-      </dialog>
-
-      <dialog id="password-dialog" class="dialog" aria-labelledby="password-title">
-        <h2 id="password-title">Change password</h2>
-        <form id="password-form" class="account-form" novalidate>
-          <label class="field"><span>Current password</span><input id="current-password" type="password" autocomplete="current-password" required /></label>
-          <label class="field"><span>New password</span><input id="new-password" type="password" autocomplete="new-password" minlength="8" required /></label>
-          <p id="password-error" class="form-error" role="alert" hidden></p>
-          <div class="dialog-actions">
-            <button type="button" id="password-cancel" class="btn">Cancel</button>
-            <button type="submit" id="password-submit" class="btn btn-primary">Change</button>
-          </div>
-        </form>
-      </dialog>
-
-      <dialog id="delete-dialog" class="dialog" aria-labelledby="delete-title">
-        <h2 id="delete-title">Delete account?</h2>
-        <p>This permanently deletes your account and the progress saved in it. Progress on this device stays. This can't be undone.</p>
-        <form id="delete-form" class="account-form" novalidate>
-          <label class="field"><span>Your password</span><input id="delete-password" type="password" autocomplete="current-password" required /></label>
-          <p id="delete-error" class="form-error" role="alert" hidden></p>
-          <div class="dialog-actions">
-            <button type="button" id="delete-cancel" class="btn">Cancel</button>
-            <button type="submit" id="delete-submit" class="btn btn-danger">Delete</button>
-          </div>
-        </form>
-      </dialog>
-    </div>
-    <script type="module" src="/src/account/account.ts"></script>
+    <script>location.replace('/profile/index.html' + location.search)</script>
+    <p><a href="/profile/index.html">Your profile</a></p>
   </body>
 </html>

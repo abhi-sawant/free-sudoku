@@ -37,7 +37,7 @@ for (const [scheme, expected] of [['light', paperLight], ['dark', paperDark]]) {
   await page.goto(`${base}/`, { waitUntil: 'networkidle' });
   const meta = await page.evaluate(() => [...document.querySelectorAll('meta[name="theme-color"]')].map((m) => m.content));
   check(`${scheme}: theme-color follows --paper`, meta.every((c) => c.toLowerCase() === expected.toLowerCase()), meta.join(','));
-  await page.click('#theme-btn');
+  await page.goto(`${base}/profile/index.html`, { waitUntil: 'networkidle' }); // the picker lives on the profile
   const swatch = await page.evaluate((t) => {
     const el = document.querySelector(`.theme-opt[data-theme="${t}"]`);
     return el ? getComputedStyle(el).backgroundColor : null;
