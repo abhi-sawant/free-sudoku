@@ -91,7 +91,7 @@
 .settings-block[hidden] { display: none; }
 .profile .theme-grid { margin: 0 -5px; overflow: visible; }
 .install-card .account-lead { margin: 0 0 12px; }
-.install-card .btn { width: 100%; }
+.install-card .btn { width: 100%; justify-content: center; text-align: center; }
 
 /* ---------- Account (moved from the account page) ---------- */
 
@@ -157,6 +157,9 @@
   .profile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
   .profile-card.wide { grid-column: 1 / -1; }
   .profile .theme-grid { grid-template-columns: repeat(3, 1fr); }
+  .install-card { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .install-card .account-lead { margin: 0; }
+  .install-card .btn { width: auto; min-width: 180px; }
   #account-in { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
   #account-in[hidden] { display: none; }
   #account-in .account-card + .account-card { margin-top: 0; }

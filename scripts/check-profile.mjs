@@ -136,6 +136,43 @@ try {
   check((await text(d.page, '#profile-title')).startsWith('The Zen Puzzler'), 'a synced title shows without a reload');
   await d.ctx.close();
 
+
+  // ---- Task 7: settings
+  d = await device();
+  await go(d.page, '/profile/index.html');
+  check(await d.page.locator('#account-out').isVisible() && !(await d.page.locator('#account-in').isVisible()), 'signed out: the sign-in card, no account settings');
+  check((await text(d.page, '#account-out')).includes('Sign in to sync your progress across devices'), 'signed out: the sign-in copy');
+  check((await d.page.locator('#account-out a[href="/signin/index.html"]').count()) === 1, 'signed out: a Sign in link');
+  check((await text(d.page, '#profile-name')) === 'You', 'signed out, never signed in: the name is "You"');
+  check((await d.page.locator('#theme-grid .theme-opt').count()) === 13, 'the theme picker has 13 themes');
+  await d.page.locator('#theme-grid .theme-opt[data-theme="terminal"]').click();
+  check(await d.page.evaluate(() => document.documentElement.dataset.theme === 'terminal'), 'picking Terminal applies it');
+  await go(d.page, '/account/index.html');
+  check(new URL(d.page.url()).pathname === '/profile/index.html', '/account/ lands on the profile');
+  await go(d.page, '/leaderboard/index.html');
+  check(new URL(d.page.url()).pathname === '/profile/index.html', '/leaderboard/ lands on the profile');
+  await d.ctx.close();
+
+  d = await device({ signedIn: true });
+  await go(d.page, '/profile/index.html');
+  check(await d.page.locator('#account-in').isVisible() && !(await d.page.locator('#account-out').isVisible()), 'signed in: account settings, no sign-in card');
+  check((await text(d.page, '#email')).includes('tester@example.com'), 'signed in: the email');
+  check((await d.page.inputValue('#name')) === 'Tester', 'signed in: the name field');
+  check((await text(d.page, '#profile-name')) === 'Tester', 'signed in: the banner shows the name');
+  check(await d.page.locator('#lb-optin').isVisible() && await d.page.locator('#devices li').count() === 1, 'signed in: leaderboard switch and devices');
+  check(await d.page.locator('#change-password').isVisible() && await d.page.locator('#signout').isVisible() && await d.page.locator('#delete').isVisible(), 'signed in: security buttons');
+  check(!d.errors.length, `signed in: no page errors ${d.errors.join(' | ')}`);
+  // Sign out keeping progress: the name stays; then removing it: "You".
+  await d.page.click('#signout'); await d.page.click('#signout-keep'); await d.page.waitForTimeout(1200);
+  await go(d.page, '/profile/index.html');
+  check((await text(d.page, '#profile-name')) === 'Tester', 'signed out keeping progress: the name stays');
+  await d.page.evaluate((s) => localStorage.setItem('sync.session', s), session);
+  await go(d.page, '/profile/index.html');
+  await d.page.click('#signout'); await d.page.click('#signout-clear'); await d.page.waitForTimeout(1200);
+  await go(d.page, '/profile/index.html');
+  check((await text(d.page, '#profile-name')) === 'You', 'signed out removing progress: back to "You"');
+  await d.ctx.close();
+
   // ---- Review focus 3: the games list can't be fetched
   d = await device();
   await d.page.route('**/index.html', (r) => (r.request().resourceType() === 'fetch' ? r.abort() : r.continue()));
