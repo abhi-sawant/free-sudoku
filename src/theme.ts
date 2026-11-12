@@ -9,6 +9,13 @@ export const THEMES = [
   { id: 'graph', name: 'Graph Paper', note: 'A printed grid and ballpoint blue' },
   { id: 'block', name: 'Block Party', note: 'Flat primaries and bold ink lines' },
   { id: 'pocket', name: 'Pocket', note: 'A handheld LCD in four greens' },
+  { id: 'midnight', name: 'Midnight', note: 'True black with glowing accents' },
+  { id: 'brutal', name: 'Neo-brutalist', note: 'Black borders and hard shadows on cream' },
+  { id: 'terminal', name: 'Terminal', note: 'Amber phosphor on black, in monospace' },
+  { id: 'blueprint', name: 'Blueprint', note: 'White lines on drafting blue' },
+  { id: 'clay', name: 'Claymorphism', note: 'Puffy pastel tiles, soft as clay' },
+  { id: 'felt', name: 'Felt & Wood', note: 'Green baize, walnut tiles and cream cards' },
+  { id: 'news', name: 'Newsprint', note: 'Grey stock, black ink and halftone dots' },
 ] as const;
 
 export type ThemeId = (typeof THEMES)[number]['id'];

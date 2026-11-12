@@ -1,0 +1,132 @@
+{
+  "mist": {
+    "ground": "light-cool",
+    "edges": "none",
+    "depth": "soft-shadow",
+    "corners": "soft",
+    "type": "sans-humanist",
+    "texture": "none",
+    "home": "tile-grid",
+    "families": "hue"
+  },
+  "linen": {
+    "ground": "light-warm",
+    "edges": "hairline",
+    "depth": "flat",
+    "corners": "soft-small",
+    "type": "serif",
+    "texture": "none",
+    "home": "ruled-list",
+    "families": "hue"
+  },
+  "sage": {
+    "ground": "light-green",
+    "edges": "none",
+    "depth": "flat",
+    "corners": "pill",
+    "type": "sans-geometric",
+    "texture": "none",
+    "home": "pill-rows",
+    "families": "tint-lozenge"
+  },
+  "graph": {
+    "ground": "light-white",
+    "edges": "outline-hand",
+    "depth": "flat",
+    "corners": "soft-small",
+    "type": "hand",
+    "texture": "grid",
+    "home": "ruled-list",
+    "families": "highlighter"
+  },
+  "block": {
+    "ground": "light-offwhite",
+    "edges": "outline-hard",
+    "depth": "flat",
+    "corners": "square",
+    "type": "sans-heavy-lower",
+    "texture": "none",
+    "home": "colour-bands",
+    "families": "fill-field"
+  },
+  "pocket": {
+    "ground": "light-lcd-green",
+    "edges": "outline-hard",
+    "depth": "stepped",
+    "corners": "stepped",
+    "type": "pixel",
+    "texture": "dot-grid",
+    "home": "tile-grid",
+    "families": "dither"
+  },
+  "midnight": {
+    "ground": "black",
+    "edges": "hairline",
+    "depth": "glow",
+    "corners": "soft",
+    "type": "sans-system",
+    "texture": "none",
+    "home": "tile-grid",
+    "families": "hue"
+  },
+  "brutal": {
+    "ground": "light-cream",
+    "edges": "outline-hard",
+    "depth": "hard-shadow",
+    "corners": "soft-small",
+    "type": "sans-grotesque",
+    "texture": "none",
+    "home": "tile-grid",
+    "families": "sticker-fill"
+  },
+  "terminal": {
+    "ground": "dark-amber",
+    "edges": "hairline",
+    "depth": "flat",
+    "corners": "square",
+    "type": "mono",
+    "texture": "scanline",
+    "home": "ruled-list",
+    "families": "text-tag"
+  },
+  "blueprint": {
+    "ground": "dark-blue",
+    "edges": "outline-fine",
+    "depth": "flat",
+    "corners": "square",
+    "type": "mono-upper",
+    "texture": "grid",
+    "home": "ruled-list",
+    "families": "sheet-number"
+  },
+  "clay": {
+    "ground": "light-pastel",
+    "edges": "none",
+    "depth": "bevel-soft",
+    "corners": "puffy",
+    "type": "sans-rounded-fat",
+    "texture": "none",
+    "home": "tile-grid",
+    "families": "pastel-fill"
+  },
+  "felt": {
+    "ground": "dark-green-felt",
+    "edges": "bevel",
+    "depth": "bevel",
+    "corners": "soft-small",
+    "type": "serif-slab",
+    "texture": "grain",
+    "home": "tile-grid",
+    "families": "wood-tint"
+  },
+  "news": {
+    "ground": "light-grey-neutral",
+    "edges": "rule-double",
+    "depth": "flat",
+    "corners": "square",
+    "type": "serif-display",
+    "texture": "halftone",
+    "home": "columns",
+    "families": "halftone-tint"
+  }
+}

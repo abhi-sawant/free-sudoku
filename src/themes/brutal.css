@@ -1,0 +1,76 @@
+/* Neo-brutalist: cream paper, black borders and hard offset shadows with no blur (the --shadow token is the border and
+   the shadow together). A press moves a button down-right into its shadow. Home cards are flat stickers of their
+   family's colour; section labels are black slabs. Space Grotesk, heavy. Unlike Block Party (no shadows, square,
+   colour bands, lowercase Jost), everything here casts a hard shadow and sits on cream. */
+
+@font-face { font-family: 'Space Grotesk'; font-weight: 300 700; font-display: swap; src: url('../fonts/space-grotesk-latin-wght-normal.woff2') format('woff2'); }
+
+:root[data-theme='brutal'] {
+  --press: 0 0 0 2px var(--ink), 1px 1px 0 2px var(--ink);
+  --sticker: color-mix(in srgb, var(--c) 26%, var(--sheet));
+}
+:root[data-theme='brutal'] body { font-weight: 500; }
+:root[data-theme='brutal'] :is(.wordmark, .logo, .topbar-title, .meta b, .dialog h2, .gotd-name, .theme-name, .continue b) { font-weight: 700; letter-spacing: -0.03em; }
+:root[data-theme='brutal'] .wordmark { text-transform: uppercase; }
+:root[data-theme='brutal'] ::selection { background: var(--yellow); color: #111111; }
+
+/* ---------- Everything you can press casts a hard shadow, and moves into it ---------- */
+
+:root[data-theme='brutal'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .continue, .tool svg, .theme-opt) {
+  box-shadow: var(--shadow);
+  transition: transform 60ms linear, box-shadow 60ms linear;
+}
+:root[data-theme='brutal'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .continue, .theme-opt):active,
+:root[data-theme='brutal'] .tool:active svg {
+  transform: translate(3px, 3px);
+  box-shadow: var(--press);
+}
+:root[data-theme='brutal'] :is(.btn-primary, .continue) { background: var(--c); color: var(--on-ink); }
+:root[data-theme='brutal'] .continue small { color: var(--on-ink); opacity: 0.85; }
+:root[data-theme='brutal'] .tool.active svg { background: var(--yellow); box-shadow: var(--shadow); color: #111111; }
+:root[data-theme='brutal'] .dialog { box-shadow: 0 0 0 2.5px var(--ink), 8px 8px 0 2.5px var(--ink); }
+:root[data-theme='brutal'] .dialog::backdrop { background: rgb(17 17 17 / 0.45); }
+:root[data-theme='brutal'] .summary { box-shadow: var(--shadow); }
+:root[data-theme='brutal'] .summary thead th { background: var(--yellow); color: #111111; }
+:root[data-theme='brutal'] .theme-opt[aria-checked='true'] { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* ---------- Home: sticker cards, slab labels ---------- */
+
+:root[data-theme='brutal'] .game-card { background: var(--sticker); }
+:root[data-theme='brutal'] .game-icon { background: var(--sheet); box-shadow: 0 0 0 2px var(--ink); }
+:root[data-theme='brutal'] .gotd-card { background: var(--yellow); color: #111111; }
+:root[data-theme='brutal'] .gotd-card :is(.gotd-tag, .gotd-desc, .gotd-go, .gotd-name) { color: #111111; }
+:root[data-theme='brutal'] .section-label {
+  padding: 4px 12px;
+  background: var(--ink);
+  color: var(--paper);
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+:root[data-theme='brutal'] .section-label::before { background: var(--c); box-shadow: 0 0 0 2px var(--paper); }
+:root[data-theme='brutal'] .game-status { background: var(--sheet); color: var(--ink); box-shadow: 0 0 0 2px var(--ink); }
+
+/* ---------- Boards ---------- */
+
+:root[data-theme='brutal'] :is(.board, .board-frame) { box-shadow: 0 0 0 3px var(--ink), 6px 6px 0 3px var(--ink); }
+:root[data-theme='brutal'] .board-frame .board { box-shadow: none; }
+:root[data-theme='brutal'] .board-wrap { padding: 3px 9px 9px 3px; }
+:root[data-theme='brutal'] .cell { font-weight: 700; }
+:root[data-theme='brutal'] .cell.selected::before { background: var(--yellow); opacity: 1; mix-blend-mode: normal; box-shadow: inset 0 0 0 2.5px #111111; }
+:root[data-theme='brutal'] .cell.selected { color: #111111; }
+:root[data-theme='brutal'] .cell.same::before { background: var(--yellow); opacity: 0.5; mix-blend-mode: normal; }
+:root[data-theme='brutal'] .cell.wrong::before { inset: 0; border: 0; border-radius: 0; rotate: none; background: var(--coral); opacity: 0.22; }
+:root[data-theme='brutal'] .overprint i { background: var(--c); opacity: 0.1; mix-blend-mode: normal; }
+:root[data-theme='brutal'] .card { box-shadow: 0 0 0 2px var(--ink), 3px 3px 0 2px var(--ink); }
+:root[data-theme='brutal'] .card.down { background: var(--c); box-shadow: inset 0 0 0 3px var(--sheet), 0 0 0 2px var(--ink), 3px 3px 0 2px var(--ink); }
+:root[data-theme='brutal'] .card.selected { background: var(--yellow); }
+:root[data-theme='brutal'] .pile { outline: 2px dashed var(--ink); }
+:root[data-theme='brutal'] .die { box-shadow: 0 0 0 2px var(--ink), 3px 3px 0 2px var(--ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-theme='brutal'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .continue, .theme-opt):active { transform: none; }
+}
+
+/* The profile's surfaces (.panel, src/base.css) follow this theme's other surfaces. */
+:root[data-theme='brutal'] .panel { box-shadow: var(--shadow); }

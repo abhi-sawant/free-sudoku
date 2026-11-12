@@ -1,5 +1,107 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- **Game in progress across devices**: leaving a game halfway on one device and opening it on another now picks it
+  up. Before, the last moves stayed on the first device until it was opened again, and opening the game on the second
+  device could save its older game over the newer one, losing it on both. The game in progress is now sent the moment
+  you leave the page, and an open game page reloads to show a newer game from your other device if you haven't played
+  on it yet.
+- Syncing when a page opens is no longer put off by the page's own saves.
+
+### Changed
+
+- The stats and badges pages are no longer hidden: both are linked from your profile. The stats page now lists every
+  game's numbers; the overview moved to the profile. Snoop and Badge hunter are ordinary badges now.
+- Install and the theme picker moved from the home page to the profile.
+- On a big screen the home, profile, stats and badges pages are all the same width (1120px); stats lays its game
+  cards out in columns and badges sit two or three to a row, instead of a phone-width strip.
+- The leaderboards page with its game picker is gone (old links open your profile). Leaderboards need an account to
+  view now.
+
+### Added
+
+- **Profile page**: the person icon on the home page now opens your profile, signed in or not. It shows your name,
+  a personality title, your games, time played, streak and badges, the activity calendar, time of day, top games and
+  highlights (moved here from the stats page), and a badges strip. On a wide screen it uses the width instead of a
+  phone-sized column. Settings sit underneath: the theme picker, Install, and your account (or a sign-in card).
+- **Personality titles**: "The Night-Owl Strategist", "The Bite-Sized Wordsmith" and thousands more, made from how and
+  what you play, your badges and your theme. The profile picks the best fit; tap it to choose any pair you've
+  unlocked. Your pick syncs to your other devices.
+- **Leaderboards on each game**: signed in, every game with a leaderboard has a Leaderboard button on its menu, next to
+  How to play and History & stats, showing that game's board straight away.
+- **Continue from other device**: when both of your devices have a different game in progress, the game's menu shows
+  a second Continue under its own. It keeps this device's game and offers the other one; tapping it swaps it in.
+
+## 5.0.0 — 2026-11-12
+
+Optional accounts with sync across devices, and global leaderboards.
+
+### Added
+
+- **Leaderboards**: every timed and scored game now has a global leaderboard at `/leaderboard/` (linked from the stats
+  page). Puzzles and card games rank your best time per level; score and arcade games rank your best score. Pick a
+  game, pick a level, see the top 50 with your own rank highlighted. Versus games and Word Guess have none. Only
+  signed-in players appear, and your best results are sent automatically as you beat them.
+- **Leaderboard opt-out**: a "Show me on leaderboards" switch on your account page (on by default). Turn it off and
+  your results are removed from every board and nothing more is sent.
+- **Optional accounts**: create an account with your email (confirmed with a 6-digit code) to keep your history, stats,
+  badges, best scores and game in progress, and pick them up on any device you sign in on. Changes sync automatically
+  in the background; there is a profile button on the home page, with sign in, sign up, forgot password, change
+  password, a list of your signed-in devices and account deletion. Without an account nothing changes: the games work
+  fully offline and nothing is sent anywhere.
+
+## 4.2.0 — 2026-11-11
+
+A new ring game, Halo, a stats page, badges, and seven more themes, thirteen in all.
+
+### Added
+
+- **Halo**: a new number-tiles game. Place numbers around a ring; a + piece merges the matching pair either side of it,
+  and the chain keeps folding outward while the next pair matches. A − piece lifts a tile back into your hand. The ring
+  holds 18 pieces, and the game ends when it is full and nothing can merge.
+- **Stats page** at `/stats/`: every game's numbers from this device in one place. Totals, a calendar of the days you
+  played, the hours you play, your top games and highlights, then a card for each game; tap one for its full numbers.
+  Nothing on the site links to it; you have to know the address.
+- **Time played**: every game now counts how long you actually play it (only while a game is on screen and you're
+  playing), how often you open it, and the play time of each game in its history. Qubo now keeps a history too.
+  Like everything else, it stays on your device and is never sent anywhere.
+- **Older history**: each game still keeps its last 500 games in full; older ones are now folded into a summary of
+  counts and averages instead of being dropped.
+- **Protected saves**: everything the games save is now scrambled, signed and stored under codes rather than game
+  names, so it can't easily be read, recognised or changed by hand in the browser's developer tools; an edited save is
+  simply ignored (a deterrent for casual editing, not security). Your existing saves are moved over the first time you open any page after the update, and a save is only
+  removed from its old place once its new copy has been checked, so nothing is lost even on a nearly full device. It
+  adds no noticeable time to saving or loading.
+- **Badges**: 39 to earn, from your first game to a month-long streak, playing every game in a section, beating the
+  computer on Hard and a few secrets. Unlocking one throws confetti and shows a small popup; anything you'd already
+  earned arrives together the first time. They're worked out on your device from what the games already record. The
+  full list lives at `/badges/`, linked only from the hidden stats page.
+- **Midnight**: true black for OLED screens; buttons and the selected cell glow in the game's colour.
+- **Neo-brutalist**: cream paper, thick black borders and hard offset shadows; buttons press down into their shadow.
+- **Terminal**: amber monospace on a dark CRT brown, with faint scanlines, `[ bracketed ]` buttons, a blinking cursor
+  in the selected cell and each section tagged `[NUM]`, `[LOGIC]` and so on.
+- **Blueprint**: white lines on drafting blue over a fine grid, uppercase monospace labels and numbered sheets.
+- **Claymorphism**: puffy pastel tiles that sink when pressed, with round, chunky type.
+- **Felt & Wood**: a games-room table: green baize, walnut tiles and cream playing cards.
+- **Newsprint**: a grey broadsheet with headline type, double rules, halftone dots and the games set in two columns.
+
+Every theme covers Qubo and Road Racer too.
+
+### Changed
+
+- **2248**: big scores read short, with their name: 1.06 unvigintillion instead of a 66-digit number. Below a million
+  the score is still exact. Starting a new board while a game is in progress now asks first, and says what the board
+  scored.
+
+### Fixed
+
+- **2248**: tapping New board while a merge was still animating froze the new board. Tiles and scores no longer
+  break past 2^1024 (a tile labelled NaN, a best score wiped), so a game can go on for ever. Closing the app mid-merge
+  no longer brings back stray 2 tiles, and lifting a second finger no longer ends a drag early.
+
 ## 4.1.2 — 2026-11-08
 
 Two new arcade games, and Space plays again.

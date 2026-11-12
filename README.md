@@ -10,6 +10,9 @@ Offline puzzle, board and card games: a PWA that also ships as an Android app th
 - **2248**: drag a path through matching numbers (or each one step higher) to merge them; the sum rounds up to
   the next power of two. Ported from [Parth2500/2248-Merge](https://github.com/Parth2500/2248-Merge), with score,
   game over detection, history and stats per game, and auto-saved progress.
+- **Halo**: place numbers around a ring of 18 spaces. A + piece merges the matching pair either side of it, and keeps
+  folding in the next pair out while it matches; a − piece lifts a tile back into your hand. Scores are exact and
+  tiles have no ceiling. Score, history and stats, and auto-saved progress.
 - **2048**: swipe or use the arrow keys to slide the tiles; equal tiles merge. One-step undo, a "keep going"
   option after 2048, score, history and stats, and auto-saved progress.
 - **Tic-tac-toe**: play the computer (Easy, Medium, or a Hard opponent that never loses) or a friend on one
@@ -66,7 +69,7 @@ Offline puzzle, board and card games: a PWA that also ships as an Android app th
   (or press the arrow keys) to change lane and dodge the traffic as the road speeds up. Four levels (Country Road, Highway,
   City Rush, Night Rally) add lanes, traffic and speed. Best score and history per level; the rules are in
   `src/racer/engine.ts`, free of any drawing.
-- Themes: Mist (default), Linen, Sage, Graph Paper, Block Party and Pocket, picked from the palette button on the home
+- Themes: Mist (default), Linen, Sage, Graph Paper, Block Party, Pocket, Midnight, Neo-brutalist, Terminal, Blueprint, Claymorphism, Felt & Wood and Newsprint, picked from the palette button on the home
   page and kept on the device. Each is a whole design (layout, borders, type and boards, from `design-candidates/`) in `src/themes/`; `src/theme.ts` applies and remembers the choice.
 - Works with no connection: the service worker installs with just the home page, caches each game when it's opened,
   then fetches the rest in the background, the open game first (see `src/sw.ts`).
@@ -84,6 +87,7 @@ src/fonts/                               Nunito, self-hosted so the app works of
 sudoku/index.html, src/sudoku/           Sudoku
 minesweeper/index.html, src/minesweeper/ Minesweeper
 2248/index.html, src/2248/               2248
+halo/index.html, src/halo/               Halo
 2048/index.html, src/2048/               2048
 tictactoe/index.html, src/tictactoe/     Tic-tac-toe
 dots/index.html, src/dots/               Dots and Boxes
@@ -104,8 +108,50 @@ src/shared/                              helpers the newer games share: screens,
 src/cards/                               deck (one or two decks), card drawing and drag, and the solitaire loop
 scripts/gen-<game>.ts                    puzzle generators writing public/puzzles/<game>/<level>.txt; the slow
                                          ones spread over every core with scripts/parallel-gen.ts
-src/tiles.css                            the number-tile colour scale shared by 2248 and 2048
+src/tiles.css                            the number-tile colour scale shared by 2248, 2048 and Halo
+src/shared/tilescore.ts                  tile labels and exact scores for 2248 and Halo
+src/shared/playtime.ts                   time played per game, counted while a game screen is open (<game>.playtime)
+src/shared/archive.ts                    history past 500 games, folded into per-game summaries (<game>.archive)
+src/shared/seal.ts                       wraps localStorage: saves scrambled, signed and stored under codes (a deterrent, not security)
+profile/index.html, src/profile/         the profile at /profile/ (the person icon on the home page): name, personality
+                                         title, the overview of every game, badges, and settings (theme, install, account)
+src/shared/titles.ts, title-store.ts     personality title rules (tested in tests/titles.test.ts) and the chosen title
+                                         (games.title, synced)
+stats/index.html, src/stats/             the stats page at /stats/: every game's numbers, linked from the profile
+src/shared/gamestats.ts                  reads every game's stats, history, playtime and archive into one shape
+src/shared/badges.ts, celebrate.ts       badge rules (games.badges), and the unlock popup with confetti
+badges/index.html, src/badges/           the badges page at /badges/, linked from the profile
+signin/, signup/, forgot/                the optional account pages (sign in, sign up with an emailed code, password
+                                         reset); code in src/account/. account/ and leaderboard/ only redirect to the
+                                         profile
+src/shared/sync/                         account sync: api.ts (talks to the backend), session.ts (tokens and sync
+                                         state, `sync.*` keys), merge.ts (how two devices' saves combine, tested in
+                                         tests/merge.test.ts), engine.ts (queues changes, pushes and pulls)
+backend/                                 the PHP + MySQL API for accounts and sync, hosted separately at
+                                         api.games.slowatcoding.com; read backend/SETUP-GUIDE.md
 ```
+
+## Accounts and sync
+
+Accounts are optional: with no account the site is fully offline and nothing leaves the device. Signed in, history,
+stats, badges, best scores and the game in progress sync across devices through the API in `backend/`. The app finds
+the API at `VITE_API_BASE` (default `https://api.games.slowatcoding.com/v1`); set it in `.env.development.local` to try
+a local or test API. `backend/` is deployed by hand (see its SETUP-GUIDE.md), not by the GitHub Action, which only
+uploads `dist/`. Which keys sync, and how they merge, is `src/shared/sync/merge.ts`: a new game's `<game>.history`,
+`.stats`, `.archive`, `.playtime`, `.current`, `.played.*` and `.best*` keys sync automatically.
+
+Leaderboards: each timed or scored game (not the ones against the computer) has a global board, one best result per
+player per level, opened from a Leaderboard button on the game's menu (signed-in players only:
+`src/shared/leaderboard/button.ts` and `board.ts`). Signed-in players are on by default and can opt out on their
+profile; the opt-out removes their results from every board. `src/shared/leaderboard/` finds each game's bests and
+sends improvements, and
+`backend/src/LeaderboardConfig.php` lists the boards and rejects impossible results (the app can't prove a result is
+genuine). To give a new timed or scored game a board, add its slug to both `games.ts` and `LeaderboardConfig.php`.
+Upgrading an existing database needs the `ALTER TABLE` at the end of `backend/schema.sql`.
+
+Browser checks (need `npm run dev` and Chromium, `PLAYWRIGHT_CHROMIUM=/path/to/chrome`): `node scripts/check-profile.mjs`
+for the profile, stats and badges pages, `node scripts/check-leaderboard.mjs` for the Leaderboard button and dialog, and
+`node scripts/theme-gate/profile-shots.mjs --out <dir>` for screenshots of the new screens in every theme.
 
 Every page follows the Mist design language in [DESIGN.md](DESIGN.md): every game belongs to a category (a home page
 section), prints in that category's ink, and reuses the shared components in `src/base.css`. To add a game, follow "Adding a new game" in DESIGN.md (pick its category, or add one, a

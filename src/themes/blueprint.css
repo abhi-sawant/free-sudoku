@@ -1,0 +1,108 @@
+/* Blueprint: white lines on cyanotype blue, dark only. A fine drafting grid on the page (drawn as the body's own
+   background, so it can never sit over a board), precise one-pixel outlines, square corners, uppercase Space Mono
+   labels. Boards get a drafting double frame and a tick ruler; matching cells are hatched, as a draughtsman shades a
+   section. Each family is a numbered drawing sheet (01 NUMBER PUZZLES ...). Space Mono (OFL). */
+
+@font-face { font-family: 'Space Mono'; font-weight: 400; font-display: swap; src: url('../fonts/space-mono-latin-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Space Mono'; font-weight: 700; font-display: swap; src: url('../fonts/space-mono-latin-700-normal.woff2') format('woff2'); }
+
+:root[data-theme='blueprint'] { --sheetno: '00'; --line: rgb(238 245 255 / 0.07); --line-2: rgb(238 245 255 / 0.13); }
+:root[data-theme='blueprint'] [data-family='blue'], :root[data-theme='blueprint'][data-family='blue'] { --sheetno: '01'; }
+:root[data-theme='blueprint'] [data-family='orange'], :root[data-theme='blueprint'][data-family='orange'] { --sheetno: '02'; }
+:root[data-theme='blueprint'] [data-family='lilac'], :root[data-theme='blueprint'][data-family='lilac'] { --sheetno: '03'; }
+:root[data-theme='blueprint'] [data-family='sky'], :root[data-theme='blueprint'][data-family='sky'] { --sheetno: '04'; }
+:root[data-theme='blueprint'] [data-family='olive'], :root[data-theme='blueprint'][data-family='olive'] { --sheetno: '05'; }
+:root[data-theme='blueprint'] [data-family='berry'], :root[data-theme='blueprint'][data-family='berry'] { --sheetno: '06'; }
+:root[data-theme='blueprint'] [data-family='plum'], :root[data-theme='blueprint'][data-family='plum'] { --sheetno: '07'; }
+:root[data-theme='blueprint'] [data-family='cocoa'], :root[data-theme='blueprint'][data-family='cocoa'] { --sheetno: '08'; }
+
+/* The drafting grid: minor lines every 12px, a heavier one every 60px. */
+:root[data-theme='blueprint'] body {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--line-2) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-2) 1px, transparent 1px),
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
+  background-attachment: fixed;
+  font-weight: 400;
+}
+:root[data-theme='blueprint'] :is(.wordmark, .logo, .topbar-title, .meta b, .dialog h2, .gotd-name, .theme-name, .continue b) { font-weight: 700; letter-spacing: -0.02em; }
+:root[data-theme='blueprint'] .wordmark { text-transform: uppercase; letter-spacing: 0.02em; }
+:root[data-theme='blueprint'] :is(.tagline, .stamps, .level small, .new-game small, .continue small, .gotd-tag, .game-status, .tool, .meta span) { text-transform: uppercase; letter-spacing: 0.06em; }
+:root[data-theme='blueprint'] ::selection { background: var(--ink); color: var(--paper); }
+
+/* ---------- Outlines: one fine line, no fill ---------- */
+
+:root[data-theme='blueprint'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .summary, .panel, .dialog),
+:root[data-theme='blueprint'] .tool svg {
+  background: transparent;
+  box-shadow: 0 0 0 1px var(--rule-2);
+}
+:root[data-theme='blueprint'] .dialog { background: var(--paper); }
+:root[data-theme='blueprint'] :is(.btn, .level, .new-game, .icon-btn, .pad-btn, .back-link):active,
+:root[data-theme='blueprint'] .tool:active svg { background: var(--note); transform: none; }
+:root[data-theme='blueprint'] :is(.btn-primary, .continue) { background: var(--c); color: var(--on-ink); box-shadow: none; }
+:root[data-theme='blueprint'] .continue small { color: var(--on-ink); opacity: 0.8; }
+:root[data-theme='blueprint'] .tool.active svg { background: var(--note); box-shadow: 0 0 0 1px var(--ink), inset 0 0 0 3px var(--paper), inset 0 0 0 4px var(--ink); }
+:root[data-theme='blueprint'] .dialog::backdrop { background: rgb(8 32 63 / 0.7); }
+:root[data-theme='blueprint'] .summary thead th { background: transparent; border-bottom: 1px solid var(--rule-2); }
+:root[data-theme='blueprint'] :focus-visible { outline: 1px solid var(--ink); outline-offset: 3px; }
+:root[data-theme='blueprint'] .theme-opt[aria-checked='true'] { outline: 1px solid var(--ink); outline-offset: 4px; }
+
+/* ---------- Home: numbered drawing sheets ---------- */
+
+:root[data-theme='blueprint'] .section-label {
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--c);
+}
+:root[data-theme='blueprint'] .section-label::before {
+  content: var(--sheetno);
+  width: auto;
+  height: auto;
+  padding: 1px 5px;
+  border-radius: 0;
+  background: none;
+  box-shadow: 0 0 0 1px var(--c);
+  color: var(--c);
+  font-size: 0.75rem;
+}
+:root[data-theme='blueprint'] .gotd .section-label::before { content: '\2605'; }
+:root[data-theme='blueprint'] .game-card { border-bottom: 1px solid var(--rule); }
+:root[data-theme='blueprint'] .family .game-card:last-of-type { border-bottom: 0; }
+:root[data-theme='blueprint'] .game-name { font-size: 0.98rem; font-weight: 400; }
+:root[data-theme='blueprint'] .game-icon { background: transparent; box-shadow: 0 0 0 1px var(--rule-2); border-radius: 0; }
+:root[data-theme='blueprint'] .game-status { background: none; color: var(--ink-2); padding: 0; border-radius: 0; font-size: 0.72rem; }
+/* The game of the day is a title block: a double line. */
+:root[data-theme='blueprint'] .gotd-card { background: transparent; box-shadow: 0 0 0 1px var(--rule-2), inset 0 0 0 4px var(--paper), inset 0 0 0 5px var(--rule); }
+
+/* ---------- Boards: a double frame and a tick ruler ---------- */
+
+:root[data-theme='blueprint'] :is(.board, .board-frame) { box-shadow: 0 0 0 1px var(--ink); outline: 1px solid var(--rule-2); outline-offset: 5px; }
+:root[data-theme='blueprint'] .board-frame .board { box-shadow: none; outline: 0; }
+:root[data-theme='blueprint'] .board-wrap {
+  background: repeating-linear-gradient(90deg, var(--rule-2) 0 1px, transparent 1px 12px) top center / 100% 5px no-repeat;
+  padding-top: 12px;
+}
+:root[data-theme='blueprint'] .cell { font-weight: 400; }
+:root[data-theme='blueprint'] .cell.given { font-weight: 700; }
+:root[data-theme='blueprint'] .cell.in-unit::before { background: var(--ink); opacity: 0.06; mix-blend-mode: normal; }
+:root[data-theme='blueprint'] .cell.same::before { background: repeating-linear-gradient(45deg, var(--ink) 0 1px, transparent 1px 5px); opacity: 0.35; mix-blend-mode: normal; }
+:root[data-theme='blueprint'] .cell.selected::before { background: var(--c); opacity: 0.32; mix-blend-mode: normal; box-shadow: inset 0 0 0 1.5px var(--ink); }
+:root[data-theme='blueprint'] .cell.selected,
+:root[data-theme='blueprint'] .cell.selected.user { color: var(--ink); }
+:root[data-theme='blueprint'] .cell.wrong::before { inset: 3px; border: 1px dashed var(--coral); border-radius: 0; rotate: none; background: none; opacity: 1; }
+:root[data-theme='blueprint'] .cell.selected.wrong::before { background: color-mix(in srgb, var(--coral) 25%, transparent); border: 1px dashed var(--coral); border-radius: 0; inset: 3px; }
+:root[data-theme='blueprint'] .overprint i { background: var(--ink); opacity: 0.08; mix-blend-mode: normal; }
+:root[data-theme='blueprint'] .card { box-shadow: 0 0 0 1px var(--rule-2); }
+:root[data-theme='blueprint'] .card.down { background: repeating-linear-gradient(45deg, var(--rule-2) 0 1px, var(--sheet) 1px 6px); box-shadow: 0 0 0 1px var(--ink); }
+:root[data-theme='blueprint'] .card.selected { box-shadow: 0 0 0 2px var(--ink); }
+:root[data-theme='blueprint'] .pile { outline: 1px dashed var(--rule-2); }
+:root[data-theme='blueprint'] .die { box-shadow: 0 0 0 1px var(--rule-2); }
+
+/* Square, like everything else here: the round icon buttons and the timer pill too. */
+:root[data-theme='blueprint'] :is(.icon-btn, .timer, .hold-btn) { border-radius: 0; }

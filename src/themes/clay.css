@@ -1,0 +1,60 @@
+/* Claymorphism: pastel lilac ground and soft candy tiles that look pressed out of clay. Every surface is puffed by
+   two insets (a highlight top-left, a shade bottom-right) and a soft drop; a press swaps the insets, so the key looks
+   pushed in. Corners are very round, the face is fat and rounded (Fredoka, OFL). Home cards are filled with a pastel
+   of their family's colour; no lines anywhere. */
+
+@font-face { font-family: 'Fredoka'; font-weight: 300 700; font-display: swap; src: url('../fonts/fredoka-latin-wght-normal.woff2') format('woff2'); }
+
+:root[data-theme='clay'] {
+  --press: inset -3px -3px 6px var(--hi), inset 4px 4px 9px var(--lo), 1px 2px 4px -2px var(--drop);
+  --candy: color-mix(in srgb, var(--c) 28%, var(--sheet));
+}
+:root[data-theme='clay'] body { font-weight: 450; }
+:root[data-theme='clay'] :is(.wordmark, .logo, .topbar-title, .meta b, .dialog h2, .gotd-name, .theme-name, .continue b, .section-label) { font-weight: 650; letter-spacing: -0.01em; }
+:root[data-theme='clay'] .cell { font-weight: 550; }
+
+/* ---------- Clay: puffed at rest, pushed in when pressed ---------- */
+
+:root[data-theme='clay'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .continue, .summary, .panel, .dialog, .theme-opt),
+:root[data-theme='clay'] .tool svg {
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.12s ease, transform 0.12s ease;
+}
+:root[data-theme='clay'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .continue, .theme-opt):active,
+:root[data-theme='clay'] .tool:active svg {
+  box-shadow: var(--press);
+  transform: scale(0.98);
+}
+:root[data-theme='clay'] .tool.active svg { background: var(--candy); box-shadow: var(--press); color: var(--c); }
+:root[data-theme='clay'] :is(.btn-primary, .continue) { background: var(--c); color: var(--on-ink); }
+:root[data-theme='clay'] .continue small { color: var(--on-ink); opacity: 0.85; }
+:root[data-theme='clay'] .dialog::backdrop { background: rgb(54 38 79 / 0.35); }
+:root[data-theme='clay'] .theme-opt[aria-checked='true'] { outline: 3px solid var(--c); outline-offset: 3px; }
+
+/* ---------- Home: candy tiles ---------- */
+
+:root[data-theme='clay'] .game-card { background: var(--candy); }
+:root[data-theme='clay'] .game-icon { border-radius: 18px; background: var(--sheet); box-shadow: inset 2px 2px 4px var(--lo), inset -2px -2px 4px var(--hi); overflow: hidden; }
+:root[data-theme='clay'] .gotd-card { background: color-mix(in srgb, var(--berry) 26%, var(--sheet)); }
+:root[data-theme='clay'] .game-status { border-radius: 999px; box-shadow: inset 1px 1px 2px var(--lo), inset -1px -1px 2px var(--hi); }
+:root[data-theme='clay'] .section-label::before { width: 14px; height: 14px; box-shadow: inset 2px 2px 3px rgb(255 255 255 / 0.55), inset -2px -2px 3px rgb(0 0 0 / 0.2); }
+
+/* ---------- Boards: a tray pressed into the clay ---------- */
+
+:root[data-theme='clay'] :is(.board, .board-frame) { box-shadow: inset 3px 3px 8px var(--lo), inset -3px -3px 8px var(--hi), 0 0 0 6px var(--sheet), 6px 12px 26px -6px var(--drop); }
+:root[data-theme='clay'] .board-frame .board { box-shadow: none; }
+:root[data-theme='clay'] .board-wrap { padding: 8px; }
+:root[data-theme='clay'] .cell.selected::before { inset: 3px; border-radius: 12px; background: var(--c); opacity: 0.3; mix-blend-mode: normal; box-shadow: inset 2px 2px 4px rgb(255 255 255 / 0.6); }
+:root[data-theme='clay'] .cell.same::before { inset: 3px; border-radius: 12px; background: var(--c); opacity: 0.15; mix-blend-mode: normal; }
+:root[data-theme='clay'] .cell.wrong::before { inset: 3px; border: 0; border-radius: 12px; rotate: none; background: var(--coral); opacity: 0.2; }
+:root[data-theme='clay'] .cell.selected.wrong::before { inset: 3px; border: 2px solid var(--coral); border-radius: 12px; background: color-mix(in srgb, var(--coral) 25%, transparent); }
+:root[data-theme='clay'] .overprint i { background: var(--c); opacity: 0.1; mix-blend-mode: normal; }
+:root[data-theme='clay'] .card { border-radius: 12px; box-shadow: inset 2px 2px 3px var(--hi), inset -2px -2px 4px var(--lo), 2px 4px 8px -3px var(--drop); }
+:root[data-theme='clay'] .card.down { background: var(--candy); }
+:root[data-theme='clay'] .card.selected { box-shadow: 0 0 0 3px var(--c), 2px 4px 8px -3px var(--drop); }
+:root[data-theme='clay'] .pile { border-radius: 12px; outline: 0; box-shadow: inset 2px 2px 5px var(--lo), inset -2px -2px 5px var(--hi); }
+:root[data-theme='clay'] .die { border-radius: 18px; box-shadow: var(--shadow); }
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-theme='clay'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .continue, .theme-opt):active { transform: none; }
+}

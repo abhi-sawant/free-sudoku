@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en" data-family="blue">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Your profile: how you play, your badges, and your settings." />
+    <meta name="theme-color" content="#eef2f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121825" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+    <link rel="preload" href="/src/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="noindex" />
+    <!-- Sets the theme the player picked before the first paint; see src/theme.ts. -->
+    <script>try{var t=localStorage.getItem('games.theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+    <!-- The paper colour from base.css, so the page never shows the browser's white canvas while the stylesheet loads. -->
+    <style>html { background: #eef2f7; } @media (prefers-color-scheme: dark) { html { background: #121825; } }</style>
+    <link rel="stylesheet" href="/src/profile/style.css" />
+    <title>Your profile</title>
+  </head>
+  <body>
+    <div id="app">
+      <main class="screen wide profile ink-blue">
+        <header class="topbar">
+          <a class="icon-btn" href="/" aria-label="All games">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+          </a>
+          <h1 class="topbar-title">Profile</h1>
+          <span class="icon-btn" aria-hidden="true"></span>
+        </header>
+
+        <section id="banner" class="panel profile-banner" aria-labelledby="profile-name">
+          <div class="profile-who">
+            <span class="profile-avatar" id="profile-avatar" aria-hidden="true">Y</span>
+            <div>
+              <h2 class="profile-name" id="profile-name">You</h2>
+              <button class="btn profile-title" id="profile-title" type="button" aria-haspopup="dialog" title="Change your title">The Fresh Newcomer</button>
+            </div>
+          </div>
+          <dl class="stat-tiles">
+            <div class="stat-tile"><dt>Games</dt><dd id="tile-games">0</dd></div>
+            <div class="stat-tile"><dt>Played</dt><dd id="tile-time">0m</dd></div>
+            <div class="stat-tile"><dt>Streak</dt><dd id="tile-streak">0 days</dd></div>
+            <div class="stat-tile"><dt>Badges</dt><dd id="tile-badges">0</dd></div>
+          </dl>
+        </section>
+
+        <p id="overview-error" class="profile-note" role="status" hidden></p>
+        <p id="overview-empty" class="profile-note" hidden>Play a few games and your stats appear here.</p>
+
+        <div id="overview" class="profile-grid">
+          <section class="panel profile-card wide needs-play" aria-labelledby="cal-label">
+            <h2 class="section-label" id="cal-label">Activity</h2>
+            <div id="calendar" class="calendar" role="img"></div>
+            <div class="calendar-key muted" aria-hidden="true"><span>Less</span><i data-l="0"></i><i data-l="1"></i><i data-l="2"></i><i data-l="3"></i><span>More</span></div>
+          </section>
+          <section class="panel profile-card needs-play" aria-labelledby="top-label">
+            <h2 class="section-label" id="top-label">Top games</h2>
+            <div id="top" class="top-games"></div>
+            <a class="more-link" href="/stats/">Full stats</a>
+          </section>
+          <section class="panel profile-card needs-play" aria-labelledby="hours-label">
+            <h2 class="section-label" id="hours-label">Time of day</h2>
+            <div id="hours" class="hours" role="img"></div>
+            <div class="hours-axis muted" aria-hidden="true"><span>12am</span><span>6am</span><span>12pm</span><span>6pm</span><span>11pm</span></div>
+          </section>
+          <section class="panel profile-card needs-play" aria-labelledby="hl-label">
+            <h2 class="section-label" id="hl-label">Highlights</h2>
+            <dl id="highlights" class="highlights"></dl>
+          </section>
+          <section class="panel profile-card badges-card" aria-labelledby="badges-label">
+            <h2 class="section-label" id="badges-label">Badges</h2>
+            <div id="badge-strip" class="badge-strip"></div>
+            <a class="more-link" href="/badges/">All badges</a>
+          </section>
+        </div>
+
+        <div id="settings" class="profile-settings">
+          <section id="appearance" class="settings-block" aria-labelledby="appearance-label">
+            <h2 class="section-label" id="appearance-label">Appearance</h2>
+            <div id="theme-grid" class="theme-grid" aria-labelledby="appearance-label"></div>
+          </section>
+
+          <section id="install" class="settings-block" aria-labelledby="install-label" hidden>
+            <h2 class="section-label" id="install-label">Install</h2>
+            <div class="panel install-card">
+              <p class="account-lead">Add Games to your home screen to play offline, like an app.</p>
+              <button class="btn btn-primary install-btn" id="install-btn" type="button" hidden>Install</button>
+            </div>
+          </section>
+
+          <section id="account-out" class="settings-block" aria-labelledby="out-label" hidden>
+            <h2 class="section-label" id="out-label">Account</h2>
+            <div class="panel account-card">
+              <p class="account-lead">Sign in to sync your progress across devices</p>
+              <div class="account-actions two">
+                <a class="btn btn-primary" href="/signin/index.html">Sign in</a>
+                <a class="btn" href="/signup/index.html">Create account</a>
+              </div>
+            </div>
+          </section>
+
+          <section id="account-in" class="settings-block" aria-label="Account" hidden>
+            <section class="panel account-card" aria-labelledby="who">
+              <h2 class="section-label" id="who">Name and email</h2>
+              <p class="account-email" id="email">&nbsp;</p>
+              <form id="name-form" class="account-form" novalidate>
+                <label class="field"><span>Name</span><input id="name" type="text" autocomplete="nickname" maxlength="40" /></label>
+                <p id="name-msg" class="form-note" role="status" hidden></p>
+                <button id="name-save" class="btn" type="submit">Save name</button>
+              </form>
+            </section>
+
+            <section class="panel account-card" aria-labelledby="sync-label">
+              <h2 class="section-label" id="sync-label">Sync</h2>
+              <p id="sync-line" class="account-lead">Checking…</p>
+              <button id="sync-now" class="btn" type="button">Sync now</button>
+            </section>
+
+            <section class="panel account-card" aria-labelledby="lb-label">
+              <h2 class="section-label" id="lb-label">Leaderboards</h2>
+              <p class="account-lead">Your name and best results appear on each game's leaderboard. Turn this off to be removed from every board.</p>
+              <label class="switch-row"><input id="lb-optin" type="checkbox" /><span>Show me on leaderboards</span></label>
+              <p id="lb-msg" class="form-note" role="status" hidden></p>
+            </section>
+
+            <section class="panel account-card" aria-labelledby="devices-label">
+              <h2 class="section-label" id="devices-label">Signed-in devices</h2>
+              <ul id="devices" class="device-list"></ul>
+            </section>
+
+            <section class="panel account-card" aria-labelledby="security-label">
+              <h2 class="section-label" id="security-label">Security</h2>
+              <div class="account-actions">
+                <button id="change-password" class="btn" type="button">Change password</button>
+                <button id="signout" class="btn" type="button">Sign out</button>
+                <button id="delete" class="btn btn-quiet" type="button">Delete account</button>
+              </div>
+            </section>
+            <p id="page-error" class="form-error" role="alert" hidden></p>
+          </section>
+        </div>
+      </main>
+
+      <dialog id="title-dialog" class="dialog title-dialog" aria-labelledby="title-preview">
+        <h2 id="title-preview">The Fresh Newcomer</h2>
+        <p>Pick one of each. New words unlock as you play.</p>
+        <h3 class="title-group">How you play</h3>
+        <div id="title-adjs" class="title-chips" role="group" aria-label="How you play"></div>
+        <h3 class="title-group">What you play</h3>
+        <div id="title-nouns" class="title-chips" role="group" aria-label="What you play"></div>
+        <div class="dialog-actions">
+          <button id="title-auto" class="btn" type="button">Pick for me</button>
+          <button id="title-done" class="btn btn-primary" type="button">Done</button>
+        </div>
+      </dialog>
+
+      <dialog id="signout-dialog" class="dialog" aria-labelledby="signout-title">
+        <h2 id="signout-title">Sign out?</h2>
+        <p>Your progress is saved in your account. Keep a copy on this device, or remove it if this device is shared.</p>
+        <div class="dialog-actions">
+          <button id="signout-keep" class="btn btn-primary">Keep progress</button>
+          <button id="signout-clear" class="btn">Remove it</button>
+        </div>
+        <div class="dialog-actions one"><button id="signout-cancel" class="btn btn-quiet">Cancel</button></div>
+      </dialog>
+
+      <dialog id="password-dialog" class="dialog" aria-labelledby="password-title">
+        <h2 id="password-title">Change password</h2>
+        <form id="password-form" class="account-form" novalidate>
+          <label class="field"><span>Current password</span><input id="current-password" type="password" autocomplete="current-password" required /></label>
+          <label class="field"><span>New password</span><input id="new-password" type="password" autocomplete="new-password" minlength="8" required /></label>
+          <p id="password-error" class="form-error" role="alert" hidden></p>
+          <div class="dialog-actions">
+            <button type="button" id="password-cancel" class="btn">Cancel</button>
+            <button type="submit" id="password-submit" class="btn btn-primary">Change</button>
+          </div>
+        </form>
+      </dialog>
+
+      <dialog id="delete-dialog" class="dialog" aria-labelledby="delete-title">
+        <h2 id="delete-title">Delete account?</h2>
+        <p>This permanently deletes your account and the progress saved in it. Progress on this device stays. This can't be undone.</p>
+        <form id="delete-form" class="account-form" novalidate>
+          <label class="field"><span>Your password</span><input id="delete-password" type="password" autocomplete="current-password" required /></label>
+          <p id="delete-error" class="form-error" role="alert" hidden></p>
+          <div class="dialog-actions">
+            <button type="button" id="delete-cancel" class="btn">Cancel</button>
+            <button type="submit" id="delete-submit" class="btn btn-danger">Delete</button>
+          </div>
+        </form>
+      </dialog>
+    </div>
+    <script type="module" src="/src/profile/main.ts"></script>
+  </body>
+</html>

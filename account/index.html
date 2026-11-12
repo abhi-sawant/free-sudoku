@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- The account settings are on the profile now (src/profile/). This page only sends old links on to the profile. -->
+    <meta http-equiv="refresh" content="0; url=/profile/index.html" />
+    <style>html { background: #eef2f7; } @media (prefers-color-scheme: dark) { html { background: #121825; } }</style>
+    <title>Your profile</title>
+  </head>
+  <body>
+    <script>location.replace('/profile/index.html' + location.search)</script>
+    <p><a href="/profile/index.html">Your profile</a></p>
+  </body>
+</html>

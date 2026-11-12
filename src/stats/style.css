@@ -1,0 +1,58 @@
+/* The stats page (/stats/). It reuses the home page's sheet, so the game cards, family inks and every theme carry
+   over as they are; only the charts and the detail dialog are its own, drawn from the shared tokens. */
+@import '../style.css';
+
+.stats { padding-bottom: 32px; }
+.stats .topbar { grid-template-columns: 44px 1fr 44px; }
+.stats .section-label { margin: 26px 4px 10px; }
+
+.stats-totals {
+  margin: 4px 4px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.stats-totals b { color: var(--ink); font-weight: 800; }
+
+/* ---------- Every game: the home page's cards, with numbers in place of the description ---------- */
+
+.stats-games { margin-top: 8px; }
+.stats-games .game-card { font: inherit; border: 0; cursor: pointer; width: 100%; }
+.stats-games .game-card.never { opacity: 0.5; }
+.stat-line { font-size: 0.78rem; font-weight: 700; line-height: 1.25; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+/* ---------- One game's numbers ---------- */
+
+.stats-dialog { width: min(420px, calc(100vw - 32px)); }
+.stats-dialog h2 { margin: 0 0 14px; }
+.stats-detail { max-height: min(62vh, 560px); overflow-y: auto; margin: 0 -4px 16px; padding: 0 4px; }
+.stats-detail dl { margin: 0; }
+.stats-detail dl div { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-top: 1px solid var(--rule); }
+.stats-detail dl div:first-child { border-top: 0; }
+.stats-detail dt { color: var(--ink-2); font-weight: 600; }
+.stats-detail dd { margin: 0; font-weight: 800; text-align: right; font-variant-numeric: tabular-nums; }
+.stats-detail h3 { margin: 18px 0 6px; font-size: 0.95rem; font-weight: 800; }
+.stats-detail .summary { margin: 0; }
+.stats-detail .note { margin: 6px 0 0; font-size: 0.85rem; color: var(--ink-2); }
+.dialog-actions.one { grid-template-columns: 1fr; }
+
+.stats-foot { margin: 28px 4px 0; text-align: center; font-size: 0.85rem; }
+
+/* The list themes lay the home cards out as rows with the name filling the line. Here a row also carries its
+   numbers, so the name and numbers stack in one column beside the icon, like a list row with a subtitle. */
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .stats-games .game-text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  text-align: left;
+}
+:root:is([data-theme='graph'], [data-theme='linen'], [data-theme='sage'], [data-theme='terminal'], [data-theme='blueprint'], [data-theme='news']) .stats-games .game-name { flex: none; }
+
+/* The top bar's right-hand spacer only balances the title; some themes would draw it as an empty button. */
+.stats .topbar > span.icon-btn { visibility: hidden; }
+
+/* The link back to the profile. */
+.badges-link { color: var(--c); font-weight: 800; text-decoration: none; }

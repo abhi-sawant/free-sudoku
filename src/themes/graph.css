@@ -34,8 +34,8 @@
 :root[data-theme='graph'] ::selection { background: color-mix(in srgb, var(--hl-y) 70%, transparent); }
 
 /* A pen outline is its own layer, so the wobble never distorts text. */
-:root[data-theme='graph'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .pad-btn, .continue, .gotd-card, .timer, .dialog, .summary) { position: relative; box-shadow: none; }
-:root[data-theme='graph'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .pad-btn, .continue, .gotd-card, .timer, .summary)::after {
+:root[data-theme='graph'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .pad-btn, .continue, .gotd-card, .timer, .dialog, .summary, .panel) { position: relative; box-shadow: none; }
+:root[data-theme='graph'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .pad-btn, .continue, .gotd-card, .timer, .summary, .panel)::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -196,3 +196,7 @@
 @media (prefers-color-scheme: dark) {
   :root[data-theme='graph'] :is(.gotd-card, .continue) { background: color-mix(in srgb, var(--hl-y) 16%, var(--paper)); }
 }
+
+/* The profile's surfaces (.panel, src/base.css) follow this theme's other surfaces. */
+:root[data-theme='graph'] .panel { border-radius: 6px; background: var(--sheet); }
+:root[data-theme='graph'] .panel::after { border-radius: 6px; }

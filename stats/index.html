@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" data-family="blue">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Your stats across every game, from this device." />
+    <meta name="theme-color" content="#eef2f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121825" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+    <link rel="preload" href="/src/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="noindex" />
+    <!-- Sets the theme the player picked before the first paint; see src/theme.ts. -->
+    <script>try{var t=localStorage.getItem('games.theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+    <!-- The paper colour from base.css, so the page never shows the browser's white canvas while the stylesheet loads. -->
+    <style>html { background: #eef2f7; } @media (prefers-color-scheme: dark) { html { background: #121825; } }</style>
+    <link rel="stylesheet" href="/src/stats/style.css" />
+    <title>Your stats</title>
+  </head>
+  <body>
+    <div id="app">
+      <main class="screen wide stats ink-blue">
+        <header class="topbar">
+          <a class="icon-btn" href="/profile/index.html" aria-label="Your profile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+          </a>
+          <h1 class="topbar-title">Your stats</h1>
+          <span class="icon-btn" aria-hidden="true"></span>
+        </header>
+
+        <p id="status" class="stats-totals" role="status" hidden></p>
+
+        <nav id="games" class="games stats-games" aria-label="Every game"></nav>
+
+        <p class="stats-foot muted">Counted on this device. Without an account, nothing is sent anywhere. With one, your best results appear on each game's leaderboard unless you opt out.</p>
+        <p class="stats-foot"><a class="badges-link" href="/profile/index.html">Back to your profile</a></p>
+      </main>
+
+      <dialog id="game-dialog" class="dialog stats-dialog" aria-labelledby="game-dialog-title">
+        <h2 id="game-dialog-title"></h2>
+        <div id="game-dialog-body" class="stats-detail"></div>
+        <div class="dialog-actions one">
+          <button id="game-dialog-close" class="btn btn-primary">Done</button>
+        </div>
+      </dialog>
+    </div>
+    <script type="module" src="/src/stats/main.ts"></script>
+  </body>
+</html>

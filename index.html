@@ -20,17 +20,14 @@
   </head>
   <body>
     <div id="app">
-      <main class="screen home">
+      <main class="screen wide home">
         <header class="mast">
           <h1 class="wordmark">Games<span class="reg" aria-hidden="true">Games</span></h1>
           <p class="stamps"><span>Free</span><span>Offline</span><span>No ads</span></p>
           <div class="mast-actions">
-            <button class="btn btn-primary ink-blue install-btn" id="install-btn" type="button" hidden>
-              Install
-            </button>
-            <button class="icon-btn" id="theme-btn" type="button" aria-label="Theme" aria-haspopup="dialog">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.7 1.8-1.7H16a5 5 0 0 0 5-5c0-3.9-4-7-9-7z" /><circle cx="7.5" cy="11" r="1" /><circle cx="10.5" cy="7" r="1" /><circle cx="15.5" cy="7.5" r="1" /></svg>
-            </button>
+            <a class="icon-btn" id="account-btn" href="/profile/index.html" aria-label="Profile">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" /></svg>
+            </a>
           </div>
         </header>
 
@@ -299,6 +296,17 @@
               <span class="game-name">2048</span>
               <span class="game-desc">Slide the tiles and merge them to reach 2048.</span>
               <span class="game-status" id="2048-status" hidden></span>
+            </span>
+            <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
+          </a>
+          <a class="game-card ink-lilac grain" href="/halo/index.html">
+            <span class="game-icon game-icon-halo" aria-hidden="true">
+              <i data-exp="1">2</i><i data-exp="2">4</i><i data-exp="2">4</i><i data-exp="3">8</i><i class="plus">+</i><i data-exp="1">2</i><i data-exp="4">16</i><i data-exp="3">8</i><i data-exp="1">2</i>
+            </span>
+            <span class="game-text">
+              <span class="game-name">Halo</span>
+              <span class="game-desc">Place numbers around a ring and merge matching pairs.</span>
+              <span class="game-status" id="halo-status" hidden></span>
             </span>
             <svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg>
           </a>
@@ -662,12 +670,6 @@
         <footer class="home-foot">Works offline after the first visit · <span id="app-version"></span></footer>
       </main>
     </div>
-    <dialog class="dialog theme-dialog" id="theme-dialog" aria-labelledby="theme-title">
-      <h2 id="theme-title">Theme</h2>
-      <p>Pick a look for every game. It is kept on this device.</p>
-      <div class="theme-grid" id="theme-grid" role="radiogroup" aria-labelledby="theme-title"></div>
-      <button class="btn btn-primary" id="theme-close" type="button">Done</button>
-    </dialog>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

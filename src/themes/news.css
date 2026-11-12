@@ -1,0 +1,81 @@
+/* Newsprint: a broadsheet page. Neutral grey stock, black ink, square corners, one-pixel rules and double rules
+   (boards, the game of the day and each section's head carry a double rule). Tints are printed as halftone dots, not
+   flat fills: the selected cell, matching cells, card backs and each family's mark. The home page sets its games in
+   two columns with a column rule. Playfair Display headlines (OFL) over the system serif; primary actions are solid
+   black. */
+
+@font-face { font-family: 'Playfair Display'; font-weight: 400 900; font-display: swap; src: url('../fonts/playfair-display-latin-wght-normal.woff2') format('woff2'); }
+
+:root[data-theme='news'] {
+  --dots: radial-gradient(var(--c) 42%, transparent 46%) 0 0 / 4px 4px;
+  --double: 0 0 0 1px var(--ink), 0 0 0 4px var(--paper), 0 0 0 5px var(--ink);
+}
+:root[data-theme='news'] body { font-weight: 400; }
+:root[data-theme='news'] :is(.wordmark, .logo, .topbar-title, .meta b, .dialog h2, .gotd-name, .theme-name, .continue b) { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.01em; }
+:root[data-theme='news'] .wordmark { font-weight: 900; letter-spacing: -0.025em; }
+:root[data-theme='news'] :is(.tagline, .stamps) { font-style: italic; }
+:root[data-theme='news'] :is(.level small, .new-game small, .gotd-tag, .game-status, .tool, .meta span) { text-transform: uppercase; letter-spacing: 0.07em; font-size: 0.72rem; }
+:root[data-theme='news'] .cell { font-family: var(--font-display); font-weight: 600; }
+:root[data-theme='news'] .cell.given { font-weight: 800; }
+
+/* ---------- Ruled boxes ---------- */
+
+:root[data-theme='news'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .summary, .panel, .dialog),
+:root[data-theme='news'] .tool svg {
+  background: var(--sheet);
+  box-shadow: 0 0 0 1px var(--ink);
+}
+:root[data-theme='news'] :is(.icon-btn, .timer, .hold-btn) { border-radius: 0; }
+:root[data-theme='news'] .dialog { box-shadow: var(--double); }
+:root[data-theme='news'] :is(.btn, .level, .new-game, .icon-btn, .pad-btn, .back-link):active,
+:root[data-theme='news'] .tool:active svg { background: var(--sunk); transform: none; }
+:root[data-theme='news'] :is(.btn-primary, .continue) { background: var(--ink); color: var(--paper); box-shadow: none; }
+:root[data-theme='news'] .continue small { color: var(--paper); opacity: 0.8; }
+:root[data-theme='news'] .tool.active svg { background: var(--ink); color: var(--paper); }
+:root[data-theme='news'] .dialog::backdrop { background: rgb(17 17 17 / 0.45); }
+:root[data-theme='news'] .summary thead th { background: none; border-bottom: 3px double var(--ink); }
+:root[data-theme='news'] :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+:root[data-theme='news'] .theme-opt[aria-checked='true'] { outline: 0; box-shadow: var(--double); }
+
+/* ---------- Home: two columns under double-ruled heads ---------- */
+
+:root[data-theme='news'] .section-label {
+  width: auto;
+  justify-self: stretch;
+  padding-top: 8px;
+  border-top: 3px double var(--ink);
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+}
+:root[data-theme='news'] .section-label::before { width: 14px; height: 14px; border-radius: 0; background: var(--dots); }
+:root[data-theme='news'] .family {
+  grid-template-columns: 1fr 1fr;
+  column-gap: 25px;
+  background: linear-gradient(var(--rule), var(--rule)) 50% 46px / 1px calc(100% - 46px) no-repeat;
+}
+:root[data-theme='news'] .family .game-card { padding: 8px 0; min-height: 48px; gap: 8px; border-bottom: 1px solid var(--rule); align-items: flex-start; flex-direction: column; justify-content: center; }
+:root[data-theme='news'] .family .game-icon { display: none; }
+:root[data-theme='news'] .game-name { font-family: var(--font-display); font-weight: 700; font-size: 1.02rem; line-height: 1.15; }
+:root[data-theme='news'] .game-status { margin-left: 0; background: none; color: var(--ink-2); padding: 0; border-radius: 0; }
+:root[data-theme='news'] .gotd-card { background: var(--sheet); box-shadow: var(--double); }
+:root[data-theme='news'] .gotd-card .game-icon { background: var(--paper); box-shadow: 0 0 0 1px var(--ink); }
+
+/* ---------- Boards: a double rule; tints in halftone ---------- */
+
+:root[data-theme='news'] :is(.board, .board-frame) { box-shadow: var(--double); }
+:root[data-theme='news'] .board-frame .board { box-shadow: none; }
+:root[data-theme='news'] .board-wrap { padding: 5px; }
+:root[data-theme='news'] .cell.in-unit::before { background: radial-gradient(var(--ink) 30%, transparent 34%) 0 0 / 4px 4px; opacity: 0.12; mix-blend-mode: normal; }
+:root[data-theme='news'] .cell.same::before { background: radial-gradient(var(--ink) 38%, transparent 42%) 0 0 / 4px 4px; opacity: 0.28; mix-blend-mode: normal; }
+:root[data-theme='news'] .cell.selected::before { background: var(--dots); opacity: 0.55; mix-blend-mode: normal; box-shadow: inset 0 0 0 2px var(--ink); }
+:root[data-theme='news'] .cell.selected,
+:root[data-theme='news'] .cell.selected.user { color: var(--ink); }
+:root[data-theme='news'] .cell.wrong::before { inset: 2px; border: 2px solid var(--coral); border-radius: 0; rotate: none; background: none; opacity: 1; }
+:root[data-theme='news'] .cell.selected.wrong::before { inset: 2px; border: 2px solid var(--coral); border-radius: 0; background: radial-gradient(var(--coral) 38%, transparent 42%) 0 0 / 4px 4px; }
+:root[data-theme='news'] .overprint i { background: var(--ink); opacity: 0.08; mix-blend-mode: normal; }
+:root[data-theme='news'] .card { box-shadow: 0 0 0 1px var(--ink); }
+:root[data-theme='news'] .card.down { background: radial-gradient(var(--c) 40%, transparent 44%) 0 0 / 5px 5px, var(--sheet); box-shadow: inset 0 0 0 3px var(--sheet), 0 0 0 1px var(--ink); }
+:root[data-theme='news'] .card.selected { background: radial-gradient(var(--yellow) 40%, transparent 44%) 0 0 / 4px 4px, var(--sheet); box-shadow: 0 0 0 2px var(--ink); }
+:root[data-theme='news'] .pile { outline: 1px dashed var(--ink-2); }
+:root[data-theme='news'] .die { box-shadow: 0 0 0 1px var(--ink); }

@@ -8,3 +8,6 @@ android/keystore/
 *.keystore
 test-results
 playwright-report
+.env*.local
+
+.impeccable/

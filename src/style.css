@@ -7,8 +7,6 @@
   justify-content: center;
   padding: 20px 0 20px;
 }
-/* The phone column widens on bigger screens so the game grid gets more columns. */
-.screen.home { max-width: 1120px; }
 @media (min-width: 640px) {
   .home { padding: 64px 0 40px; }
 }
@@ -206,6 +204,12 @@
 .game-icon-2248 [data-exp='4'], .game-icon-2048 [data-exp='4'] { background: linear-gradient(color-mix(in srgb, var(--lilac) 42%, transparent), color-mix(in srgb, var(--lilac) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--lilac); }
 .game-icon-2248 [data-exp='5'], .game-icon-2048 [data-exp='5'] { background: var(--lilac); color: var(--on-ink); box-shadow: none; }
 .game-icon-2048 i:empty { box-shadow: inset 0 0 0 0.5px var(--rule); }
+/* Halo: round tiles in the same lilac scale circle a solid merge piece. */
+.game-icon-halo i { font-size: 0.68rem; color: var(--ink); background: var(--sheet); border-radius: 50%; scale: 0.86; }
+.game-icon-halo [data-exp='1'] { box-shadow: inset 0 0 0 1.5px var(--lilac); }
+.game-icon-halo [data-exp='2'], .game-icon-halo [data-exp='3'] { background: linear-gradient(color-mix(in srgb, var(--lilac) 42%, transparent), color-mix(in srgb, var(--lilac) 42%, transparent)), var(--sheet); box-shadow: inset 0 0 0 1.5px var(--lilac); }
+.game-icon-halo [data-exp='4'], .game-icon-halo .plus { background: var(--lilac); color: var(--on-ink); box-shadow: none; }
+.game-icon-halo .plus { font-size: 1.1rem; font-weight: 700; }
 
 /* Tic-tac-toe: a ruled # in ink, X in the family pen and O in the red pen, written by hand. */
 .game-icon-ttt i { box-shadow: none; font-family: var(--pen-font); font-size: 1.3rem; font-weight: 700; overflow: hidden; }
@@ -514,8 +518,18 @@
 /* ---------- Theme picker ---------- */
 
 /* Each option is drawn in its own theme (see .theme-opt in themes.css): its paper, a tile on it, its fonts. */
-.theme-dialog { width: min(420px, calc(100vw - 32px)); }
-.theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; text-align: left; }
+/* With a dozen options the list scrolls inside the dialog, so the title and Done button stay on screen. */
+.theme-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0 -5px 15px;
+  padding: 5px; /* room for the selected option's outline, which the scroll box would otherwise clip */
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  text-align: left;
+}
 .theme-opt {
   display: grid;
   gap: 10px;

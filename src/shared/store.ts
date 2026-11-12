@@ -1,6 +1,8 @@
 // localStorage helpers shared by the newer games: saved games, history logs and per-level stats.
 // Every read survives missing or corrupt data, and every write survives a full or blocked store.
 
+import { capHistory, stampActive } from './archive';
+
 export function loadJSON<T>(key: string, fallback: T): T {
   try {
     const v = JSON.parse(localStorage.getItem(key) ?? 'null');
@@ -14,7 +16,8 @@ export function saveJSON(key: string, value: unknown) {
   try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* storage full or unavailable */ }
 }
 
-/** A newest-first log of finished games, capped at `max` entries. */
+/** A newest-first log of finished games, capped at `max` entries; older ones fold into the game's archive (see
+ *  archive.ts), and each new entry is stamped with its active play time. */
 export function createHistory<T>(key: string, max = 500) {
   const load = (): T[] => {
     const list = loadJSON<unknown>(key, []);
@@ -24,8 +27,8 @@ export function createHistory<T>(key: string, max = 500) {
     load,
     add(entry: T) {
       const list = load();
-      list.unshift(entry);
-      saveJSON(key, list.slice(0, max));
+      list.unshift(stampActive(key, entry as T & object));
+      saveJSON(key, capHistory(key, list, max));
     },
   };
 }

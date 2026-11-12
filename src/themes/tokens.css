@@ -94,6 +94,109 @@
   color-scheme: light;
 }
 
+/* ---------- Neo-brutalist: cream paper, black borders, hard offset shadows ---------- */
+
+:root[data-theme='brutal'], .theme-opt[data-theme='brutal'] {
+  --paper: #fff3d6; --sheet: #ffffff; --sunk: #f3e3bd; --ink: #111111; --ink-2: #4a4a4a;
+  --rule: #e5d4a8; --rule-2: #111111; --on-ink: #ffffff;
+  --blue: #1d4ed8; --teal: #0e7490; --coral: #c81e1e; --yellow: #facc15; --lilac: #6d28d9; --mint: #047857;
+  --orange: #b34700; --sky: #0f766e; --olive: #3f6212; --berry: #be185d; --plum: #86198f; --cocoa: #7c4a1e;
+  --shadow: 0 0 0 2px var(--ink), 4px 4px 0 2px var(--ink);
+  --r-card: 8px; --r-board: 6px; --r-tile: 6px; --r-key: 6px; --wob: 8px;
+  --font-ui: 'Space Grotesk', 'Arial Black', system-ui, sans-serif;
+  --font-display: var(--font-ui);
+  color-scheme: light;
+}
+
+/* Claymorphism: pastel lilac, puffy tiles lit from the top left. --hi/--lo/--drop are the clay's highlight, shade and
+   drop shadow; a pressed key swaps the two insets (clay.css). */
+:root[data-theme='clay'], .theme-opt[data-theme='clay'] {
+  --paper: #ece2fa; --sheet: #f8f3ff; --sunk: #ddd0f0; --ink: #36264f; --ink-2: #66558a;
+  --rule: #d9cbee; --rule-2: #a996c8; --on-ink: #ffffff;
+  --blue: #3a54c2; --teal: #0d6f7a; --coral: #bd2f48; --yellow: #f2c94c; --lilac: #6941c6; --mint: #11704f;
+  --orange: #ab470c; --sky: #0c6c7d; --olive: #4a6a10; --berry: #ae2469; --plum: #8a2da3; --cocoa: #7f4e2e;
+  --hi: rgb(255 255 255 / 0.85); --lo: rgb(92 60 150 / 0.2); --drop: rgb(92 60 150 / 0.32);
+  --shadow: inset 3px 3px 6px var(--hi), inset -4px -4px 8px var(--lo), 6px 10px 22px -8px var(--drop);
+  --r-card: 32px; --r-board: 28px; --r-tile: 16px; --r-key: 22px; --wob: 28px;
+  --font-ui: 'Fredoka', 'Nunito', system-ui, sans-serif;
+  --font-display: var(--font-ui);
+  color-scheme: light;
+}
+
+/* Felt & Wood: a card table. Green baize ground, walnut tiles and boards, cream type. Both schemes are a dark table
+   (light is a brighter baize); accents are pale so they read on the felt. Card faces are set in felt.css. */
+:root[data-theme='felt'], .theme-opt[data-theme='felt'] {
+  --paper: #275c3b; --sheet: #6b4528; --sunk: #1f4c30; --ink: #f6edd8; --ink-2: #d6dcc2;
+  --rule: #84603c; --rule-2: #b38b58; --on-ink: #14301f;
+  --blue: #b9d3ff; --teal: #9fe8e0; --coral: #ffb4a6; --yellow: #ffe08a; --lilac: #d9c9ff; --mint: #a8ecc4;
+  --orange: #ffc890; --sky: #a4e6ec; --olive: #d6ef96; --berry: #ffbcd6; --plum: #f0c0ff; --cocoa: #f0d0a8;
+  --field: 20%; --note: color-mix(in srgb, var(--c) 26%, var(--sheet));
+  --shadow: inset 0 1px 0 rgb(255 255 255 / 0.2), inset 0 -2px 0 rgb(0 0 0 / 0.3), 0 2px 4px rgb(0 0 0 / 0.35);
+  --r-card: 10px; --r-board: 8px; --r-tile: 6px; --r-key: 8px; --wob: 10px;
+  --font-ui: 'Zilla Slab', Rockwell, Georgia, serif;
+  --font-display: var(--font-ui);
+  color-scheme: dark;
+}
+
+/* Newsprint: a broadsheet. Strictly neutral greys (no warm cast, unlike Linen), black ink, inks a little muted as if
+   printed. Playfair Display for headlines, the system serif for body text. */
+:root[data-theme='news'], .theme-opt[data-theme='news'] {
+  --paper: #e4e4e4; --sheet: #f0f0f0; --sunk: #d2d2d2; --ink: #111111; --ink-2: #4a4a4a;
+  --rule: #b4b4b4; --rule-2: #111111; --on-ink: #f0f0f0;
+  --blue: #2b4f8f; --teal: #1f6464; --coral: #ad241c; --yellow: #f2c230; --lilac: #57408f; --mint: #276446;
+  --orange: #9a4510; --sky: #1c606b; --olive: #475c1e; --berry: #9a2858; --plum: #752f84; --cocoa: #6a472c;
+  --shadow: 0 0 0 1px var(--ink);
+  --r-card: 0px; --r-board: 0px; --r-tile: 0px; --r-key: 0px; --wob: 0px;
+  --font-ui: Georgia, 'Times New Roman', serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+  color-scheme: light;
+}
+
+/* ---------- Midnight: true black, outlined tiles, glow rings. Dark only: one set of tokens whatever the OS says ---------- */
+
+:root[data-theme='midnight'], .theme-opt[data-theme='midnight'] {
+  --paper: #000000; --sheet: #08090b; --sunk: #000000; --ink: #f2f4f8; --ink-2: #9aa0ad;
+  --rule: #1c1f26; --rule-2: #3a3f4b; --on-ink: #000000;
+  --blue: #6ea0ff; --teal: #3fd0e0; --coral: #ff6b7d; --yellow: #ffd24a; --lilac: #a08bff; --mint: #4be0a8;
+  --orange: #ff9a3d; --sky: #33d6c4; --olive: #9be15a; --berry: #ff6fae; --plum: #d27bff; --cocoa: #d6b28a;
+  --field: 20%; --note: color-mix(in srgb, var(--c) 22%, var(--sheet));
+  --shadow: 0 0 0 1px var(--rule);
+  --r-card: 20px; --r-board: 12px; --r-tile: 12px; --r-key: 12px; --wob: 14px;
+  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-ui);
+  color-scheme: dark;
+}
+
+/* Terminal: amber phosphor on near-black. Dark only. Every accent is a shade of amber (families are told apart by a
+   text tag, not hue); coral stays a red-orange so a mistake still reads as one. */
+:root[data-theme='terminal'], .theme-opt[data-theme='terminal'] {
+  --paper: #251b0b; --sheet: #2f2310; --sunk: #1b1307; --ink: #ffc246; --ink-2: #d09c42;
+  --rule: #46351a; --rule-2: #7d5e29; --on-ink: #1b1307;
+  --blue: #ffb000; --teal: #ffcf66; --coral: #ff5a3c; --yellow: #ffe08a; --lilac: #ffd27a; --mint: #f0c060;
+  --orange: #ff9d3b; --sky: #ffc44d; --olive: #e6c35c; --berry: #ff9a5a; --plum: #f5b87a; --cocoa: #d9a35f;
+  --field: 20%; --note: color-mix(in srgb, var(--c) 22%, var(--sheet));
+  --shadow: 0 0 0 1px var(--rule-2);
+  --r-card: 0px; --r-board: 0px; --r-tile: 0px; --r-key: 0px; --wob: 0px;
+  --font-ui: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-display: var(--font-ui);
+  color-scheme: dark;
+}
+
+/* Blueprint: white lines on cyanotype blue. Dark only. Accents are pale so they read on the blue and carry the dark
+   navy --on-ink. */
+:root[data-theme='blueprint'], .theme-opt[data-theme='blueprint'] {
+  --paper: #123f78; --sheet: #164784; --sunk: #0e3466; --ink: #eef5ff; --ink-2: #b4cdee;
+  --rule: #3767a6; --rule-2: #a9c6ec; --on-ink: #08203f;
+  --blue: #a6d2ff; --teal: #8ff0f0; --coral: #ffb3a3; --yellow: #fff07a; --lilac: #d4c8ff; --mint: #a2f0c9;
+  --orange: #ffcb92; --sky: #a3ecf0; --olive: #d3f08d; --berry: #ffbad9; --plum: #f1bbff; --cocoa: #f0d2ab;
+  --field: 20%; --note: color-mix(in srgb, var(--c) 24%, var(--sheet));
+  --shadow: 0 0 0 1px var(--rule-2);
+  --r-card: 0px; --r-board: 0px; --r-tile: 0px; --r-key: 0px; --wob: 0px;
+  --font-ui: 'Space Mono', ui-monospace, Menlo, monospace;
+  --font-display: var(--font-ui);
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
   :root[data-theme='mist'], .theme-opt[data-theme='mist'] {
     --paper: #121825; --sheet: #1a2233; --sunk: #0e1420; --ink: #e6ebf5; --ink-2: #a2aec3;
@@ -136,6 +239,36 @@
     --rule: #2e372f; --rule-2: #647063; --on-ink: #161b17;
     --blue: #8fb8da; --teal: #86cbbf; --coral: #ef9a8d; --yellow: #e0b86a; --lilac: #bba8e0; --mint: #9ad3a8;
     --orange: #e0a872; --sky: #86cbbf; --olive: #b0d07a; --berry: #e6a0b8; --plum: #eba48f; --cocoa: #d0b690;
+    color-scheme: dark;
+  }
+
+  :root[data-theme='brutal'], .theme-opt[data-theme='brutal'] {
+    --paper: #16130e; --sheet: #221e17; --sunk: #0f0d09; --ink: #fff3d6; --ink-2: #cfc4a8;
+    --rule: #3a3326; --rule-2: #fff3d6; --on-ink: #16130e;
+    --blue: #8fb0ff; --teal: #67e8f9; --coral: #ff8a8a; --yellow: #fde047; --lilac: #c4a5ff; --mint: #6ee7b7;
+    --orange: #ffad66; --sky: #5eead4; --olive: #bef264; --berry: #f9a8d4; --plum: #f0abfc; --cocoa: #e7c29a;
+    color-scheme: dark;
+  }
+
+  :root[data-theme='clay'], .theme-opt[data-theme='clay'] {
+    --paper: #241c33; --sheet: #32284a; --sunk: #1a1426; --ink: #f2ebff; --ink-2: #c0b2dc;
+    --rule: #3d3256; --rule-2: #7a6aa0; --on-ink: #241c33;
+    --blue: #a9b8ff; --teal: #7fdde6; --coral: #ff9fae; --yellow: #f6d77a; --lilac: #c9b4ff; --mint: #8fe3c0;
+    --orange: #ffbb88; --sky: #86dcea; --olive: #c6e58a; --berry: #ffa8cf; --plum: #e7b0ff; --cocoa: #e2bf9f;
+    --hi: rgb(255 255 255 / 0.1); --lo: rgb(0 0 0 / 0.38); --drop: rgb(0 0 0 / 0.55);
+    color-scheme: dark;
+  }
+
+  :root[data-theme='felt'], .theme-opt[data-theme='felt'] {
+    --paper: #163a26; --sheet: #4a2f1b; --sunk: #0f2a1a; --ink: #f3e8cf; --ink-2: #c5d0b4;
+    --rule: #6a4a2c; --rule-2: #8a6640; --on-ink: #0f2a1a;
+  }
+
+  :root[data-theme='news'], .theme-opt[data-theme='news'] {
+    --paper: #313131; --sheet: #3b3b3b; --sunk: #262626; --ink: #efefef; --ink-2: #b4b4b4;
+    --rule: #555555; --rule-2: #efefef; --on-ink: #262626;
+    --blue: #9db8ec; --teal: #86d0cc; --coral: #f29a8f; --yellow: #edd06a; --lilac: #bfaee6; --mint: #93d2ae;
+    --orange: #eab07a; --sky: #8ccdd6; --olive: #bfd28a; --berry: #eca2c0; --plum: #d8a6e2; --cocoa: #d6b898;
     color-scheme: dark;
   }
 

@@ -84,7 +84,7 @@
             <b>2248</b>
             <span><span id="target"></span> · <span id="best"></span></span>
           </div>
-          <div class="score"><b id="score" aria-label="Score"></b><span>Score</span></div>
+          <div class="score"><b id="score" aria-label="Score"></b><span id="score-unit" aria-hidden="true">Score</span></div>
         </header>
 
 
@@ -113,6 +113,16 @@
         <div class="dialog-actions">
           <button id="end-menu" class="btn">Menu</button>
           <button id="end-again" class="btn btn-primary">New game</button>
+        </div>
+      </dialog>
+
+      <!-- New-board confirmation, shown only when a game in progress would be thrown away -->
+      <dialog id="confirm-dialog" class="dialog">
+        <h2>Start a new board?</h2>
+        <p id="confirm-summary"></p>
+        <div class="dialog-actions">
+          <button id="confirm-keep" class="btn">Cancel</button>
+          <button id="confirm-new" class="btn btn-primary">New board</button>
         </div>
       </dialog>
     </div>

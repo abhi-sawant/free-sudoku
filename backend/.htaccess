@@ -1,0 +1,9 @@
+# Safety net: if this folder is ever reachable from the web, refuse everything.
+# Only backend/public/ is meant to be served (see SETUP-GUIDE.md).
+<IfModule mod_authz_core.c>
+  Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Order deny,allow
+  Deny from all
+</IfModule>

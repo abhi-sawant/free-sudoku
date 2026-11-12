@@ -59,6 +59,34 @@ export const tiles: Record<string, Guide> = {
       caption: 'The two 2s merge into a 4. A tile only merges once per swipe, so the 4s stay apart.',
     },
   },
+  halo: {
+    name: 'Halo',
+    ink: 'lilac',
+    goal: 'Place numbers around a ring and merge matching pairs into bigger ones, before the ring fills up.',
+    steps: [
+      'Your next piece waits in the middle of the ring. Tap a gap between two tiles to place it there.',
+      'A <b>+</b> piece merges the two tiles either side of it when they match. The pair becomes one tile, the next power of two up.',
+      'If the next tiles out on both sides match each other too, they fold in as well, and the chain keeps going. As in 2248, the new tile is everything that went in added up, rounded up to a power of two.',
+      'A <b>−</b> piece lifts any tile out of the ring into your hand, so you can place it somewhere better.',
+      'The ring holds 18 pieces. The game ends when it is full and your piece can\'t set off a merge.',
+    ],
+    controls: [
+      '<b>Tap</b> a gap to place your piece, or press and slide round the ring to choose, then let go.',
+      'On a keyboard, the <b>arrow keys</b> move round the ring and <b>Enter</b> places. Your game is saved if you leave.',
+    ],
+    tips: [
+      'A + that lands between tiles that don\'t match stays in the ring, and goes off later when a pair forms around it.',
+      'Longer chains score far more: each pair further out counts double, then triple, and so on.',
+      'New numbers climb as your biggest tile grows, so small tiles left behind stop getting partners. Use − to clear them out.',
+    ],
+    example: {
+      html: row(
+        [grid(5, ['4|blue round', '2|teal round', '+|lilac round', '2|teal round', '4|blue round'], 40), 'Place + between the 2s'],
+        [grid(1, ['16|lilac round'], 40), 'They fold into 16'],
+      ),
+      caption: 'The 2s merge into a 4. The 4s either side match, so they fold in too: 4 + 4 + 4 is 12, which rounds up to 16.',
+    },
+  },
   threes: {
     name: 'Threes',
     ink: 'lilac',

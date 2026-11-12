@@ -1,0 +1,72 @@
+/* Felt & Wood: a games-room table. The page is green baize with a fine nap and a lamp-lit vignette; tiles, keys and
+   boards are walnut with a grain, bevelled (a light top edge, a dark bottom edge, a short drop); cards are cream
+   stock with dark print. Home tiles are wood stained with the family colour. Zilla Slab (OFL). */
+
+@font-face { font-family: 'Zilla Slab'; font-weight: 500; font-display: swap; src: url('../fonts/zilla-slab-latin-500-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Zilla Slab'; font-weight: 700; font-display: swap; src: url('../fonts/zilla-slab-latin-700-normal.woff2') format('woff2'); }
+
+:root[data-theme='felt'] {
+  --grain: repeating-linear-gradient(97deg, rgb(255 255 255 / 0.035) 0 2px, transparent 2px 6px, rgb(0 0 0 / 0.07) 6px 7px, transparent 7px 11px, rgb(255 255 255 / 0.02) 11px 15px, transparent 15px 19px);
+  --face: #f6eedb; --face-ink: #221a10; --face-red: #a8232f; --face-line: #c9b893;
+  --pressed: inset 0 2px 3px rgb(0 0 0 / 0.4), inset 0 -1px 0 rgb(255 255 255 / 0.08);
+}
+:root[data-theme='felt'] body {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% 30%, rgb(255 255 255 / 0.07), transparent 60%, rgb(0 0 0 / 0.3)),
+    radial-gradient(rgb(0 0 0 / 0.16) 0.7px, transparent 1.1px),
+    radial-gradient(rgb(255 255 255 / 0.06) 0.7px, transparent 1.1px);
+  background-size: 100% 100%, 4px 4px, 5px 5px;
+  background-position: 0 0, 0 0, 2px 1px;
+  background-attachment: fixed;
+  font-weight: 500;
+}
+:root[data-theme='felt'] :is(.wordmark, .logo, .topbar-title, .meta b, .dialog h2, .gotd-name, .theme-name, .continue b, .section-label) { font-weight: 700; letter-spacing: 0; }
+:root[data-theme='felt'] .wordmark { text-shadow: 0 2px 0 rgb(0 0 0 / 0.35); }
+
+/* ---------- Walnut: grained, bevelled ---------- */
+
+:root[data-theme='felt'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .summary, .panel, .dialog),
+:root[data-theme='felt'] .tool svg {
+  background-color: var(--sheet);
+  background-image: var(--grain);
+  box-shadow: var(--shadow);
+}
+:root[data-theme='felt'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card):active,
+:root[data-theme='felt'] .tool:active svg { box-shadow: var(--pressed); transform: translateY(1px); }
+:root[data-theme='felt'] :is(.btn-primary, .continue) { background-color: var(--c); background-image: none; color: var(--on-ink); }
+:root[data-theme='felt'] .continue small { color: var(--on-ink); opacity: 0.8; }
+:root[data-theme='felt'] .tool.active svg { background-color: var(--note); box-shadow: var(--pressed), 0 0 0 1.5px var(--c); }
+:root[data-theme='felt'] .dialog::backdrop { background: rgb(10 24 16 / 0.6); }
+:root[data-theme='felt'] .summary thead th { background: rgb(0 0 0 / 0.18); }
+:root[data-theme='felt'] .theme-opt[aria-checked='true'] { outline: 2px solid var(--yellow); outline-offset: 3px; }
+
+/* ---------- Home: stained wood tiles ---------- */
+
+:root[data-theme='felt'] .game-card { background-color: color-mix(in srgb, var(--c) 16%, var(--sheet)); }
+:root[data-theme='felt'] .game-icon { background: var(--sunk); box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.45), 0 1px 0 rgb(255 255 255 / 0.12); }
+:root[data-theme='felt'] .game-status { background: rgb(0 0 0 / 0.25); color: var(--ink); }
+:root[data-theme='felt'] .section-label { text-shadow: 0 1px 0 rgb(0 0 0 / 0.35); }
+:root[data-theme='felt'] .section-label::before { box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), 0 1px 2px rgb(0 0 0 / 0.5); }
+
+/* ---------- Boards: a walnut frame around the play ---------- */
+
+:root[data-theme='felt'] :is(.board, .board-frame) { box-shadow: 0 0 0 5px #3a2414, inset 0 1px 0 rgb(255 255 255 / 0.1), 0 0 0 6px rgb(255 255 255 / 0.12), 0 6px 14px 4px rgb(0 0 0 / 0.4); }
+:root[data-theme='felt'] .board-frame .board { box-shadow: none; }
+:root[data-theme='felt'] .board-wrap { padding: 7px; }
+:root[data-theme='felt'] .cell.selected::before { background: var(--c); opacity: 0.32; mix-blend-mode: normal; }
+:root[data-theme='felt'] .cell.same::before { background: var(--c); opacity: 0.16; mix-blend-mode: normal; }
+:root[data-theme='felt'] .overprint i { background: var(--c); opacity: 0.1; mix-blend-mode: normal; }
+
+/* Cards: cream stock, dark print. */
+:root[data-theme='felt'] .table .card { background: var(--face); color: var(--face-ink); box-shadow: 0 0 0 1px var(--face-line), 0 1px 2px rgb(0 0 0 / 0.35); }
+:root[data-theme='felt'] .table .card.red,
+:root[data-theme='felt'] .table .card.red .idx { color: var(--face-red); }
+:root[data-theme='felt'] .table .card.down { background-color: #7a2a2a; background-image: repeating-linear-gradient(45deg, rgb(255 255 255 / 0.1) 0 2px, transparent 2px 6px), repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.1) 0 2px, transparent 2px 6px); box-shadow: inset 0 0 0 3px var(--face), 0 0 0 1px var(--face-line), 0 1px 2px rgb(0 0 0 / 0.35); }
+:root[data-theme='felt'] .table .card.selected { background: color-mix(in srgb, var(--yellow) 45%, var(--face)); box-shadow: 0 0 0 2.5px var(--yellow), 0 1px 2px rgb(0 0 0 / 0.35); }
+:root[data-theme='felt'] .pile { outline: 1.5px dashed rgb(255 255 255 / 0.3); }
+:root[data-theme='felt'] .die { background: var(--face); color: var(--face-ink); box-shadow: inset 0 -2px 0 var(--face-line), 0 2px 4px rgb(0 0 0 / 0.4); }
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-theme='felt'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card):active { transform: none; }
+}
