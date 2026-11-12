@@ -7,3 +7,5 @@ android/keystore.properties
 android/keystore/
 *.keystore
 .env*.local
+
+.impeccable/
