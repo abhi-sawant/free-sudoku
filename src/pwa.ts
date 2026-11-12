@@ -18,6 +18,12 @@ import { trackPlaytime } from './shared/playtime';
 // Badges are checked on every page, loaded after the page itself (src/shared/badges.ts, celebrate.ts).
 addEventListener('load', () => { void import('./shared/celebrate').then((m) => m.startBadges()); }, { once: true });
 
+// Signed in? Keep this device's progress in step with the account (src/shared/sync/engine.ts). Signed out, nothing
+// of the sync code is even downloaded.
+try {
+  if (localStorage.getItem('sync.session')) addEventListener('load', () => { void import('./shared/sync/engine').then((m) => m.initSync()); }, { once: true });
+} catch { /* storage unavailable */ }
+
 if (!Capacitor.isNativePlatform() && 'serviceWorker' in navigator) {
   registerSW({ immediate: true });
 

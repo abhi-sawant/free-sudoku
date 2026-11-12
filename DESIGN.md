@@ -94,6 +94,10 @@ Boards sit on `--sheet` with a `--rule-2` frame and `--rule` hairlines. Printed 
 
 Quick and physical: presses scale to 0.98 in 80ms. Everything respects `prefers-reduced-motion`.
 
+## Account pages
+
+`signin/`, `signup/`, `forgot/` and `account/` are not games and have no category: like the stats page they use the blue ink, the top bar, `.btn`, `.btn-primary`, `.dialog` and `.section-label`. Their stylesheet (`src/account/style.css`) adds only form fields (`.field`, a `--sheet` box with a `--rule` ring that takes `--c` on focus), `.form-error` (`--wrong`), `.btn-danger` and the account cards, all from existing tokens.
+
 ## Adding a new game
 
 1. **Pick a family** and use its accent. A new family needs an accent in `:root` and the dark block of `base.css`, a row above, an `.ink-<name>` class in `src/style.css` and a `section.family.ink-<name>` on the home page.

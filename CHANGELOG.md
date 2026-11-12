@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- **Optional accounts**: create an account with your email (confirmed with a 6-digit code) to keep your history, stats,
+  badges, best scores and game in progress, and pick them up on any device you sign in on. Changes sync automatically
+  in the background; there is a profile button on the home page, with sign in, sign up, forgot password, change
+  password, a list of your signed-in devices and account deletion. Without an account nothing changes: the games work
+  fully offline and nothing is sent anywhere.
+
 ## 4.2.0 — 2026-11-11
 
 A new ring game, Halo, a stats page, badges, and seven more themes, thirteen in all.

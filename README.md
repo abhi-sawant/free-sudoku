@@ -117,7 +117,23 @@ stats/index.html, src/stats/             the hidden stats page at /stats/: nothi
 src/shared/gamestats.ts                  reads every game's stats, history, playtime and archive into one shape
 src/shared/badges.ts, celebrate.ts       badge rules (games.badges), and the unlock popup with confetti
 badges/index.html, src/badges/           the hidden badges page at /badges/: linked only from the stats page
+signin/, signup/, forgot/, account/      the optional account pages (sign in, sign up with an emailed code, password
+                                         reset, profile and devices); code in src/account/
+src/shared/sync/                         account sync: api.ts (talks to the backend), session.ts (tokens and sync
+                                         state, `sync.*` keys), merge.ts (how two devices' saves combine, tested in
+                                         tests/merge.test.ts), engine.ts (queues changes, pushes and pulls)
+backend/                                 the PHP + MySQL API for accounts and sync, hosted separately at
+                                         api.games.slowatcoding.com; read backend/SETUP-GUIDE.md
 ```
+
+## Accounts and sync
+
+Accounts are optional: with no account the site is fully offline and nothing leaves the device. Signed in, history,
+stats, badges, best scores and the game in progress sync across devices through the API in `backend/`. The app finds
+the API at `VITE_API_BASE` (default `https://api.games.slowatcoding.com/v1`); set it in `.env.development.local` to try
+a local or test API. `backend/` is deployed by hand (see its SETUP-GUIDE.md), not by the GitHub Action, which only
+uploads `dist/`. Which keys sync, and how they merge, is `src/shared/sync/merge.ts`: a new game's `<game>.history`,
+`.stats`, `.archive`, `.playtime`, `.current`, `.played.*` and `.best*` keys sync automatically.
 
 Every page follows the Mist design language in [DESIGN.md](DESIGN.md): every game belongs to a category (a home page
 section), prints in that category's ink, and reuses the shared components in `src/base.css`. To add a game, follow "Adding a new game" in DESIGN.md (pick its category, or add one, a

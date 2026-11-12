@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" data-family="blue">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Reset your password." />
+    <meta name="theme-color" content="#eef2f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121825" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+    <link rel="preload" href="/src/fonts/nunito-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="robots" content="noindex" />
+    <!-- Sets the theme the player picked before the first paint; see src/theme.ts. -->
+    <script>try{var t=localStorage.getItem('games.theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+    <!-- The paper colour from base.css, so the page never shows the browser's white canvas while the stylesheet loads. -->
+    <style>html { background: #eef2f7; } @media (prefers-color-scheme: dark) { html { background: #121825; } }</style>
+    <link rel="stylesheet" href="/src/account/style.css" />
+    <title>Reset password</title>
+  </head>
+  <body>
+    <div id="app">
+      <main class="screen account ink-blue">
+        <header class="topbar">
+          <a class="icon-btn" href="/signin/index.html" aria-label="Sign in">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+          </a>
+          <h1 class="topbar-title" id="page-title">Reset password</h1>
+          <span class="icon-btn" aria-hidden="true"></span>
+        </header>
+        <form id="form" class="account-form" novalidate>
+          <p class="account-lead">Enter your email and we'll send a 6-digit code to reset your password.</p>
+            <label class="field"><span>Email</span><input id="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" required /></label>
+          <p id="error" class="form-error" role="alert" hidden></p>
+          <button id="submit" class="btn btn-primary" type="submit">Send code</button>
+        </form>
+
+        <form id="reset" class="account-form" novalidate hidden>
+          <p class="account-lead">If <b id="sent-to"></b> has an account, a code is on its way. It works for 10 minutes.</p>
+          <label class="field"><span>Code</span><input id="code" class="code-input" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]*" required /></label>
+            <label class="field"><span>New password</span><input id="password" type="password" autocomplete="new-password" minlength="8" required /></label>
+          <p id="reset-error" class="form-error" role="alert" hidden></p>
+          <button id="reset-submit" class="btn btn-primary" type="submit">Set new password</button>
+          <button id="resend" class="btn btn-quiet" type="button">Send a new code</button>
+        </form>
+      </main>
+    </div>
+    <script type="module" src="/src/account/forgot.ts"></script>
+  </body>
+</html>
