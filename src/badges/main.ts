@@ -1,5 +1,5 @@
-// The hidden badges page, /badges/: every badge, earned ones first in each group with the date, locked ones with how
-// to earn them (secret ones as "???"). Nothing links here; opening it is itself a secret badge.
+// The badges page, /badges/: every badge, earned ones first in each group with the date, locked ones with how to earn
+// them (secret ones as "???"). Linked from the profile; opening it earns the Badge hunter badge.
 
 import '../pwa';
 import { type Badge, allBadges, catalog, checkBadges, loadEarned } from '../shared/badges';
@@ -12,7 +12,7 @@ const dateFmt = new Intl.DateTimeFormat(undefined, { day: 'numeric', month: 'sho
 
 /** The page's groups, by the badge ids they start with. */
 const GROUPS: [title: string, test: (b: Badge) => boolean][] = [
-  ['Getting going', (b) => b.id === 'first-game' || b.id.startsWith('games-')],
+  ['Getting going', (b) => b.id === 'first-game' || b.id.startsWith('games-') || b.id.startsWith('found-')],
   ['Variety', (b) => b.id.startsWith('tried-') || b.id.startsWith('family-')],
   ['Time and habits', (b) => b.id.startsWith('time-') || b.id.startsWith('streak-') || ['marathon', 'night-owl', 'early-bird'].includes(b.id)],
   ['Skill', (b) => !b.secret],

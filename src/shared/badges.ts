@@ -3,7 +3,7 @@
 // popup with confetti (celebrate.ts). Badges are only ever added, never taken back, so a badge earned from a game
 // later dropped from the history stays earned.
 //
-// Secret badges show as "???" on the badges page until they're earned.
+// A badge marked secret shows as "???" on the badges page until it's earned (none are, today).
 
 import { type GameInfo, type GameStats, byHour, collectGame, gamesPerDay, loadCatalog, streaks } from './gamestats';
 
@@ -16,7 +16,7 @@ export interface Ctx {
   longestStreak: number;
   bestDay: number; // most games finished in one day
   hours: number[];
-  found: Set<string>; // hidden pages opened: 'stats', 'badges'
+  found: Set<string>; // pages opened: 'stats', 'badges'
 }
 
 export interface Badge {
@@ -82,8 +82,8 @@ const BASE: Badge[] = [
   { id: 'word-streak', name: 'On a roll', desc: 'Guess the word 7 days running', mark: 'W', ink: 'berry', earned: (c) => (g(c, 'wordguess')?.bestStreak ?? 0) >= 7 },
   { id: 'qubo-10', name: 'Tower hopper', desc: 'Cross 10 towers in Qubo', mark: '▲', ink: 'cocoa', earned: (c) => (g(c, 'qubo')?.bestRun ?? 0) >= 10 },
   // Secrets
-  { id: 'found-stats', name: 'Snoop', desc: 'Find the hidden stats page', mark: '?', secret: true, earned: (c) => c.found.has('stats') },
-  { id: 'found-badges', name: 'Badge hunter', desc: 'Find the hidden badges page', mark: '!', secret: true, earned: (c) => c.found.has('badges') },
+  { id: 'found-stats', name: 'Snoop', desc: 'Open your full stats', mark: '?', earned: (c) => c.found.has('stats') },
+  { id: 'found-badges', name: 'Badge hunter', desc: 'Open the badges page', mark: '!', earned: (c) => c.found.has('badges') },
 ];
 
 /** Every badge: the fixed ones, plus one per family on the home page. */

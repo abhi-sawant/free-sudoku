@@ -116,6 +116,7 @@ function next() {
 /** Up to two new badges get a popup each; more at once (say, everything earned before badges existed) share one. */
 function announce(fresh: Badge[]) {
   if (!fresh.length) return;
+  dispatchEvent(new Event('games:badges')); // pages showing badges (the profile) redraw
   if (fresh.length <= 2) for (const b of fresh) queue.push([b]);
   else queue.push(fresh);
   next();

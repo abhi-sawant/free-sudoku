@@ -255,6 +255,10 @@ svg {
 .continue[hidden] + .continue { margin-top: 0; }
 .other-game { flex-wrap: wrap; gap: 6px 12px; text-align: left; }
 
+/* A static surface: a sheet of the page that holds content rather than being pressed (the profile's banner and cards,
+   the leaderboard's sign-in card). Themes style it with their other surfaces (.summary, .gotd-card). */
+.panel { background: var(--sheet); border-radius: var(--r-card); box-shadow: var(--shadow); padding: 14px 16px; }
+
 .levels { display: grid; gap: 10px; }
 
 /* Level buttons are lines on the page: a pen outline, the detail written small beside it. */

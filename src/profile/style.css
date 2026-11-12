@@ -1,0 +1,167 @@
+/* The profile page (/profile/). Built from the shared pieces: the home sheet (theme picker, inks), .panel surfaces,
+   .section-label, .btn and .dialog, so every theme carries over; only the layout, the banner and the charts are its
+   own, drawn from the shared tokens. Phone first: one column, then a wider two-column page from 720px. */
+@import '../style.css';
+
+.screen.profile { max-width: 960px; padding-bottom: 40px; }
+.profile .topbar { grid-template-columns: 44px 1fr 44px; }
+.profile .topbar > span.icon-btn { visibility: hidden; }
+.profile .section-label { margin: 0 0 12px; }
+.profile-note { margin: 18px 4px; text-align: center; font-weight: 600; color: var(--ink-2); line-height: 1.5; }
+
+/* ---------- Banner: who you are ---------- */
+
+.profile-banner { display: grid; gap: 16px; margin-top: 8px; padding: 18px; }
+.profile-who { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.profile-who > div { min-width: 0; }
+.profile-avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--note);
+  color: var(--c);
+  font-size: 1.6rem;
+  font-weight: 900;
+}
+.profile-name { margin: 0; font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; line-height: 1.15; overflow-wrap: anywhere; }
+.profile-title {
+  margin-top: 6px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--note);
+  color: var(--c);
+  font: inherit;
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 5px 12px;
+  cursor: pointer;
+  text-align: left;
+}
+.profile-title::after { content: ' ✎'; font-weight: 700; opacity: 0.7; }
+.profile-title:active { transform: scale(0.98); }
+
+.stat-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 0; }
+.stat-tile { background: var(--paper); border-radius: var(--r-tile); padding: 10px 12px; }
+.stat-tile dt { font-size: 0.8rem; font-weight: 700; color: var(--ink-2); }
+.stat-tile dd { margin: 2px 0 0; font-size: 1.25rem; font-weight: 900; font-variant-numeric: tabular-nums; }
+
+/* ---------- Overview grid ---------- */
+
+.profile-grid { display: grid; gap: 14px; margin-top: 14px; }
+.profile-grid[hidden], .profile-card[hidden] { display: none; }
+.profile-card { min-width: 0; }
+.more-link { display: inline-block; margin-top: 12px; color: var(--c); font-weight: 800; text-decoration: none; }
+.more-link::after { content: ' →'; }
+
+.calendar { display: grid; grid-template-rows: repeat(7, 1fr); grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; }
+.calendar i, .calendar-key i { aspect-ratio: 1; border-radius: 3px; background: var(--sunk); }
+.calendar i[data-l='1'], .calendar-key i[data-l='1'] { background: color-mix(in srgb, var(--c) 30%, var(--sheet)); }
+.calendar i[data-l='2'], .calendar-key i[data-l='2'] { background: color-mix(in srgb, var(--c) 62%, var(--sheet)); }
+.calendar i[data-l='3'], .calendar-key i[data-l='3'] { background: var(--c); }
+.calendar i.future { visibility: hidden; }
+.calendar i.today { box-shadow: inset 0 0 0 1.5px var(--ink); }
+.calendar-key { display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin-top: 10px; font-size: 0.78rem; font-weight: 700; }
+.calendar-key i { width: 12px; }
+
+.hours { display: flex; align-items: flex-end; gap: 3px; height: 88px; }
+.hours i { flex: 1; min-height: 2px; border-radius: 3px 3px 0 0; background: var(--c); }
+.hours i.none { background: var(--sunk); }
+.hours-axis { display: flex; justify-content: space-between; margin-top: 6px; font-size: 0.78rem; font-weight: 700; }
+
+.top-games { display: grid; gap: 10px; }
+.top-row { display: grid; grid-template-columns: minmax(80px, 30%) 1fr auto; align-items: center; gap: 10px; font-weight: 700; }
+.top-row .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.top-row .bar { height: 12px; border-radius: 6px; background: var(--c); }
+.top-row .count { font-variant-numeric: tabular-nums; min-width: 2ch; text-align: right; }
+
+.highlights { margin: 0; }
+.highlights div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 9px 0; border-top: 1px solid var(--rule); }
+.highlights div:first-child { border-top: 0; padding-top: 0; }
+.highlights dt { color: var(--ink-2); font-weight: 600; }
+.highlights dd { margin: 0; font-weight: 800; text-align: right; }
+
+.badge-strip { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- Settings ---------- */
+
+.profile-settings { display: grid; gap: 22px; margin-top: 30px; }
+.settings-block[hidden] { display: none; }
+.profile .theme-grid { margin: 0 -5px; overflow: visible; }
+.install-card .account-lead { margin: 0 0 12px; }
+.install-card .btn { width: 100%; }
+
+/* ---------- Account (moved from the account page) ---------- */
+
+.account-lead { margin: 6px 0 12px; font-size: 1rem; font-weight: 600; color: var(--ink-2); line-height: 1.5; }
+.account-lead b { color: var(--ink); overflow-wrap: anywhere; }
+.account-form { display: grid; gap: 14px; margin: 0; }
+.dialog .account-form { text-align: left; }
+.field { display: grid; gap: 6px; }
+.field span { font-size: 0.85rem; font-weight: 800; color: var(--ink-2); padding: 0 4px; }
+.field input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  border-radius: var(--r-key);
+  background: var(--sheet);
+  box-shadow: var(--shadow), inset 0 0 0 1.5px var(--rule);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  padding: 14px 16px;
+}
+.field input:focus-visible { outline: none; box-shadow: var(--shadow), inset 0 0 0 2px var(--c); }
+.form-error { margin: 0 4px; color: var(--wrong); font-weight: 700; font-size: 0.95rem; line-height: 1.4; }
+.form-note { margin: 0 4px; color: var(--ink-2); font-weight: 600; font-size: 0.9rem; line-height: 1.4; }
+.account-form .btn { width: 100%; }
+.btn:disabled { opacity: 0.55; pointer-events: none; }
+.btn-danger { color: var(--wrong); }
+
+.account-card + .account-card { margin-top: 14px; }
+.account-card .section-label { margin: 0 0 8px; }
+.account-email { margin: 0 0 12px; font-weight: 800; overflow-wrap: anywhere; }
+.account-actions { display: grid; gap: 10px; margin-top: 8px; }
+.account-actions.two { grid-template-columns: 1fr 1fr; }
+.account-card .btn { width: 100%; text-align: center; text-decoration: none; }
+.account-card .btn.btn-quiet { box-shadow: none; }
+.device-list { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 4px; }
+.device { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--rule); }
+.device:first-child { border-top: 0; }
+.device > div { display: grid; gap: 2px; min-width: 0; }
+.device span { font-size: 0.85rem; font-weight: 600; }
+.account-card .device .btn { width: auto; padding: 8px 12px; }
+.switch-row { display: flex; align-items: center; gap: 12px; font-weight: 700; padding: 6px 0; cursor: pointer; }
+.switch-row input { width: 22px; height: 22px; accent-color: var(--c); flex: none; }
+
+/* ---------- Title picker ---------- */
+
+.title-dialog { width: min(520px, calc(100vw - 32px)); max-height: calc(100dvh - 24px); overflow-y: auto; }
+.title-dialog h2 { font-family: var(--font-display); }
+.title-group { margin: 16px 0 8px; font-size: 0.95rem; font-weight: 800; text-align: left; }
+.title-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+.title-chips .btn { padding: 8px 12px; font-size: 0.95rem; }
+.title-chips .btn[aria-pressed='true'] { background: var(--c); color: var(--on-ink); }
+.title-dialog .dialog-actions { margin-top: 18px; }
+
+/* ---------- Wider screens ---------- */
+
+@media (min-width: 560px) {
+  .stat-tiles { grid-template-columns: repeat(4, 1fr); }
+}
+@media (min-width: 720px) {
+  .profile-banner { grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding: 22px 24px; }
+  .stat-tiles { grid-template-columns: repeat(4, minmax(92px, auto)); }
+  .profile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+  .profile-card.wide { grid-column: 1 / -1; }
+  .profile .theme-grid { grid-template-columns: repeat(3, 1fr); }
+  #account-in { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; align-items: start; }
+  #account-in[hidden] { display: none; }
+  #account-in .account-card + .account-card { margin-top: 0; }
+  #account-in .form-error { grid-column: 1 / -1; }
+}
+@media (min-width: 960px) {
+  .profile .theme-grid { grid-template-columns: repeat(4, 1fr); }
+}
