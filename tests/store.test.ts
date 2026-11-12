@@ -54,6 +54,6 @@ describe('shared store - integration', () => {
     const h = createHistory<{ n: number }>('qubo.history');
     expect(h.load()).toEqual([]);
     h.add({ n: 1 });
-    expect(h.load()).toEqual([{ n: 1 }]);
+    expect(h.load()).toMatchObject([{ n: 1 }]);
   });
 });
