@@ -71,3 +71,6 @@
 @media (prefers-reduced-motion: reduce) {
   :root[data-theme='brutal'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .continue, .theme-opt):active { transform: none; }
 }
+
+/* The profile's surfaces (.panel, src/base.css) follow this theme's other surfaces. */
+:root[data-theme='brutal'] .panel { box-shadow: var(--shadow); }

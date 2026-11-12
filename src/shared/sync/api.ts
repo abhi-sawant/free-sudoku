@@ -131,6 +131,27 @@ export interface PushResult { key: string; status: 'ok' | 'conflict'; rev: numbe
 export const pushItems = (items: { key: string; value: string | null; baseRev: number }[]) =>
   authed<{ results: PushResult[]; rev: number }>('PUT', '/sync', { deviceId: deviceId(), items });
 
+/** Browsers cap what a closing page may still send at 64 KB in all. */
+export const KEEPALIVE_MAX = 60_000;
+
+/**
+ * A last push as the page closes: the browser finishes the request after the page is gone, so the save the player
+ * just left reaches the account. Nothing reads the answer; the next sync on this device sees its own write come back.
+ * Skipped if the token needs refreshing first, as there's no time for that.
+ */
+export function pushOnClose(items: { key: string; value: string | null; baseRev: number }[]): void {
+  const s = loadSession();
+  if (!s || !items.length || s.accessExpiresAt - Date.now() < 30_000) return;
+  try {
+    void fetch(BASE + '/sync', {
+      method: 'PUT',
+      keepalive: true,
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${s.accessToken}` },
+      body: JSON.stringify({ deviceId: deviceId(), items }),
+    }).catch(() => { /* the next sync sends it */ });
+  } catch { /* too large or not allowed: the next sync sends it */ }
+}
+
 // ---------- Leaderboards ----------
 
 export interface BoardEntry { rank: number; name: string; value: string; at: string; you: boolean }

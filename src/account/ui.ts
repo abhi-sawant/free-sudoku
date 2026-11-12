@@ -27,15 +27,15 @@ export async function run(button: HTMLButtonElement, errorEl: HTMLElement | null
   }
 }
 
-/** Already signed in? These pages have nothing to do: go to the account. */
+/** Already signed in? These pages have nothing to do: go to the profile. */
 export function leaveIfSignedIn() {
-  if (isSignedIn()) location.replace('/account/index.html');
+  if (isSignedIn()) location.replace('/profile/index.html');
 }
 
-/** After a new sign-in on this device: upload what's here, fetch what's there, and show the account. */
+/** After a new sign-in on this device: upload what's here, fetch what's there, and show the profile. */
 export function finishSignIn() {
   startSyncAfterSignIn();
-  location.href = '/account/index.html';
+  location.href = '/profile/index.html';
 }
 
 export const emailOk = (v: string) => /^\S+@\S+\.\S+$/.test(v);

@@ -10,7 +10,8 @@ const val = (r: { value: string | null }) => (r.value === null ? null : JSON.par
 
 test('which keys sync', () => {
   for (const k of ['sudoku.history', '2248.stats', 'halo.archive', 'chess.playtime', 'klondike.current', 'sudoku.played.easy',
-    'fifteen.bestMoves', 'yacht.best', 'qubo.best', 'games.badges']) assert.ok(isSyncKey(k), k);
+    'fifteen.bestMoves', 'yacht.best', 'qubo.best', 'games.badges', 'games.title']) assert.ok(isSyncKey(k), k);
+  assert.equal(kindOf('games.title'), 'title');
   for (const k of ['games.theme', 'update.skipped', 'racer.muted', 'stats.found', 'badges.found', 'gotd.pick', 'games.sealed',
     'sync.session', 'sync.state', 'sync.device']) assert.equal(kindOf(k), null, k);
 });
@@ -122,4 +123,13 @@ test('two devices converge after syncing in any order', () => {
 
 test('canon ignores key order', () => {
   assert.equal(canon({ b: 1, a: [{ d: 1, c: 2 }] }), canon({ a: [{ c: 2, d: 1 }], b: 1 }));
+});
+
+test('title: the later pick wins, either order', () => {
+  const pick = { adj: 'A', noun: 'B', at: 5 }, auto = { auto: true, at: 9 };
+  assert.deepEqual(val(merge('games.title', pick, auto)), auto);
+  assert.deepEqual(val(merge('games.title', auto, pick)), auto);
+  const x = { adj: 'Zen', noun: 'Puzzler', at: 7 }, y = { adj: 'Bold', noun: 'Dealer', at: 7 };
+  assert.deepEqual(val(merge('games.title', x, y)), val(merge('games.title', y, x)));
+  assert.deepEqual(val(merge('games.title', x, x)), x);
 });

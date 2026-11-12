@@ -39,7 +39,7 @@ Shared: `--coral` marks mistakes and the other side in two-player games, `--yell
 
 ## Themes
 
-Mist is the default. The player can switch to any of the looks from the palette button on the home page (a dialog that draws each option in its own colours); the choice is kept in `localStorage` as `games.theme` and applies to every page. A theme is a whole design, not a palette: the six prototypes in [`design-candidates/`](design-candidates) are the reference for the first six, and the table below for the rest.
+Mist is the default. The player can switch to any of the looks in the Appearance section of the profile page (a grid that draws each option in its own colours); the choice is kept in `localStorage` as `games.theme` and applies to every page. A theme is a whole design, not a palette: the six prototypes in [`design-candidates/`](design-candidates) are the reference for the first six, and the table below for the rest.
 
 | Theme | Character |
 |---|---|
@@ -94,9 +94,23 @@ Boards sit on `--sheet` with a `--rule-2` frame and `--rule` hairlines. Printed 
 
 Quick and physical: presses scale to 0.98 in 80ms. Everything respects `prefers-reduced-motion`.
 
-## Account pages
+## Profile and account pages
 
-`signin/`, `signup/`, `forgot/` and `account/` are not games and have no category: like the stats page they use the blue ink, the top bar, `.btn`, `.btn-primary`, `.dialog` and `.section-label`. Their stylesheet (`src/account/style.css`) adds only form fields (`.field`, a `--sheet` box with a `--rule` ring that takes `--c` on focus), `.form-error` (`--wrong`), `.btn-danger` and the account cards, all from existing tokens.
+`profile/`, `stats/`, `badges/`, `signin/`, `signup/` and `forgot/` are not games and have no category: they use the blue ink, the top bar, `.btn`, `.btn-primary`, `.dialog` and `.section-label`. The home page's top bar has only the person icon, which opens the profile.
+
+The profile (`src/profile/style.css`, importing the home sheet for the theme picker) is one column on a phone and a 960px page from 720px, where the overview cards sit two to a row and the account cards two to a row. Its pieces:
+
+- `.panel`, the shared static surface in `base.css` (`--sheet`, `--r-card`, `--shadow`): the banner, every overview card, the install and account cards. Themes style it with their other surfaces, beside `.summary`; Block Party keeps what's printed on it in ink on its coloured fields.
+- The banner: `.profile-avatar` (the name's initial on `--note` in `--c`), `.profile-name` in the display font, `button.profile-title` (the personality title as a `--note` chip, opening the picker), and `.stat-tiles` (four `--paper` tiles inside the panel).
+- The overview cards: the activity calendar (17 weeks on a phone, 52 from 720px), time of day, top games, highlights, and `.badge-strip` (the newest earned medals, then the next locked ones), with `.more-link`s to the stats and badges pages.
+- Settings: Appearance (the `.theme-grid` of `.theme-opt` swatches, inline), Install (web only, hidden once installed), and Account: signed in, the account cards (`.field`, `.form-error` in `--wrong`, `.btn-danger`, `.switch-row`, devices); signed out, one panel with Sign in and Create account.
+- `dialog.title-dialog`: a live preview heading, two groups of `.btn` chips (`aria-pressed` fills them with `--c`), "Pick for me" and Done.
+
+The sign-in pages keep their own stylesheet (`src/account/style.css`, the same fields from existing tokens). `account/` and `leaderboard/` are redirect pages.
+
+Signed-in players get a `button.btn.history-link.lb-btn` ("Leaderboard") after History & stats on every game with a board (after How to play where there's no history screen), added by `src/shared/leaderboard/button.ts`. It opens `dialog.lb-dialog`: level chips (`.lb-variants`), the `.summary.lb-table` with the player's row on `--tint`, and a status line for loading, errors and empty boards. No game page adds anything for it.
+
+When a signed-in player has a different game in progress on another device, the game's menu gets a second `button.btn.continue.other-game` ("Continue from other device", with "Replaces this device's game" in its `small`) right under its own Continue, added by `src/shared/sync/othergame.ts`. It's the same Continue card; no game page adds anything for it.
 
 ## Adding a new game
 

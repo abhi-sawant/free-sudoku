@@ -250,6 +250,14 @@ svg {
   box-shadow: var(--shadow);
 }
 .continue small { font-weight: 700; color: var(--ink-2); font-size: 0.9rem; line-height: 1; }
+/* A second Continue, for a game in progress on the player's other device (src/shared/sync/othergame.ts). */
+.continue + .continue { margin-top: 10px; }
+.continue[hidden] + .continue { margin-top: 0; }
+.other-game { flex-wrap: wrap; gap: 6px 12px; text-align: left; }
+
+/* A static surface: a sheet of the page that holds content rather than being pressed (the profile's banner and cards,
+   the leaderboard's sign-in card). Themes style it with their other surfaces (.summary, .gotd-card). */
+.panel { background: var(--sheet); border-radius: var(--r-card); box-shadow: var(--shadow); padding: 14px 16px; }
 
 .levels { display: grid; gap: 10px; }
 
@@ -475,6 +483,7 @@ span.icon-btn { background: none; box-shadow: none; }
 }
 .dialog p { color: var(--ink-2); margin: 0 0 24px; line-height: 1.5; }
 .dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.dialog-actions.one { grid-template-columns: 1fr; margin-top: 10px; }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
@@ -540,3 +549,19 @@ span.icon-btn { background: none; box-shadow: none; }
 
 .confetti { position: fixed; inset: 0; width: 100vw; height: 100vh; margin: 0; padding: 0; border: 0; background: none; pointer-events: none; z-index: 999; }
 
+
+/* ---------- Leaderboard dialog (src/shared/leaderboard/board.ts) ---------- */
+/* A game's board on its own page: level chips, the .summary table and the player's row, from the shared tokens. */
+.lb-dialog { width: min(480px, calc(100vw - 32px)); max-height: calc(100dvh - 24px); overflow-y: auto; text-align: left; }
+.lb-dialog h2 { text-align: center; }
+.lb-variants { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 4px; }
+.lb-variants:empty { display: none; }
+.lb-variants .btn { padding: 8px 14px; text-transform: capitalize; }
+.lb-variants .btn[aria-pressed='true'] { background: var(--c); color: var(--sheet); }
+.lb-status { margin: 14px 4px; font-weight: 600; line-height: 1.5; }
+.lb-table { margin-top: 10px; }
+.lb-table td:nth-child(2), .lb-table th:nth-child(2) { text-align: left; overflow-wrap: anywhere; }
+.lb-table th:first-child, .lb-table td:first-child { width: 3.2em; text-align: left; }
+.lb-table tr.you th, .lb-table tr.you td { background: var(--tint); font-weight: 800; }
+.lb-me { margin: 12px 4px 0; font-weight: 700; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.lb-me b { color: var(--ink); }

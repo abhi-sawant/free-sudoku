@@ -1,4 +1,4 @@
-/* The hidden stats page (/stats/). It reuses the home page's sheet, so the game cards, family inks and every theme carry
+/* The stats page (/stats/). It reuses the home page's sheet, so the game cards, family inks and every theme carry
    over as they are; only the charts and the detail dialog are its own, drawn from the shared tokens. */
 @import '../style.css';
 
@@ -14,61 +14,6 @@
   font-variant-numeric: tabular-nums;
 }
 .stats-totals b { color: var(--ink); font-weight: 800; }
-
-.stats-empty { margin: 48px 4px; text-align: center; font-size: 1.05rem; font-weight: 600; }
-.stats-empty p { margin: 0 0 8px; }
-
-.stats-sheet {
-  background: var(--sheet);
-  border-radius: var(--r-card);
-  box-shadow: var(--shadow);
-  padding: 14px;
-}
-
-/* ---------- Calendar: a column per week, a row per weekday ---------- */
-
-.calendar {
-  display: grid;
-  grid-template-rows: repeat(7, 1fr);
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
-  gap: 3px;
-}
-.calendar i, .calendar-key i {
-  aspect-ratio: 1;
-  border-radius: 3px;
-  background: var(--sunk);
-}
-.calendar i[data-l='1'], .calendar-key i[data-l='1'] { background: color-mix(in srgb, var(--c) 30%, var(--sheet)); }
-.calendar i[data-l='2'], .calendar-key i[data-l='2'] { background: color-mix(in srgb, var(--c) 62%, var(--sheet)); }
-.calendar i[data-l='3'], .calendar-key i[data-l='3'] { background: var(--c); }
-.calendar i.future { visibility: hidden; }
-.calendar i.today { box-shadow: inset 0 0 0 1.5px var(--ink); }
-.calendar-key { display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin-top: 10px; font-size: 0.78rem; font-weight: 700; }
-.calendar-key i { width: 12px; }
-
-/* ---------- Hours ---------- */
-
-.hours { display: flex; align-items: flex-end; gap: 3px; height: 88px; }
-.hours i { flex: 1; min-height: 2px; border-radius: 3px 3px 0 0; background: var(--c); }
-.hours i.none { background: var(--sunk); }
-.hours-axis { display: flex; justify-content: space-between; margin-top: 6px; font-size: 0.78rem; font-weight: 700; }
-
-/* ---------- Top games ---------- */
-
-.top-games { display: grid; gap: 10px; }
-.top-row { display: grid; grid-template-columns: minmax(80px, 30%) 1fr auto; align-items: center; gap: 10px; font-weight: 700; }
-.top-row .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.top-row .bar { height: 12px; border-radius: 6px; background: var(--c); }
-.top-row .count { font-variant-numeric: tabular-nums; min-width: 2ch; text-align: right; }
-
-/* ---------- Highlights ---------- */
-
-.highlights { margin: 0; padding: 4px 14px; }
-.highlights div { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 0; border-top: 1px solid var(--rule); }
-.highlights div:first-child { border-top: 0; }
-.highlights dt { color: var(--ink-2); font-weight: 600; }
-.highlights dd { margin: 0; font-weight: 800; text-align: right; }
 
 /* ---------- Every game: the home page's cards, with numbers in place of the description ---------- */
 
@@ -109,5 +54,5 @@
 /* The top bar's right-hand spacer only balances the title; some themes would draw it as an empty button. */
 .stats .topbar > span.icon-btn { visibility: hidden; }
 
-/* The one way to the badges page, which is hidden too. */
+/* The link back to the profile. */
 .badges-link { color: var(--c); font-weight: 800; text-decoration: none; }

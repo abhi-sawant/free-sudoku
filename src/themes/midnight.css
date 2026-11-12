@@ -10,7 +10,7 @@
 
 /* ---------- Surfaces: a hairline, not a fill or a shadow ---------- */
 
-:root[data-theme='midnight'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .summary, .dialog),
+:root[data-theme='midnight'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .summary, .panel, .dialog),
 :root[data-theme='midnight'] .tool svg {
   background: var(--sheet);
   box-shadow: 0 0 0 1px var(--rule-2);

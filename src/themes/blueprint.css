@@ -35,7 +35,7 @@
 
 /* ---------- Outlines: one fine line, no fill ---------- */
 
-:root[data-theme='blueprint'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .summary, .dialog),
+:root[data-theme='blueprint'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .summary, .panel, .dialog),
 :root[data-theme='blueprint'] .tool svg {
   background: transparent;
   box-shadow: 0 0 0 1px var(--rule-2);
