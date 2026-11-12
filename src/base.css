@@ -250,6 +250,10 @@ svg {
   box-shadow: var(--shadow);
 }
 .continue small { font-weight: 700; color: var(--ink-2); font-size: 0.9rem; line-height: 1; }
+/* A second Continue, for a game in progress on the player's other device (src/shared/sync/othergame.ts). */
+.continue + .continue { margin-top: 10px; }
+.continue[hidden] + .continue { margin-top: 0; }
+.other-game { flex-wrap: wrap; gap: 6px 12px; text-align: left; }
 
 .levels { display: grid; gap: 10px; }
 

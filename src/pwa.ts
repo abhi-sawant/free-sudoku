@@ -22,6 +22,7 @@ addEventListener('load', () => { void import('./shared/celebrate').then((m) => m
 // of the sync code is even downloaded.
 try {
   if (localStorage.getItem('sync.session')) addEventListener('load', () => { void import('./shared/sync/engine').then((m) => m.initSync());
+    void import('./shared/sync/othergame').then((m) => m.initOtherGame());
     void import('./shared/leaderboard/submit').then((m) => m.initLeaderboard());
   }, { once: true });
 } catch { /* storage unavailable */ }

@@ -1,5 +1,21 @@
 # Changelog
 
+## Unreleased
+
+### Fixed
+
+- **Game in progress across devices**: leaving a game halfway on one device and opening it on another now picks it
+  up. Before, the last moves stayed on the first device until it was opened again, and opening the game on the second
+  device could save its older game over the newer one, losing it on both. The game in progress is now sent the moment
+  you leave the page, and an open game page reloads to show a newer game from your other device if you haven't played
+  on it yet.
+- Syncing when a page opens is no longer put off by the page's own saves.
+
+### Added
+
+- **Continue from other device**: when both of your devices have a different game in progress, the game's menu shows
+  a second Continue under its own. It keeps this device's game and offers the other one; tapping it swaps it in.
+
 ## 5.0.0 — 2026-11-12
 
 Optional accounts with sync across devices, and global leaderboards.

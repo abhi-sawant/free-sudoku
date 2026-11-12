@@ -8,9 +8,21 @@
 // (merge.ts) and pushes again. Merging is order-independent, so devices always settle on the same result.
 
 import { archiveKey, loadArchive } from '../archive';
-import { foldOverflow, isSyncKey, mergeItem, sameValue } from './merge';
-import { ApiError, pullItems, pushItems } from './api';
+import { foldOverflow, isSyncKey, kindOf, mergeItem, sameValue } from './merge';
+import { otherKey, resolveCurrent } from './current';
+import { ApiError, KEEPALIVE_MAX, pullItems, pushItems, pushOnClose } from './api';
 import { type SyncState, emptyState, loadSession, loadState, resetState, saveState } from './session';
+
+/** The open game page's game in progress (`sudoku.current` on /sudoku/), or '' on other pages. */
+const pageKey = (() => {
+  const parts = location.pathname.slice(import.meta.env.BASE_URL.length).split('/');
+  return parts.length > 1 && /^[a-z0-9]+$/.test(parts[0]) ? `${parts[0]}.current` : '';
+})();
+/** Synced keys this page has changed since it loaded. */
+const touched = new Set<string>();
+let reloadPage = false; // a newer game arrived for the open, unplayed page: reload once this sync is done
+let reloading = false; // reloading: the page's last save on the way out would be its old game, so it is dropped
+let otherChanged = false; // this run changed a game kept from the other device
 
 let applying = false; // true while sync itself writes a key, so that write isn't queued as a change
 let state: SyncState = emptyState();
@@ -55,17 +67,30 @@ function markDirty(key: string) {
   schedule(4000);
 }
 
-/** Wraps localStorage writes so a changed synced key is queued. The seal layer underneath is untouched. */
+/**
+ * Wraps localStorage writes so a changed synced key is queued. The seal layer underneath is untouched. Writing back
+ * exactly what is already there is not a change: otherwise a page re-saving the old game it loaded would look newer
+ * than a game that just arrived from the other device.
+ */
 function watchStorage() {
   const proto = Storage.prototype;
   const set = proto.setItem, remove = proto.removeItem;
+  const changedBy = (s: Storage, k: string, v: string | null) => {
+    if (applying || s !== localStorage || !isSyncKey(k) || s.getItem(k) === v) return false;
+    touched.add(k);
+    return true;
+  };
   proto.setItem = function (this: Storage, k: string, v: string) {
+    if (reloading && this === localStorage && k === pageKey) return;
+    const changed = changedBy(this, k, String(v));
     set.call(this, k, v);
-    if (!applying && this === localStorage && isSyncKey(k)) markDirty(k);
+    if (changed) markDirty(k);
   };
   proto.removeItem = function (this: Storage, k: string) {
+    if (reloading && this === localStorage && k === pageKey) return;
+    const changed = changedBy(this, k, null);
     remove.call(this, k);
-    if (!applying && this === localStorage && isSyncKey(k)) markDirty(k);
+    if (changed) markDirty(k);
   };
 }
 
@@ -84,6 +109,16 @@ function queueExistingSaves() {
 function applyRemote(key: string, remote: string | null, remoteAt: number): boolean {
   const local = read(key);
   const localNewer = (state.dirty[key] ?? 0) > remoteAt;
+
+  if (kindOf(key) === 'current') {
+    const c = resolveCurrent(local, remote, localNewer, key !== pageKey ? 'none' : touched.has(key) ? 'touched' : 'untouched');
+    const ok = otherKey(key);
+    if (!sameValue(read(ok), c.other)) { write(ok, c.other); otherChanged = true; }
+    if (!sameValue(c.value, local)) { write(key, c.value); changed = true; }
+    if (c.reload) reloadPage = true;
+    return !sameValue(c.value, remote);
+  }
+
   const r = mergeItem(key, local, remote, localNewer);
 
   if (r.overflow?.length) {
@@ -149,11 +184,32 @@ async function runOnce() {
   state = reconcile(loadState());
   if (!state.scanned) queueExistingSaves();
   changed = false;
+  otherChanged = false;
   await pull();
   await push();
   state.lastSyncAt = Date.now();
   saveState(state);
   if (changed) dispatchEvent(new Event('games:synced'));
+  if (otherChanged) dispatchEvent(new Event('games:othergame'));
+  if (reloadPage) {
+    reloading = true;
+    location.reload();
+  }
+}
+
+/** The page is closing: send the games in progress it changed, so the other device can pick them up. */
+function pushPendingOnClose() {
+  if (!active) return;
+  const items: { key: string; value: string | null; baseRev: number }[] = [];
+  let size = 0;
+  for (const key of Object.keys(state.dirty)) {
+    if (kindOf(key) !== 'current') continue;
+    const value = read(key);
+    size += key.length + (value?.length ?? 0) + 40;
+    if (size > KEEPALIVE_MAX) break;
+    items.push({ key, value, baseRev: state.revs[key] ?? 0 });
+  }
+  pushOnClose(items);
 }
 
 /** Joins the saved state with changes made in this page that haven't been saved to it yet. */
@@ -185,9 +241,15 @@ export async function syncNow(): Promise<void> {
   }
 }
 
+let due = 0; // when the scheduled sync runs (epoch ms), 0 for none
+
+/** Syncs in `ms`, unless one is already due sooner: a save on the page must never push back the pull it opened with. */
 function schedule(ms: number) {
+  const at = Date.now() + ms;
+  if (due && due <= at) return;
   clearTimeout(timer);
-  timer = window.setTimeout(() => void syncNow(), ms);
+  due = at;
+  timer = window.setTimeout(() => { due = 0; void syncNow(); }, ms);
 }
 
 // ---------- Start and stop ----------
@@ -199,8 +261,14 @@ function start() {
   watchStorage();
   addEventListener('games:progress', () => schedule(3000));
   addEventListener('online', () => schedule(500));
-  addEventListener('pagehide', () => saveState(state));
-  document.addEventListener('visibilitychange', () => { if (document.hidden) saveState(state); else schedule(500); });
+  addEventListener('pagehide', () => { saveState(state); pushPendingOnClose(); });
+  // Hidden (tab switched, app sent to the background, screen off): send changes now rather than in a few seconds,
+  // as the page may never come back. A game's own save on hiding runs first (it was registered earlier).
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) { schedule(500); return; }
+    saveState(state);
+    if (!reloading && Object.keys(state.dirty).length) void syncNow();
+  });
   setInterval(() => { if (!document.hidden) void syncNow(); }, 2 * 60_000);
   addEventListener('games:auth', () => { if (!loadSession()) stopSync(); });
 }
@@ -225,10 +293,29 @@ export function startSyncAfterSignIn() {
 export function stopSync() {
   active = false;
   clearTimeout(timer);
+  due = 0;
   clearTimeout(retryTimer);
   state = emptyState();
   resetState();
   setStatus('idle');
+}
+
+// ---------- The game from the other device ----------
+
+/** The open game page's game kept from the other device (see current.ts), or null. */
+export const otherGame = (): string | null => (pageKey ? read(otherKey(pageKey)) : null);
+/** Whether the open game page has a game in progress of its own. */
+export const hasOwnGame = (): boolean => !!pageKey && read(pageKey) !== null;
+
+/** Puts the game from the other device in place of this one's, queued for upload, and reloads the page to show it. */
+export function takeOtherGame(): void {
+  const other = otherGame();
+  if (other === null) return;
+  localStorage.setItem(pageKey, other); // through the watcher: a change like a move, so it is uploaded
+  write(otherKey(pageKey), null);
+  saveState(state);
+  reloading = true;
+  location.reload();
 }
 
 /** Removes every synced save from this device (for signing out on a shared device). The account keeps its copy. */
@@ -236,7 +323,7 @@ export function clearLocalProgress() {
   const keys: string[] = [];
   for (let i = 0; i < localStorage.length; i++) {
     const k = localStorage.key(i);
-    if (k && isSyncKey(k)) keys.push(k);
+    if (k && (isSyncKey(k) || (k.endsWith('.other') && kindOf(k.slice(0, -6)) === 'current'))) keys.push(k);
   }
   applying = true;
   try { for (const k of keys) localStorage.removeItem(k); } finally { applying = false; }

@@ -98,6 +98,8 @@ Quick and physical: presses scale to 0.98 in 80ms. Everything respects `prefers-
 
 `signin/`, `signup/`, `forgot/` and `account/` are not games and have no category: like the stats page they use the blue ink, the top bar, `.btn`, `.btn-primary`, `.dialog` and `.section-label`. Their stylesheet (`src/account/style.css`) adds only form fields (`.field`, a `--sheet` box with a `--rule` ring that takes `--c` on focus), `.form-error` (`--wrong`), `.btn-danger` and the account cards, all from existing tokens.
 
+When a signed-in player has a different game in progress on another device, the game's menu gets a second `button.btn.continue.other-game` ("Continue from other device", with "Replaces this device's game" in its `small`) right under its own Continue, added by `src/shared/sync/othergame.ts`. It's the same Continue card; no game page adds anything for it.
+
 ## Adding a new game
 
 1. **Pick a family** and use its accent. A new family needs an accent in `:root` and the dark block of `base.css`, a row above, an `.ink-<name>` class in `src/style.css` and a `section.family.ink-<name>` on the home page.
