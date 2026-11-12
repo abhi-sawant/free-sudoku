@@ -26,7 +26,7 @@
 
 /* ---------- Walnut: grained, bevelled ---------- */
 
-:root[data-theme='felt'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .summary, .dialog),
+:root[data-theme='felt'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .game-card, .gotd-card, .summary, .panel, .dialog),
 :root[data-theme='felt'] .tool svg {
   background-color: var(--sheet);
   background-image: var(--grain);

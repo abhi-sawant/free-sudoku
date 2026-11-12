@@ -20,7 +20,7 @@
 
 /* ---------- Ruled boxes ---------- */
 
-:root[data-theme='news'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .summary, .dialog),
+:root[data-theme='news'] :is(.btn, .level, .new-game, .back-link, .icon-btn, .timer, .pad-btn, .summary, .panel, .dialog),
 :root[data-theme='news'] .tool svg {
   background: var(--sheet);
   box-shadow: 0 0 0 1px var(--ink);

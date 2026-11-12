@@ -73,3 +73,6 @@
 :root[data-theme='linen'] .status .side-2 { background: var(--d2); }
 
 :root[data-theme='linen'] .die { border-radius: 10px; box-shadow: 0 0 0 1px var(--rule-2); }
+
+/* The profile's surfaces (.panel, src/base.css) follow this theme's other surfaces. */
+:root[data-theme='linen'] .panel { box-shadow: 0 0 0 1px var(--rule); }
