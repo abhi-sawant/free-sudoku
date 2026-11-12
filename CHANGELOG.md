@@ -11,8 +11,25 @@
   on it yet.
 - Syncing when a page opens is no longer put off by the page's own saves.
 
+### Changed
+
+- The stats and badges pages are no longer hidden: both are linked from your profile. The stats page now lists every
+  game's numbers; the overview moved to the profile. Snoop and Badge hunter are ordinary badges now.
+- Install and the theme picker moved from the home page to the profile.
+- The leaderboards page with its game picker is gone (old links open your profile). Leaderboards need an account to
+  view now.
+
 ### Added
 
+- **Profile page**: the person icon on the home page now opens your profile, signed in or not. It shows your name,
+  a personality title, your games, time played, streak and badges, the activity calendar, time of day, top games and
+  highlights (moved here from the stats page), and a badges strip. On a wide screen it uses the width instead of a
+  phone-sized column. Settings sit underneath: the theme picker, Install, and your account (or a sign-in card).
+- **Personality titles**: "The Night-Owl Strategist", "The Bite-Sized Wordsmith" and thousands more, made from how and
+  what you play, your badges and your theme. The profile picks the best fit; tap it to choose any pair you've
+  unlocked. Your pick syncs to your other devices.
+- **Leaderboards on each game**: signed in, every game with a leaderboard has a Leaderboard button on its menu, next to
+  How to play and History & stats, showing that game's board straight away.
 - **Continue from other device**: when both of your devices have a different game in progress, the game's menu shows
   a second Continue under its own. It keeps this device's game and offers the other one; tapping it swaps it in.
 
