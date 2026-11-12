@@ -20,7 +20,7 @@
   place-items: center;
   width: 56px;
   height: 56px;
-  border-radius: 50%;
+  border-radius: min(50%, calc(var(--r-key) * 99)); /* round, or square in the square themes */
   background: var(--note);
   color: var(--c);
   font-size: 1.6rem;
@@ -28,23 +28,23 @@
 }
 .profile-name { margin: 0; font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; line-height: 1.15; overflow-wrap: anywhere; }
 .profile-title {
+  /* A small .btn, so each theme draws it like its other buttons (brackets, hard shadows, stepped corners...). */
+  display: inline-block;
   margin-top: 6px;
-  border: 0;
-  border-radius: 999px;
   background: var(--note);
   color: var(--c);
   font: inherit;
   font-weight: 800;
   font-size: 0.95rem;
-  padding: 5px 12px;
-  cursor: pointer;
+  padding: 6px 12px;
   text-align: left;
 }
 .profile-title::after { content: ' ✎'; font-weight: 700; opacity: 0.7; }
-.profile-title:active { transform: scale(0.98); }
+.profile-title[hidden] { display: none; }
 
 .stat-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 0; }
-.stat-tile { background: var(--paper); border-radius: var(--r-tile); padding: 10px 12px; }
+.stat-tiles[hidden] { display: none; }
+.stat-tile { background: var(--paper); border-radius: min(var(--r-tile), var(--r-key)); box-shadow: inset 0 0 0 1px var(--rule); padding: 10px 12px; }
 .stat-tile dt { font-size: 0.8rem; font-weight: 700; color: var(--ink-2); }
 .stat-tile dd { margin: 2px 0 0; font-size: 1.25rem; font-weight: 900; font-variant-numeric: tabular-nums; }
 
@@ -57,7 +57,7 @@
 .more-link::after { content: ' →'; }
 
 .calendar { display: grid; grid-template-rows: repeat(7, 1fr); grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; }
-.calendar i, .calendar-key i { aspect-ratio: 1; border-radius: 3px; background: var(--sunk); }
+.calendar i, .calendar-key i { aspect-ratio: 1; border-radius: min(3px, var(--r-key)); background: var(--sunk); }
 .calendar i[data-l='1'], .calendar-key i[data-l='1'] { background: color-mix(in srgb, var(--c) 30%, var(--sheet)); }
 .calendar i[data-l='2'], .calendar-key i[data-l='2'] { background: color-mix(in srgb, var(--c) 62%, var(--sheet)); }
 .calendar i[data-l='3'], .calendar-key i[data-l='3'] { background: var(--c); }
@@ -67,14 +67,14 @@
 .calendar-key i { width: 12px; }
 
 .hours { display: flex; align-items: flex-end; gap: 3px; height: 88px; }
-.hours i { flex: 1; min-height: 2px; border-radius: 3px 3px 0 0; background: var(--c); }
+.hours i { flex: 1; min-height: 2px; border-radius: min(3px, var(--r-key)) min(3px, var(--r-key)) 0 0; background: var(--c); }
 .hours i.none { background: var(--sunk); }
 .hours-axis { display: flex; justify-content: space-between; margin-top: 6px; font-size: 0.78rem; font-weight: 700; }
 
 .top-games { display: grid; gap: 10px; }
 .top-row { display: grid; grid-template-columns: minmax(80px, 30%) 1fr auto; align-items: center; gap: 10px; font-weight: 700; }
 .top-row .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.top-row .bar { height: 12px; border-radius: 6px; background: var(--c); }
+.top-row .bar { height: 12px; border-radius: min(6px, var(--r-key)); background: var(--c); }
 .top-row .count { font-variant-numeric: tabular-nums; min-width: 2ch; text-align: right; }
 
 .highlights { margin: 0; }

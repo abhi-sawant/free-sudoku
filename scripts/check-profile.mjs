@@ -173,6 +173,31 @@ try {
   check((await text(d.page, '#profile-name')) === 'You', 'signed out removing progress: back to "You"');
   await d.ctx.close();
 
+
+  // ---- Final review 1: the automatic title follows numbers that arrive by sync
+  d = await device({ signedIn: true });
+  await go(d.page, '/profile/index.html');
+  await d.page.waitForTimeout(1500);
+  check((await text(d.page, '#profile-title')).startsWith('The Fresh Newcomer'), 'auto title before sync: Fresh Newcomer');
+  { const now = new Date(); now.setHours(23, 0, 0, 0);
+    d.api.put('sudoku.history', JSON.stringify([...Array(30)].map((_, i) => ({ level: 'easy', puzzle: i, endedAt: now.getTime() - i * 864e5, elapsed: 6e5, result: 'won' })))); }
+  await d.page.evaluate(() => dispatchEvent(new Event('online')));
+  await d.page.waitForTimeout(2500);
+  // 30 games on 30 days in a row: Relentless (a 30-day streak) outranks Night-Owl.
+  check((await text(d.page, '#profile-title')).startsWith('The Relentless Sudoku Fan'), 'auto title after sync: The Relentless Sudoku Fan');
+  await d.ctx.close();
+
+  // ---- Final review 2: the games list can't load: no made-up numbers, the picked title still shows
+  for (const pick of [true, false]) {
+    d = await device({ seed: pick ? { 'games.title': JSON.stringify({ adj: 'Zen', noun: 'Puzzler', at: 1 }) } : null });
+    await d.page.route('**/index.html', (r) => (r.request().resourceType() === 'fetch' ? r.abort() : r.continue()));
+    await go(d.page, '/profile/index.html');
+    check(!(await d.page.locator('.stat-tiles').isVisible()), `offline catalog${pick ? ' (picked title)' : ''}: no made-up stat tiles`);
+    if (pick) check((await text(d.page, '#profile-title')).startsWith('The Zen Puzzler'), 'offline catalog: the picked title shows');
+    else check(!(await d.page.locator('#profile-title').isVisible()), 'offline catalog, automatic title: no made-up title');
+    await d.ctx.close();
+  }
+
   // ---- Review focus 3: the games list can't be fetched
   d = await device();
   await d.page.route('**/index.html', (r) => (r.request().resourceType() === 'fetch' ? r.abort() : r.continue()));

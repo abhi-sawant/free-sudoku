@@ -8,7 +8,7 @@ import { medal } from '../shared/celebrate';
 import { getTheme } from '../theme';
 import type { TitleInput } from '../shared/titles';
 import { duration, nf, renderCalendar, renderHighlights, renderHours, renderTop } from './overview';
-import { initTitle } from './title';
+import { initTitle, showStoredTitle } from './title';
 import { initSettings } from './settings';
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
@@ -16,6 +16,7 @@ const wide = matchMedia('(min-width: 720px)');
 
 let games: GameStats[] = [];
 let badges: Badge[] = [];
+let redrawTitle = () => {};
 
 /** What the title rules need, from the latest numbers on this device. */
 function titleInput(): TitleInput {
@@ -57,6 +58,7 @@ function render() {
     renderTop($('top'), games);
     renderHighlights($('highlights'), games, longest);
   }
+  redrawTitle();
 }
 
 async function main() {
@@ -66,14 +68,16 @@ async function main() {
     catalog = await loadCatalog();
   } catch {
     $('overview').hidden = true;
+    document.querySelector<HTMLElement>('.stat-tiles')!.hidden = true;
+    showStoredTitle($<HTMLButtonElement>('profile-title'));
     $('overview-error').textContent = 'Stats need the games list, which could not be loaded. Try again online.';
     $('overview-error').hidden = false;
     return;
   }
   games = catalog.map(collectGame);
   badges = allBadges(catalog);
+  redrawTitle = initTitle($<HTMLButtonElement>('profile-title'), titleInput);
   render();
-  initTitle($<HTMLButtonElement>('profile-title'), titleInput);
   // New numbers from another device, or a badge just earned on this page.
   addEventListener('games:synced', render);
   addEventListener('games:badges', render);

@@ -1,6 +1,6 @@
 // The personality title in the profile's banner, and the picker it opens: one chip per unlocked adjective and noun, a
 // live preview, "Pick for me" to go back to the automatic title. The choice is saved in `games.title`, which syncs, so
-// a title picked on one device shows on every device; it redraws when sync brings a newer one.
+// a title picked on one device shows on every device; the page redraws it whenever its numbers change.
 
 import { type Title, type TitleInput, autoTitle, formatTitle, titleWords } from '../shared/titles';
 import { loadTitle, saveTitle } from '../shared/title-store';
@@ -13,7 +13,8 @@ function current(inp: TitleInput): { title: Title; picked: boolean } {
   return s && !('auto' in s) ? { title: { adj: s.adj, noun: s.noun }, picked: true } : { title: autoTitle(inp), picked: false };
 }
 
-export function initTitle(button: HTMLButtonElement, getInput: () => TitleInput): void {
+/** Wires the banner's title and its picker. Returns the redraw, which the page calls whenever its numbers change. */
+export function initTitle(button: HTMLButtonElement, getInput: () => TitleInput): () => void {
   const dialog = $<HTMLDialogElement>('title-dialog');
   let draft: Title = current(getInput()).title;
 
@@ -59,6 +60,12 @@ export function initTitle(button: HTMLButtonElement, getInput: () => TitleInput)
   dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
 
   render();
-  addEventListener('games:synced', render);
-  addEventListener('games:badges', render);
+  return render;
+}
+
+/** Without the games list there are no numbers to work a title out from: show the player's own pick, or nothing. */
+export function showStoredTitle(button: HTMLButtonElement): void {
+  const s = loadTitle();
+  if (s && !('auto' in s)) button.textContent = formatTitle({ adj: s.adj, noun: s.noun });
+  else button.hidden = true;
 }
