@@ -521,8 +521,6 @@
 
 /* Each option is drawn in its own theme (see .theme-opt in themes.css): its paper, a tile on it, its fonts. */
 /* With a dozen options the list scrolls inside the dialog, so the title and Done button stay on screen. */
-.theme-dialog { width: min(420px, calc(100vw - 32px)); max-height: calc(100dvh - 24px); }
-.theme-dialog[open] { display: flex; flex-direction: column; }
 .theme-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
