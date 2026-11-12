@@ -75,7 +75,7 @@ final class Auth
         $token = Http::bearer();
         if ($token === null) throw new ApiError(401, 'unauthorized', 'Sign in to continue.');
         $row = Db::one(
-            'SELECT s.id AS session_id, s.device_id, s.last_seen_at, u.id, u.email, u.display_name, u.email_verified_at, u.created_at
+            'SELECT s.id AS session_id, s.device_id, s.last_seen_at, u.id, u.email, u.display_name, u.email_verified_at, u.leaderboard_optout, u.created_at
              FROM sessions s JOIN users u ON u.id = s.user_id
              WHERE s.access_hash = ? AND s.access_expires_at > ? AND u.email_verified_at IS NOT NULL',
             [self::tokenHash($token), Db::now()]
@@ -89,7 +89,8 @@ final class Auth
 
     public static function publicUser(array $u): array
     {
-        return ['id' => (int) $u['id'], 'email' => $u['email'], 'displayName' => $u['display_name'], 'createdAt' => $u['created_at']];
+        return ['id' => (int) $u['id'], 'email' => $u['email'], 'displayName' => $u['display_name'], 'createdAt' => $u['created_at'],
+                'leaderboardOptOut' => (bool) ($u['leaderboard_optout'] ?? 0)];
     }
 
     // ---- one-time codes ----

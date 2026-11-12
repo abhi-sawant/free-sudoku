@@ -4,7 +4,7 @@ declare(strict_types=1);
 // Front controller: every request to api.games.slowatcoding.com ends up here (see .htaccess).
 
 $src = dirname(__DIR__) . '/src';
-foreach (['Config', 'Db', 'Http', 'RateLimit', 'Validator', 'Mailer', 'Auth', 'routes_auth', 'routes_account', 'routes_sync'] as $f) {
+foreach (['Config', 'Db', 'Http', 'RateLimit', 'Validator', 'Mailer', 'Auth', 'routes_auth', 'routes_account', 'routes_sync', 'LeaderboardConfig', 'routes_leaderboard'] as $f) {
     require_once "$src/$f.php";
 }
 
@@ -41,6 +41,8 @@ try {
         ['DELETE', '#^/account/sessions/(\d+)$#',  'route_session_revoke'],
         ['GET',    '#^/sync$#',                    'route_sync_get'],
         ['PUT',    '#^/sync$#',                    'route_sync_put'],
+        ['POST',   '#^/leaderboard/submit$#',      'route_leaderboard_submit'],
+        ['GET',    '#^/leaderboard/([a-z0-9]{2,24})$#', 'route_leaderboard_get'],
     ];
 
     $pathMatched = false;

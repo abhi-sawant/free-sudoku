@@ -108,6 +108,12 @@ export async function setDisplayName(displayName: string) {
   if (s) saveSession({ ...s, user: r.user });
   return r.user;
 }
+export async function setLeaderboardOptOut(leaderboardOptOut: boolean) {
+  const r = await authed<{ user: User }>('PATCH', '/account', { leaderboardOptOut });
+  const s = loadSession();
+  if (s) saveSession({ ...s, user: r.user });
+  return r.user;
+}
 export const changePassword = (currentPassword: string, newPassword: string) =>
   authed<{ ok: true }>('POST', '/account/change-password', { currentPassword, newPassword });
 export const deleteAccount = (password: string) => authed<{ ok: true }>('DELETE', '/account', { password });
@@ -124,3 +130,16 @@ export const pullItems = (since: number) => authed<{ rev: number; items: RemoteI
 export interface PushResult { key: string; status: 'ok' | 'conflict'; rev: number; value?: string | null }
 export const pushItems = (items: { key: string; value: string | null; baseRev: number }[]) =>
   authed<{ results: PushResult[]; rev: number }>('PUT', '/sync', { deviceId: deviceId(), items });
+
+// ---------- Leaderboards ----------
+
+export interface BoardEntry { rank: number; name: string; value: string; at: string; you: boolean }
+export interface Board {
+  game: string; kind: 'time' | 'score'; variant: string; variants: string[];
+  entries: BoardEntry[]; total: number; me: { rank: number; value: string } | null;
+}
+/** The board is public; a signed-in player also gets their own rank back. */
+export function getBoard(game: string, variant?: string): Promise<Board> {
+  const path = `/leaderboard/${game}?limit=50${variant ? `&variant=${encodeURIComponent(variant)}` : ''}`;
+  return loadSession() ? authed<Board>('GET', path) : raw<Board>('GET', path, undefined);
+}

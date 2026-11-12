@@ -1,7 +1,7 @@
 // What this device remembers about the account: who is signed in, the tokens, and where syncing has got to. All of it
 // lives in localStorage under `sync.*` keys, which are never synced themselves (see merge.ts).
 
-export interface User { id: number; email: string; displayName: string; createdAt?: string }
+export interface User { id: number; email: string; displayName: string; createdAt?: string; leaderboardOptOut?: boolean }
 export interface Session {
   accessToken: string;
   refreshToken: string;

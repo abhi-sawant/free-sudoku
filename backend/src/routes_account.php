@@ -11,9 +11,18 @@ function route_account_get(array $in): array
 function route_account_patch(array $in): array
 {
     $me = Auth::require();
-    $name = Validator::name($in['displayName'] ?? '');
-    Db::run('UPDATE users SET display_name = ? WHERE id = ?', [$name, $me['id']]);
-    $me['display_name'] = $name;
+    if (array_key_exists('displayName', $in)) {
+        $name = Validator::name($in['displayName']);
+        Db::run('UPDATE users SET display_name = ? WHERE id = ?', [$name, $me['id']]);
+        $me['display_name'] = $name;
+    }
+    if (array_key_exists('leaderboardOptOut', $in)) {
+        $out = $in['leaderboardOptOut'] ? 1 : 0;
+        Db::run('UPDATE users SET leaderboard_optout = ? WHERE id = ?', [$out, $me['id']]);
+        // Opting out takes the player off every board right away, rather than just hiding them.
+        if ($out) Db::run('DELETE FROM leaderboard_bests WHERE user_id = ?', [$me['id']]);
+        $me['leaderboard_optout'] = $out;
+    }
     return ['user' => Auth::publicUser($me)];
 }
 

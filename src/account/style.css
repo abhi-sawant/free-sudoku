@@ -60,3 +60,7 @@
 .account-card .device .btn { width: auto; padding: 8px 12px; }
 
 .dialog-actions.one { grid-template-columns: 1fr; margin-top: 10px; }
+
+.account-lead a { color: var(--c); font-weight: 800; }
+.switch-row { display: flex; align-items: center; gap: 12px; font-weight: 700; padding: 6px 0; cursor: pointer; }
+.switch-row input { width: 22px; height: 22px; accent-color: var(--c); flex: none; }

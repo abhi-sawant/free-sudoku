@@ -12,7 +12,7 @@ import { trackPlaytime } from './shared/playtime';
 // Every game page counts its own time played, for the stats page (src/shared/playtime.ts).
 {
   const parts = location.pathname.slice(import.meta.env.BASE_URL.length).split('/');
-  if (parts.length > 1 && parts[0] && parts[0] !== 'howto' && parts[0] !== 'stats' && parts[0] !== 'badges') trackPlaytime(parts[0]);
+  if (parts.length > 1 && parts[0] && parts[0] !== 'howto' && parts[0] !== 'stats' && parts[0] !== 'badges' && parts[0] !== 'leaderboard') trackPlaytime(parts[0]);
 }
 
 // Badges are checked on every page, loaded after the page itself (src/shared/badges.ts, celebrate.ts).
@@ -21,7 +21,9 @@ addEventListener('load', () => { void import('./shared/celebrate').then((m) => m
 // Signed in? Keep this device's progress in step with the account (src/shared/sync/engine.ts). Signed out, nothing
 // of the sync code is even downloaded.
 try {
-  if (localStorage.getItem('sync.session')) addEventListener('load', () => { void import('./shared/sync/engine').then((m) => m.initSync()); }, { once: true });
+  if (localStorage.getItem('sync.session')) addEventListener('load', () => { void import('./shared/sync/engine').then((m) => m.initSync());
+    void import('./shared/leaderboard/submit').then((m) => m.initLeaderboard());
+  }, { once: true });
 } catch { /* storage unavailable */ }
 
 if (!Capacitor.isNativePlatform() && 'serviceWorker' in navigator) {

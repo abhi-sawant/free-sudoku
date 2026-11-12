@@ -45,6 +45,13 @@
           <button id="sync-now" class="btn" type="button">Sync now</button>
         </section>
 
+        <section class="account-card" aria-labelledby="lb-label">
+          <h2 class="section-label" id="lb-label">Leaderboards</h2>
+          <p class="account-lead">Your name and best results appear on each game's <a href="/leaderboard/index.html">global leaderboard</a>. Turn this off to be removed from every board.</p>
+          <label class="switch-row"><input id="lb-optin" type="checkbox" /><span>Show me on leaderboards</span></label>
+          <p id="lb-msg" class="form-note" role="status" hidden></p>
+        </section>
+
         <section class="account-card" aria-labelledby="devices-label">
           <h2 class="section-label" id="devices-label">Signed-in devices</h2>
           <ul id="devices" class="device-list"></ul>

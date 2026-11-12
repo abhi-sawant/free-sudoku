@@ -1,6 +1,6 @@
 import { $, run, showMessage } from './ui';
 import {
-  type DeviceSession, changePassword, deleteAccount, getAccount, listSessions, revokeSession, setDisplayName, signOut,
+  type DeviceSession, changePassword, deleteAccount, getAccount, listSessions, revokeSession, setDisplayName, setLeaderboardOptOut, signOut,
 } from '../shared/sync/api';
 import { clearSession, isSignedIn, loadSession } from '../shared/sync/session';
 import { clearLocalProgress, lastSyncAt, stopSync, syncNow, syncStatus } from '../shared/sync/engine';
@@ -35,6 +35,24 @@ $('name-form').addEventListener('submit', (e) => {
     $<HTMLInputElement>('name').value = u.displayName;
     showMessage(msg, 'Saved.');
   });
+});
+
+// ---------- Leaderboards ----------
+
+const optin = $<HTMLInputElement>('lb-optin');
+optin.checked = !loadSession()?.user.leaderboardOptOut;
+void getAccount().then((r) => { optin.checked = !r.user.leaderboardOptOut; }).catch(() => { /* offline: the saved choice stays */ });
+optin.addEventListener('change', () => {
+  const msg = $('lb-msg');
+  const on = optin.checked;
+  optin.disabled = true;
+  setLeaderboardOptOut(!on).then(() => {
+    showMessage(msg, on ? 'You are on the leaderboards.' : 'You were removed from the leaderboards.');
+    if (on) dispatchEvent(new Event('games:leaderboard')); // send every best again
+  }).catch((e: unknown) => {
+    optin.checked = !on;
+    showMessage(msg, e instanceof Error ? e.message : 'Something went wrong. Please try again.');
+  }).finally(() => { optin.disabled = false; });
 });
 
 // ---------- Sync ----------

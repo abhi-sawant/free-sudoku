@@ -135,6 +135,13 @@ a local or test API. `backend/` is deployed by hand (see its SETUP-GUIDE.md), no
 uploads `dist/`. Which keys sync, and how they merge, is `src/shared/sync/merge.ts`: a new game's `<game>.history`,
 `.stats`, `.archive`, `.playtime`, `.current`, `.played.*` and `.best*` keys sync automatically.
 
+Leaderboards: each timed or scored game (not the ones against the computer) has a global board at `/leaderboard/`, one
+best result per player per level. Signed-in players are on by default and can opt out in their account; the opt-out
+removes their results from every board. `src/shared/leaderboard/` finds each game's bests and sends improvements, and
+`backend/src/LeaderboardConfig.php` lists the boards and rejects impossible results (the app can't prove a result is
+genuine). To give a new timed or scored game a board, add its slug to both `games.ts` and `LeaderboardConfig.php`.
+Upgrading an existing database needs the `ALTER TABLE` at the end of `backend/schema.sql`.
+
 Every page follows the Mist design language in [DESIGN.md](DESIGN.md): every game belongs to a category (a home page
 section), prints in that category's ink, and reuses the shared components in `src/base.css`. To add a game, follow "Adding a new game" in DESIGN.md (pick its category, or add one, a
 stylesheet that imports `base.css`, the page, and a home card), then add its folder name to `games`

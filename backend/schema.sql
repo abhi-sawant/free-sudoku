@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
   display_name      VARCHAR(40)     NOT NULL DEFAULT '',
   email_verified_at DATETIME        NULL,
   sync_rev          BIGINT UNSIGNED NOT NULL DEFAULT 0,   -- last revision number handed out to this user's synced items
+  leaderboard_optout TINYINT(1)     NOT NULL DEFAULT 0,   -- 1 = hidden from the global leaderboards
   created_at        DATETIME        NOT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY uq_users_email (email)
@@ -69,3 +70,20 @@ CREATE TABLE IF NOT EXISTS rate_limits (
   window_start INT UNSIGNED     NOT NULL,
   PRIMARY KEY (bucket)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Global leaderboards: each player's single best result per game and variant (level, mode…). `value` is a time in
+-- milliseconds (lower is better) or a score (higher is better); which one is decided by the game, see
+-- src/LeaderboardConfig.php. Rows are removed when a player opts out or deletes their account.
+CREATE TABLE IF NOT EXISTS leaderboard_bests (
+  user_id    BIGINT UNSIGNED NOT NULL,
+  game       VARCHAR(24)     NOT NULL,
+  variant    VARCHAR(24)     NOT NULL,
+  value      BIGINT UNSIGNED NOT NULL,
+  updated_at DATETIME        NOT NULL,
+  PRIMARY KEY (user_id, game, variant),
+  KEY idx_lb_rank (game, variant, value),
+  CONSTRAINT fk_lb_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Upgrading an existing database (run once; the CREATE TABLE above is already safe to re-run):
+--   ALTER TABLE users ADD COLUMN leaderboard_optout TINYINT(1) NOT NULL DEFAULT 0 AFTER sync_rev;
