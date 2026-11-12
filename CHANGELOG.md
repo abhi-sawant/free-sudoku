@@ -16,6 +16,8 @@
 - The stats and badges pages are no longer hidden: both are linked from your profile. The stats page now lists every
   game's numbers; the overview moved to the profile. Snoop and Badge hunter are ordinary badges now.
 - Install and the theme picker moved from the home page to the profile.
+- On a big screen the home, profile, stats and badges pages are all the same width (1120px); stats lays its game
+  cards out in columns and badges sit two or three to a row, instead of a phone-width strip.
 - The leaderboards page with its game picker is gone (old links open your profile). Leaderboards need an account to
   view now.
 

@@ -131,6 +131,9 @@ button {
   width: 100%;
   max-width: 480px;
 }
+/* Every page that isn't a game (home, profile, stats, badges) is one width on a big screen, with its wide layout from
+   640px. Game pages keep the 480px column their boards are drawn for. */
+.screen.wide { max-width: 1120px; }
 
 svg {
   width: 24px;

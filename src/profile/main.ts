@@ -12,7 +12,7 @@ import { initTitle, showStoredTitle } from './title';
 import { initSettings } from './settings';
 
 const $ = <T extends HTMLElement = HTMLElement>(id: string) => document.getElementById(id) as T;
-const wide = matchMedia('(min-width: 720px)');
+const wide = matchMedia('(min-width: 640px)');
 
 let games: GameStats[] = [];
 let badges: Badge[] = [];

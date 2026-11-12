@@ -98,11 +98,13 @@ Quick and physical: presses scale to 0.98 in 80ms. Everything respects `prefers-
 
 `profile/`, `stats/`, `badges/`, `signin/`, `signup/` and `forgot/` are not games and have no category: they use the blue ink, the top bar, `.btn`, `.btn-primary`, `.dialog` and `.section-label`. The home page's top bar has only the person icon, which opens the profile.
 
-The profile (`src/profile/style.css`, importing the home sheet for the theme picker) is one column on a phone and a 960px page from 720px, where the overview cards sit two to a row and the account cards two to a row. Its pieces:
+**One page width.** Every page that isn't a game (home, profile, stats, badges) is `main.screen.wide`: a phone column that widens to 1120px, with its wide layout from 640px (`.screen.wide` in `base.css`). Game pages keep the 480px `.screen` their boards are drawn for. A new non-game page uses `.screen.wide` and the same 640px breakpoint; never a width of its own.
+
+The profile (`src/profile/style.css`, importing the home sheet for the theme picker) is one column on a phone; from 640px the overview cards and the account cards sit two to a row, and from 960px the overview is three to a row with the badges strip across the page. The stats page's game cards fill the width like the home page's; the badges page lists badges two to a row from 640px and three from 960px. Its pieces:
 
 - `.panel`, the shared static surface in `base.css` (`--sheet`, `--r-card`, `--shadow`): the banner, every overview card, the install and account cards. Themes style it with their other surfaces, beside `.summary`; Block Party keeps what's printed on it in ink on its coloured fields.
 - The banner: `.profile-avatar` (the name's initial on `--note` in `--c`), `.profile-name` in the display font, `button.profile-title` (the personality title as a `--note` chip, opening the picker), and `.stat-tiles` (four `--paper` tiles inside the panel).
-- The overview cards: the activity calendar (17 weeks on a phone, 52 from 720px), time of day, top games, highlights, and `.badge-strip` (the newest earned medals, then the next locked ones), with `.more-link`s to the stats and badges pages.
+- The overview cards: the activity calendar (17 weeks on a phone, 52 from 640px), time of day, top games, highlights, and `.badge-strip` (the newest earned medals, then the next locked ones), with `.more-link`s to the stats and badges pages.
 - Settings: Appearance (the `.theme-grid` of `.theme-opt` swatches, inline), Install (web only, hidden once installed), and Account: signed in, the account cards (`.field`, `.form-error` in `--wrong`, `.btn-danger`, `.switch-row`, devices); signed out, one panel with Sign in and Create account.
 - `dialog.title-dialog`: a live preview heading, two groups of `.btn` chips (`aria-pressed` fills them with `--c`), "Pick for me" and Done.
 

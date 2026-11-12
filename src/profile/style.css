@@ -1,9 +1,9 @@
 /* The profile page (/profile/). Built from the shared pieces: the home sheet (theme picker, inks), .panel surfaces,
    .section-label, .btn and .dialog, so every theme carries over; only the layout, the banner and the charts are its
-   own, drawn from the shared tokens. Phone first: one column, then a wider two-column page from 720px. */
+   own, drawn from the shared tokens. Phone first: one column, then the shared wide page (.screen.wide) from 640px. */
 @import '../style.css';
 
-.screen.profile { max-width: 960px; padding-bottom: 40px; }
+.profile { padding-bottom: 40px; }
 .profile .topbar { grid-template-columns: 44px 1fr 44px; }
 .profile .topbar > span.icon-btn { visibility: hidden; }
 .profile .section-label { margin: 0 0 12px; }
@@ -151,7 +151,7 @@
 @media (min-width: 560px) {
   .stat-tiles { grid-template-columns: repeat(4, 1fr); }
 }
-@media (min-width: 720px) {
+@media (min-width: 640px) {
   .profile-banner { grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding: 22px 24px; }
   .stat-tiles { grid-template-columns: repeat(4, minmax(92px, auto)); }
   .profile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
@@ -167,4 +167,6 @@
 }
 @media (min-width: 960px) {
   .profile .theme-grid { grid-template-columns: repeat(4, 1fr); }
+  .profile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .profile-grid .badges-card { grid-column: 1 / -1; }
 }
