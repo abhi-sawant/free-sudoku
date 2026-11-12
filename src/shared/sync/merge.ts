@@ -11,6 +11,7 @@
 //   played.*  union of the ids already played
 //   badges    union; a badge keeps the earlier unlock time
 //   current   the game in progress: whichever device saved it last
+//   title     the profile's personality title: the later pick (its `at`)
 //
 // Nothing here can add two devices' counters together without risking a double count, so a counter can lag when two
 // devices play the same game offline at once; the history, which is what the stats page is built from, never does.
@@ -19,11 +20,12 @@ import { type Archive, foldInto } from '../fold.ts';
 
 export const HISTORY_MAX = 500;
 
-export type Kind = 'history' | 'archive' | 'stats' | 'best' | 'playtime' | 'played' | 'badges' | 'current';
+export type Kind = 'history' | 'archive' | 'stats' | 'best' | 'playtime' | 'played' | 'badges' | 'current' | 'title';
 
 /** What kind of value a storage key holds, or null when the key is not synced (themes, update state, ...). */
 export function kindOf(key: string): Kind | null {
   if (key === 'games.badges') return 'badges';
+  if (key === 'games.title') return 'title';
   const m = /^[a-z0-9]+\.(.+)$/.exec(key);
   if (!m || key.length > 64) return null;
   const rest = m[1];
@@ -170,6 +172,12 @@ export function mergeItem(key: string, local: string | null, remote: string | nu
     case 'stats':
     case 'best':
       return out(mergeAny(a, b, '', /moves/i.test(key)));
+    case 'title': {
+      // The later choice wins; on a tie, the same one on both devices.
+      const at = (v: Json) => (isObj(v) ? num(v.at) : 0);
+      if (at(a) !== at(b)) return at(a) > at(b) ? { value: local } : { value: remote };
+      return canon(a) >= canon(b) ? { value: local } : { value: remote };
+    }
   }
 }
 
