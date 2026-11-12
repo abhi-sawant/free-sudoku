@@ -1,9 +1,17 @@
 # Changelog
 
-## Unreleased
+## 5.0.0 — 2026-11-12
+
+Optional accounts with sync across devices, and global leaderboards.
 
 ### Added
 
+- **Leaderboards**: every timed and scored game now has a global leaderboard at `/leaderboard/` (linked from the stats
+  page). Puzzles and card games rank your best time per level; score and arcade games rank your best score. Pick a
+  game, pick a level, see the top 50 with your own rank highlighted. Versus games and Word Guess have none. Only
+  signed-in players appear, and your best results are sent automatically as you beat them.
+- **Leaderboard opt-out**: a "Show me on leaderboards" switch on your account page (on by default). Turn it off and
+  your results are removed from every board and nothing more is sent.
 - **Optional accounts**: create an account with your email (confirmed with a 6-digit code) to keep your history, stats,
   badges, best scores and game in progress, and pick them up on any device you sign in on. Changes sync automatically
   in the background; there is a profile button on the home page, with sign in, sign up, forgot password, change
