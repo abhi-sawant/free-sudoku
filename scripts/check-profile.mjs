@@ -198,6 +198,25 @@ try {
     await d.ctx.close();
   }
 
+
+  // ---- One page width: every page that isn't a game is 1120px wide on a big screen
+  d = await device({ seed: sudokuSeed(), width: 1280 });
+  const widths = {};
+  for (const path of ['/', '/profile/index.html', '/stats/index.html', '/badges/index.html']) {
+    await go(d.page, path);
+    widths[path] = await d.page.locator('main.screen').evaluate((m) => Math.round(m.getBoundingClientRect().width));
+    if (path === '/stats/index.html') {
+      const lefts = await d.page.locator('#games .family').first().locator('.game-card').evaluateAll((els) => new Set(els.map((e) => Math.round(e.getBoundingClientRect().left))).size);
+      check(lefts >= 4, `stats page at 1280: game cards in columns (${lefts})`);
+    }
+    if (path === '/badges/index.html') {
+      const lefts = await d.page.locator('.badge-list').first().locator('.badge-row').evaluateAll((els) => new Set(els.map((e) => Math.round(e.getBoundingClientRect().left))).size);
+      check(lefts >= 2, `badges page at 1280: badges in columns (${lefts})`);
+    }
+  }
+  check(Object.values(widths).every((w) => w === 1120), `home, profile, stats and badges are all 1120px wide (${JSON.stringify(widths)})`);
+  await d.ctx.close();
+
   // ---- Review focus 3: the games list can't be fetched
   d = await device();
   await d.page.route('**/index.html', (r) => (r.request().resourceType() === 'fetch' ? r.abort() : r.continue()));
