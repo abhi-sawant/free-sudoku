@@ -7,8 +7,6 @@
   justify-content: center;
   padding: 20px 0 20px;
 }
-/* The phone column widens on bigger screens so the game grid gets more columns. */
-.screen.home { max-width: 1120px; }
 @media (min-width: 640px) {
   .home { padding: 64px 0 40px; }
 }

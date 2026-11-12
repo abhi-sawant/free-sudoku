@@ -1,4 +1,4 @@
-/* The hidden badges page (/badges/). Built on the home sheet like the stats page, so every theme applies; the
+/* The badges page (/badges/). Built on the home sheet like the stats page, so every theme applies; the
    medallions come from base.css, shared with the unlock popup. */
 @import '../style.css';
 
@@ -28,5 +28,12 @@
 .badge-row .desc { font-size: 0.88rem; color: var(--ink-2); line-height: 1.3; }
 .badge-row .when { font-size: 0.78rem; font-weight: 700; color: var(--ink-2); white-space: nowrap; }
 .badge-row.locked b { color: var(--ink-2); }
+
+@media (min-width: 640px) {
+  .badge-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 960px) {
+  .badge-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 
 .badges-foot { margin: 28px 4px 0; text-align: center; font-size: 0.85rem; }
